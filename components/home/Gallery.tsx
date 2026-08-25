@@ -35,51 +35,51 @@ export function Gallery() {
 
       {/* Viewport-Fitted Gallery Mosaic */}
       <div className="u-container mt-6 lg:mt-8">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12 lg:gap-6 items-stretch">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 items-stretch">
           {/* Main Primary Visual */}
           <Reveal
             kind="media"
             className="sm:col-span-2 lg:col-span-7 xl:col-span-8 flex flex-col"
           >
-            <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-xl h-[min(46vh,420px)] w-full">
+            <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-xl h-[360px] sm:h-[440px] lg:h-[520px] xl:h-[580px] w-full">
               <Media
                 id="home.gallery-1"
                 ratio="landscape"
-                sizes="(min-width: 1024px) 58vw, 100vw"
+                sizes="(min-width: 1024px) 62vw, 100vw"
                 className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
               />
             </div>
-            <p className="mt-2 font-sans text-meta uppercase text-text-muted">
+            <p className="mt-2.5 font-sans text-meta uppercase text-text-muted">
               Mountain Retreat &middot; High Altitude Setting
             </p>
           </Reveal>
 
           {/* Right Stacked Pair */}
-          <div className="col-span-1 sm:col-span-2 lg:col-span-5 xl:col-span-4 flex flex-col justify-between gap-4">
+          <div className="col-span-1 sm:col-span-2 lg:col-span-5 xl:col-span-4 flex flex-col justify-between gap-6">
             <Reveal kind="media" delay={0.06}>
-              <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[min(21.5vh,195px)] w-full">
+              <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[168px] sm:h-[206px] lg:h-[246px] xl:h-[276px] w-full">
                 <Media
                   id="home.gallery-2"
                   ratio="editorial"
-                  sizes="(min-width: 1024px) 30vw, 50vw"
+                  sizes="(min-width: 1024px) 34vw, 50vw"
                   className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
                 />
               </div>
-              <p className="mt-1 font-sans text-meta uppercase text-text-muted">
+              <p className="mt-2 font-sans text-meta uppercase text-text-muted">
                 Crown Wheel &middot; Skylight Structure
               </p>
             </Reveal>
 
             <Reveal kind="media" delay={0.1}>
-              <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[min(21.5vh,195px)] w-full">
+              <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[168px] sm:h-[206px] lg:h-[246px] xl:h-[276px] w-full">
                 <Media
                   id="home.gallery-3"
                   ratio="landscape"
-                  sizes="(min-width: 1024px) 30vw, 50vw"
+                  sizes="(min-width: 1024px) 34vw, 50vw"
                   className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
                 />
               </div>
-              <p className="mt-1 font-sans text-meta uppercase text-text-muted">
+              <p className="mt-2 font-sans text-meta uppercase text-text-muted">
                 Timber Deck &middot; Custom Entrance
               </p>
             </Reveal>

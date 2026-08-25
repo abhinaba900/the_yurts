@@ -62,7 +62,17 @@ export default function WhyPage() {
 
       <div className="u-container pb-(--spacing-section)">
         <Reveal kind="media">
-          <Media id="home.gallery-1" sizes="100vw" />
+          <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-2xl h-[340px] sm:h-[420px] lg:h-[500px] xl:h-[560px] w-full">
+            <Media
+              id="home.gallery-1"
+              ratio="landscape"
+              sizes="100vw"
+              className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
+            />
+          </div>
+          <p className="mt-3 font-sans text-meta uppercase text-text-muted">
+            Mountain Siting &middot; Modular Living Architecture
+          </p>
         </Reveal>
       </div>
 
