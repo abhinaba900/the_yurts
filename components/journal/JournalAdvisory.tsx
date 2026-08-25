@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Metadata } from "@/components/primitives/Metadata";
 import { Reveal } from "@/components/primitives/Reveal";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
+import { Section } from "@/components/primitives/Section";
 
 const advisoryCards = [
   {
@@ -47,7 +48,7 @@ const quickTopics = [
  */
 export function JournalAdvisory() {
   return (
-    <section className="bg-surface-alt/60 border-t border-line py-16 lg:py-24 text-text">
+    <Section tone="light" space="lg">
       <div className="u-container">
         {/* Section Header */}
         <div className="u-grid">
@@ -164,6 +165,6 @@ export function JournalAdvisory() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
