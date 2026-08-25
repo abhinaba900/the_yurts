@@ -9,11 +9,29 @@
  * recoverable, a wrong one on a live site is not.
  */
 
+function getSiteUrl(): string {
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (envUrl && envUrl.length > 0) {
+    return envUrl.startsWith("http://") || envUrl.startsWith("https://")
+      ? envUrl
+      : `https://${envUrl}`;
+  }
+  const vercelUrl = (
+    process.env.NEXT_PUBLIC_VERCEL_URL ||
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ||
+    process.env.VERCEL_URL
+  )?.trim();
+  if (vercelUrl && vercelUrl.length > 0) {
+    return `https://${vercelUrl}`;
+  }
+  return "https://theyurts.in";
+}
+
 export const site = {
   name: "Theyurts",
   wordmark: "Theyurts",
   domain: "theyurts.in",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://theyurts.in",
+  url: getSiteUrl(),
   locale: "en_IN",
 
   tagline: "Premium yurts, designed and made in India.",
