@@ -34,7 +34,7 @@ export function Sustainability() {
               </div>
               <div className="mt-3 flex items-center justify-between font-sans text-meta uppercase text-text-muted text-xs">
                 <span>Low Impact Architecture</span>
-                <span>Zero Ground Scar</span>
+                <span>Modular Construction</span>
               </div>
             </Reveal>
           </div>

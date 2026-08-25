@@ -48,73 +48,10 @@ export const whyYurts: { title: string; body: string }[] = [
   },
 ];
 
-export const range: {
-  name: string;
-  tagline: string;
-  use: string;
-  media: MediaId;
-}[] = [
-  {
-    name: "Classic",
-    tagline: "The starting point.",
-    use: "A simple, timeless yurt for private retreats, gardens and intimate spaces.",
-    media: "home.range-classic",
-  },
-  {
-    name: "Resort",
-    tagline: "Designed for guests.",
-    use: "A complete accommodation structure created for resorts and hospitality destinations.",
-    media: "home.range-resort",
-  },
-  {
-    name: "Luxury",
-    tagline: "Built around the experience.",
-    use: "A more refined specification for destinations where the room itself is part of the attraction.",
-    media: "home.range-luxury",
-  },
-  {
-    name: "Wellness",
-    tagline: "A space to slow down.",
-    use: "Designed for wellness, therapy, spa and retreat environments.",
-    media: "home.range-wellness",
-  },
-  {
-    name: "Yoga",
-    tagline: "Room to breathe.",
-    use: "A naturally open, column-free space for yoga, movement and group sessions.",
-    media: "home.range-yoga",
-  },
-  {
-    name: "Glamping",
-    tagline: "Stay close to nature.",
-    use: "Premium outdoor accommodation designed for the growing glamping market.",
-    media: "home.range-glamping",
-  },
-  {
-    name: "Event",
-    tagline: "Gather differently.",
-    use: "A large-format space for dining, celebrations, events and experiences.",
-    media: "home.range-event",
-  },
-  {
-    name: "Café",
-    tagline: "A destination within a destination.",
-    use: "A distinctive space for cafés, food concepts and hospitality outposts.",
-    media: "home.range-cafe",
-  },
-  {
-    name: "Residential",
-    tagline: "A different way to live.",
-    use: "Private spaces, studios, guest houses and alternative residences.",
-    media: "home.range-residential",
-  },
-  {
-    name: "Custom",
-    tagline: "Built around your idea.",
-    use: "A yurt designed specifically around your site, requirements and vision.",
-    media: "home.range-custom",
-  },
-];
+/**
+ * The ten range models (section 06) live in `data/range.ts`, which is the single
+ * source used by both the homepage rail and the /yurts showcase.
+ */
 
 export const applications: {
   name: string;

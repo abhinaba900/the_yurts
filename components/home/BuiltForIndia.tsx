@@ -6,31 +6,31 @@ import { ArrowLink } from "@/components/primitives/ArrowLink";
 const climatePillars = [
   {
     name: "Climate",
-    desc: "Engineered from sub-zero Himalayan peaks to tropical coasts.",
+    desc: "Specified around the temperature range your location actually sees.",
   },
   {
     name: "Insulation",
-    desc: "Natural dense wool and reflective thermal barrier layers.",
+    desc: "Layered to suit the season, altitude and comfort you need indoors.",
   },
   {
     name: "Ventilation",
-    desc: "Crown stack-effect convection and cross-breeze wall panels.",
+    desc: "Airflow planned through the crown and the wall openings.",
   },
   {
-    name: "Rain & Monsoon",
-    desc: "High-grade water-repellent and mold-resistant breathable membranes.",
+    name: "Rain",
+    desc: "Roof geometry and outer layers configured for monsoon exposure.",
   },
   {
-    name: "Heat Defense",
-    desc: "UV-reflective outer finishes minimizing daytime solar gain.",
+    name: "Heat",
+    desc: "Outer finishes and shading chosen to manage daytime solar gain.",
   },
   {
-    name: "Wind Resistance",
-    desc: "Radial rafter geometry tested for 120 km/h squalls.",
+    name: "Wind",
+    desc: "Frame and anchoring specified for the exposure of your site.",
   },
   {
-    name: "Site Conditions",
-    desc: "Removable helical ground screws for sloped, flood-prone or rocky terrain.",
+    name: "Site conditions",
+    desc: "Foundations adapted to sloped, uneven or low-intervention ground.",
   },
 ];
 
@@ -61,9 +61,8 @@ export function BuiltForIndia() {
                 regions, every site has its own requirements.
               </p>
               <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
-                Theyurts are engineered in India specifically to answer the extreme
-                climatic diversity of our sub-continent—without rotting in monsoons
-                or sweltering in summer heat.
+                Theyurts are designed and made in India, and every structure is
+                configured around the conditions of the place it will stand in.
               </p>
             </Reveal>
           </div>
