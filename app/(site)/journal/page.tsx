@@ -1,28 +1,24 @@
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 import { getPosts, getPostCategories } from "@/sanity/lib/content";
-import { journalTopics } from "@/data/home";
 import { PageHeader } from "@/components/page/PageHeader";
 import { PostRow } from "@/components/journal/PostRow";
-import { EmptyState } from "@/components/page/EmptyState";
-import { Metadata } from "@/components/primitives/Metadata";
-import { Section } from "@/components/primitives/Section";
+import { JournalResearchHub } from "@/components/journal/JournalResearchHub";
+import { JournalAdvisory } from "@/components/journal/JournalAdvisory";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 export const metadata = pageMetadata({
-  title: "Journal",
+  title: "Journal & Architectural Research",
   description:
-    "Writing on yurts, glamping, hospitality, wellness, farm stays, eco tourism, architecture and sustainable building in India.",
+    "Architectural intelligence, land feasibility, hospitality economics, and thermal engineering for yurts and glamping developments across India.",
   path: "/journal",
 });
 
 /**
- * Journal index.
+ * Journal & Architectural Research Hub.
  *
- * Not a grid: the most recent article takes a full-width landscape crop and
- * display-large type, and everything after it is a hairline row. The difference
- * in weight between the first entry and the rest is what makes this read as an
- * edited publication rather than a feed.
+ * Provides actionable architectural, economic, and land planning
+ * intelligence for landowners, retreat founders, and resort developers.
  */
 export default async function JournalPage() {
   const [posts, categories] = await Promise.all([
@@ -35,13 +31,24 @@ export default async function JournalPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Journal"
-        title="Notes, as we go."
-        lead="Writing on building with yurts, and on the businesses people build around them. Meant to be useful to someone deciding whether this works on their land."
+        eyebrow="Journal & Research"
+        title="Notes, models, and working papers."
+        lead="Actionable intelligence on building with circular timber yurts, resort unit economics, land permissions, and extreme climate engineering across India."
+        aside={
+          <div className="border-t border-line pt-5">
+            <p className="font-sans text-small text-text-muted">
+              Written for landowners, resort developers, and retreat founders
+              evaluating what works on their terrain before commissioning.
+            </p>
+            <div className="mt-6">
+              <ArrowLink href="/enquire">Discuss your land with our workshop</ArrowLink>
+            </div>
+          </div>
+        }
       />
 
       {categories.length > 0 ? (
-        <nav aria-label="Journal categories" className="u-container pb-12">
+        <nav aria-label="Journal categories" className="u-container pb-10">
           <ul className="flex flex-wrap gap-x-7 gap-y-3 border-t border-line pt-6">
             {categories
               .filter((category) => category.count > 0)
@@ -75,53 +82,12 @@ export default async function JournalPage() {
             ) : null}
           </ul>
         ) : (
-          <>
-            <EmptyState
-              label="Nothing published yet"
-              title="The first pieces are being written."
-              body="We would rather open with something worth reading than fill a page with posts written to have posts. The first entries are in progress."
-              action={{ href: "/enquire", label: "Ask us something instead" }}
-            />
-
-            <div className="mt-16">
-              <Metadata className="text-accent-text">What it will cover</Metadata>
-              <ul className="mt-6 flex flex-wrap gap-x-8 gap-y-4 border-t border-line pt-6">
-                {journalTopics.map((topic) => (
-                  <li
-                    key={topic}
-                    className="font-display text-display-sm text-text-muted"
-                  >
-                    {topic}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </>
+          <JournalResearchHub />
         )}
       </div>
 
-      <Section surface="alt" space="lg">
-        <div className="u-container">
-          <div className="u-grid">
-            <div className="col-span-4 md:col-span-6 lg:col-span-5">
-              <Metadata className="text-accent-text">Ask directly</Metadata>
-              <p className="mt-5 font-display text-display-md">
-                A question beats an article.
-              </p>
-            </div>
-            <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-2">
-              <p className="u-measure font-sans text-body text-text-muted">
-                If you are working something out about your own site, ask us. The
-                answer will be more specific than anything we could publish, and
-                it usually becomes the next piece here.
-              </p>
-              <div className="mt-8">
-                <ArrowLink href="/enquire">Start an enquiry</ArrowLink>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Section>
+      {/* Interactive Direct Site Advisory & Land Consultation */}
+      <JournalAdvisory />
     </>
   );
 }
