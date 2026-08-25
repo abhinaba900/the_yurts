@@ -7,6 +7,8 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { Section } from "@/components/primitives/Section";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
+import { AboutArchitectureStage } from "@/components/about/AboutArchitectureStage";
+
 export const metadata = pageMetadata({
   title: "About",
   description:
@@ -131,20 +133,10 @@ export default async function AboutPage() {
         }
       />
 
-      {/* Prominent Architectural Visual */}
+      {/* Interactive Architectural Specification Stage */}
       <div className="u-container pb-(--spacing-section)">
         <Reveal kind="media">
-          <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-2xl h-[360px] sm:h-[460px] lg:h-[540px] xl:h-[600px] w-full">
-            <Media
-              id="home.closing"
-              ratio="cinema"
-              sizes="100vw"
-              className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
-            />
-          </div>
-          <p className="mt-3 font-sans text-meta uppercase text-text-muted">
-            Nomadic Timber Architecture &middot; Sited in the Indian Landscape
-          </p>
+          <AboutArchitectureStage />
         </Reveal>
       </div>
 
@@ -245,8 +237,8 @@ export default async function AboutPage() {
           ========================================================================= */}
       <section className="py-(--spacing-section-lg) border-t border-line">
         <div className="u-container">
-          <div className="u-grid">
-            <header className="col-span-4 md:col-span-6 lg:col-span-4">
+          <div className="u-grid items-start">
+            <header className="col-span-4 md:col-span-6 lg:col-span-4 lg:sticky lg:top-28 xl:top-32 self-start">
               <Metadata className="text-accent-text">What We Hold To</Metadata>
               <h2 className="mt-3 font-display text-display-lg u-optical-left">
                 Four architectural commitments.

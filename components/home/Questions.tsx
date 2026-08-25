@@ -8,75 +8,110 @@ import { cn } from "@/lib/cn";
 
 const homeFaqs = [
   {
-    question: "How is a yurt built, and what is it made of?",
+    topic: "Cost",
+    question: "How much does a yurt cost to manufacture and build?",
     answer:
-      "A yurt is formed by expanding steam-bent hardwood lattice walls into a circle, tensioning a perimeter steel cable, and locking roof rafters into a central timber crown. The frame is sheathed in breathable wool felt insulation and a heavy-duty weatherproof canvas skin.",
+      "A complete yurt structure ranges from ₹14L to ₹28L depending on diameter (5m–10m+), glass French door openings, insulation grade, and interior finishes. Compared to permanent brick-and-mortar hotel suites, yurts typically deliver a 50–60% Capex reduction.",
   },
   {
-    question: "What does the site need to be ready for one?",
+    topic: "Installation",
+    question: "How long does on-site assembly and installation take?",
     answer:
-      "The site simply needs clear pedestrian access and a reasonably level footprint. Yurts sit on discrete, reversible timber platform decks or ground screws without requiring deep concrete foundations or excavation.",
+      "Because every lattice wall, rafter, and crown is 100% pre-machined in our workshop, our installation crew can assemble and fully enclose a yurt on your prepared base in just 3 to 4 days.",
   },
   {
-    question: "How long does installation take?",
+    topic: "Site preparation",
+    question: "What groundworks or site preparation are required?",
     answer:
-      "Once the platform deck is in place, standard yurt structures (5m–8m diameter) are assembled, fully enclosed, and sealed in just 2 to 4 days.",
+      "Yurts require zero heavy excavation or deep concrete sumps. They sit on an elevated timber platform supported by removable helical ground screws or minimal stone piers, leaving the natural ground untouched.",
   },
   {
-    question: "How does it handle monsoon, heat and wind?",
+    topic: "Indian climate",
+    question: "Will a yurt handle extreme heat and sub-zero cold in India?",
     answer:
-      "The steep conical roof and 10,000mm hydrostatic head canvas shed torrential monsoon downpours, while the circular profile disperses 120 km/h wind gusts. The operable crown skylight provides natural stack-ventilation during hot summers.",
+      "Yes. Our structures feature dense natural thermal wool insulation and radiant heat barriers, keeping interiors comfortable in -15°C Himalayan winter snows and 45°C arid summers.",
   },
   {
-    question: "What can be customised?",
+    topic: "Monsoon",
+    question: "How does the structure perform during heavy torrential monsoons?",
     answer:
-      "Diameters from 5m to 10m+, French glass double doors, bespoke window placements, luxury ensuite partitions, canvas colors, and personalized interior timber finishes.",
+      "The steep conical roof naturally sheds torrential water, while our heavy-duty breathable organic canvas with 10,000mm hydrostatic head prevents water ingress and resists mold/mildew.",
   },
   {
-    question: "How is it maintained, and how long does it last?",
+    topic: "Customisation",
+    question: "What elements can be tailored to our project?",
     answer:
-      "Solid hardwood timber frames last 30–50+ years. The outer canvas membrane lasts 10–15+ years and is easily replaced in a day. Maintenance involves simple annual cleaning and periodic canvas re-proofing.",
+      "Everything from diameters (5m–12m+), double-glazed panoramic glass windows, solid timber doors, partition walls for luxury ensuites, and bespoke flooring finishes.",
   },
   {
-    question: "Can it be moved once it is up?",
+    topic: "Maintenance & Lifespan",
+    question: "What is the lifespan and maintenance routine?",
     answer:
-      "Yes, 100% of the structure is demountable. It can be unbolted in 1–2 days, packed flat into transport crates, and rebuilt on a new site without material loss or site damage.",
+      "The steam-bent ash timber framework has a 30–50+ year structural lifespan. The outer canvas membrane lasts 10–15 years and can be replaced in a single day. Maintenance involves simple annual cleaning.",
   },
   {
-    question: "Where in India do you deliver and install?",
+    topic: "Transportation & Permissions",
+    question: "How are components delivered, and what permits apply?",
     answer:
-      "We deliver and provide certified on-site installation across all Indian states — from Himalayan hill stations and Rajasthan deserts to southern coastlines and Western Ghats retreats.",
+      "The frame folds completely flat and is transported by standard truck across India. In most states, yurts qualify as non-permanent modular accommodation, simplifying eco-tourism zoning clearances.",
   },
 ];
 
+const topicsList = [
+  "Cost",
+  "Installation",
+  "Site preparation",
+  "Indian climate",
+  "Monsoon",
+  "Customisation",
+  "Maintenance",
+  "Lifespan",
+  "Transportation",
+  "Delivery",
+  "Permissions",
+  "Installation locations",
+];
+
 /**
- * Common questions section.
+ * 15. FAQ
  *
- * Prominent, user-friendly interactive accordion layout:
- * Left column: Section header and direct inquiry callout.
- * Right column: Smooth interactive accordion items with visible answers.
+ * Heading: Before you build one.
+ * Questions around: Cost, Installation, Site preparation, Indian climate, Monsoon, Customisation, Maintenance, Lifespan, Transportation, Delivery, Permissions, Installation locations.
+ * Link: See all questions →
  */
 export function Questions() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="u-container py-14 lg:py-10 lg:min-h-[calc(100vh-6rem)] lg:flex lg:flex-col lg:justify-center overflow-hidden">
+    <section className="u-container py-16 lg:py-20 lg:min-h-[calc(100vh-6rem)] lg:flex lg:flex-col lg:justify-center overflow-hidden">
       {/* Header */}
       <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-4 border-t border-line pt-8">
         <div>
           <Reveal kind="up">
-            <Metadata className="text-accent-text">Common Questions</Metadata>
+            <Metadata className="text-accent-text">Frequently Asked Questions</Metadata>
             <h2 className="mt-2 font-display text-display-lg u-optical-left">
-              What people ask.
+              Before you build one.
             </h2>
           </Reveal>
         </div>
         <Reveal kind="up" delay={0.08} className="max-w-md">
           <p className="font-sans text-small text-text-muted">
-            Direct answers on construction, site preparation, weather resistance,
-            and installation across India.
+            Key questions regarding engineering, site readiness, climate
+            resilience, permissions and installation across India.
           </p>
         </Reveal>
+      </div>
+
+      {/* Topic Chips */}
+      <div className="mt-6 flex flex-wrap gap-2">
+        {topicsList.map((t) => (
+          <span
+            key={t}
+            className="rounded-xs border border-line/60 bg-surface-alt/40 px-2.5 py-1 font-sans text-meta uppercase text-[0.625rem] text-text-muted"
+          >
+            {t}
+          </span>
+        ))}
       </div>
 
       {/* Accordion Grid */}
@@ -94,7 +129,7 @@ export function Questions() {
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : i)}
                 aria-expanded={isOpen}
-                className="w-full flex items-baseline justify-between gap-4 text-left py-2 group focus:outline-none"
+                className="w-full flex items-baseline justify-between gap-4 text-left py-2 group focus:outline-none cursor-pointer"
               >
                 <span className="flex items-baseline gap-3 flex-1">
                   <span
@@ -140,10 +175,10 @@ export function Questions() {
       </div>
 
       {/* Footer Link */}
-      <div className="mt-8 border-t border-line pt-6 flex items-center justify-between">
-        <ArrowLink href="/faq">All 34 questions & answers</ArrowLink>
-        <span className="font-sans text-meta uppercase text-text-muted">
-          08 Key Topics
+      <div className="mt-10 border-t border-line pt-6 flex items-center justify-between">
+        <ArrowLink href="/faq">See all questions</ArrowLink>
+        <span className="font-sans text-meta uppercase text-text-muted text-xs">
+          Comprehensive Architectural & Commercial FAQ
         </span>
       </div>
     </section>

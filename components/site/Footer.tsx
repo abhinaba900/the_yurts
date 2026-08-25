@@ -109,12 +109,24 @@ export async function Footer() {
         </span>
       </div>
 
-      {/* --- Legal --- */}
+      {/* --- Legal & Colophon --- */}
       <div className="u-container pb-10">
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-line pt-6">
           <Metadata>
             &copy; {year} {settings.name}
           </Metadata>
+
+          <div className="flex items-center">
+            <a
+              href="https://thirdeyegfx.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="u-tap font-sans text-meta uppercase text-text-muted transition-colors duration-200 hover:text-accent-text"
+            >
+              Developed by <span className="font-medium text-text hover:text-accent-text"> Third Eye Creative</span>
+            </a>
+          </div>
+
           <div className="flex flex-wrap gap-x-8 gap-y-2">
             <Link href="/privacy" className="u-tap font-sans text-meta uppercase text-text-muted">
               Privacy

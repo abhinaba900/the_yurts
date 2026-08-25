@@ -1,55 +1,67 @@
+import Link from "next/link";
 import { Media } from "@/components/primitives/Media";
 import { hasMedia } from "@/data/media";
 import { Metadata } from "@/components/primitives/Metadata";
 import { Reveal } from "@/components/primitives/Reveal";
+import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 /**
- * Cinematic hero. Full bleed, running under the fixed header.
+ * 01. HERO
  *
- * while it is over this section — matched in CSS so it is right on the first
- * painted frame, not corrected after hydration.
+ * Cinematic hero, full bleed, running under fixed header.
  */
 export function Hero() {
   return (
-    <section
-      className="relative -mt-20 bg-surface md:-mt-24"
-    >
-      <div className="relative h-[88svh] lg:h-[calc(100vh-6rem)] w-full overflow-hidden tall:min-h-[32rem]">
+    <section className="relative -mt-20 bg-surface md:-mt-24">
+      <div className="relative min-h-[92svh] lg:min-h-[100svh] w-full overflow-hidden flex flex-col justify-end">
         <Media
           id="home.hero"
           parallax
           ratio="cinema"
           sizes="100vw"
-          className="absolute inset-0 h-full"
+          className="absolute inset-0 h-full w-full object-cover"
         />
 
-        {/* Bottom-weighted scrim. Enough to hold the headline, not enough to
-            flatten the photograph — no full-frame veil. Skipped while the slot
-            is a placeholder, so its filename stays readable. */}
+        {/* Bottom-weighted scrim */}
         {hasMedia("home.hero") ? (
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-walnut-deep/80 via-walnut-deep/15 to-walnut-deep/35"
+            className="absolute inset-0 bg-gradient-to-t from-walnut-deep/95 via-walnut-deep/40 to-walnut-deep/30"
           />
         ) : null}
 
-        <div className="absolute inset-x-0 bottom-0 pb-12 md:pb-16">
+        <div className="relative z-10 pb-12 pt-32 md:pb-16 lg:pb-20">
           <div className="u-container">
-            <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
+            <div className="max-w-4xl">
               <Reveal kind="up">
                 <Metadata className="text-accent-text">
-                  Yurts &middot; Designed and made in India
+                  Designed in India &middot; Made in India &middot; Installed across India
                 </Metadata>
-                <h1 className="mt-5 max-w-[16ch] font-display text-display-xl u-optical-left">
-                  A room without walls.
-                </h1>
-              </Reveal>
 
-              <Reveal kind="up" delay={0.15} className="hidden lg:block">
-                <p className="u-measure-tight pb-3 font-sans text-lead text-text-muted">
-                  Circular timber structures for resorts, glamping sites,
-                  retreats and private land.
+                <h1 className="mt-5 font-display text-display-xl u-optical-left leading-[1.05]">
+                  A different way to build.
+                </h1>
+
+                <p className="mt-6 max-w-2xl font-sans text-lead text-text-muted leading-relaxed">
+                  Premium yurts designed and made in India for resorts, retreats,
+                  glamping destinations, farm stays and private spaces.
                 </p>
+
+                <div className="mt-9 flex flex-wrap items-center gap-5 sm:gap-8">
+                  <Link
+                    href="/yurts"
+                    className="inline-flex items-center gap-2 rounded-xs bg-cream px-6 py-3.5 font-sans text-small uppercase tracking-wider text-walnut-deep font-semibold transition-all duration-200 hover:bg-accent-text hover:text-walnut-deep"
+                  >
+                    Explore Yurts &rarr;
+                  </Link>
+
+                  <Link
+                    href="/experiences/builder"
+                    className="inline-flex items-center gap-2 rounded-xs border border-line-strong bg-surface/60 backdrop-blur-xs px-6 py-3.5 font-sans text-small uppercase tracking-wider text-text transition-all duration-200 hover:border-accent hover:text-accent-text"
+                  >
+                    Build Your Yurt &rarr;
+                  </Link>
+                </div>
               </Reveal>
             </div>
           </div>

@@ -65,14 +65,14 @@ export function RangeRail() {
             <Reveal kind="up">
               <Metadata className="text-accent-text">The Range</Metadata>
               <h2 className="mt-2 font-display text-display-lg u-optical-left">
-                Ten starting points.
+                One structure. Many possibilities.
               </h2>
             </Reveal>
           </div>
           <Reveal kind="up" delay={0.08} className="max-w-md">
             <p className="font-sans text-small text-text-muted">
-              Each structure is a customizable foundation engineered for durability,
-              rapid site assembly, and low-impact installation across India.
+              From intimate private spaces to full-scale hospitality destinations,
+              start with a structure and make it your own.
             </p>
           </Reveal>
         </div>
@@ -264,7 +264,7 @@ export function RangeRail() {
 
         {/* Section Footer */}
         <div className="mt-14 border-t border-line pt-6 flex items-center justify-between">
-          <ArrowLink href="/yurts">View all 10 models in catalogue</ArrowLink>
+          <ArrowLink href="/yurts">Explore the complete range</ArrowLink>
           <span className="font-sans text-meta uppercase text-text-muted">
             10 Architectural Configurations
           </span>

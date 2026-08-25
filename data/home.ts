@@ -3,85 +3,116 @@ import type { MediaId } from "./media";
 /**
  * HOME PAGE CONTENT
  *
- * Copy lives here, separate from layout, so it can be edited without touching a
- * component — and moved into the CMS in Phase 3 without rewriting the page.
- *
- * WHAT IS ALLOWED HERE:
- *   Descriptions of what a yurt is and what Theyurts offers to do.
- *
- * WHAT IS NOT:
- *   Specifications, dimensions, prices, timescales, temperature or wind ratings,
- *   material grades, warranty terms, completed projects, or anything about the
- *   company's history or capacity. None of that has been supplied. Adding a
- *   plausible-sounding number here puts it on a live website as a claim.
+ * Updated according to the official Theyurts Homepage Specification.
  */
 
 export const anatomy: { label: string; body: string }[] = [
   {
-    label: "Crown wheel",
-    body: "The compression ring at the centre of the roof. Every roof pole meets it, and it is what lets the structure stand without an internal column.",
+    label: "Crown",
+    body: "The structural heart of the roof.",
   },
   {
-    label: "Roof poles",
-    body: "Straight timber members running from the crown out to the top of the wall, carrying the roof load outward.",
+    label: "Roof",
+    body: "A radial timber structure that distributes the load.",
   },
   {
-    label: "Lattice wall",
-    body: "An expanding timber trellis that forms the circular wall. It folds down flat for transport and opens out on site.",
+    label: "Lattice",
+    body: "The flexible circular wall system.",
   },
   {
-    label: "Tension band",
-    body: "A band around the top of the lattice that resists the outward thrust of the roof. The frame works because this is in tension.",
+    label: "Tension",
+    body: "The element that holds the structure together.",
   },
   {
-    label: "Cover",
-    body: "The outer skin over the frame, with insulation between. This is where a yurt is adapted for the climate it will stand in.",
+    label: "Envelope",
+    body: "Insulation and outer layers adapted to the environment.",
   },
 ];
 
 export const whyYurts: { title: string; body: string }[] = [
   {
-    title: "It arrives as parts",
-    body: "The frame is made in a workshop and assembled on site. No wet trades, no scaffolding, no concrete frame going up in a field.",
+    title: "Faster to the landscape",
+    body: "A modular structure that can be manufactured before it reaches the site and assembled where it belongs.",
   },
   {
-    title: "It suits difficult land",
-    body: "Sloped, remote or ecologically sensitive sites where a conventional building would be an argument with the ground.",
+    title: "Designed for different ground",
+    body: "A solution for resorts, farms, retreats and destinations where conventional construction may not always be ideal.",
   },
   {
-    title: "It can be taken down",
-    body: "The same properties that let it go up let it come down again, and go somewhere else, if the use of the land changes.",
+    title: "Made to evolve",
+    body: "Configure, expand or adapt your space as your needs change.",
   },
   {
-    title: "It is one room",
-    body: "A circular space with the light coming from above. That is the whole appeal, and it is not something a rectangular room can imitate.",
+    title: "A space people remember",
+    body: "The circular form creates an experience that feels fundamentally different from a conventional room.",
   },
 ];
 
 export const range: {
   name: string;
+  tagline: string;
   use: string;
   media: MediaId;
 }[] = [
   {
     name: "Classic",
-    use: "The base structure, closest to the traditional form.",
+    tagline: "The starting point.",
+    use: "A simple, timeless yurt for private retreats, gardens and intimate spaces.",
     media: "home.range-classic",
   },
   {
     name: "Resort",
-    use: "Built for paying guests — raised, serviced, and finished to be lived in nightly.",
+    tagline: "Designed for guests.",
+    use: "A complete accommodation structure created for resorts and hospitality destinations.",
     media: "home.range-resort",
   },
   {
+    name: "Luxury",
+    tagline: "Built around the experience.",
+    use: "A more refined specification for destinations where the room itself is part of the attraction.",
+    media: "home.range-luxury",
+  },
+  {
     name: "Wellness",
-    use: "An open, quiet interior for yoga, treatment or meditation.",
+    tagline: "A space to slow down.",
+    use: "Designed for wellness, therapy, spa and retreat environments.",
     media: "home.range-wellness",
   },
   {
+    name: "Yoga",
+    tagline: "Room to breathe.",
+    use: "A naturally open, column-free space for yoga, movement and group sessions.",
+    media: "home.range-yoga",
+  },
+  {
+    name: "Glamping",
+    tagline: "Stay close to nature.",
+    use: "Premium outdoor accommodation designed for the growing glamping market.",
+    media: "home.range-glamping",
+  },
+  {
     name: "Event",
-    use: "Larger spans for gatherings, dining and hospitality.",
+    tagline: "Gather differently.",
+    use: "A large-format space for dining, celebrations, events and experiences.",
     media: "home.range-event",
+  },
+  {
+    name: "Café",
+    tagline: "A destination within a destination.",
+    use: "A distinctive space for cafés, food concepts and hospitality outposts.",
+    media: "home.range-cafe",
+  },
+  {
+    name: "Residential",
+    tagline: "A different way to live.",
+    use: "Private spaces, studios, guest houses and alternative residences.",
+    media: "home.range-residential",
+  },
+  {
+    name: "Custom",
+    tagline: "Built around your idea.",
+    use: "A yurt designed specifically around your site, requirements and vision.",
+    media: "home.range-custom",
   },
 ];
 
@@ -92,40 +123,77 @@ export const applications: {
 }[] = [
   {
     name: "Resorts",
-    line: "Rooms that are the reason people book",
+    line: "Create rooms people travel for.",
     media: "home.application-resorts",
   },
   {
     name: "Glamping",
-    line: "A site that can open before it is finished",
+    line: "Turn a piece of land into an experience.",
     media: "home.application-glamping",
   },
   {
     name: "Farm stays",
-    line: "Income from land that is already working",
+    line: "Create a new reason to stay.",
     media: "home.application-farmstay",
   },
   {
-    name: "Wellness retreats",
-    line: "A room built around quiet",
+    name: "Wellness",
+    line: "Spaces designed around stillness.",
     media: "home.application-wellness",
   },
   {
-    name: "Event spaces",
-    line: "A space that arrives and leaves",
+    name: "Events",
+    line: "Gather under something unexpected.",
     media: "home.application-events",
+  },
+  {
+    name: "Private spaces",
+    line: "A room that feels closer to nature.",
+    media: "home.application-homes",
   },
 ];
 
-export const process: { index: string; title: string }[] = [
-  { index: "01", title: "Design" },
-  { index: "02", title: "Material selection" },
-  { index: "03", title: "Manufacturing" },
-  { index: "04", title: "Customisation" },
-  { index: "05", title: "Quality check" },
-  { index: "06", title: "Transportation" },
-  { index: "07", title: "Installation" },
-  { index: "08", title: "Handover" },
+export const process: { index: string; title: string; body: string }[] = [
+  {
+    index: "01",
+    title: "Discover",
+    body: "Understand your site, purpose and requirements.",
+  },
+  {
+    index: "02",
+    title: "Design",
+    body: "Develop the right structure for your needs.",
+  },
+  {
+    index: "03",
+    title: "Select",
+    body: "Choose materials, finishes and configurations.",
+  },
+  {
+    index: "04",
+    title: "Build",
+    body: "Craft the structure with precision.",
+  },
+  {
+    index: "05",
+    title: "Prepare",
+    body: "Get every component ready for its journey.",
+  },
+  {
+    index: "06",
+    title: "Deliver",
+    body: "Transport the structure to your site.",
+  },
+  {
+    index: "07",
+    title: "Install",
+    body: "Assemble and finish it on location.",
+  },
+  {
+    index: "08",
+    title: "Hand over",
+    body: "Your space is ready to experience.",
+  },
 ];
 
 export const journalTopics: string[] = [
@@ -134,25 +202,49 @@ export const journalTopics: string[] = [
   "Hospitality",
   "Wellness",
   "Farm stays",
-  "Eco tourism",
   "Architecture",
   "Sustainability",
-  "Design",
   "Business",
 ];
 
-/**
- * Questions, not answers. These are the things people ask before commissioning a
- * structure. Answers come from the workshop in Phase 5 — the FAQ page is where
- * they will be published, and nothing is guessed at here in the meantime.
- */
+export const featuredArticles = [
+  {
+    title: "What exactly is a yurt?",
+    slug: "what-is-a-yurt",
+    readTime: "5 min read",
+    tag: "Architecture",
+  },
+  {
+    title: "How much does it cost to build a yurt in India?",
+    slug: "yurt-cost-india",
+    readTime: "8 min read",
+    tag: "Business",
+  },
+  {
+    title: "Yurts vs. conventional construction",
+    slug: "yurts-vs-conventional-construction",
+    readTime: "6 min read",
+    tag: "Engineering",
+  },
+  {
+    title: "How to start a glamping business in India",
+    slug: "how-to-start-a-glamping-business-in-india",
+    readTime: "10 min read",
+    tag: "Hospitality",
+  },
+];
+
 export const questions: string[] = [
-  "How is a yurt built, and what is it made of?",
-  "What does the site need to be ready for one?",
-  "How long does installation take?",
-  "How does it handle monsoon, heat and wind?",
-  "What can be customised?",
-  "How is it maintained, and how long does it last?",
-  "Can it be moved once it is up?",
-  "Where in India do you deliver and install?",
+  "Cost & Capex Planning",
+  "Installation Timeline & Process",
+  "Site Preparation & Foundations",
+  "Indian Climate & Weather Resistance",
+  "Monsoon & Heavy Rain Protection",
+  "Customisation & Interior Options",
+  "Maintenance & Upkeep Requirements",
+  "Structure Lifespan & Durability",
+  "Transportation & Logistics",
+  "Delivery to Remote Locations",
+  "Permissions & Non-Permanent Permits",
+  "Installation Locations Across India",
 ];

@@ -47,7 +47,7 @@ export function Applications() {
           <header className="col-span-4 md:col-span-6 lg:col-span-5">
             <Metadata className="text-accent-text">Applications</Metadata>
             <h2 className="mt-5 font-display text-display-lg u-optical-left">
-              What people build with them.
+              What could you build?
             </h2>
           </header>
         </div>
@@ -144,7 +144,7 @@ export function Applications() {
         </div>
 
         <div className="mt-14 border-t border-line pt-6">
-          <ArrowLink href="/applications">Every application</ArrowLink>
+          <ArrowLink href="/applications">See all applications</ArrowLink>
         </div>
       </div>
     </section>

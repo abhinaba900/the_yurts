@@ -3,7 +3,6 @@ import { Metadata } from "@/components/primitives/Metadata";
 import { Reveal } from "@/components/primitives/Reveal";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
-/** The axes the configurator will expose. Structure only — no option values. */
 const axes = [
   "Size",
   "Exterior",
@@ -11,57 +10,64 @@ const axes = [
   "Doors",
   "Windows",
   "Flooring",
-  "Interior package",
+  "Interior",
 ];
 
 /**
- * 3D builder introduction. Image on the left running to the page edge, text
- * held to the right — the reverse of the sections above it, so the eye resets.
+ * 08. 3D BUILDER
+ *
+ * Small label: DESIGN YOURS
+ * Heading: Build your yurt before we build it.
+ * Description: Choose your size, openings, finishes and interiors. See your choices come together in real time and create a yurt that's uniquely yours.
+ * CTA: Start building →
+ * Small line: Size · Exterior · Roof · Doors · Windows · Flooring · Interior
  */
 export function BuilderIntro() {
   return (
-    <section className="py-(--spacing-section-lg) lg:min-h-[calc(100vh-6rem)] lg:flex lg:flex-col lg:justify-center lg:py-16">
-      {/* Held inside the container, so the image begins on the same left margin
-          as every heading on the site rather than running to the viewport edge. */}
+    <section className="py-(--spacing-section-lg) lg:min-h-[calc(100vh-6rem)] lg:flex lg:flex-col lg:justify-center lg:py-20">
       <div className="u-container">
         <div className="u-grid items-center gap-y-12">
           <Reveal
             kind="media"
             className="col-span-4 md:col-span-6 lg:col-span-6 lg:col-start-1"
           >
-            <Media id="home.builder" sizes="(min-width: 1024px) 46vw, 92vw" />
+            <div className="overflow-hidden rounded-sm bg-surface-alt border border-line shadow-2xl">
+              <Media id="home.builder" sizes="(min-width: 1024px) 46vw, 92vw" />
+            </div>
           </Reveal>
 
           <div className="col-span-4 md:col-span-6 lg:col-span-5 lg:col-start-8">
             <Reveal kind="up">
-              <Metadata>In development</Metadata>
-              <h2 className="mt-5 font-display text-display-lg u-optical-left">
-                Build one on screen.
+              <Metadata className="text-accent-text">Design Yours</Metadata>
+              <h2 className="mt-4 font-display text-display-lg u-optical-left">
+                Build your yurt before we build it.
               </h2>
-              <p className="mt-7 u-measure font-sans text-lead text-text-muted">
-                A configurator for working out what you actually want before
-                anyone quotes for it. Change the structure and the yurt changes
-                with it.
+              <p className="mt-6 u-measure font-sans text-lead text-text-muted leading-relaxed">
+                Choose your size, openings, finishes and interiors. See your
+                choices come together in real time and create a yurt that&apos;s
+                uniquely yours.
               </p>
             </Reveal>
 
             <Reveal kind="up" delay={0.1}>
-              <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-line pt-6">
-                {axes.map((axis) => (
-                  <li
-                    key={axis}
-                    className="font-sans text-meta uppercase text-text-muted"
-                  >
-                    {axis}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 u-measure font-sans text-small text-text-muted">
-                Finish a configuration and it comes through with your enquiry, so
-                the first conversation starts from something specific.
-              </p>
-              <div className="mt-8">
-                <ArrowLink href="/experiences">The 3D builder</ArrowLink>
+              <div className="mt-10 border-t border-line pt-6">
+                <span className="font-sans text-meta uppercase text-accent-text text-xs">
+                  Configurable Parameters:
+                </span>
+                <ul className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-text-muted font-sans text-meta uppercase text-xs">
+                  {axes.map((axis, i) => (
+                    <li key={axis} className="flex items-center gap-3">
+                      <span>{axis}</span>
+                      {i < axes.length - 1 ? (
+                        <span className="text-accent-text opacity-40">&middot;</span>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-9">
+                <ArrowLink href="/experiences/builder">Start building</ArrowLink>
               </div>
             </Reveal>
           </div>
