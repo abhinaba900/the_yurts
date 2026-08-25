@@ -1,5 +1,18 @@
 import { sanityFetch } from "./fetch";
 import * as q from "./queries";
+import {
+  localProduct,
+  localProductSlugs,
+  localProductSummaries,
+} from "@/data/products";
+import {
+  localPost,
+  localPostCategories,
+  localPostCategory,
+  localPostSlugs,
+  localPostSummaries,
+  localPostsByCategory,
+} from "@/data/journal";
 import type {
   Application,
   ApplicationSummary,
@@ -38,27 +51,41 @@ export const getSiteSettings = () =>
 
 /* -- Products -------------------------------------------------------------- */
 
-export const getProducts = () =>
-  sanityFetch<ProductSummary[]>({
+/**
+ * The ten models fall back to `data/products.ts` — derived from the same
+ * `data/range.ts` the rail and the /yurts index read — so every /yurts/<slug>
+ * resolves before the CMS has a single document in it. Without the fallback
+ * those URLs 404, which is what they did until the image band started linking
+ * to them.
+ */
+
+export const getProducts = async () => {
+  const products = await sanityFetch<ProductSummary[]>({
     query: q.productsQuery,
     tags: ["product"],
     fallback: [],
   });
+  return products.length > 0 ? products : localProductSummaries;
+};
 
-export const getProductSlugs = () =>
-  sanityFetch<string[]>({
+export const getProductSlugs = async () => {
+  const slugs = await sanityFetch<string[]>({
     query: q.productSlugsQuery,
     tags: ["product"],
     fallback: [],
   });
+  return slugs.length > 0 ? slugs : localProductSlugs;
+};
 
-export const getProduct = (slug: string) =>
-  sanityFetch<Product | null>({
+export const getProduct = async (slug: string) => {
+  const product = await sanityFetch<Product | null>({
     query: q.productQuery,
     params: { slug },
     tags: ["product", `product:${slug}`],
     fallback: null,
   });
+  return product ?? localProduct(slug);
+};
 
 /* -- Applications ---------------------------------------------------------- */
 
@@ -110,65 +137,98 @@ export const getProject = (slug: string) =>
 
 /* -- Journal --------------------------------------------------------------- */
 
-export const getPosts = ({ start = 0, end = 12 }: { start?: number; end?: number } = {}) =>
-  sanityFetch<PostSummary[]>({
+/* -- Journal ---------------------------------------------------------------- */
+
+/**
+ * The journal is the one area with a static fallback: `data/journal.ts` holds
+ * the launch articles so the section reads as a finished publication before the
+ * client writes anything in the Studio.
+ *
+ * The rule is the same one `lib/settings.ts` follows — the CMS wins wherever it
+ * has an answer. A dataset with even one published post takes over completely,
+ * so an editor never sees their work sitting beside hard-coded articles.
+ */
+
+export const getPosts = async ({
+  start = 0,
+  end = 12,
+}: { start?: number; end?: number } = {}) => {
+  const posts = await sanityFetch<PostSummary[]>({
     query: q.postsQuery,
     params: { start, end },
     tags: ["post"],
     fallback: [],
   });
+  return posts.length > 0 ? posts : localPostSummaries.slice(start, end);
+};
 
-export const getPostCount = () =>
-  sanityFetch<number>({
+export const getPostCount = async () => {
+  const count = await sanityFetch<number>({
     query: q.postCountQuery,
     tags: ["post"],
     fallback: 0,
   });
+  return count > 0 ? count : localPostSummaries.length;
+};
 
-export const getPostSlugs = () =>
-  sanityFetch<string[]>({
+export const getPostSlugs = async () => {
+  const slugs = await sanityFetch<string[]>({
     query: q.postSlugsQuery,
     tags: ["post"],
     fallback: [],
   });
+  return slugs.length > 0 ? slugs : localPostSlugs;
+};
 
-export const getPost = (slug: string) =>
-  sanityFetch<Post | null>({
+export const getPost = async (slug: string) => {
+  const post = await sanityFetch<Post | null>({
     query: q.postQuery,
     params: { slug },
     tags: ["post", `post:${slug}`],
     fallback: null,
   });
+  return post ?? localPost(slug);
+};
 
-export const getPostCategories = () =>
-  sanityFetch<PostCategory[]>({
+export const getPostCategories = async () => {
+  const categories = await sanityFetch<PostCategory[]>({
     query: q.postCategoriesQuery,
     tags: ["post", "postCategory"],
     fallback: [],
   });
+  return categories.length > 0 ? categories : localPostCategories;
+};
 
-export const getPostCategorySlugs = () =>
-  sanityFetch<string[]>({
+export const getPostCategorySlugs = async () => {
+  const slugs = await sanityFetch<string[]>({
     query: q.postCategorySlugsQuery,
     tags: ["postCategory"],
     fallback: [],
   });
+  return slugs.length > 0
+    ? slugs
+    : localPostCategories.map((category) => category.slug);
+};
 
-export const getPostCategory = (slug: string) =>
-  sanityFetch<PostCategory | null>({
+export const getPostCategory = async (slug: string) => {
+  const category = await sanityFetch<PostCategory | null>({
     query: q.postCategoryQuery,
     params: { slug },
     tags: ["postCategory"],
     fallback: null,
   });
+  return category ?? localPostCategory(slug);
+};
 
-export const getPostsByCategory = (slug: string) =>
-  sanityFetch<PostSummary[]>({
+export const getPostsByCategory = async (slug: string) => {
+  const posts = await sanityFetch<PostSummary[]>({
     query: q.postsByCategoryQuery,
     params: { slug },
     tags: ["post", "postCategory"],
     fallback: [],
   });
+  return posts.length > 0 ? posts : localPostsByCategory(slug);
+};
 
 /* -- Support --------------------------------------------------------------- */
 

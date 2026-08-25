@@ -1,88 +1,67 @@
-import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
-import { getPosts, getPostCategories } from "@/sanity/lib/content";
+import { getPosts } from "@/sanity/lib/content";
 import { PageHeader } from "@/components/page/PageHeader";
 import { PostRow } from "@/components/journal/PostRow";
-import { JournalResearchHub } from "@/components/journal/JournalResearchHub";
+import { JournalIndex } from "@/components/journal/JournalIndex";
+import { EmptyState } from "@/components/page/EmptyState";
 import { JournalAdvisory } from "@/components/journal/JournalAdvisory";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 export const metadata = pageMetadata({
-  title: "Journal & Architectural Research",
+  title: "The Yurt Journal",
   description:
-    "Architectural intelligence, land feasibility, hospitality economics, and thermal engineering for yurts and glamping developments across India.",
+    "Ideas, guides and stories about yurts, glamping, hospitality, architecture, wellness and building differently.",
   path: "/journal",
 });
 
 /**
- * Journal & Architectural Research Hub.
+ * The Journal index.
  *
- * Provides actionable architectural, economic, and land planning
- * intelligence for landowners, retreat founders, and resort developers.
+ * Articles come from `getPosts`, which serves the CMS where it has posts and
+ * the launch articles in `data/journal.ts` where it does not — so this page has
+ * real writing on it from the first deploy.
  */
 export default async function JournalPage() {
-  const [posts, categories] = await Promise.all([
-    getPosts({ end: 24 }),
-    getPostCategories(),
-  ]);
+  const posts = await getPosts({ end: 24 });
 
   const [featured, ...rest] = posts;
 
   return (
     <>
       <PageHeader
-        eyebrow="Journal & Research"
-        title="Notes, models, and working papers."
-        lead="Actionable intelligence on building with circular timber yurts, resort unit economics, land permissions, and extreme climate engineering across India."
+        eyebrow="Journal"
+        title="The Yurt Journal"
+        lead="Ideas, guides and stories about yurts, glamping, hospitality, architecture, wellness and building differently."
         aside={
           <div className="border-t border-line pt-5">
             <p className="font-sans text-small text-text-muted">
-              Written for landowners, resort developers, and retreat founders
-              evaluating what works on their terrain before commissioning.
+              Written for landowners, hospitality operators and anyone weighing
+              up what to build on a piece of land.
             </p>
             <div className="mt-6">
-              <ArrowLink href="/enquire">Discuss your land with our workshop</ArrowLink>
+              <ArrowLink href="/enquire">Tell us about your site</ArrowLink>
             </div>
           </div>
         }
       />
 
-      {categories.length > 0 ? (
-        <nav aria-label="Journal categories" className="u-container pb-10">
-          <ul className="flex flex-wrap gap-x-7 gap-y-3 border-t border-line pt-6">
-            {categories
-              .filter((category) => category.count > 0)
-              .map((category) => (
-                <li key={category._id}>
-                  <Link
-                    href={`/journal/category/${category.slug}`}
-                    className="u-tap font-sans text-meta uppercase text-text-muted transition-colors duration-(--duration-quick) hover:text-accent-text"
-                  >
-                    {category.title}
-                    <span className="ml-2 opacity-60">{category.count}</span>
-                  </Link>
-                </li>
-              ))}
-          </ul>
-        </nav>
-      ) : null}
-
       <div className="u-container pb-(--spacing-section-lg)">
         {posts.length > 0 ? (
-          <ul className="space-y-14">
-            {featured ? <PostRow post={featured} feature /> : null}
-            {rest.length > 0 ? (
-              <li>
-                <ul>
-                  {rest.map((post, i) => (
-                    <PostRow key={post._id} post={post} index={i + 2} />
-                  ))}
-                </ul>
-              </li>
+          <>
+            {featured ? (
+              <ul className="mb-14">
+                <PostRow post={featured} feature />
+              </ul>
             ) : null}
-          </ul>
+            {rest.length > 0 ? <JournalIndex posts={rest} /> : null}
+          </>
         ) : (
-          <JournalResearchHub />
+          <EmptyState
+            label="Journal"
+            title="The first articles are being written."
+            body="This is where our guides and notes on yurts, glamping, hospitality and building differently will live."
+            action={{ href: "/enquire", label: "Ask us directly" }}
+          />
         )}
       </div>
 

@@ -53,14 +53,14 @@ export function JournalBand() {
           <div className="col-span-4 md:col-span-6 lg:col-span-7 lg:col-start-6">
             <Reveal kind="up" delay={0.08}>
               <span className="font-sans text-meta uppercase text-text-muted text-xs">
-                Featured Guides & Working Papers:
+                Featured Articles:
               </span>
 
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {featuredArticles.map((article, i) => (
+                {featuredArticles.map((article) => (
                   <Link
-                    key={article.title}
-                    href="/journal"
+                    key={article.slug}
+                    href={`/journal/${article.slug}`}
                     className="group rounded-sm border border-line bg-surface-alt/40 p-5 shadow-xs transition-all duration-300 hover:border-accent hover:bg-surface-alt hover:shadow-md flex flex-col justify-between"
                   >
                     <div>
@@ -74,7 +74,7 @@ export function JournalBand() {
                     </div>
 
                     <span className="mt-4 inline-flex items-center gap-1.5 font-sans text-meta uppercase text-accent-text text-[0.6875rem] group-hover:underline">
-                      <span>Read paper</span>
+                      <span>Read article</span>
                       <span>&rarr;</span>
                     </span>
                   </Link>
@@ -84,7 +84,7 @@ export function JournalBand() {
               <div className="mt-8 border-t border-line/70 pt-5 flex items-center justify-between">
                 <ArrowLink href="/journal">Explore the Journal</ArrowLink>
                 <span className="font-sans text-meta uppercase text-text-muted text-xs">
-                  Research & Architectural Briefs
+                  Guides, Notes & Stories
                 </span>
               </div>
             </Reveal>

@@ -54,7 +54,13 @@ export function CmsImage({
   pendingLabel?: string;
   className?: string;
 }) {
-  const src = imageUrl(image, { width });
+  let src = imageUrl(image, { width });
+  if (!src && image?.url) {
+    src = image.url;
+  }
+  if (!src && typeof image?.assetId === "string" && (image.assetId.startsWith("/") || image.assetId.startsWith("http"))) {
+    src = image.assetId;
+  }
 
   return (
     <figure

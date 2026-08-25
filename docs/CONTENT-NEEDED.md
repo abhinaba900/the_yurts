@@ -28,10 +28,34 @@ does not move when the picture lands.
 
 ## Generating these with an image model
 
-Each outstanding image below has a ready-to-paste prompt. They share one style
-clause deliberately: generated separately without it, the set will not look
-like it was shot by one photographer, which is the single most obvious sign of
-assembled imagery.
+Every image in the manifest is listed below with a ready-to-paste prompt —
+including the ones already supplied, so the whole set can be regenerated at a
+higher resolution without reverse-engineering what each shot was meant to be.
+
+### Size
+
+Generate at **3840px on the long edge**. Exact target per crop:
+
+| Crop | Ratio | Generate at | Minimum shippable |
+| --- | --- | --- | --- |
+| portrait | 3:4 | **2880 × 3840** | 1500 × 2000 |
+| editorial | 4:5 | **3072 × 3840** | 1600 × 2000 |
+| landscape | 16:9 | **3840 × 2160** | 2000 × 1125 |
+| cinema | 21:9 | **3840 × 1646** | 2400 × 1030 |
+| panorama | 2.6:1 | **3840 × 1477** | 2600 × 1000 |
+| square | 1:1 | **3840 × 3840** | 1600 × 1600 |
+
+If the model cannot hit the aspect ratio directly, generate the nearest size
+it does support at 4K or above and crop down. Never upscale a small
+generation to reach these numbers — an upscaled 1024px image looks worse at
+3840 than a sharp 2000px one does.
+
+### Consistency
+
+The prompts share one style clause deliberately: generated separately without
+it, the set will not look like it was shot by one photographer, which is the
+single most obvious sign of assembled imagery. If your tool supports a seed or
+a style reference, fix it once and reuse it across the whole set.
 
 **Use as a negative prompt for all of them:**
 
@@ -39,18 +63,445 @@ assembled imagery.
 cartoon, illustration, 3d render, CGI, oversaturated colours, HDR halos, lens flare, text overlays, watermarks, distorted geometry, extra structures, tipi or teepee shapes
 ```
 
-**Two things to check on every result**, because image models get them wrong:
+### Two things to check on every result
+
+Image models get these wrong constantly:
 
 - A yurt is a **circular** structure with a **domed** roof and a round crown at
   its centre. Reject anything conical, pointed or tipi-shaped.
 - The lattice wall is vertical and the roof is shallow. If the whole thing is a
   cone from the ground up, it is not a yurt.
 
-Generate larger than the target size and crop down, never up.
+### Then
 
-## Images outstanding
+Save into `public/media/` under the exact filename given, replacing the
+existing file. Run `npm run verify:media` to confirm every entry still
+resolves. Filenames are referenced from `data/media.ts`, so keeping them
+identical means no code changes at all.
 
-None — every site image has been supplied.
+## Every image, with its prompt
+
+32 images. **Supplied** means a file is already in `public/media/`
+and wired up — regenerating it means overwriting that file with a larger one
+under the same name.
+
+### home
+
+#### `hero-yurt.jpg`
+
+- **Status** Supplied
+- **Generate at** 3840 × 1646 (21:9)
+- **Appears on** home/Hero
+- **Manifest id** `home.hero`
+- **Alt text** A yurt at the edge of open land, early morning.
+- **Art direction** Full-bleed hero. Landscape dominant, structure off-centre. Needs room at the top for the header and at the bottom for the headline.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt at the edge of open land, early morning. Full-bleed hero. Landscape dominant, structure off-centre. Needs room at the top for the header and at the bottom for the headline. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 21:9, rendered at 3840 × 1646.
+```
+
+#### `yurt-classic-exterior.jpg`
+
+- **Status** Supplied
+- **Generate at** 2880 × 3840 (3:4)
+- **Appears on** home page, /yurts
+- **Manifest id** `home.range-classic`
+- **Alt text** A classic yurt seen from outside, door facing the camera.
+- **Art direction** Straight-on elevation. Whole structure in frame, plenty of sky.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A classic yurt seen from outside, door facing the camera. Straight-on elevation. Whole structure in frame, plenty of sky. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 3:4, rendered at 2880 × 3840.
+```
+
+#### `yurt-resort-deck.jpg`
+
+- **Status** Supplied
+- **Generate at** 2880 × 3840 (3:4)
+- **Appears on** home page, /yurts
+- **Manifest id** `home.range-resort`
+- **Alt text** A resort yurt raised on a timber deck.
+- **Art direction** Three-quarter view showing the deck and entrance steps.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A resort yurt raised on a timber deck. Three-quarter view showing the deck and entrance steps. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 3:4, rendered at 2880 × 3840.
+```
+
+#### `yurt-wellness-interior.jpg`
+
+- **Status** Supplied
+- **Generate at** 2880 × 3840 (3:4)
+- **Appears on** home page, /yurts
+- **Manifest id** `home.range-wellness`
+- **Alt text** The interior of a wellness yurt, looking up towards the crown.
+- **Art direction** Wide interior. Light falling through the crown onto the floor.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. The interior of a wellness yurt, looking up towards the crown. Wide interior. Light falling through the crown onto the floor. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 3:4, rendered at 2880 × 3840.
+```
+
+#### `yurt-event-evening.jpg`
+
+- **Status** Supplied
+- **Generate at** 2880 × 3840 (3:4)
+- **Appears on** /projects, home page, /yurts
+- **Manifest id** `home.range-event`
+- **Alt text** A large event yurt lit from within at dusk.
+- **Art direction** Blue hour. Canvas glowing, landscape still readable.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A large event yurt lit from within at dusk. Blue hour. Canvas glowing, landscape still readable. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 3:4, rendered at 2880 × 3840.
+```
+
+#### `application-resorts.jpg`
+
+- **Status** Supplied
+- **Generate at** 3072 × 3840 (4:5)
+- **Appears on** /applications, home page
+- **Manifest id** `home.application-resorts`
+- **Alt text** Yurt accommodation at a resort.
+- **Art direction** Several structures in a landscape, spaced apart.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. Yurt accommodation at a resort. Several structures in a landscape, spaced apart. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 4:5, rendered at 3072 × 3840.
+```
+
+#### `application-glamping.jpg`
+
+- **Status** Supplied
+- **Generate at** 3072 × 3840 (4:5)
+- **Appears on** /glamping-business, /applications, home page
+- **Manifest id** `home.application-glamping`
+- **Alt text** A glamping yurt at the edge of a treeline.
+- **Art direction** Single structure, strong landscape context.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A glamping yurt at the edge of a treeline. Single structure, strong landscape context. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 4:5, rendered at 3072 × 3840.
+```
+
+#### `application-farm-stay.jpg`
+
+- **Status** Supplied
+- **Generate at** 3072 × 3840 (4:5)
+- **Appears on** /applications, home page
+- **Manifest id** `home.application-farmstay`
+- **Alt text** A yurt on farmland.
+- **Art direction** Working land visible — crops, trees, a track.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt on farmland. Working land visible — crops, trees, a track. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 4:5, rendered at 3072 × 3840.
+```
+
+#### `application-wellness.jpg`
+
+- **Status** Supplied
+- **Generate at** 3072 × 3840 (4:5)
+- **Appears on** /applications, home page
+- **Manifest id** `home.application-wellness`
+- **Alt text** A yurt used as a yoga and meditation space.
+- **Art direction** Empty interior, floor and light doing the work.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt used as a yoga and meditation space. Empty interior, floor and light doing the work. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 4:5, rendered at 3072 × 3840.
+```
+
+#### `application-events.jpg`
+
+- **Status** Supplied
+- **Generate at** 3072 × 3840 (4:5)
+- **Appears on** /applications, home page
+- **Manifest id** `home.application-events`
+- **Alt text** A yurt set up as an event space.
+- **Art direction** Interior dressed for an event. People optional.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt set up as an event space. Interior dressed for an event. People optional. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 4:5, rendered at 3072 × 3840.
+```
+
+#### `builder-configurator.jpg`
+
+- **Status** Supplied
+- **Generate at** 3840 × 2160 (16:9)
+- **Appears on** home/BuilderIntro, /experiences
+- **Manifest id** `home.builder`
+- **Alt text** A yurt rendered for the 3D configurator.
+- **Art direction** Neutral studio render of the yurt model. Replaced by the live 3D canvas in Phase 6.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt rendered for the 3D configurator. Neutral studio render of the yurt model. Replaced by the live 3D canvas in Phase 6. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 16:9, rendered at 3840 × 2160.
+```
+
+#### `vr-interior-panorama.jpg`
+
+- **Status** Supplied
+- **Generate at** 3840 × 1477 (2.6:1)
+- **Appears on** home/VrBand, /experiences
+- **Manifest id** `home.vr`
+- **Alt text** A wide interior view of a finished yurt.
+- **Art direction** Very wide crop from a 360 capture. Must survive a 2.6:1 letterbox.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A wide interior view of a finished yurt. Very wide crop from a 360 capture. Must survive a 2.6:1 letterbox. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 2.6:1, rendered at 3840 × 1477.
+```
+
+#### `workshop-frame-assembly.jpg`
+
+- **Status** Supplied
+- **Generate at** 3840 × 2160 (16:9)
+- **Appears on** home/ProcessIndex, /about, /process, /projects
+- **Manifest id** `home.process`
+- **Alt text** A timber lattice frame being assembled in the workshop.
+- **Art direction** Hands, tools, timber. Workshop as it actually looks.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A timber lattice frame being assembled in the workshop. Hands, tools, timber. Workshop as it actually looks. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 16:9, rendered at 3840 × 2160.
+```
+
+#### `material-timber-detail.jpg`
+
+- **Status** Supplied
+- **Generate at** 2880 × 3840 (3:4)
+- **Appears on** home/Materials
+- **Manifest id** `home.material-timber`
+- **Alt text** Close detail of the timber lattice and its joints.
+- **Art direction** Macro. Grain, joint and fixing all legible.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. Close detail of the timber lattice and its joints. Macro. Grain, joint and fixing all legible. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 3:4, rendered at 2880 × 3840.
+```
+
+#### `material-canvas-weave.jpg`
+
+- **Status** Supplied
+- **Generate at** 3840 × 3840 (1:1)
+- **Appears on** home/Materials
+- **Manifest id** `home.material-canvas`
+- **Alt text** Close detail of the canvas weave.
+- **Art direction** Macro, raking light so the weave reads.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. Close detail of the canvas weave. Macro, raking light so the weave reads. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 1:1, rendered at 3840 × 3840.
+```
+
+#### `material-crown-wheel.jpg`
+
+- **Status** Supplied
+- **Generate at** 3072 × 3840 (4:5)
+- **Appears on** about/AboutArchitectureStage, home/Materials
+- **Manifest id** `home.material-crown`
+- **Alt text** The crown wheel seen from below.
+- **Art direction** Looking straight up. Roof poles radiating into the wheel.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. The crown wheel seen from below. Looking straight up. Roof poles radiating into the wheel. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 4:5, rendered at 3072 × 3840.
+```
+
+#### `gallery-landscape-wide.jpg`
+
+- **Status** Supplied
+- **Generate at** 3840 × 2160 (16:9)
+- **Appears on** about/AboutArchitectureStage, home/Gallery, /projects, /why-theyurts
+- **Manifest id** `home.gallery-1`
+- **Alt text** A yurt in open landscape.
+- **Art direction** Wide. Structure small in frame.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt in open landscape. Wide. Structure small in frame. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 16:9, rendered at 3840 × 2160.
+```
+
+#### `gallery-interior-evening.jpg`
+
+- **Status** Supplied
+- **Generate at** 2880 × 3840 (3:4)
+- **Appears on** home/Gallery, /projects
+- **Manifest id** `home.gallery-2`
+- **Alt text** A yurt interior in the evening.
+- **Art direction** Warm interior light, door or window open to the dark outside.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt interior in the evening. Warm interior light, door or window open to the dark outside. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 3:4, rendered at 2880 × 3840.
+```
+
+#### `gallery-detail-door.jpg`
+
+- **Status** Supplied
+- **Generate at** 3840 × 3840 (1:1)
+- **Appears on** home/Gallery, home/Materials, /projects
+- **Manifest id** `home.gallery-3`
+- **Alt text** The door of a yurt, seen close.
+- **Art direction** Timber door and frame. Detail, not the whole structure.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. The door of a yurt, seen close. Timber door and frame. Detail, not the whole structure. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 1:1, rendered at 3840 × 3840.
+```
+
+#### `closing-yurt-dusk.jpg`
+
+- **Status** Supplied
+- **Generate at** 3840 × 1646 (21:9)
+- **Appears on** home/Closing
+- **Manifest id** `home.closing`
+- **Alt text** A yurt at dusk, lit from inside.
+- **Art direction** Full-bleed closing image. Must hold a headline across the lower third.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt at dusk, lit from inside. Full-bleed closing image. Must hold a headline across the lower third. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 21:9, rendered at 3840 × 1646.
+```
+
+#### `yurt-luxury-interior.jpg`
+
+- **Status** Supplied
+- **Generate at** 2880 × 3840 (3:4)
+- **Appears on** home/Materials, home page, /yurts
+- **Manifest id** `home.range-luxury`
+- **Alt text** The interior of a luxury yurt, dressed for a paying guest.
+- **Art direction** Interior at dusk with lamps on. Bed, textiles and timber all reading warm.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. The interior of a luxury yurt, dressed for a paying guest. Interior at dusk with lamps on. Bed, textiles and timber all reading warm. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 3:4, rendered at 2880 × 3840.
+```
+
+#### `yurt-yoga-interior.jpg`
+
+- **Status** Supplied
+- **Generate at** 2880 × 3840 (3:4)
+- **Appears on** home page, /yurts
+- **Manifest id** `home.range-yoga`
+- **Alt text** An empty yurt interior laid out as a yoga space.
+- **Art direction** Bare floor, mats rolled at the edge, light falling from the crown.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. An empty yurt interior laid out as a yoga space. Bare floor, mats rolled at the edge, light falling from the crown. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 3:4, rendered at 2880 × 3840.
+```
+
+#### `yurt-glamping-site.jpg`
+
+- **Status** Supplied
+- **Generate at** 2880 × 3840 (3:4)
+- **Appears on** home page, /yurts
+- **Manifest id** `home.range-glamping`
+- **Alt text** A glamping yurt on a prepared platform.
+- **Art direction** Single structure on a deck, path leading to it, landscape behind.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A glamping yurt on a prepared platform. Single structure on a deck, path leading to it, landscape behind. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 3:4, rendered at 2880 × 3840.
+```
+
+#### `yurt-cafe-interior.jpg`
+
+- **Status** Supplied
+- **Generate at** 2880 × 3840 (3:4)
+- **Appears on** home page, /yurts
+- **Manifest id** `home.range-cafe`
+- **Alt text** A yurt fitted out as a cafe, with a counter and seating.
+- **Art direction** Counter in frame, a few tables, daylight through an open door.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt fitted out as a cafe, with a counter and seating. Counter in frame, a few tables, daylight through an open door. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 3:4, rendered at 2880 × 3840.
+```
+
+#### `yurt-residential-exterior.jpg`
+
+- **Status** Supplied
+- **Generate at** 2880 × 3840 (3:4)
+- **Appears on** home page, /yurts
+- **Manifest id** `home.range-residential`
+- **Alt text** A yurt used as a home, with a planted approach.
+- **Art direction** Lived-in: furniture visible through the door, planting around the deck.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt used as a home, with a planted approach. Lived-in: furniture visible through the door, planting around the deck. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 3:4, rendered at 2880 × 3840.
+```
+
+#### `yurt-custom-detail.jpg`
+
+- **Status** Supplied
+- **Generate at** 2880 × 3840 (3:4)
+- **Appears on** home page, /yurts
+- **Manifest id** `home.range-custom`
+- **Alt text** A detail of a customised yurt door and frame.
+- **Art direction** Close on a bespoke timber detail. Craft, not the whole structure.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A detail of a customised yurt door and frame. Close on a bespoke timber detail. Craft, not the whole structure. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 3:4, rendered at 2880 × 3840.
+```
+
+#### `application-yoga.jpg`
+
+- **Status** Supplied
+- **Generate at** 3072 × 3840 (4:5)
+- **Appears on** /applications
+- **Manifest id** `home.application-yoga`
+- **Alt text** A yurt in use as a yoga and meditation space.
+- **Art direction** Wide interior, floor dominant, no people or one figure seated.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt in use as a yoga and meditation space. Wide interior, floor dominant, no people or one figure seated. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 4:5, rendered at 3072 × 3840.
+```
+
+#### `application-eco-tourism.jpg`
+
+- **Status** Supplied
+- **Generate at** 3072 × 3840 (4:5)
+- **Appears on** home/Sustainability, /applications
+- **Manifest id** `home.application-eco`
+- **Alt text** A yurt on an ecologically sensitive site.
+- **Art direction** Structure small in a large landscape. Untouched ground around it.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt on an ecologically sensitive site. Structure small in a large landscape. Untouched ground around it. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 4:5, rendered at 3072 × 3840.
+```
+
+#### `application-cafe.jpg`
+
+- **Status** Supplied
+- **Generate at** 3072 × 3840 (4:5)
+- **Appears on** /applications
+- **Manifest id** `home.application-cafe`
+- **Alt text** A yurt operating as a cafe.
+- **Art direction** Exterior with the door open and seating spilling outside.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt operating as a cafe. Exterior with the door open and seating spilling outside. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 4:5, rendered at 3072 × 3840.
+```
+
+#### `application-private-home.jpg`
+
+- **Status** Supplied
+- **Generate at** 3072 × 3840 (4:5)
+- **Appears on** /applications, home page
+- **Manifest id** `home.application-homes`
+- **Alt text** A yurt used as a private home or annexe.
+- **Art direction** Domestic setting — a garden or plot beside an existing house.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt used as a private home or annexe. Domestic setting — a garden or plot beside an existing house. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 4:5, rendered at 3072 × 3840.
+```
+
+#### `application-studio.jpg`
+
+- **Status** Supplied
+- **Generate at** 3072 × 3840 (4:5)
+- **Appears on** /applications
+- **Manifest id** `home.application-studios`
+- **Alt text** A yurt used as a studio or workspace.
+- **Art direction** Desk, work in progress, daylight. Quiet and occupied.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt used as a studio or workspace. Desk, work in progress, daylight. Quiet and occupied. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 4:5, rendered at 3072 × 3840.
+```
+
+#### `application-community.jpg`
+
+- **Status** Supplied
+- **Generate at** 3072 × 3840 (4:5)
+- **Appears on** /applications
+- **Manifest id** `home.application-community`
+- **Alt text** A yurt used as a classroom or community space.
+- **Art direction** A group seated in a circle. Faces need not be identifiable.
+
+```
+A yurt — a round timber-framed tent with a domed roof and a central crown wheel. A yurt used as a classroom or community space. A group seated in a circle. Faces need not be identifiable. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 4:5, rendered at 3072 × 3840.
+```
 
 ## 360° panoramas
 
@@ -60,8 +511,10 @@ equirectangular projection has to be geometrically correct all the way round
 or the viewer will visibly warp. Shoot these with a 360 camera (Insta360,
 Ricoh Theta or similar) once a real structure is standing.
 
-**Format:** equirectangular JPEG, 2:1 ratio, 4096 × 2048. Do not exceed 8192
-wide — some mobile GPUs will fail to upload the texture.
+**Format:** equirectangular JPEG, 2:1 ratio, 4096 × 2048 — that is already the
+4K target for this kind of asset, so do not scale it to match the 3840 figure
+used for the flat images above. Do not exceed 8192 wide either: some mobile
+GPUs will fail to upload the texture.
 
 **To add one:** save into `public/vr/`, then set `src: "/vr/<file>"` on the
 matching scene in `data/vr.ts`.
@@ -75,15 +528,18 @@ fixed list. They are uploaded in the Studio at `/studio` alongside the content
 they belong to. Each needs alt text — the schema will not let it be published
 without.
 
-| Content type | Images it takes | Crop used |
-| --- | --- | --- |
-| Yurt (product) | Hero, gallery, floor plan per size | 21:9 hero, mixed gallery |
-| Application | Hero | 21:9 |
-| Project | Hero, gallery, floor plans | 21:9 hero, mixed gallery |
-| Journal article | Hero | 21:9 |
-| Author | Portrait | 1:1 |
-| Resource | Cover | 3:4 |
-| Site settings | Default share image | 1200 × 630 |
+Sizes match the table above — upload at the 4K target for the crop and Sanity
+serves the smaller variants each layout asks for.
+
+| Content type | Images it takes | Crop used | Upload at |
+| --- | --- | --- | --- |
+| Yurt (product) | Hero, gallery, floor plan per size | 21:9 hero, mixed gallery | 3840 × 1646 |
+| Application | Hero | 21:9 | 3840 × 1646 |
+| Project | Hero, gallery, floor plans | 21:9 hero, mixed gallery | 3840 × 1646 |
+| Journal article | Hero | 21:9 | 3840 × 1646 |
+| Author | Portrait | 1:1 | 3840 × 3840 |
+| Resource | Cover | 3:4 | 2880 × 3840 |
+| Site settings | Default share image | 1.91:1 | 1200 × 630 (fixed) |
 
 ## Information still needed
 
@@ -140,40 +596,3 @@ Until one of the last two groups is set, the enquiry form refuses to report
 success and tells the visitor to make contact another way. That is deliberate:
 a form that thanks someone while dropping their message loses the enquiry with
 no trace that it existed.
-
----
-
-## Already supplied (32)
-
-- `hero-yurt.jpg`
-- `yurt-classic-exterior.jpg`
-- `yurt-resort-deck.jpg`
-- `yurt-wellness-interior.jpg`
-- `yurt-event-evening.jpg`
-- `application-resorts.jpg`
-- `application-glamping.jpg`
-- `application-farm-stay.jpg`
-- `application-wellness.jpg`
-- `application-events.jpg`
-- `builder-configurator.jpg`
-- `vr-interior-panorama.jpg`
-- `workshop-frame-assembly.jpg`
-- `material-timber-detail.jpg`
-- `material-canvas-weave.jpg`
-- `material-crown-wheel.jpg`
-- `gallery-landscape-wide.jpg`
-- `gallery-interior-evening.jpg`
-- `gallery-detail-door.jpg`
-- `closing-yurt-dusk.jpg`
-- `yurt-luxury-interior.jpg`
-- `yurt-yoga-interior.jpg`
-- `yurt-glamping-site.jpg`
-- `yurt-cafe-interior.jpg`
-- `yurt-residential-exterior.jpg`
-- `yurt-custom-detail.jpg`
-- `application-yoga.jpg`
-- `application-eco-tourism.jpg`
-- `application-cafe.jpg`
-- `application-private-home.jpg`
-- `application-studio.jpg`
-- `application-community.jpg`

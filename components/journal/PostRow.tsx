@@ -24,23 +24,24 @@ export function PostRow({
     return (
       <Reveal kind="media" as="li" className="border-t border-line pt-10">
         <Link href={`/journal/${post.slug}`} className="group block">
-          <div className="overflow-hidden">
+          <div className="overflow-hidden rounded-sm bg-surface-alt border border-line shadow-xl">
             <CmsImage
               image={post.heroImage}
               ratio="landscape"
               sizes="100vw"
               width={2000}
+              priority
               pendingLabel={`${post.slug}.jpg`}
-              className="transition-transform duration-(--duration-slow) ease-(--ease-out-soft) group-hover:scale-[1.02]"
+              className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
             />
           </div>
           <div className="u-grid mt-8">
             <div className="col-span-4 md:col-span-6 lg:col-span-7">
-              <h2 className="font-display text-display-lg u-optical-left">
+              <h2 className="font-display text-display-lg u-optical-left group-hover:text-accent-text transition-colors duration-300">
                 {post.title}
               </h2>
               {post.excerpt ? (
-                <p className="mt-6 u-measure font-sans text-lead text-text-muted">
+                <p className="mt-5 u-measure font-sans text-lead text-text-muted leading-relaxed">
                   {post.excerpt}
                 </p>
               ) : null}
@@ -58,15 +59,17 @@ export function PostRow({
     <Reveal kind="up" as="li" className="border-t border-line last:border-b">
       <Link href={`/journal/${post.slug}`} className="group u-grid items-start gap-y-5 py-8 lg:py-10">
         {typeof index === "number" ? (
-          <span className="col-span-1 font-sans text-meta uppercase text-text-muted lg:col-span-1">
+          <span className="col-span-1 font-sans text-meta uppercase text-accent-text font-semibold lg:col-span-1">
             {String(index).padStart(2, "0")}
           </span>
         ) : null}
 
         <div className="col-span-3 md:col-span-5 lg:col-span-6">
-          <h2 className="font-display text-display-sm">{post.title}</h2>
+          <h2 className="font-display text-display-sm text-text leading-snug group-hover:text-accent-text transition-colors duration-300">
+            {post.title}
+          </h2>
           {post.excerpt ? (
-            <p className="mt-3 u-measure font-sans text-body text-text-muted">
+            <p className="mt-3 u-measure font-sans text-body text-text-muted leading-relaxed line-clamp-3">
               {post.excerpt}
             </p>
           ) : null}
@@ -76,14 +79,14 @@ export function PostRow({
         </div>
 
         <div className="col-span-4 md:col-span-6 lg:col-span-3 lg:col-start-10">
-          <div className="overflow-hidden">
+          <div className="overflow-hidden rounded-xs bg-surface-alt border border-line shadow-md">
             <CmsImage
               image={post.heroImage}
-              ratio="editorial"
-              sizes="(min-width: 1024px) 24vw, 100vw"
-              width={800}
+              ratio="landscape"
+              sizes="(min-width: 1024px) 25vw, 100vw"
+              width={1000}
               pendingLabel={`${post.slug}.jpg`}
-              className="transition-transform duration-(--duration-slow) ease-(--ease-out-soft) group-hover:scale-[1.02]"
+              className="h-[180px] sm:h-[200px] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
             />
           </div>
         </div>

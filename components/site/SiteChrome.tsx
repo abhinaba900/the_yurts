@@ -6,6 +6,7 @@ import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { BackgroundAudioProvider } from "@/components/site/BackgroundAudio";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 import { getSettings } from "@/lib/settings";
+import { hasTopBar } from "@/lib/site";
 
 /**
  * The site chrome: header, footer, smooth scroll, skip link and site-wide
@@ -26,8 +27,18 @@ export async function SiteChrome({ children }: { children: React.ReactNode }) {
       <SkipLink />
       <Header contact={settings.contact} />
       {/* Offsets the fixed header. Pages that open with a full-bleed hero pull
-          back up with a negative margin of their own. */}
-      <main id="main" className="pt-20 md:pt-24">
+          back up with a negative margin of their own — by the height of the
+          navigation row only, so a hero starts directly beneath the utility bar
+          rather than behind it. The bar is 2.25rem (h-9) when it has contact
+          details to show, and absent entirely when it does not. */}
+      <main
+        id="main"
+        className={
+          hasTopBar(settings.contact)
+            ? "pt-[7.25rem] md:pt-[8.25rem]"
+            : "pt-20 md:pt-24"
+        }
+      >
         {children}
       </main>
       <Footer />

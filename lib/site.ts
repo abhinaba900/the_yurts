@@ -38,10 +38,14 @@ export const site = {
   description:
     "Theyurts designs, manufactures and installs premium yurts for resorts, glamping sites, wellness retreats, farm stays and private landowners across India.",
 
-  /** PENDING CLIENT — see docs/CONTENT-NEEDED.md */
+  /**
+   * Email and phone supplied by the client. The remaining fields are still
+   * PENDING CLIENT — see docs/CONTENT-NEEDED.md. A value set here is only the
+   * fallback: anything filled into the Sanity site-settings document wins.
+   */
   contact: {
-    email: null as string | null,
-    phone: null as string | null,
+    email: "unthink@theyurts.com" as string | null,
+    phone: "+91 9880114331" as string | null,
     whatsapp: null as string | null,
     address: null as string | null,
     city: null as string | null,
@@ -114,3 +118,18 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     ],
   },
 ];
+
+/**
+ * Whether the header's utility bar has anything to show.
+ *
+ * Lives here rather than in the TopBar component because that component is
+ * pulled into the client graph by Header ("use client"); a named export read
+ * from there by a server component resolves to a client reference, not the
+ * function. SiteChrome needs the real predicate to pick its layout offset.
+ */
+export function hasTopBar(contact: {
+  email: string | null;
+  phone: string | null;
+}): boolean {
+  return Boolean(contact.email || contact.phone);
+}

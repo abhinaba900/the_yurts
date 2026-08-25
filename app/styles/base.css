@@ -586,3 +586,73 @@ html.lenis body {
   animation: audioWave4 1.1s ease-in-out infinite 0.05s;
 }
 
+
+/* -- Continuous image band ------------------------------------------------- */
+
+/**
+ * A single run of images translating right to left, forever.
+ *
+ * Deliberately CSS rather than a carousel library: the whole animation is one
+ * compositor-driven transform, so it cannot stutter against the main thread the
+ * way a rAF-driven slider does on a page that is already running Lenis, a WebGL
+ * canvas and scroll reveals. It also ships no JavaScript at all.
+ */
+.u-marquee {
+  /* Images emerge from and dissolve into the page rather than being cut off at
+     a hard edge — the strongest single cue that the band belongs to the
+     composition instead of being a widget dropped onto it. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 7%,
+    #000 93%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 7%,
+    #000 93%,
+    transparent
+  );
+}
+
+.u-marquee-track {
+  animation: marquee-drift var(--marquee-duration, 64s) linear infinite;
+  will-change: transform;
+}
+
+/* Pausing on hover is what makes it browsable rather than merely decorative:
+   the eye catches something, the band waits. */
+.u-marquee:hover .u-marquee-track,
+.u-marquee:focus-within .u-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  /* The track holds the run twice, so -50% lands exactly on the seam and the
+     loop is invisible. */
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/**
+ * A deliberate exception to the blanket reduced-motion reset further up this
+ * file, matching the client's decision for the yurt diagram: this band keeps
+ * drifting. The `!important` is required only to out-rank that reset — it is
+ * not a specificity shortcut.
+ *
+ * The concession is that the motion is as unprovocative as continuous motion
+ * gets: one axis, constant velocity, no easing, no scaling, no flashing, and it
+ * stops under the cursor. Revert by restoring `animation: none` here.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .u-marquee-track {
+    animation-duration: var(--marquee-duration, 64s) !important;
+    animation-iteration-count: infinite !important;
+  }
+}

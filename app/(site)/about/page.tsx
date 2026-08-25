@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 import { PageHeader } from "@/components/page/PageHeader";
 import { Media } from "@/components/primitives/Media";
@@ -7,414 +6,368 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { Section } from "@/components/primitives/Section";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
-import { AboutArchitectureStage } from "@/components/about/AboutArchitectureStage";
-
 export const metadata = pageMetadata({
   title: "About",
   description:
-    "Theyurts designs, manufactures, and turnkey-installs precision-engineered circular timber yurts across India — for resorts, glamping sites, farm stays, and private landowners.",
+    "Theyurts designs, manufactures and installs modern yurts across India — creating spaces for hospitality, wellness, living and experiences.",
   path: "/about",
 });
 
-const corePillars = [
+/** WHAT WE HOLD TO — the four positions, in the order they are argued. */
+const positions = [
   {
-    index: "01",
-    title: "Structural Honesty & Readable Geometry",
-    what: "What it is: A column-free circular timber space where every steam-bent ash rafter radiates into a central crown wheel.",
-    why: "Why we use it: Concealing structural engineering with false ceilings or drywall removes the emotional magic of natural space. In a yurt, the compression ring and tension band do the structural work in plain view.",
-    good: "Why it is good: Creates a calming, expansive acoustic envelope with natural daylight streaming through the 360° oculus skylight, proven to elevate guest satisfaction and wellbeing.",
+    title: "The structure should make sense.",
+    body: "A yurt is beautiful because its structure is honest. We believe the engineering should be considered as carefully as the aesthetics, and the finished space should feel natural rather than over-designed.",
   },
   {
-    index: "02",
-    title: "Land-First, Zero-Concrete Engineering",
-    what: "What it is: Elevated timber platform structures mounted on removable helical ground screws or minimal stone pier stilts.",
-    why: "Why we use it: Traditional brick-and-mortar masonry requires invasive excavation, deep concrete sumps, and permanent land destruction—often impossible on steep hillsides, forest fringes, or agricultural land.",
-    good: "Why it is good: Leaves 98% of the natural soil profile completely untouched. The structure sits gently on the land rather than fighting it, easily complying with eco-tourism and non-permanent guidelines.",
+    title: "The site comes first.",
+    body: "No two pieces of land are the same. Orientation, access, views, terrain, climate and the experience of arriving at the space are all part of the design.",
   },
   {
-    index: "03",
-    title: "Pre-Engineered Workshop Tolerance",
-    what: "What it is: 100% of the lattice walls, rafters, door joinery, and compression rings are precision-machined and test-assembled under roof before shipment.",
-    why: "Why we use it: On-site building in remote Indian terrains leads to weather delays, uneven material quality, and uncontrolled site compounds.",
-    good: "Why it is good: What leaves our workshop is a flat-packed architectural system that assembles on your site in just 3 to 4 days, with zero wet trades, scaffolding, or extended noise disruption.",
+    title: "Specifications should be true.",
+    body: "We would rather publish fewer numbers that we can stand behind than fill a page with impressive-sounding claims. As our products develop, we will document the materials, specifications and performance behind them.",
   },
   {
-    index: "04",
-    title: "Multi-Layer Climate Membranes",
-    what: "What it is: A tailored multi-layer skin combining heavy-duty organic canvas, moisture-breathing vapour barriers, and dense thermal insulation.",
-    why: "Why we use it: India's weather ranges from -15°C sub-zero Himalayan blizzards to 45°C arid summers and torrential Western Ghats monsoons.",
-    good: "Why it is good: Prevents condensation, rejects mold, sheds heavy snow loads naturally, and maintains stable interior room temperatures year-round.",
+    title: "It should be worth maintaining.",
+    body: "A good structure should continue to work beautifully long after the photographs are taken. Materials, construction and detailing all matter because they determine what ownership feels like over time.",
   },
 ];
 
-const materialBreakdown = [
-  {
-    id: "home.material-timber" as const,
-    name: "Steam-Bent Ash Lattice",
-    what: "Expanding high-tensile timber framework with hand-hammered copper rivets.",
-    why: "Offers unmatched flexibility to fold down for transport, opening into a high-strength curved wall.",
-    benefit: "Natural timber warmth, high load-bearing strength, and lifetime structural repairability.",
-  },
-  {
-    id: "home.material-crown" as const,
-    name: "Solid Crown Wheel Oculus",
-    what: "Heavy timber compression ring that anchors every roof rafter at the apex.",
-    why: "Eliminates all internal columns, providing 100% usable open floor space inside the room.",
-    benefit: "360° celestial sky view and natural stack-effect convection ventilation.",
-  },
-  {
-    id: "home.material-canvas" as const,
-    name: "Weatherproof Organic Canvas",
-    what: "Heavyweight, UV-treated, fire-retardant, and water-repellent breathable skin.",
-    why: "Breathes during heavy humidity while preventing external wind and rain penetration.",
-    benefit: "Soft fabric acoustics that muffle heavy wind and rain, unlike noisy metal or glass pods.",
-  },
-  {
-    id: "home.gallery-3" as const,
-    name: "Custom Joinery & Hardware",
-    what: "Solid hardwood entrance doors, insulated glazed windows, and forged tension cables.",
-    why: "Ensures thermal perimeter seals, guest security, and seamless integration with timber decks.",
-    benefit: "High-traffic durability with luxury residential-grade locks and weather-stripped sills.",
-  },
-];
-
-const terrainCards = [
-  {
-    region: "Himalayan Slopes & Snow Zones",
-    states: "Himachal Pradesh · Uttarakhand · Ladakh · Kashmir",
-    desc: "Engineered for 30° steep mountain gradients and 180 kg/m² snow loads. Radial conical roofs shed snow accumulation naturally while multi-layer thermal wool retains wood-stove heat in sub-zero winters.",
-  },
-  {
-    region: "Coastal & High-Humidity Zones",
-    states: "Goa · Kerala · Maharashtra Konkan · Andaman",
-    desc: "100% non-permanent modularity complying with Coastal Regulation Zone (CRZ) bylaws. Mildew-resistant breathable outer membranes ensure zero interior condensation and rapid air circulation.",
-  },
-  {
-    region: "Agricultural & Farm Stays",
-    states: "Punjab · Haryana · Karnataka · Tamil Nadu",
-    desc: "Allows agricultural landowners to unlock hospitality revenue without prolonged CLU (Change of Land Use) conversion cycles. Zero-concrete footings keep farming soil fertile and retrievable.",
-  },
-  {
-    region: "Arid & Desert Landscapes",
-    states: "Rajasthan · Gujarat · Kutch",
-    desc: "Reflective canvas finishes with dual ventilation flaps to resist intense daytime solar radiation while retaining evening warmth in cold desert nights.",
-  },
-];
+/** The five stages, named as the copy names them. Detail lives on /process. */
+const makingChain = ["Design", "Build", "Prepare", "Deliver", "Install"];
 
 /**
- * About Page.
+ * ABOUT US
  *
- * Full Yarts-driven editorial architecture with alternating Dark/Light section rhythm.
- * Every section clearly articulates:
- * 1. What it is for
- * 2. Why we are using it
- * 3. Why it is good
+ * Eight sections:
+ * 01. Hero — A new way to build an old idea.
+ * 02. The idea — There is a space between a tent and a building.
+ * 03. What we hold to — Four positions.
+ * 04. How we make them — In a workshop. Then on your land.
+ * 05. Team — The people behind Theyurts.
+ * 06. Certifications — Quality, testing & standards.
+ * 07. Workshop — Where Theyurts are made.
+ * 08. Final CTA — Tell us about the land.
+ *
+ * The page deliberately carries no performance figures. That is not an
+ * omission: "Specifications should be true" is one of the four positions, and a
+ * page that argued it beside a table of snow loads and wind ratings would be
+ * arguing against itself. Numbers belong here once they can be substantiated.
  */
-export default async function AboutPage() {
+export default function AboutPage() {
   return (
     <>
-      {/* =========================================================================
-          SECTION 1: HERO & ORIGIN (Dark Surface)
-          ========================================================================= */}
+      {/* 01. HERO */}
       <PageHeader
         eyebrow="About Theyurts"
-        title="A new company, building an ancient structure with precision."
-        lead="Theyurts designs, manufactures, and turnkey-installs circular timber yurts across India. We are built on the conviction that the most remarkable accommodation should leave the lightest footprint on the ground."
+        title="A new way to build an old idea."
+        lead="Theyurts designs, manufactures and installs modern yurts across India — creating spaces for hospitality, wellness, living and experiences."
         aside={
           <div className="border-t border-line pt-5">
-            <p className="font-sans text-small text-text-muted">
-              Engineered in our workshop and erected on your land without wet
-              trades, concrete foundations, or prolonged construction disruption.
+            <p className="font-sans text-body text-text-muted leading-relaxed">
+              We are building yurts for a country with extraordinary landscapes,
+              diverse climates and a growing appetite for experiences beyond
+              conventional spaces.
             </p>
-            <div className="mt-6">
-              <ArrowLink href="/enquire">Discuss an installation</ArrowLink>
-            </div>
           </div>
         }
       />
 
-      {/* Interactive Architectural Specification Stage */}
-      <div className="u-container pb-(--spacing-section)">
-        <Reveal kind="media">
-          <AboutArchitectureStage />
-        </Reveal>
-      </div>
-
-      {/* =========================================================================
-          SECTION 2: THE PROBLEM WE SOLVE (Light Paper Surface)
-          ========================================================================= */}
+      {/* 02. THE IDEA */}
       <Section tone="light" space="lg">
         <div className="u-container">
           <div className="u-grid">
             <div className="col-span-4 md:col-span-6 lg:col-span-5">
-              <Metadata className="text-accent-text">The Gap in the Market</Metadata>
-              <h2 className="mt-3 font-display text-display-lg u-optical-left">
-                There is a gap between a tent and a building.
-              </h2>
-            </div>
-            <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-3">
-              <p className="u-measure font-sans text-lead text-text-muted">
-                India has vast landscapes where conventional brick-and-mortar
-                construction is slow, expensive, and environmentally destructive.
-              </p>
-              <p className="mt-4 u-measure font-sans text-body text-text-muted">
-                Luxury canvas tents degrade within three monsoons, while container
-                and metal pods feel artificial and thermally unlivable. Theyurts
-                was founded to manufacture the properly engineered, permanent-grade
-                timber yurt in India—combining authentic architectural craftsmanship
-                with complete climate resilience.
-              </p>
-            </div>
-          </div>
-
-          {/* 3-Way Comparative Grid */}
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            <div className="rounded-sm border border-line bg-surface p-7 flex flex-col justify-between">
-              <div>
-                <span className="font-sans text-meta uppercase text-text-muted text-xs">
-                  Option 01
-                </span>
-                <h3 className="mt-2 font-display text-display-sm text-text">
-                  Conventional Concrete Masonry
-                </h3>
-                <ul className="mt-4 space-y-2.5 font-sans text-small text-text-muted border-t border-line/60 pt-4">
-                  <li>&times; 12–18 month construction timeline</li>
-                  <li>&times; Invasive excavation & concrete sumps</li>
-                  <li>&times; Heavy environmental footprint</li>
-                  <li>&times; High upfront capital expenditure</li>
-                </ul>
-              </div>
-              <span className="mt-6 block font-sans text-meta uppercase text-text-muted text-[0.6875rem]">
-                Verdict: Too slow & rigid
-              </span>
+              <Reveal kind="up">
+                <Metadata className="text-accent-text">The idea</Metadata>
+                <h2 className="mt-3 font-display text-display-lg u-optical-left leading-tight">
+                  There is a space between a tent and a building.
+                </h2>
+                <p className="mt-5 font-display text-display-sm text-text-muted">
+                  And we think there is something interesting there.
+                </p>
+              </Reveal>
             </div>
 
-            <div className="rounded-sm border border-line bg-surface p-7 flex flex-col justify-between">
-              <div>
-                <span className="font-sans text-meta uppercase text-text-muted text-xs">
-                  Option 02
-                </span>
-                <h3 className="mt-2 font-display text-display-sm text-text">
-                  Temporary Canvas Safari Tents
-                </h3>
-                <ul className="mt-4 space-y-2.5 font-sans text-small text-text-muted border-t border-line/60 pt-4">
-                  <li>&times; Fabric flapping & poor wind stability</li>
-                  <li>&times; Mildew and mold during monsoons</li>
-                  <li>&times; Poor sub-zero winter insulation</li>
-                  <li>&times; 2 to 3-year replacement cycle</li>
-                </ul>
-              </div>
-              <span className="mt-6 block font-sans text-meta uppercase text-text-muted text-[0.6875rem]">
-                Verdict: High maintenance & fragile
-              </span>
-            </div>
+            <div className="col-span-4 mt-8 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-3">
+              <Reveal kind="up" delay={0.08}>
+                <p className="u-measure font-sans text-lead text-text-muted leading-relaxed">
+                  Across India, there are hillsides, farms, forests, plantations
+                  and open landscapes where conventional construction isn&apos;t
+                  always the right answer.
+                </p>
+                <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
+                  At the same time, people are looking for new ways to stay,
+                  retreat, work, gather and experience the outdoors.
+                </p>
 
-            <div className="rounded-sm border-2 border-accent bg-surface-alt p-7 shadow-lg flex flex-col justify-between">
-              <div>
-                <span className="font-sans text-meta uppercase text-accent-text font-semibold text-xs">
-                  Option 03 &middot; The Yarts Standard
-                </span>
-                <h3 className="mt-2 font-display text-display-sm text-text">
-                  Engineered Circular Timber Yurts
-                </h3>
-                <ul className="mt-4 space-y-2.5 font-sans text-small text-text border-t border-line/60 pt-4">
-                  <li>&check; 3 to 4-day turnkey on-site assembly</li>
-                  <li>&check; Zero concrete footprint & 100% relocatable</li>
-                  <li>&check; Multi-layer thermal & monsoon breathability</li>
-                  <li>&check; High guest RevPAR & 14-month ROI payback</li>
-                </ul>
-              </div>
-              <span className="mt-6 block font-sans text-meta uppercase text-accent-text font-semibold text-[0.6875rem]">
-                Verdict: Optimal luxury & speed
-              </span>
+                <p className="mt-8 font-display text-display-xs text-text">
+                  A yurt sits somewhere in between.
+                </p>
+                <p className="mt-3 u-measure font-sans text-body text-text-muted leading-relaxed">
+                  It has the comfort and character of a room, while maintaining a
+                  closer relationship with the landscape around it.
+                </p>
+                <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
+                  Theyurts exists to build that possibility properly &mdash; with
+                  thoughtful design, considered materials and a process built
+                  around the land where the structure will live.
+                </p>
+              </Reveal>
             </div>
           </div>
         </div>
       </Section>
 
-      {/* =========================================================================
-          SECTION 3: FOUR GUIDING PRINCIPLES (Dark Walnut Surface)
-          ========================================================================= */}
+      {/* 03. WHAT WE HOLD TO */}
       <section className="py-(--spacing-section-lg) border-t border-line">
         <div className="u-container">
           <div className="u-grid items-start">
             <header className="col-span-4 md:col-span-6 lg:col-span-4 lg:sticky lg:top-28 xl:top-32 self-start">
-              <Metadata className="text-accent-text">What We Hold To</Metadata>
-              <h2 className="mt-3 font-display text-display-lg u-optical-left">
-                Four architectural commitments.
-              </h2>
-              <p className="mt-5 u-measure font-sans text-body text-text-muted">
-                Every structure we build adheres to four rigorous principles
-                governing why we use circular geometry, how we source materials,
-                and how the building serves your land.
-              </p>
+              <Reveal kind="up">
+                <Metadata className="text-accent-text">What we hold to</Metadata>
+                <h2 className="mt-3 font-display text-display-lg u-optical-left">
+                  Four positions.
+                </h2>
+              </Reveal>
             </header>
 
-            <div className="col-span-4 mt-10 md:col-span-6 lg:col-span-7 lg:col-start-6 lg:mt-0 space-y-8">
-              {corePillars.map((pillar) => (
-                <Reveal
-                  key={pillar.index}
-                  kind="up"
-                  className="rounded-sm border border-line bg-surface-alt p-7 lg:p-8 transition-all duration-300 hover:border-accent"
-                >
-                  <div className="flex items-baseline justify-between border-b border-line pb-4">
-                    <h3 className="font-display text-display-sm text-text">
-                      {pillar.title}
-                    </h3>
-                    <span className="font-sans text-meta text-accent-text font-semibold">
-                      {pillar.index}
-                    </span>
-                  </div>
-
-                  <div className="mt-5 space-y-3 font-sans text-[0.9375rem] leading-relaxed">
-                    <p className="text-text font-medium">{pillar.what}</p>
-                    <p className="text-text-muted">{pillar.why}</p>
-                    <div className="mt-4 rounded-xs bg-surface-deep/80 border border-line/60 p-4 text-accent-text text-small font-medium">
-                      {pillar.good}
+            <div className="col-span-4 mt-10 md:col-span-6 lg:col-span-7 lg:col-start-6 lg:mt-0">
+              <ol>
+                {positions.map((position, i) => (
+                  <Reveal
+                    key={position.title}
+                    kind="up"
+                    as="li"
+                    delay={i * 0.04}
+                    className="border-t border-line py-7 lg:py-8"
+                  >
+                    <div className="flex items-baseline gap-4">
+                      <span className="font-sans text-meta uppercase text-accent-text font-semibold">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div>
+                        <h3 className="font-display text-display-sm text-text leading-tight">
+                          {position.title}
+                        </h3>
+                        <p className="mt-3 u-measure font-sans text-body text-text-muted leading-relaxed">
+                          {position.body}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </Reveal>
-              ))}
+                  </Reveal>
+                ))}
+              </ol>
             </div>
           </div>
         </div>
       </section>
 
-      {/* =========================================================================
-          SECTION 4: MATERIALS & WORKSHOP CRAFTSMANSHIP (Light Paper Surface)
-          ========================================================================= */}
+      {/* 04. HOW WE MAKE THEM */}
       <Section tone="light" space="lg">
         <div className="u-container">
-          <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-4 border-b border-line pb-6">
-            <div>
-              <Metadata className="text-accent-text">Materials & Craft</Metadata>
-              <h2 className="mt-2 font-display text-display-lg u-optical-left">
-                Made of what it looks like.
-              </h2>
-            </div>
-            <p className="max-w-xl font-sans text-body text-text-muted">
-              Nothing is clad to resemble something else. Every component is
-              selected for structural honesty, thermal efficiency, and lifelong
-              repairability.
-            </p>
-          </div>
+          <div className="u-grid items-start gap-y-12">
+            <div className="col-span-4 md:col-span-6 lg:col-span-5">
+              <Reveal kind="up">
+                <Metadata className="text-accent-text">How we make them</Metadata>
+                <h2 className="mt-3 font-display text-display-lg u-optical-left leading-tight">
+                  In a workshop. Then on your land.
+                </h2>
+                <p className="mt-6 u-measure font-sans text-lead text-text-muted leading-relaxed">
+                  Every yurt begins with a carefully considered design and a
+                  collection of components that need to work together precisely.
+                </p>
+                <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
+                  We manufacture and prepare the structure before it reaches the
+                  site, where it is assembled onto a prepared base and finished
+                  according to the requirements of the project.
+                </p>
+              </Reveal>
 
-          {/* 4 Materials Detailed Cards */}
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {materialBreakdown.map((item, i) => (
-              <Reveal
-                key={item.name}
-                kind="media"
-                delay={i * 0.06}
-                className="group flex flex-col justify-between rounded-sm border border-line bg-surface p-6 shadow-sm transition-all duration-300 hover:border-accent hover:shadow-lg"
-              >
-                <div>
-                  <div className="relative overflow-hidden rounded-xs h-[180px] w-full bg-surface-alt">
-                    <Media
-                      id={item.id}
-                      ratio="square"
-                      sizes="(min-width: 1024px) 22vw, 45vw"
-                      className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
-                    />
-                  </div>
-
-                  <div className="mt-4 flex items-baseline justify-between">
-                    <h3 className="font-display text-display-xs text-text font-semibold">
-                      {item.name}
-                    </h3>
-                    <span className="font-sans text-meta text-accent-text uppercase">
-                      0{i + 1}
-                    </span>
-                  </div>
-
-                  <div className="mt-3 space-y-2 font-sans text-xs text-text-muted leading-relaxed">
-                    <p><strong className="text-text">What:</strong> {item.what}</p>
-                    <p><strong className="text-text">Why:</strong> {item.why}</p>
-                  </div>
-                </div>
-
-                <div className="mt-5 border-t border-line/70 pt-3 text-[0.6875rem] font-sans text-accent-text font-semibold uppercase tracking-wider">
-                  &check; {item.benefit}
+              <Reveal kind="media" delay={0.1} className="mt-10">
+                <div className="overflow-hidden rounded-sm border border-line bg-surface shadow-xl">
+                  <Media
+                    id="home.process"
+                    sizes="(min-width: 1024px) 40vw, 100vw"
+                  />
                 </div>
               </Reveal>
-            ))}
-          </div>
+            </div>
 
-          <div className="mt-10 border-t border-line pt-6 flex flex-wrap items-center justify-between gap-4">
-            <ArrowLink href="/process">Explore the full 8-stage manufacturing process</ArrowLink>
-            <span className="font-sans text-meta uppercase text-text-muted text-xs">
-              Manufactured in India
-            </span>
+            <div className="col-span-4 md:col-span-6 lg:col-span-6 lg:col-start-7">
+              <Reveal kind="up" delay={0.08}>
+                <span className="font-sans text-meta uppercase text-text-muted">
+                  The process is simple in principle:
+                </span>
+
+                <ol className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-3">
+                  {makingChain.map((stage, i) => (
+                    <li key={stage} className="flex items-center gap-3">
+                      <span className="rounded-xs border border-line bg-surface px-3 py-2 font-sans text-meta uppercase text-text">
+                        {stage}
+                      </span>
+                      {i < makingChain.length - 1 ? (
+                        <span aria-hidden className="text-accent-text">
+                          &rarr;
+                        </span>
+                      ) : null}
+                    </li>
+                  ))}
+                </ol>
+
+                <p className="mt-10 font-display text-display-xs text-text">
+                  The details are where the work happens.
+                </p>
+                <p className="mt-3 u-measure font-sans text-body text-text-muted leading-relaxed">
+                  Materials, finishes, connections, insulation and construction
+                  methods are selected according to the structure, its purpose and
+                  the environment in which it will live.
+                </p>
+
+                <div className="mt-10 flex flex-col items-start gap-4 border-t border-line pt-6 sm:flex-row sm:gap-10">
+                  <ArrowLink href="/process">Explore the build process</ArrowLink>
+                  <ArrowLink href="/why-theyurts">Why a yurt</ArrowLink>
+                </div>
+              </Reveal>
+            </div>
           </div>
         </div>
       </Section>
 
-      {/* =========================================================================
-          SECTION 5: ENGINEERED FOR INDIA'S TERRAINS (Dark Walnut Surface)
-          ========================================================================= */}
+      {/* 05. TEAM */}
       <section className="py-(--spacing-section-lg) border-t border-line">
         <div className="u-container">
           <div className="u-grid">
             <div className="col-span-4 md:col-span-6 lg:col-span-5">
-              <Metadata className="text-accent-text">Topography & Terrain</Metadata>
-              <h2 className="mt-3 font-display text-display-lg u-optical-left">
-                Engineered for India's diverse ground.
-              </h2>
+              <Reveal kind="up">
+                <Metadata className="text-accent-text">Team</Metadata>
+                <h2 className="mt-3 font-display text-display-lg u-optical-left">
+                  The people behind Theyurts.
+                </h2>
+              </Reveal>
             </div>
-            <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-3">
-              <p className="u-measure font-sans text-lead text-text-muted">
-                From high-altitude Himalayan ridgelines to coastal backwaters and
-                arid deserts, our structures adapt to the micro-climate they stand in.
-              </p>
-            </div>
-          </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
-            {terrainCards.map((card, i) => (
-              <Reveal
-                key={card.region}
-                kind="up"
-                delay={i * 0.06}
-                className="rounded-sm border border-line bg-surface-alt p-7 transition-all duration-300 hover:border-accent"
-              >
-                <span className="font-sans text-meta uppercase text-accent-text font-semibold text-xs">
-                  {card.states}
-                </span>
-                <h3 className="mt-2 font-display text-display-sm text-text">
-                  {card.region}
-                </h3>
-                <p className="mt-3.5 font-sans text-body text-text-muted text-[0.9375rem] leading-relaxed">
-                  {card.desc}
+            <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-3">
+              <Reveal kind="up" delay={0.08}>
+                <p className="u-measure font-sans text-lead text-text-muted leading-relaxed">
+                  Theyurts is being built by people who believe there is a better
+                  way to create spaces in the landscape.
+                </p>
+                <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
+                  Our team brings together design, construction, manufacturing and
+                  hospitality thinking to create structures that are as considered
+                  in their details as they are in their overall experience.
+                </p>
+                <p className="mt-8 border-t border-line pt-6 font-display text-display-xs text-text">
+                  Meet the people building Theyurts.
                 </p>
               </Reveal>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* =========================================================================
-          SECTION 6: DIRECT CTA (Light Paper Surface)
-          ========================================================================= */}
+      {/* 06. CERTIFICATIONS */}
       <Section tone="light" space="lg">
         <div className="u-container">
           <div className="u-grid">
-            <div className="col-span-4 md:col-span-6 lg:col-span-6">
-              <Metadata className="text-accent-text">Commission a Structure</Metadata>
-              <h2 className="mt-3 font-display text-display-lg u-optical-left">
-                Tell us about your land.
-              </h2>
+            <div className="col-span-4 md:col-span-6 lg:col-span-5">
+              <Reveal kind="up">
+                <Metadata className="text-accent-text">Certifications</Metadata>
+                <h2 className="mt-3 font-display text-display-lg u-optical-left">
+                  Quality, testing &amp; standards.
+                </h2>
+              </Reveal>
             </div>
-            <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-5 lg:col-start-8 lg:mt-2">
-              <p className="u-measure font-sans text-lead text-text-muted">
-                Whether you have a single hillside plot, a working farm, or are
-                master-planning a 10-unit luxury glamping retreat, our workshop
-                will advise on suitable diameters, thermal ratings, and ground
-                screws.
-              </p>
-              <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:gap-8">
-                <ArrowLink href="/enquire">Start an enquiry</ArrowLink>
-                <ArrowLink href="/experiences/builder">Try the 3D builder</ArrowLink>
-              </div>
+
+            <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-3">
+              <Reveal kind="up" delay={0.08}>
+                <p className="u-measure font-sans text-lead text-text-muted leading-relaxed">
+                  As Theyurts grows, this section will document the certifications,
+                  testing and standards behind our structures.
+                </p>
+                <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
+                  Every certification will be listed with the issuing body and
+                  relevant details.
+                </p>
+                <p className="mt-8 border-t border-line pt-6 font-display text-display-xs text-text">
+                  No borrowed badges. No inflated claims. Just information you can
+                  verify.
+                </p>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* 07. WORKSHOP */}
+      <section className="py-(--spacing-section-lg) border-t border-line">
+        <div className="u-container">
+          <div className="u-grid">
+            <div className="col-span-4 md:col-span-6 lg:col-span-5">
+              <Reveal kind="up">
+                <Metadata className="text-accent-text">Workshop</Metadata>
+                <h2 className="mt-3 font-display text-display-lg u-optical-left">
+                  Where Theyurts are made.
+                </h2>
+              </Reveal>
+            </div>
+
+            <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-3">
+              <Reveal kind="up" delay={0.08}>
+                <p className="u-measure font-sans text-lead text-text-muted leading-relaxed">
+                  A yurt begins long before it reaches the landscape.
+                </p>
+                <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
+                  Our workshop is where materials become components, components
+                  become structures, and every detail gets checked before the
+                  journey to site.
+                </p>
+                <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
+                  As our manufacturing facility develops, we will open this space
+                  to show you how Theyurts are actually made.
+                </p>
+
+                <div className="mt-8 border-t border-line pt-6">
+                  <ArrowLink href="/process">Visit the workshop</ArrowLink>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 08. FINAL CTA */}
+      <Section tone="light" space="lg">
+        <div className="u-container">
+          <div className="u-grid">
+            <div className="col-span-4 md:col-span-6 lg:col-span-5">
+              <Reveal kind="up">
+                <Metadata className="text-accent-text">
+                  Commission a structure
+                </Metadata>
+                <h2 className="mt-3 font-display text-display-lg u-optical-left">
+                  Tell us about the land.
+                </h2>
+              </Reveal>
+            </div>
+
+            <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-3">
+              <Reveal kind="up" delay={0.08}>
+                <div className="space-y-1 font-sans text-lead text-text-muted leading-relaxed">
+                  <p>Where is it?</p>
+                  <p>What do you want to create?</p>
+                  <p>And roughly when would you like to begin?</p>
+                  <p className="pt-2 font-medium text-text">
+                    That&apos;s enough to start a conversation.
+                  </p>
+                </div>
+
+                <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:gap-10">
+                  <ArrowLink href="/enquire">Start an enquiry</ArrowLink>
+                  <ArrowLink href="/contact">Book a consultation</ArrowLink>
+                </div>
+              </Reveal>
             </div>
           </div>
         </div>

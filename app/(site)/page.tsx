@@ -2,6 +2,7 @@ import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 import { Hero } from "@/components/home/Hero";
+import { ImageBand } from "@/components/home/ImageBand";
 import { Introduction } from "@/components/home/Introduction";
 import { Anatomy } from "@/components/home/Anatomy";
 import { WhyYurts } from "@/components/home/WhyYurts";
@@ -34,6 +35,7 @@ export const metadata = {
  *
  * 16 Curated Editorial Sections:
  * 01. Hero — A different way to build.
+ * --- Image band — the hinge between the hero and the argument.
  * 02. Introduction — Architecture that changes the way you experience a place.
  * 03. What is a Yurt? — Simple in form. Sophisticated in structure.
  * 04. Why Yurts — Build less. Experience more.
@@ -54,6 +56,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <ImageBand />
       <Introduction />
       <Anatomy />
       <WhyYurts />

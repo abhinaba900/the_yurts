@@ -122,14 +122,17 @@ export default async function PostPage({
       {post.heroImage ? (
         <div className="u-container">
           <Reveal kind="media">
-            <CmsImage
-              image={post.heroImage}
-              ratio="cinema"
-              sizes="100vw"
-              width={2400}
-              priority
-              pendingLabel={`${post.slug}.jpg`}
-            />
+            <div className="overflow-hidden rounded-sm bg-surface-alt border border-line shadow-2xl">
+              <CmsImage
+                image={post.heroImage}
+                ratio="landscape"
+                sizes="100vw"
+                width={2400}
+                priority
+                pendingLabel={`${post.slug}.jpg`}
+                className="h-full w-full object-cover"
+              />
+            </div>
             {post.heroImage.caption ? (
               <p className="mt-3 font-sans text-meta uppercase text-text-muted">
                 {post.heroImage.caption}

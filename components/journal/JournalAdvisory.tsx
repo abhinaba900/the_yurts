@@ -65,8 +65,8 @@ export function JournalAdvisory() {
           <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-5 lg:col-start-8 lg:mt-3">
             <Reveal kind="up" delay={0.08}>
               <p className="u-measure font-sans text-lead text-text-muted">
-                Every research piece in this journal began as a real landowner
-                asking a specific question about their site.
+                Every article in this journal answers a question that comes up
+                again and again about building on a particular piece of land.
               </p>
               <p className="mt-4 u-measure font-sans text-body text-text-muted">
                 If you are planning an installation, skip the generalised

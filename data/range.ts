@@ -2,6 +2,8 @@ import type { MediaId } from "./media";
 
 export type RangeEntry = {
   name: string;
+  /** URL segment for the model's own page at /yurts/<slug>. */
+  slug: string;
   tagline: string;
   use: string;
   diameter: string;
@@ -13,6 +15,7 @@ export type RangeEntry = {
 export const rangeFallback: RangeEntry[] = [
   {
     name: "Classic",
+    slug: "classic",
     tagline: "The starting point.",
     use: "A simple, timeless yurt for private retreats, gardens and intimate spaces.",
     diameter: "5.0m – 6.0m (20 – 28 sqm)",
@@ -22,6 +25,7 @@ export const rangeFallback: RangeEntry[] = [
   },
   {
     name: "Resort",
+    slug: "resort",
     tagline: "Designed for guests.",
     use: "A complete accommodation structure created for resorts and hospitality destinations.",
     diameter: "6.0m – 8.0m (28 – 50 sqm)",
@@ -31,6 +35,7 @@ export const rangeFallback: RangeEntry[] = [
   },
   {
     name: "Luxury",
+    slug: "luxury",
     tagline: "Built around the experience.",
     use: "A more refined specification for destinations where the room itself is part of the attraction.",
     diameter: "7.0m – 9.0m (38 – 64 sqm)",
@@ -40,6 +45,7 @@ export const rangeFallback: RangeEntry[] = [
   },
   {
     name: "Wellness",
+    slug: "wellness",
     tagline: "A space to slow down.",
     use: "Designed for wellness, therapy, spa and retreat environments.",
     diameter: "6.0m – 8.0m (28 – 50 sqm)",
@@ -49,6 +55,7 @@ export const rangeFallback: RangeEntry[] = [
   },
   {
     name: "Yoga",
+    slug: "yoga",
     tagline: "Room to breathe.",
     use: "A naturally open, column-free space for yoga, movement and group sessions.",
     diameter: "8.0m – 10.0m (50 – 78 sqm)",
@@ -58,6 +65,7 @@ export const rangeFallback: RangeEntry[] = [
   },
   {
     name: "Glamping",
+    slug: "glamping",
     tagline: "Stay close to nature.",
     use: "Premium outdoor accommodation designed for the growing glamping market.",
     diameter: "5.0m – 7.0m (20 – 38 sqm)",
@@ -67,6 +75,7 @@ export const rangeFallback: RangeEntry[] = [
   },
   {
     name: "Event",
+    slug: "event",
     tagline: "Gather differently.",
     use: "A large-format space for dining, celebrations, events and experiences.",
     diameter: "10.0m – 12.0m (78 – 113 sqm)",
@@ -76,6 +85,7 @@ export const rangeFallback: RangeEntry[] = [
   },
   {
     name: "Café",
+    slug: "cafe",
     tagline: "A destination within a destination.",
     use: "A distinctive space for cafés, food concepts and hospitality outposts.",
     diameter: "7.0m – 9.0m (38 – 64 sqm)",
@@ -85,6 +95,7 @@ export const rangeFallback: RangeEntry[] = [
   },
   {
     name: "Residential",
+    slug: "residential",
     tagline: "A different way to live.",
     use: "Private spaces, studios, guest houses and alternative residences.",
     diameter: "8.0m – 10.0m (50 – 78 sqm)",
@@ -94,6 +105,7 @@ export const rangeFallback: RangeEntry[] = [
   },
   {
     name: "Custom",
+    slug: "custom",
     tagline: "Built around your idea.",
     use: "A yurt designed specifically around your site, requirements and vision.",
     diameter: "Custom Spans & Conjoined Multi-Domes",

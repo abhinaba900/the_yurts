@@ -1,4 +1,5 @@
 import type { MediaId } from "./media";
+import { localPostSummaries } from "./journal";
 
 /**
  * HOME PAGE CONTENT
@@ -144,32 +145,17 @@ export const journalTopics: string[] = [
   "Business",
 ];
 
-export const featuredArticles = [
-  {
-    title: "What exactly is a yurt?",
-    slug: "what-is-a-yurt",
-    readTime: "5 min read",
-    tag: "Architecture",
-  },
-  {
-    title: "How much does it cost to build a yurt in India?",
-    slug: "yurt-cost-india",
-    readTime: "8 min read",
-    tag: "Business",
-  },
-  {
-    title: "Yurts vs. conventional construction",
-    slug: "yurts-vs-conventional-construction",
-    readTime: "6 min read",
-    tag: "Engineering",
-  },
-  {
-    title: "How to start a glamping business in India",
-    slug: "how-to-start-a-glamping-business-in-india",
-    readTime: "10 min read",
-    tag: "Hospitality",
-  },
-];
+/**
+ * The four articles surfaced on the home page, taken straight from the journal
+ * so a card can never point at a post that does not exist. Order and count are
+ * the only editorial decisions made here.
+ */
+export const featuredArticles = localPostSummaries.slice(0, 4).map((post) => ({
+  title: post.title,
+  slug: post.slug,
+  readTime: post.readingTime ? `${post.readingTime} min read` : null,
+  tag: post.categories?.[0]?.title ?? null,
+}));
 
 export const questions: string[] = [
   "Cost & Capex Planning",

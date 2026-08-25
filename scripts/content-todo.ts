@@ -20,13 +20,24 @@ import { vrScenes } from "../data/vr.ts";
 /* Crops                                                                      */
 /* -------------------------------------------------------------------------- */
 
-const crops: Record<string, { ratio: string; px: string; use: string }> = {
-  portrait: { ratio: "3:4", px: "1500 × 2000", use: "Upright cards" },
-  editorial: { ratio: "4:5", px: "1600 × 2000", use: "Editorial blocks" },
-  landscape: { ratio: "16:9", px: "2000 × 1125", use: "Wide blocks" },
-  cinema: { ratio: "21:9", px: "2400 × 1030", use: "Full-bleed banners" },
-  panorama: { ratio: "2.6:1", px: "2600 × 1000", use: "Letterboxed bands" },
-  square: { ratio: "1:1", px: "1600 × 1600", use: "Details and thumbnails" },
+/**
+ * Every crop the layouts ask for.
+ *
+ * `px4k` is the generation target: 3840px on the long edge, which is what "4K"
+ * means for a still. `min` is the smallest size the site can ship without the
+ * image going soft on a high-density display — generate at `px4k` and downscale
+ * to taste, never the other way round.
+ */
+const crops: Record<
+  string,
+  { ratio: string; px4k: string; min: string; use: string }
+> = {
+  portrait: { ratio: "3:4", px4k: "2880 × 3840", min: "1500 × 2000", use: "Upright cards" },
+  editorial: { ratio: "4:5", px4k: "3072 × 3840", min: "1600 × 2000", use: "Editorial blocks" },
+  landscape: { ratio: "16:9", px4k: "3840 × 2160", min: "2000 × 1125", use: "Wide blocks" },
+  cinema: { ratio: "21:9", px4k: "3840 × 1646", min: "2400 × 1030", use: "Full-bleed banners" },
+  panorama: { ratio: "2.6:1", px4k: "3840 × 1477", min: "2600 × 1000", use: "Letterboxed bands" },
+  square: { ratio: "1:1", px4k: "3840 × 3840", min: "1600 × 1600", use: "Details and thumbnails" },
 };
 
 /* -------------------------------------------------------------------------- */
@@ -116,7 +127,7 @@ const NEGATIVE = [
 function prompt(asset: MediaAsset): string {
   const crop = crops[asset.ratio];
   const subject = asset.note ? `${asset.alt} ${asset.note}` : asset.alt;
-  return `A yurt — a round timber-framed tent with a domed roof and a central crown wheel. ${subject} ${STYLE}. Aspect ratio ${crop.ratio}.`;
+  return `A yurt — a round timber-framed tent with a domed roof and a central crown wheel. ${subject} ${STYLE}. Aspect ratio ${crop.ratio}, rendered at ${crop.px4k}.`;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -171,10 +182,31 @@ push(
 push(
   "## Generating these with an image model",
   "",
-  "Each outstanding image below has a ready-to-paste prompt. They share one style",
-  "clause deliberately: generated separately without it, the set will not look",
-  "like it was shot by one photographer, which is the single most obvious sign of",
-  "assembled imagery.",
+  "Every image in the manifest is listed below with a ready-to-paste prompt —",
+  "including the ones already supplied, so the whole set can be regenerated at a",
+  "higher resolution without reverse-engineering what each shot was meant to be.",
+  "",
+  "### Size",
+  "",
+  "Generate at **3840px on the long edge**. Exact target per crop:",
+  "",
+  "| Crop | Ratio | Generate at | Minimum shippable |",
+  "| --- | --- | --- | --- |",
+  ...Object.entries(crops).map(
+    ([name, c]) => `| ${name} | ${c.ratio} | **${c.px4k}** | ${c.min} |`,
+  ),
+  "",
+  "If the model cannot hit the aspect ratio directly, generate the nearest size",
+  "it does support at 4K or above and crop down. Never upscale a small",
+  "generation to reach these numbers — an upscaled 1024px image looks worse at",
+  "3840 than a sharp 2000px one does.",
+  "",
+  "### Consistency",
+  "",
+  "The prompts share one style clause deliberately: generated separately without",
+  "it, the set will not look like it was shot by one photographer, which is the",
+  "single most obvious sign of assembled imagery. If your tool supports a seed or",
+  "a style reference, fix it once and reuse it across the whole set.",
   "",
   "**Use as a negative prompt for all of them:**",
   "",
@@ -182,50 +214,61 @@ push(
   NEGATIVE,
   "```",
   "",
-  "**Two things to check on every result**, because image models get them wrong:",
+  "### Two things to check on every result",
+  "",
+  "Image models get these wrong constantly:",
   "",
   "- A yurt is a **circular** structure with a **domed** roof and a round crown at",
   "  its centre. Reject anything conical, pointed or tipi-shaped.",
   "- The lattice wall is vertical and the roof is shallow. If the whole thing is a",
   "  cone from the ground up, it is not a yurt.",
   "",
-  "Generate larger than the target size and crop down, never up.",
+  "### Then",
+  "",
+  "Save into `public/media/` under the exact filename given, replacing the",
+  "existing file. Run `npm run verify:media` to confirm every entry still",
+  "resolves. Filenames are referenced from `data/media.ts`, so keeping them",
+  "identical means no code changes at all.",
   "",
 );
 
-/* -- Outstanding images ---------------------------------------------------- */
+/* -- The image library ----------------------------------------------------- */
 
-if (pending.length) {
-  push("## Images outstanding", "");
+push(
+  "## Every image, with its prompt",
+  "",
+  `${site.length} images. **Supplied** means a file is already in \`public/media/\``,
+  "and wired up — regenerating it means overwriting that file with a larger one",
+  "under the same name.",
+  "",
+);
 
-  const groups = new Map<string, [string, MediaAsset][]>();
-  for (const entry of pending) {
-    const key = entry[0].split(".")[0];
-    groups.set(key, [...(groups.get(key) ?? []), entry]);
+const groups = new Map<string, [string, MediaAsset][]>();
+for (const entry of site) {
+  const key = entry[0].split(".")[0];
+  groups.set(key, [...(groups.get(key) ?? []), entry]);
+}
+
+for (const [group, items] of [...groups].sort()) {
+  push(`### ${group}`, "");
+  for (const [id, asset] of items) {
+    const crop = crops[asset.ratio];
+    push(
+      `#### \`${asset.file}\``,
+      "",
+      `- **Status** ${asset.src ? "Supplied" : "**Outstanding**"}`,
+      `- **Generate at** ${crop.px4k} (${crop.ratio})`,
+      `- **Appears on** ${usedIn(id)}`,
+      `- **Manifest id** \`${id}\``,
+      `- **Alt text** ${asset.alt}`,
+      ...(asset.note ? [`- **Art direction** ${asset.note}`] : []),
+      "",
+      "```",
+      prompt(asset),
+      "```",
+      "",
+    );
   }
-
-  for (const [group, items] of [...groups].sort()) {
-    push(`### ${group}`, "");
-    for (const [id, asset] of items) {
-      const crop = crops[asset.ratio];
-      push(
-        `#### \`${asset.file}\``,
-        "",
-        `- **Crop** ${crop.ratio} — generate at ${crop.px} or larger`,
-        `- **Appears on** ${usedIn(id)}`,
-        `- **Manifest id** \`${id}\``,
-        `- **Alt text** ${asset.alt}`,
-        ...(asset.note ? [`- **Art direction** ${asset.note}`] : []),
-        "",
-        "```",
-        prompt(asset),
-        "```",
-        "",
-      );
-    }
-  }
-} else {
-  push("## Images outstanding", "", "None — every site image has been supplied.", "");
 }
 
 /* -- 360° panoramas -------------------------------------------------------- */
@@ -239,8 +282,10 @@ push(
   "or the viewer will visibly warp. Shoot these with a 360 camera (Insta360,",
   "Ricoh Theta or similar) once a real structure is standing.",
   "",
-  "**Format:** equirectangular JPEG, 2:1 ratio, 4096 × 2048. Do not exceed 8192",
-  "wide — some mobile GPUs will fail to upload the texture.",
+  "**Format:** equirectangular JPEG, 2:1 ratio, 4096 × 2048 — that is already the",
+  "4K target for this kind of asset, so do not scale it to match the 3840 figure",
+  "used for the flat images above. Do not exceed 8192 wide either: some mobile",
+  "GPUs will fail to upload the texture.",
   "",
   "**To add one:** save into `public/vr/`, then set `src: \"/vr/<file>\"` on the",
   "matching scene in `data/vr.ts`.",
@@ -267,15 +312,18 @@ push(
   "they belong to. Each needs alt text — the schema will not let it be published",
   "without.",
   "",
-  "| Content type | Images it takes | Crop used |",
-  "| --- | --- | --- |",
-  "| Yurt (product) | Hero, gallery, floor plan per size | 21:9 hero, mixed gallery |",
-  "| Application | Hero | 21:9 |",
-  "| Project | Hero, gallery, floor plans | 21:9 hero, mixed gallery |",
-  "| Journal article | Hero | 21:9 |",
-  "| Author | Portrait | 1:1 |",
-  "| Resource | Cover | 3:4 |",
-  "| Site settings | Default share image | 1200 × 630 |",
+  "Sizes match the table above — upload at the 4K target for the crop and Sanity",
+  "serves the smaller variants each layout asks for.",
+  "",
+  "| Content type | Images it takes | Crop used | Upload at |",
+  "| --- | --- | --- | --- |",
+  "| Yurt (product) | Hero, gallery, floor plan per size | 21:9 hero, mixed gallery | 3840 × 1646 |",
+  "| Application | Hero | 21:9 | 3840 × 1646 |",
+  "| Project | Hero, gallery, floor plans | 21:9 hero, mixed gallery | 3840 × 1646 |",
+  "| Journal article | Hero | 21:9 | 3840 × 1646 |",
+  "| Author | Portrait | 1:1 | 3840 × 3840 |",
+  "| Resource | Cover | 3:4 | 2880 × 3840 |",
+  "| Site settings | Default share image | 1.91:1 | 1200 × 630 (fixed) |",
   "",
 );
 
@@ -341,17 +389,6 @@ push(
 );
 
 /* -- Supplied -------------------------------------------------------------- */
-
-if (supplied.length) {
-  push(
-    "---",
-    "",
-    `## Already supplied (${supplied.length})`,
-    "",
-    ...supplied.map(([, a]) => `- \`${a.file}\``),
-    "",
-  );
-}
 
 mkdirSync("docs", { recursive: true });
 writeFileSync("docs/CONTENT-NEEDED.md", lines.join("\n"));

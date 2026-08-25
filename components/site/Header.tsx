@@ -7,6 +7,7 @@ import { cn } from "@/lib/cn";
 import { primaryNav, site } from "@/lib/site";
 import { Wordmark } from "./Wordmark";
 import { MobileNav } from "./MobileNav";
+import { TopBar } from "./TopBar";
 import { AudioToggle } from "./BackgroundAudio";
 
 /**
@@ -95,6 +96,8 @@ export function Header({ contact }: { contact?: HeaderContact }) {
             : "border-b border-transparent bg-transparent",
         )}
       >
+        <TopBar contact={contact} scrolled={scrolled} />
+
         <div className="u-container">
           <div
             className={cn(
