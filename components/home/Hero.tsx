@@ -19,7 +19,11 @@ export function Hero() {
           parallax
           ratio="cinema"
           sizes="100vw"
-          className="absolute inset-0 h-full w-full object-cover"
+          // Mirrored so the yurt sits on the right and the headline gets clear
+          // sky and hillside to land on. Flipped here rather than in the file:
+          // the asset stays the photograph that was taken, and the manifest
+          // keeps serving it unaltered to anything else that asks for it.
+          className="absolute inset-0 h-full w-full -scale-x-100 object-cover"
         />
 
         {/* Bottom-weighted scrim */}

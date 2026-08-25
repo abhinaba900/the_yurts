@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { cn } from "@/lib/cn";
@@ -16,6 +16,14 @@ import {
   type Selection,
 } from "@/lib/configurator";
 import { BuilderCanvas } from "./BuilderCanvas";
+import {
+  allParts,
+  noOffsets,
+  PART_IDS,
+  partLabels,
+  type PartId,
+  type Parts,
+} from "./parts";
 import { Metadata } from "@/components/primitives/Metadata";
 
 /**
@@ -36,6 +44,46 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
   );
   const [cutaway, setCutaway] = useState(false);
   const [ready, setReady] = useState(false);
+
+  // Which parts are on the stage, and how far apart they are pulled.
+  //
+  // Deliberately NOT mirrored into the URL alongside the selection: this is how
+  // someone is looking at the structure, not what they are asking us to build,
+  // and a shared link should open on the finished yurt rather than on whatever
+  // half-dismantled state the sender left behind.
+  const [parts, setParts] = useState<Parts>(allParts);
+  const [offsets, setOffsets] = useState<Record<PartId, number>>(noOffsets);
+  const [inspecting, setInspecting] = useState(false);
+
+  const togglePart = (id: PartId) =>
+    setParts((current) => ({ ...current, [id]: !current[id] }));
+
+  /** The slider writes every offset at once. */
+  const setAllOffsets = (value: number) =>
+    setOffsets(
+      Object.fromEntries(PART_IDS.map((id) => [id, value])) as Record<
+        PartId,
+        number
+      >,
+    );
+
+  /** A drag writes one, clamped so a part cannot be thrown out of frame. */
+  const dragPart = useCallback((id: PartId, delta: number) => {
+    setOffsets((current) => ({
+      ...current,
+      [id]: Math.min(2, Math.max(0, current[id] + delta)),
+    }));
+  }, []);
+
+  // The slider shows the common value when every part agrees, and holds its
+  // last position once a part has been dragged out of step with the others.
+  const spread = PART_IDS.map((id) => offsets[id]);
+  const uniformOffset = spread.every((value) => value === spread[0])
+    ? spread[0]
+    : null;
+
+  const partsAreDefault =
+    spread.every((value) => value === 0) && PART_IDS.every((id) => parts[id]);
 
   // Restore from the URL on mount. Read here rather than through
   // useSearchParams so this component needs no Suspense boundary.
@@ -75,29 +123,116 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
           <BuilderCanvas
             spec={spec}
             cutaway={cutaway}
+            parts={parts}
+            offsets={offsets}
+            onDragPart={dragPart}
             reducedMotion={reducedMotion}
           />
         </div>
 
         {/* Stage controls */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5">
-          <div className="pointer-events-auto flex items-center justify-between gap-4">
-            <button
-              type="button"
-              onClick={() => setCutaway((value) => !value)}
-              aria-pressed={cutaway}
-              className={cn(
-                "border px-4 py-2 font-sans text-meta uppercase transition-colors duration-(--duration-quick)",
-                cutaway
-                  ? "border-accent bg-accent text-cream"
-                  : "border-line-strong bg-surface text-text hover:border-text",
-              )}
-            >
-              {cutaway ? "Hide structure" : "Show structure"}
-            </button>
+          {/* Parts panel */}
+          {inspecting ? (
+            <div className="pointer-events-auto mb-3 max-w-sm border border-line-strong bg-surface/95 p-4 backdrop-blur-sm">
+              <div className="flex items-baseline justify-between gap-4 border-b border-line pb-2">
+                <span className="font-sans text-meta uppercase text-text">
+                  Parts
+                </span>
+                {!partsAreDefault ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setParts(allParts);
+                      setOffsets(noOffsets);
+                    }}
+                    className="font-sans text-meta uppercase text-text-muted underline underline-offset-4 transition-colors duration-(--duration-quick) hover:text-text"
+                  >
+                    Reassemble
+                  </button>
+                ) : null}
+              </div>
+
+              <div className="mt-3">
+                <label
+                  htmlFor="explode"
+                  className="flex items-baseline justify-between gap-4 font-sans text-meta uppercase text-text-muted"
+                >
+                  Pull apart everything
+                  <span className="text-accent-text">
+                    {uniformOffset === null
+                      ? "Mixed"
+                      : `${Math.round(uniformOffset * 100)}%`}
+                  </span>
+                </label>
+                <input
+                  id="explode"
+                  type="range"
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={Math.round((uniformOffset ?? 0) * 100)}
+                  onChange={(event) =>
+                    setAllOffsets(Number(event.target.value) / 100)
+                  }
+                  className="mt-2 w-full accent-[var(--color-accent)]"
+                />
+              </div>
+
+              <ul className="mt-4 grid grid-cols-2 gap-x-4">
+                {PART_IDS.map((id) => (
+                  <li key={id}>
+                    <label className="flex cursor-pointer items-center gap-2.5 py-1.5 font-sans text-small text-text-muted transition-colors duration-(--duration-quick) hover:text-text">
+                      <input
+                        type="checkbox"
+                        checked={parts[id]}
+                        onChange={() => togglePart(id)}
+                        className="size-3.5 shrink-0 accent-[var(--color-accent)]"
+                      />
+                      <span className={parts[id] ? "text-text" : undefined}>
+                        {partLabels[id]}
+                      </span>
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          <div className="pointer-events-auto flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setCutaway((value) => !value)}
+                aria-pressed={cutaway}
+                className={cn(
+                  "border px-4 py-2 font-sans text-meta uppercase transition-colors duration-(--duration-quick)",
+                  cutaway
+                    ? "border-accent bg-accent text-cream"
+                    : "border-line-strong bg-surface text-text hover:border-text",
+                )}
+              >
+                {cutaway ? "Hide structure" : "Show structure"}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setInspecting((value) => !value)}
+                aria-pressed={inspecting}
+                aria-expanded={inspecting}
+                className={cn(
+                  "border px-4 py-2 font-sans text-meta uppercase transition-colors duration-(--duration-quick)",
+                  inspecting
+                    ? "border-accent bg-accent text-cream"
+                    : "border-line-strong bg-surface text-text hover:border-text",
+                )}
+              >
+                Take it apart
+              </button>
+            </div>
 
             <p className="hidden font-sans text-meta uppercase text-text-muted sm:block">
-              Drag to rotate &middot; scroll to zoom
+              Drag to rotate &middot; Ctrl + scroll to zoom
             </p>
           </div>
         </div>
