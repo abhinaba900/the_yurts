@@ -180,9 +180,11 @@ export function EnquiryForm({
             label="What it is for"
             defaultValue={values.interest ?? ""}
           >
-            <option value="">Select one</option>
+            <option value="" className="bg-surface-alt text-text-muted">
+              Select one
+            </option>
             {interests.map((option) => (
-              <option key={option} value={option}>
+              <option key={option} value={option} className="bg-surface-alt text-text">
                 {option}
               </option>
             ))}

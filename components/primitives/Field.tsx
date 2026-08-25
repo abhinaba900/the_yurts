@@ -132,14 +132,17 @@ export function SelectField({
           name={props.name ?? id}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined}
-          className={cn(control, "appearance-none pr-8")}
+          className={cn(
+            control,
+            "appearance-none px-3 pr-10 cursor-pointer bg-transparent [&>option]:bg-surface-alt [&>option]:text-text [&>option]:py-3 [&>option]:px-5",
+          )}
           {...props}
         >
           {children}
         </select>
         <span
           aria-hidden
-          className="pointer-events-none absolute right-0 bottom-3.5 text-text-muted"
+          className="pointer-events-none absolute right-2 bottom-3.5 text-text-muted"
         >
           ↓
         </span>

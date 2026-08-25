@@ -56,6 +56,26 @@
     letter-spacing: inherit;
   }
 
+  select {
+    color-scheme: dark;
+    padding-left: 0.5rem;
+    padding-right: 2.5rem;
+  }
+
+  [data-tone="light"] select {
+    color-scheme: light;
+  }
+
+  select option {
+    background-color: var(--color-surface-alt, #241a13);
+    color: var(--color-text, #f0e9de);
+    padding: 12px 20px;
+  }
+
+  select option:disabled {
+    color: var(--color-text-muted, #c0b4a3);
+  }
+
   /* Focus: a clay hairline offset from the element. Visible on both tones,
      never the browser's blue. */
   :focus-visible {
