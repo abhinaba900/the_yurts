@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@import "./styles/tokens.css";
+@import "./styles/base.css";
+
+/* ---------------------------------------------------------------------------
+   HEIGHT VARIANTS
+
+   Width alone cannot describe a landscape phone: an 844x390 screen is "desktop
+   wide" and shorter than a phone is tall. Anything that reserves vertical space
+   — a hero's minimum height, a pinned section — has to ask about height too, or
+   it will force 512px of hero onto a 390px screen.
+--------------------------------------------------------------------------- */
+@custom-variant tall (@media (min-height: 40rem));
+@custom-variant short (@media (max-height: 34rem));
+
+/* Wide enough to put two things side by side, too short to stack them. A phone
+   in landscape lands here: stacking gives the 3D stage about 200px of height,
+   where splitting gives it the full screen. */
+@custom-variant landscape-split (@media (min-width: 48rem) and (max-height: 34rem));

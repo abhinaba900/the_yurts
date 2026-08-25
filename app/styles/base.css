@@ -1,0 +1,568 @@
+/* ---------------------------------------------------------------------------
+   BASE — element defaults, layout primitives, motion rules.
+   Anything here applies site-wide. Keep it small on purpose.
+--------------------------------------------------------------------------- */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.65;
+    font-feature-settings: "kern", "liga", "calt";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  button, input, textarea, select {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+  }
+
+  /* Focus: a clay hairline offset from the element. Visible on both tones,
+     never the browser's blue. */
+  :focus-visible {
+    outline: 1.5px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-clay) 24%, transparent);
+    color: var(--color-text);
+  }
+
+  /* Display type is a serif — never let it render at the sans fallback metrics
+     if the font is still loading. */
+  .font-display,
+  [class*="text-display"],
+  [class*="text-numeral"] {
+    font-kerning: normal;
+    font-variant-ligatures: common-ligatures;
+  }
+}
+
+@layer components {
+  /* --- CONTAINER & GRID ---------------------------------------------------
+     One container. One grid. Break-out is explicit, not accidental. */
+
+  .u-container {
+    width: 100%;
+    max-width: 96rem;
+    margin-inline: auto;
+    padding-inline: var(--spacing-gutter);
+  }
+
+  .u-container-narrow {
+    width: 100%;
+    max-width: 46rem;
+    margin-inline: auto;
+    padding-inline: var(--spacing-gutter);
+  }
+
+  /* 12 columns on desktop, 6 on tablet, 4 on mobile. Children position with
+     col-span-* / col-start-* utilities against these counts. */
+  .u-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: clamp(1rem, 2vw, 1.75rem);
+  }
+  @media (width >= 48rem) {
+    .u-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  }
+  @media (width >= 64rem) {
+    .u-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  }
+
+  /* --- HAIRLINES ----------------------------------------------------------
+     A single hairline weight, everywhere. Never a 1px box around a card. */
+  .u-rule {
+    border: 0;
+    border-top: 1px solid var(--color-line);
+    margin: 0;
+    width: 100%;
+  }
+
+
+  /* --- REVEALS -------------------------------------------------------------
+     Scroll reveals are CSS transitions driven by one class from an
+     IntersectionObserver. Compositor-only properties, so they cost nothing per
+     frame and need no animation library.
+
+     The hidden state is gated on `.js`: with JavaScript disabled nothing is
+     hidden in the first place, so content can never be stranded invisible. */
+  .js [data-reveal] {
+    opacity: 0;
+    transition:
+      opacity var(--duration-base) var(--ease-reveal),
+      transform var(--duration-base) var(--ease-reveal),
+      clip-path var(--duration-slow) var(--ease-reveal);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  .js [data-reveal="up"] {
+    transform: translateY(16px);
+  }
+
+  .js [data-reveal="media"] {
+    clip-path: inset(12% 0% 0% 0%);
+  }
+
+  .js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0% 0% 0% 0%);
+    will-change: auto;
+  }
+
+  /* --- SKIP LINK -----------------------------------------------------------
+     Written out rather than composed from utilities. Stacking a dozen `focus:`
+     utilities against `not-sr-only` made the result depend on the order Tailwind
+     happens to emit them in, and the background and padding silently lost — which
+     on an accessibility-critical control is not a risk worth carrying. */
+  .u-skip-link {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .u-skip-link:focus {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 100;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0.75rem 1.25rem;
+    overflow: visible;
+    clip-path: none;
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    font-size: var(--text-meta);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* --- TAP TARGETS ---------------------------------------------------------
+     Small tracked links are 13-17px tall, which is well under the 24px minimum
+     a pointer target needs (WCAG 2.5.8). This grows the hit area vertically and
+     cancels the growth again with an equal negative margin, so the box's outer
+     size — and therefore every surrounding rhythm — is unchanged. Padding alone
+     would push the layout around. */
+  .u-tap {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.5rem;
+    padding-block: 0.3125rem;
+    margin-block: -0.3125rem;
+  }
+
+  /* --- MEASURE ------------------------------------------------------------ */
+  .u-measure { max-width: 34em; }
+  .u-measure-tight { max-width: 26em; }
+  .u-measure-wide { max-width: 42em; }
+}
+
+@layer utilities {
+  /* Optical alignment for large serif display set flush to a grid edge —
+     serif side bearings make it look indented otherwise. */
+  .u-optical-left { margin-left: -0.045em; }
+
+  .u-tone-surface { background-color: var(--color-surface); color: var(--color-text); }
+}
+
+/* --- SCROLLBAR -------------------------------------------------------------
+   Custom minimal scrollbar styled to harmonize with walnut & gold tone. */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--color-walnut-mid) 70%, transparent);
+  border-radius: 9999px;
+  border: 1px solid var(--color-surface);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-text);
+}
+
+/* --- LENIS ------------------------------------------------------------------
+   Required by the smooth-scroll runtime. `scroll-behavior: auto` is mandatory
+   while Lenis is driving — the native smooth behaviour fights it otherwise. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* --- MOTION ----------------------------------------------------------------
+   Every animation on the site respects this. No exceptions, no local opt-outs. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Reveals must land in their final state, not stay hidden. */
+  .js [data-reveal],
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+
+  /* Page transitions are decoration; remove them entirely. */
+  [data-page-transition] {
+    animation: none !important;
+  }
+
+  /* Scroll-driven motion is the most disorienting kind, so none of it runs. The
+     pinned rail falls back to a normal horizontal scroller rather than taking
+     the page scroll over. */
+  [data-parallax],
+  .u-rail-track,
+  .u-rail-card {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .u-rail-pin {
+    height: auto !important;
+  }
+
+  .u-rail-sticky {
+    position: static !important;
+    height: auto !important;
+  }
+
+  .u-rail-track {
+    overflow-x: auto !important;
+  }
+}
+
+/* --- PAGE TRANSITION --------------------------------------------------------
+   Runs on client-side navigations only — the template adds the attribute after
+   the first mount, so the initial page is painted without waiting on an
+   animation and Largest Contentful Paint is unaffected. */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+[data-page-transition] {
+  animation: page-enter var(--duration-base) var(--ease-reveal) both;
+}
+
+/* ---------------------------------------------------------------------------
+   SCROLL-DRIVEN MOTION
+   ---------------------------------------------------------------------------
+   Everything below is native CSS scroll-driven animation. It costs no
+   JavaScript, runs off the main thread, and stays perfectly in step with the
+   scroll position rather than being fired by a trigger and then running on its
+   own clock.
+
+   Gated on `.sda` — a class the boot script adds only when the browser really
+   supports scroll-driven animation. It is NOT an @supports query: Lightning CSS
+   does not recognise `animation-timeline` as a property, evaluates the condition
+   as permanently false, and strips the entire block from the build. A plain
+   class selector cannot be second-guessed by the compiler.
+
+   Browsers without it keep the IntersectionObserver reveals and an ordinary
+   horizontal scroller — the same content, less motion, nothing broken.
+
+   Every animation here is disabled wholesale under prefers-reduced-motion by
+   the media query further down this file.
+--------------------------------------------------------------------------- */
+
+@keyframes reveal-up-scroll {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-media-scroll {
+  from {
+    opacity: 0;
+    clip-path: inset(14% 0% 0% 0%);
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0% 0% 0% 0%);
+    transform: none;
+  }
+}
+
+@keyframes reveal-fade-scroll {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Slow drift on full-bleed imagery. Kept small — 6% of the frame — because
+   parallax that outruns the scroll reads as a gimmick rather than depth. */
+@keyframes media-parallax {
+  from { transform: translateY(-6%) scale(1.14); }
+  to { transform: translateY(6%) scale(1.14); }
+}
+
+/* The pinned rail's horizontal travel. The distance is set per-instance from
+   the number of cards, so the track always lands flush with the right edge. */
+@keyframes rail-pan {
+  to { transform: translate3d(var(--rail-travel), 0, 0); }
+}
+
+@keyframes rail-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Reveals become scroll-linked rather than one-shot -------------------- */
+.js.sda [data-reveal] {
+  opacity: 0;
+  transition: none;
+  animation: reveal-up-scroll linear both;
+  animation-timeline: view();
+  /* Finishes well before the element reaches the middle of the screen, so
+     nothing is still arriving while it is being read. */
+  animation-range: entry 4% cover 26%;
+  }
+
+.js.sda [data-reveal="media"] {
+  animation-name: reveal-media-scroll;
+  animation-range: entry 0% cover 32%;
+  }
+
+.js.sda [data-reveal="fade"] {
+  animation-name: reveal-fade-scroll;
+  }
+
+/* --- Parallax ------------------------------------------------------------- */
+.sda [data-parallax] {
+  animation: media-parallax linear both;
+  animation-timeline: view();
+  animation-range: cover;
+  will-change: transform;
+  }
+
+/* --- Pinned horizontal rail -------------------------------------------------
+   Wide AND tall. Width alone is not enough: a landscape phone at 844x390 is past
+   the lg breakpoint but only 390px tall, and a portrait card is 659px — the pin
+   would clip most of every card. Below either threshold this is an ordinary
+   swipe rail, which is also the better interaction on a touch screen. */
+@media (width >= 64rem) and (height >= 40rem) {
+  .sda .u-rail-pin {
+    /* Scroll distance: one viewport to settle, plus the track's overflow. */
+    height: var(--rail-scroll, 300vh);
+    view-timeline-name: --rail;
+    view-timeline-axis: block;
+  }
+
+  .sda .u-rail-sticky {
+    position: sticky;
+    top: 0;
+    display: flex;
+    height: 100svh;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .sda .u-rail-track {
+    display: flex;
+    /* Native scrolling is off while pinned — the page scroll drives it. */
+    overflow: visible;
+    animation: rail-pan linear both;
+    animation-timeline: --rail;
+    animation-range: contain 0% contain 100%;
+    will-change: transform;
+  }
+
+  /* Each card arrives on its own slice of the same timeline, which is what
+     makes them come in one at a time rather than all together. */
+  .sda .u-rail-card {
+    animation: rail-card-in linear both;
+    animation-timeline: --rail;
+    animation-range: contain calc(var(--i) * 9%) contain calc(var(--i) * 9% + 16%);
+  }
+}
+
+/* --- Luxury Interactive Animated Underline --------------------------------
+   Expands from left to right on hover, and gracefully retracts towards the left
+   on mouse leave with smooth cubic-bezier easing.
+--------------------------------------------------------------------------- */
+.u-link-underline,
+.hover-underline-sweep {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.u-link-underline::after,
+.hover-underline-sweep::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1.5px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: bottom left;
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.u-link-underline:hover::after,
+.hover-underline-sweep:hover::after,
+.group:hover .group-hover\:u-link-underline::after {
+  transform: scaleX(1);
+}
+
+/* --- Audio Equalizer Visualizer Animations --------------------------------
+   Lively, rhythmic motion for the music player icon when audio is playing.
+--------------------------------------------------------------------------- */
+@keyframes audioWave1 {
+  0% { height: 3px; }
+  25% { height: 14px; }
+  50% { height: 7px; }
+  75% { height: 16px; }
+  100% { height: 4px; }
+}
+
+@keyframes audioWave2 {
+  0% { height: 12px; }
+  25% { height: 4px; }
+  50% { height: 16px; }
+  75% { height: 6px; }
+  100% { height: 13px; }
+}
+
+@keyframes audioWave3 {
+  0% { height: 5px; }
+  25% { height: 17px; }
+  50% { height: 9px; }
+  75% { height: 18px; }
+  100% { height: 6px; }
+}
+
+@keyframes audioWave4 {
+  0% { height: 15px; }
+  25% { height: 6px; }
+  50% { height: 14px; }
+  75% { height: 4px; }
+  100% { height: 16px; }
+}
+
+.u-audio-bar {
+  display: block;
+  width: 2px;
+  border-radius: 9999px;
+  background-color: currentColor;
+  transform-origin: bottom;
+  transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.u-audio-bar-1 { height: 4px; }
+.u-audio-bar-2 { height: 8px; }
+.u-audio-bar-3 { height: 12px; }
+.u-audio-bar-4 { height: 6px; }
+
+.is-audio-playing .u-audio-bar-1 {
+  animation: audioWave1 1s ease-in-out infinite;
+}
+
+.is-audio-playing .u-audio-bar-2 {
+  animation: audioWave2 1.25s ease-in-out infinite 0.15s;
+}
+
+.is-audio-playing .u-audio-bar-3 {
+  animation: audioWave3 0.9s ease-in-out infinite 0.3s;
+}
+
+.is-audio-playing .u-audio-bar-4 {
+  animation: audioWave4 1.1s ease-in-out infinite 0.05s;
+}
+

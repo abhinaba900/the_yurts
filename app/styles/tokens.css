@@ -1,0 +1,175 @@
+/* ---------------------------------------------------------------------------
+   THEYURTS — DESIGN TOKENS
+   Single source of truth. Change the palette here and the whole site follows.
+
+   Two layers:
+   1. RAW PALETTE   — literal colour values. Never referenced directly in JSX.
+   2. SEMANTIC TONE — what a colour is *for*. Components only use these.
+
+   Semantic tokens are re-mapped by [data-tone="dark"], so any section can be
+   flipped to a dark surface and every child adapts without extra classes.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* -- 1. RAW PALETTE -----------------------------------------------------
+     Walnut and emerald. The site is dark by default: deep timber surfaces, with
+     emerald doing structural work and gold carrying the typographic accent.
+
+     WHY GOLD CARRIES THE TYPE. Emerald (#2f6b4f) is 2.97:1 on walnut — it fails
+     as text and always will at that value. It is used for fills, rules and
+     decorative marks, never for small type on a dark surface. Gold is 8.26:1 on
+     the base surface and does the work emerald cannot. */
+
+  /* Timber — the ground the whole site stands on */
+  --color-walnut-deep: #0f0b08;
+  --color-walnut: #17110d;
+  --color-walnut-raised: #241a13;
+  --color-walnut-mid: #3a2a1e;
+
+  /* Paper — for the light sections used as punctuation */
+  --color-cream: #f0e9de;
+  --color-parchment: #e5dccb;
+  --color-sand: #d8cdb8;
+
+  /* Emerald — structure, fills, rules. Never small type on dark. */
+  --color-emerald: #2f6b4f;
+  --color-emerald-deep: #255741; /* 6.92:1 on cream — safe as text on light */
+  --color-emerald-light: #5fa57e; /* 6.39:1 on walnut — safe as text on dark */
+
+  /* Gold — the typographic accent */
+  --color-gold: #d4a548; /* 8.26:1 on walnut */
+  --color-gold-soft: #e0b968;
+  --color-gold-deep: #8a6520; /* large text only on light */
+
+  /* Ink & muted */
+  --color-ink: #241a13;
+  --color-ink-muted: #5c4a3a; /* clears AA on cream, parchment AND sand */
+  --color-cream-muted: #c0b4a3; /* 9.18:1 on walnut */
+
+  /* -- 2. SEMANTIC --------------------------------------------------------
+     What a colour is *for*. Components only ever use these.
+
+     The site is dark-dominant, so these defaults describe the dark ground and
+     [data-tone="light"] is the exception used for accent sections. Flipping
+     those two blocks is the only change needed to invert the whole site — no
+     component knows which tone it is in. */
+  --color-surface: #17110d;
+  --color-surface-alt: #241a13;
+  --color-surface-deep: #0f0b08;
+  --color-text: #f0e9de;
+  --color-text-muted: #c0b4a3;
+  --color-accent: #2f6b4f;
+  --color-accent-text: #d4a548;
+  --color-line: rgb(240 233 222 / 0.14);
+  --color-line-strong: rgb(240 233 222 / 0.38);
+
+  /* -- TYPOGRAPHY --------------------------------------------------------- */
+  --font-display: var(--font-instrument-serif), "Instrument Serif", Georgia,
+    "Times New Roman", serif;
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+
+  /* Fluid editorial scale. Display sizes are set tight and optically negative
+     tracked — serif display type at size needs less letter-spacing, not more. */
+  --text-display-xl: clamp(3.25rem, 8.8vw, 9.5rem);
+  --text-display-xl--line-height: 0.92;
+  --text-display-xl--letter-spacing: -0.025em;
+
+  --text-display-lg: clamp(2.625rem, 6.2vw, 5.75rem);
+  --text-display-lg--line-height: 0.96;
+  --text-display-lg--letter-spacing: -0.022em;
+
+  --text-display-md: clamp(2rem, 4vw, 3.5rem);
+  --text-display-md--line-height: 1.04;
+  --text-display-md--letter-spacing: -0.018em;
+
+  --text-display-sm: clamp(1.5rem, 2.4vw, 2.125rem);
+  --text-display-sm--line-height: 1.14;
+  --text-display-sm--letter-spacing: -0.012em;
+
+  --text-lead: clamp(1.0625rem, 1.35vw, 1.3125rem);
+  --text-lead--line-height: 1.55;
+  --text-lead--letter-spacing: -0.005em;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.55;
+
+  /* Metadata: small, uppercase, widely tracked. The counterweight to the serif. */
+  --text-meta: 0.6875rem;
+  --text-meta--line-height: 1.2;
+  --text-meta--letter-spacing: 0.14em;
+
+  /* Large numerals used as editorial anchors (01 — DESIGN, 24 FT, 452 SQ FT) */
+  --text-numeral: clamp(2.5rem, 5.5vw, 5rem);
+  --text-numeral--line-height: 0.85;
+  --text-numeral--letter-spacing: -0.03em;
+
+  /* -- LAYOUT ------------------------------------------------------------- */
+  --spacing-gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --spacing-section: clamp(5rem, 11vh, 10rem);
+  --spacing-section-lg: clamp(7rem, 17vh, 15rem);
+
+  /* Inner rhythm — the space between blocks *within* a page, as opposed to
+     between full sections. Two steps, because the site genuinely uses two:
+     a tighter one for stacked editorial blocks and a looser one for blocks
+     carrying media. Fluid rather than jumping at the lg breakpoint, which is
+     how the section spacing above already behaves. */
+  --spacing-block: clamp(3.5rem, 7vh, 5rem);
+  --spacing-block-lg: clamp(4rem, 9vh, 6rem);
+
+  /* -- IMAGE RATIOS ------------------------------------------------------- */
+  --aspect-portrait: 3 / 4;
+  --aspect-editorial: 4 / 5;
+  --aspect-landscape: 16 / 9;
+  --aspect-cinema: 21 / 9;
+  --aspect-panorama: 2.6 / 1;
+
+  /* -- MOTION ------------------------------------------------------------- */
+  /* Three durations, three curves. Anything outside this is a one-off. */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --duration-quick: 200ms;
+  --duration-base: 450ms;
+  --duration-slow: 900ms;
+}
+
+/* --- TONE: DARK (the default) -----------------------------------------------
+   Deep walnut. Emerald for fills and rules, gold for accented type. */
+:root,
+[data-tone="dark"] {
+  --color-surface: var(--color-walnut);
+  --color-surface-alt: var(--color-walnut-raised);
+  --color-surface-deep: var(--color-walnut-deep);
+  --color-text: var(--color-cream);
+  --color-text-muted: var(--color-cream-muted);
+  --color-accent: var(--color-emerald);
+  --color-accent-text: var(--color-gold);
+  --color-line: color-mix(in oklab, var(--color-cream) 14%, transparent);
+  --color-line-strong: color-mix(in oklab, var(--color-cream) 38%, transparent);
+
+  color-scheme: dark;
+}
+
+/* --- TONE: LIGHT ------------------------------------------------------------
+   Warm paper, used as punctuation between dark passages rather than as the
+   ground. Every value here clears AA against all three light surfaces — the
+   muted tone especially, which is the one that silently failed the last time
+   this palette was tuned against only the lightest of them. */
+[data-tone="light"] {
+  --color-surface: var(--color-cream);
+  --color-surface-alt: var(--color-parchment);
+  --color-surface-deep: var(--color-sand);
+  --color-text: var(--color-ink);
+  --color-text-muted: var(--color-ink-muted);
+  --color-accent: var(--color-emerald);
+  --color-accent-text: var(--color-emerald-deep);
+  --color-line: color-mix(in oklab, var(--color-ink) 22%, transparent);
+  --color-line-strong: color-mix(in oklab, var(--color-ink) 48%, transparent);
+
+  color-scheme: light;
+}
