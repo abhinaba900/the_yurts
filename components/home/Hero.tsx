@@ -16,10 +16,10 @@ export function Hero() {
       <div className="relative min-h-[92svh] lg:min-h-[100svh] w-full overflow-hidden flex flex-col justify-end">
         <Media
           id="home.hero"
-          parallax
           ratio="cinema"
           sizes="100vw"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full"
+          imgClassName="object-cover object-center"
         />
 
         {/* Scrim: bottom-weighted and left-weighted for balanced text contrast */}

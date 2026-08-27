@@ -96,6 +96,17 @@ export function Header({ contact }: { contact?: HeaderContact }) {
             : "border-b border-transparent bg-transparent",
         )}
       >
+        {/* Top-down gradient scrim: ensures navbar items stay clearly legible over any hero background */}
+        <div
+          aria-hidden
+          className={cn(
+            "pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 sm:h-36 md:h-44",
+            "bg-gradient-to-b from-walnut-deep/90 via-walnut-deep/55 to-transparent",
+            "transition-opacity duration-(--duration-base) ease-(--ease-out-soft)",
+            scrolled ? "opacity-0" : "opacity-100",
+          )}
+        />
+
         <TopBar contact={contact} scrolled={scrolled} />
 
         <div className="u-container">
@@ -149,17 +160,17 @@ export function Header({ contact }: { contact?: HeaderContact }) {
               <Link
                 href="/enquire"
                 className={cn(
-                  "group hidden items-center gap-2 border-b border-line-strong py-1.5",
-                  "font-sans text-meta uppercase text-text lg:inline-flex",
-                  "transition-colors duration-(--duration-quick) hover:border-accent",
+                  "group hidden items-center gap-2 rounded-xs bg-cream px-4 py-2",
+                  "font-sans text-meta uppercase tracking-wider text-walnut-deep font-semibold",
+                  "transition-all duration-200 hover:bg-accent-text hover:text-walnut-deep lg:inline-flex",
                 )}
               >
                 Enquire
                 <span
                   aria-hidden
-                  className="transition-transform duration-(--duration-base) ease-(--ease-out-soft) group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  className="transition-transform duration-(--duration-base) ease-(--ease-out-soft) group-hover:translate-x-0.5"
                 >
-                  ↗
+                  &rarr;
                 </span>
               </Link>
 

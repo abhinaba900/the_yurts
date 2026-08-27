@@ -27,12 +27,14 @@ const ratioLabel: Record<MediaRatio, string> = {
 export function Media({
   id,
   className,
+  imgClassName,
   sizes = "100vw",
   ratio: ratioOverride,
   parallax,
 }: {
   id: MediaId;
   className?: string;
+  imgClassName?: string;
   sizes?: string;
   ratio?: MediaRatio;
   /** Slow scroll-linked drift. Full-bleed imagery only. */
@@ -59,7 +61,10 @@ export function Media({
           sizes={sizes}
           priority={asset.priority}
           {...(parallax ? { "data-parallax": "" } : {})}
-          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+          className={cn(
+            "object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]",
+            imgClassName,
+          )}
         />
       ) : (
         <MediaPlaceholder file={asset.file} ratio={ratio} note={asset.note} />
