@@ -62,8 +62,8 @@ builder_cfg = Image.open(os.path.join(artifact_dir, "builder_config_178756689347
 vr_pano = Image.open(os.path.join(artifact_dir, "vr_panorama_1787566991102.jpg"))
 workshop = Image.open(os.path.join(artifact_dir, "workshop_frame_1787567012386.jpg"))
 
-# 1. hero-yurt.jpg (Cinema 21:9 / 16:9)
-enhance_and_save(hero_yurt, os.path.join(media_dir, "hero-yurt.jpg"), sharpen_radius=1.2, sharpen_percent=130, contrast=1.05)
+# 1. hero-yurt.webp (Cinema 21:9 / 16:9)
+enhance_and_save(hero_yurt, os.path.join(media_dir, "hero-yurt.webp"), sharpen_radius=1.2, sharpen_percent=130, contrast=1.05)
 
 # 2. yurt-classic-exterior.jpg (3:4)
 enhance_and_save(classic_ext, os.path.join(media_dir, "yurt-classic-exterior.jpg"), sharpen_radius=1.3, sharpen_percent=135, contrast=1.04)

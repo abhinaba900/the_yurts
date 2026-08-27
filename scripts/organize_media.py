@@ -29,8 +29,8 @@ builder_cfg = Image.open(os.path.join(artifact_dir, "builder_config_178756689347
 vr_pano = Image.open(os.path.join(artifact_dir, "vr_panorama_1787566991102.jpg"))
 workshop = Image.open(os.path.join(artifact_dir, "workshop_frame_1787567012386.jpg"))
 
-# 1. hero-yurt.jpg
-hero_yurt.save(os.path.join(target_dir, "hero-yurt.jpg"), "JPEG", quality=95)
+# 1. hero-yurt.webp
+hero_yurt.save(os.path.join(target_dir, "hero-yurt.webp"), "JPEG", quality=95)
 
 # 2. yurt-classic-exterior.jpg
 classic_ext.save(os.path.join(target_dir, "yurt-classic-exterior.jpg"), "JPEG", quality=95)

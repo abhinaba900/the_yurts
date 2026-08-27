@@ -5,10 +5,10 @@
 
 ## Where things stand
 
-| | Supplied | Outstanding |
-| --- | --- | --- |
-| Site images | 32 | 0 |
-| 360° panoramas | 4 | 0 |
+|                | Supplied | Outstanding |
+| -------------- | -------- | ----------- |
+| Site images    | 32       | 0           |
+| 360° panoramas | 4        | 0           |
 
 Everything else — product specifications, contact details, company information
 — is listed at the end of this document.
@@ -21,6 +21,7 @@ Everything else — product specifications, contact details, company information
    ```ts
    src: "/media/<filename>",
    ```
+
 3. Run `npm run verify:media` to confirm it resolves.
 
 Nothing else changes. The crop is already reserved in the layout, so the page
@@ -36,14 +37,14 @@ higher resolution without reverse-engineering what each shot was meant to be.
 
 Generate at **3840px on the long edge**. Exact target per crop:
 
-| Crop | Ratio | Generate at | Minimum shippable |
-| --- | --- | --- | --- |
-| portrait | 3:4 | **2880 × 3840** | 1500 × 2000 |
-| editorial | 4:5 | **3072 × 3840** | 1600 × 2000 |
-| landscape | 16:9 | **3840 × 2160** | 2000 × 1125 |
-| cinema | 21:9 | **3840 × 1646** | 2400 × 1030 |
-| panorama | 2.6:1 | **3840 × 1477** | 2600 × 1000 |
-| square | 1:1 | **3840 × 3840** | 1600 × 1600 |
+| Crop      | Ratio | Generate at     | Minimum shippable |
+| --------- | ----- | --------------- | ----------------- |
+| portrait  | 3:4   | **2880 × 3840** | 1500 × 2000       |
+| editorial | 4:5   | **3072 × 3840** | 1600 × 2000       |
+| landscape | 16:9  | **3840 × 2160** | 2000 × 1125       |
+| cinema    | 21:9  | **3840 × 1646** | 2400 × 1030       |
+| panorama  | 2.6:1 | **3840 × 1477** | 2600 × 1000       |
+| square    | 1:1   | **3840 × 3840** | 1600 × 1600       |
 
 If the model cannot hit the aspect ratio directly, generate the nearest size
 it does support at 4K or above and crop down. Never upscale a small
@@ -87,7 +88,7 @@ under the same name.
 
 ### home
 
-#### `hero-yurt.jpg`
+#### `hero-yurt.webp`
 
 - **Status** Supplied
 - **Generate at** 3840 × 1646 (21:9)
@@ -531,15 +532,15 @@ without.
 Sizes match the table above — upload at the 4K target for the crop and Sanity
 serves the smaller variants each layout asks for.
 
-| Content type | Images it takes | Crop used | Upload at |
-| --- | --- | --- | --- |
-| Yurt (product) | Hero, gallery, floor plan per size | 21:9 hero, mixed gallery | 3840 × 1646 |
-| Application | Hero | 21:9 | 3840 × 1646 |
-| Project | Hero, gallery, floor plans | 21:9 hero, mixed gallery | 3840 × 1646 |
-| Journal article | Hero | 21:9 | 3840 × 1646 |
-| Author | Portrait | 1:1 | 3840 × 3840 |
-| Resource | Cover | 3:4 | 2880 × 3840 |
-| Site settings | Default share image | 1.91:1 | 1200 × 630 (fixed) |
+| Content type    | Images it takes                    | Crop used                | Upload at          |
+| --------------- | ---------------------------------- | ------------------------ | ------------------ |
+| Yurt (product)  | Hero, gallery, floor plan per size | 21:9 hero, mixed gallery | 3840 × 1646        |
+| Application     | Hero                               | 21:9                     | 3840 × 1646        |
+| Project         | Hero, gallery, floor plans         | 21:9 hero, mixed gallery | 3840 × 1646        |
+| Journal article | Hero                               | 21:9                     | 3840 × 1646        |
+| Author          | Portrait                           | 1:1                      | 3840 × 3840        |
+| Resource        | Cover                              | 3:4                      | 2880 × 3840        |
+| Site settings   | Default share image                | 1.91:1                   | 1200 × 630 (fixed) |
 
 ## Information still needed
 
@@ -551,14 +552,14 @@ waiting for all of it.
 Every field is hidden site-wide until supplied — nothing renders blank or with
 a placeholder value.
 
-| Detail | Where it goes |
-| --- | --- |
-| Email | Studio → Site settings → Contact |
-| Phone | Studio → Site settings → Contact |
-| WhatsApp number | Studio → Site settings → Contact |
+| Detail           | Where it goes                    |
+| ---------------- | -------------------------------- |
+| Email            | Studio → Site settings → Contact |
+| Phone            | Studio → Site settings → Contact |
+| WhatsApp number  | Studio → Site settings → Contact |
 | Workshop address | Studio → Site settings → Contact |
 | Google Maps link | Studio → Site settings → Contact |
-| Social profiles | Studio → Site settings → Social |
+| Social profiles  | Studio → Site settings → Social  |
 
 Before the Studio exists, the same fields can go in `lib/site.ts`.
 
@@ -576,21 +577,21 @@ expected cover life, expected frame life, warranty terms, and lead time.
 
 ### Company
 
-| Needed | Where it goes |
-| --- | --- |
-| Founder and team names, roles, short bios | `/about` — the Team empty state |
-| Any certification or testing, with issuing body and date | `/about` — Certifications |
-| Workshop location and whether it can be visited | `/about` — Workshop |
-| Answers to the questions on `/faq` | Studio → Questions |
-| PDFs: catalogue, specifications, buyer's guide | Studio → Resources |
+| Needed                                                   | Where it goes                   |
+| -------------------------------------------------------- | ------------------------------- |
+| Founder and team names, roles, short bios                | `/about` — the Team empty state |
+| Any certification or testing, with issuing body and date | `/about` — Certifications       |
+| Workshop location and whether it can be visited          | `/about` — Workshop             |
+| Answers to the questions on `/faq`                       | Studio → Questions              |
+| PDFs: catalogue, specifications, buyer's guide           | Studio → Resources              |
 
 ### Credentials
 
-| Variable | Unblocks |
-| --- | --- |
-| `NEXT_PUBLIC_SANITY_PROJECT_ID` | The Studio and all CMS content |
-| `SANITY_API_WRITE_TOKEN` | Enquiries landing in the Studio |
-| `RESEND_API_KEY`, `ENQUIRY_FROM_EMAIL`, `ENQUIRY_TO_EMAIL` | Enquiry notification emails |
+| Variable                                                   | Unblocks                        |
+| ---------------------------------------------------------- | ------------------------------- |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID`                            | The Studio and all CMS content  |
+| `SANITY_API_WRITE_TOKEN`                                   | Enquiries landing in the Studio |
+| `RESEND_API_KEY`, `ENQUIRY_FROM_EMAIL`, `ENQUIRY_TO_EMAIL` | Enquiry notification emails     |
 
 Until one of the last two groups is set, the enquiry form refuses to report
 success and tells the visitor to make contact another way. That is deliberate:

@@ -17,12 +17,7 @@
  */
 
 export type MediaRatio =
-  | "portrait"
-  | "editorial"
-  | "landscape"
-  | "cinema"
-  | "panorama"
-  | "square";
+  "portrait" | "editorial" | "landscape" | "cinema" | "panorama" | "square";
 
 export type MediaAsset = {
   /** Expected filename from the client. Shown on the placeholder. */
@@ -40,11 +35,11 @@ export type MediaAsset = {
 
 export const media = {
   "home.hero": {
-    file: "hero-yurt.jpg",
+    file: "hero-yurt.webp",
     ratio: "cinema",
     alt: "A yurt at the edge of open land, early morning.",
     note: "Full-bleed hero. Landscape dominant, structure off-centre. Needs room at the top for the header and at the bottom for the headline.",
-    src: "/media/hero-yurt.jpg",
+    src: "/media/hero-yurt.webp",
     priority: true,
   },
   "home.range-classic": {

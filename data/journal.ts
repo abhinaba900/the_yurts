@@ -40,7 +40,11 @@ const h2 = (text: string) => block("h2", text);
 const h3 = (text: string) => block("h3", text);
 const quote = (text: string) => block("blockquote", text);
 
-const pCite = (text: string, label: string, href: string): PortableTextBlock => {
+const pCite = (
+  text: string,
+  label: string,
+  href: string,
+): PortableTextBlock => {
   const linkKey = key();
   return {
     _type: "block",
@@ -87,7 +91,8 @@ type LocalPost = Omit<Post, "related">;
 const articles: LocalPost[] = [
   {
     _id: "local-post-unit-economics-glamping",
-    title: "The Unit Economics of a 6-Yurt Glamping Resort: Capex, ARR & Payback Horizons",
+    title:
+      "The Unit Economics of a 6-Yurt Glamping Resort: Capex, ARR & Payback Horizons",
     slug: "unit-economics-of-a-glamping-resort",
     excerpt:
       "A line-by-line financial model comparing traditional brick-and-mortar masonry suites against modular circular timber yurts across Himachal, Goa, and Maharashtra. How non-permanent installations reach full operational breakeven in 14–18 months.",
@@ -108,7 +113,11 @@ const articles: LocalPost[] = [
       bio: "The engineering, design, and commercial advisory practice at Theyurts.",
       image: null,
     },
-    categories: [CATEGORIES.business, CATEGORIES.hospitality, CATEGORIES.glamping],
+    categories: [
+      CATEGORIES.business,
+      CATEGORIES.hospitality,
+      CATEGORIES.glamping,
+    ],
     seo: null,
     body: [
       h2("Executive Summary: The Capex Trap of Traditional Resorts"),
@@ -119,7 +128,9 @@ const articles: LocalPost[] = [
         "By contrast, engineered circular timber yurts offer a turnkey, modular, and non-permanent alternative that slashes construction timelines from 18 months to under 4 weeks—drastically accelerating revenue generation and capital payback.",
       ),
       h2("Comparative Capex Breakdown: 6 Keys"),
-      p("When analyzing all line items required to open a 6-suite boutique destination:"),
+      p(
+        "When analyzing all line items required to open a 6-suite boutique destination:",
+      ),
       ...bullets([
         "Civil Groundworks: ₹12L (Yurt platform ground screws) vs ₹54L (Excavation, retaining walls & concrete footings)",
         "Structure & Envelope: ₹96L (6 fully insulated 7.0m Luxury Yurts) vs ₹2.4Cr (RCC structure, brickwork & plastering)",
@@ -147,15 +158,16 @@ const articles: LocalPost[] = [
 
   {
     _id: "local-post-what-is-a-yurt",
-    title: "What Is a Yurt? A Complete Architectural Guide to Modern Yurts in India",
+    title:
+      "What Is a Yurt? A Complete Architectural Guide to Modern Yurts in India",
     slug: "what-is-a-yurt",
     excerpt:
       "A yurt is a circular structure traditionally associated with nomadic Central Asia. Today's modern yurt is a precision-engineered architectural system combining steam-bent ash frameworks, tension rings, and breathable climate membranes.",
     publishedAt: PUBLISHED_AT,
     readingTime: 7,
     heroImage: {
-      assetId: "/media/hero-yurt.jpg",
-      url: "/media/hero-yurt.jpg",
+      assetId: "/media/hero-yurt.webp",
+      url: "/media/hero-yurt.webp",
       lqip: null,
       aspectRatio: 16 / 9,
       alt: "Handcrafted modern timber yurt architecture in the Indian landscape",
@@ -195,7 +207,8 @@ const articles: LocalPost[] = [
 
   {
     _id: "local-post-yurts-for-glamping",
-    title: "Why Yurts Are Transforming Luxury Glamping & Boutique Hospitality in India",
+    title:
+      "Why Yurts Are Transforming Luxury Glamping & Boutique Hospitality in India",
     slug: "why-yurts-could-be-the-future-of-glamping-in-india",
     excerpt:
       "Glamping has redefined experiential luxury travel. Modern guests demand deep immersion in nature—forests, tea plantations, and riversides—without sacrificing 5-star climate control, acoustic quiet, and bespoke comfort.",
@@ -280,7 +293,8 @@ const articles: LocalPost[] = [
 
   {
     _id: "local-post-yurts-indian-climate",
-    title: "Can Yurts Handle Indian Weather? Designing for Monsoon, Heat and Snow",
+    title:
+      "Can Yurts Handle Indian Weather? Designing for Monsoon, Heat and Snow",
     slug: "can-yurts-handle-indian-weather",
     excerpt:
       "Can a yurt withstand a heavy Western Ghats monsoon, sub-zero Himalayan snow accumulation, or 45°C Rajasthan summer heat? We explore the thermodynamic membrane engineering behind climate-specific yurts in India.",
@@ -329,7 +343,8 @@ const articles: LocalPost[] = [
 
   {
     _id: "local-post-start-a-glamping-business",
-    title: "How to Start a Glamping Business in India: From Land to First Guest",
+    title:
+      "How to Start a Glamping Business in India: From Land to First Guest",
     slug: "how-to-start-a-glamping-business-in-india",
     excerpt:
       "India boasts extraordinary natural landscapes. A step-by-step roadmap for landowners covering site feasibility, utility routing, non-permanent permitting, revenue optimization, and guest experience curation.",
@@ -350,7 +365,11 @@ const articles: LocalPost[] = [
       bio: "Hospitality economics and eco-resort masterplanning advisors.",
       image: null,
     },
-    categories: [CATEGORIES.business, CATEGORIES.glamping, CATEGORIES.hospitality],
+    categories: [
+      CATEGORIES.business,
+      CATEGORIES.glamping,
+      CATEGORIES.hospitality,
+    ],
     seo: null,
     body: [
       h2("Step 1: Topographical Siting & Orientation"),
@@ -370,7 +389,8 @@ const articles: LocalPost[] = [
 
   {
     _id: "local-post-land-zoning-permits",
-    title: "Navigating Agricultural Land, Forest Clearings & Non-Permanent Permits in India",
+    title:
+      "Navigating Agricultural Land, Forest Clearings & Non-Permanent Permits in India",
     slug: "navigating-agricultural-land-and-permits-in-india",
     excerpt:
       "Why yurts qualify as non-permanent modular installations, sidestepping prolonged commercial land conversion cycles under state eco-tourism guidelines in Uttarakhand, Himachal Pradesh, Maharashtra, and CRZ zones.",
@@ -391,7 +411,11 @@ const articles: LocalPost[] = [
       bio: "Advisors on zoning, non-permanent classification, and state eco-tourism guidelines.",
       image: null,
     },
-    categories: [CATEGORIES.farmstays, CATEGORIES.business, CATEGORIES.sustainability],
+    categories: [
+      CATEGORIES.farmstays,
+      CATEGORIES.business,
+      CATEGORIES.sustainability,
+    ],
     seo: null,
     body: [
       h2("The Legal Distinction: Permanent vs Demountable Architecture"),
@@ -406,7 +430,8 @@ const articles: LocalPost[] = [
 
   {
     _id: "local-post-acoustics-and-circular-architecture",
-    title: "The Architecture of Quiet: Why Guests Pay a Premium for Circular Space & Acoustics",
+    title:
+      "The Architecture of Quiet: Why Guests Pay a Premium for Circular Space & Acoustics",
     slug: "acoustics-and-the-circular-space",
     excerpt:
       "How the column-free dome and tensioned fabric ceiling create a tranquil acoustic envelope, dampening external wind while diffusing soft natural daylight from the central crown wheel.",
@@ -472,17 +497,17 @@ export const localPost = (slug: string): Post | null => {
   };
 };
 
-export const localPostCategories: PostCategory[] = Object.values(CATEGORIES).map(
-  (category) => ({
-    _id: `local-category-${category.slug}`,
-    title: category.title,
-    slug: category.slug,
-    description: null,
-    count: articles.filter((post) =>
-      post.categories?.some((c) => c.slug === category.slug),
-    ).length,
-  }),
-);
+export const localPostCategories: PostCategory[] = Object.values(
+  CATEGORIES,
+).map((category) => ({
+  _id: `local-category-${category.slug}`,
+  title: category.title,
+  slug: category.slug,
+  description: null,
+  count: articles.filter((post) =>
+    post.categories?.some((c) => c.slug === category.slug),
+  ).length,
+}));
 
 export const localPostsByCategory = (slug: string): PostSummary[] =>
   articles
