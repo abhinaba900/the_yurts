@@ -113,11 +113,11 @@ export const media = {
     src: "/media/builder-configurator.jpg",
   },
   "home.vr": {
-    file: "vr-interior-panorama.jpg",
+    file: "Step inside section.webp",
     ratio: "panorama",
     alt: "A wide interior view of a finished yurt.",
     note: "Very wide crop from a 360 capture. Must survive a 2.6:1 letterbox.",
-    src: "/media/vr-interior-panorama.jpg",
+    src: "/media/Step inside section.webp",
   },
   "home.process": {
     file: "workshop-frame-assembly.jpg",
@@ -225,11 +225,11 @@ export const media = {
     src: "/media/application-yoga.jpg",
   },
   "home.application-eco": {
-    file: "application-eco-tourism.jpg",
+    file: "938x750 - webp.webp",
     ratio: "editorial",
     alt: "A yurt on an ecologically sensitive site.",
     note: "Structure small in a large landscape. Untouched ground around it.",
-    src: "/media/application-eco-tourism.jpg",
+    src: "/media/938x750 - webp.webp",
   },
   "home.application-cafe": {
     file: "application-cafe.jpg",

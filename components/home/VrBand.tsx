@@ -22,6 +22,8 @@ export function VrBand() {
           ratio="panorama"
           sizes="100vw"
           className="absolute inset-0 h-full w-full object-cover"
+          quality={100}
+          unoptimized
         />
         {hasMedia("home.vr") ? (
           <div aria-hidden className="absolute inset-0 bg-walnut-deep/65 backdrop-blur-[1px]" />

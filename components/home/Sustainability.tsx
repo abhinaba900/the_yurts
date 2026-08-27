@@ -30,6 +30,8 @@ export function Sustainability() {
                   ratio="editorial"
                   sizes="(min-width: 1024px) 36vw, 100vw"
                   className="h-[min(48vh,460px)] w-full max-h-[50vh] object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                  quality={100}
+                  unoptimized
                 />
               </div>
               <div className="mt-3 flex items-center justify-between font-sans text-meta uppercase text-text-muted text-xs">
