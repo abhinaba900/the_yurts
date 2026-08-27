@@ -31,6 +31,9 @@ export function Media({
   sizes = "100vw",
   ratio: ratioOverride,
   parallax,
+  quality = 95,
+  unoptimized,
+  priority,
 }: {
   id: MediaId;
   className?: string;
@@ -39,6 +42,9 @@ export function Media({
   ratio?: MediaRatio;
   /** Slow scroll-linked drift. Full-bleed imagery only. */
   parallax?: boolean;
+  quality?: number;
+  unoptimized?: boolean;
+  priority?: boolean;
 }) {
   // Widened to MediaAsset: the manifest is `satisfies`-checked, so each entry
   // narrows to its own literal type and would not expose optional fields.
@@ -59,7 +65,9 @@ export function Media({
           alt={asset.alt}
           fill
           sizes={sizes}
-          priority={asset.priority}
+          priority={priority ?? asset.priority}
+          quality={quality}
+          unoptimized={unoptimized}
           {...(parallax ? { "data-parallax": "" } : {})}
           className={cn(
             "object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]",

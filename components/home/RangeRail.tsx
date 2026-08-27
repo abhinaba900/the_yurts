@@ -96,9 +96,11 @@ export function RangeRail() {
                   {item.media ? (
                     <Media
                       id={item.media}
-                      ratio="landscape"
-                      sizes="(min-width: 1024px) 46vw, 100vw"
+                      ratio="portrait"
+                      sizes="(min-width: 1280px) 50vw, (min-width: 1024px) 60vw, 100vw"
                       className="h-full w-full object-cover"
+                      quality={100}
+                      unoptimized
                     />
                   ) : (
                     <div className="flex h-full w-full items-end bg-surface-alt p-6">
