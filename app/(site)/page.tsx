@@ -15,9 +15,6 @@ import { ProcessIndex } from "@/components/home/ProcessIndex";
 import { Materials } from "@/components/home/Materials";
 import { Sustainability } from "@/components/home/Sustainability";
 import { Gallery } from "@/components/home/Gallery";
-import { JournalBand } from "@/components/home/JournalBand";
-import { Questions } from "@/components/home/Questions";
-import { Closing } from "@/components/home/Closing";
 
 export const metadata = {
   ...pageMetadata({
@@ -33,7 +30,7 @@ export const metadata = {
 /**
  * THEYURTS.IN — HOMEPAGE
  *
- * 16 Curated Editorial Sections:
+ * 13 Curated Editorial Sections:
  * 01. Hero — A different way to build.
  * --- Image band — the hinge between the hero and the argument.
  * 02. Introduction — Architecture that changes the way you experience a place.
@@ -48,9 +45,6 @@ export const metadata = {
  * 11. Materials & Craft — Made of what it looks like.
  * 12. Sustainability — A lighter footprint on the land.
  * 13. Inspiration & Gallery — The beginning of something different.
- * 14. Journal — The Yurt Journal.
- * 15. FAQ — Before you build one.
- * 16. Final CTA — Tell us about the land.
  */
 export default function HomePage() {
   return (
@@ -69,9 +63,6 @@ export default function HomePage() {
       <Materials />
       <Sustainability />
       <Gallery />
-      <JournalBand />
-      <Questions />
-      <Closing />
     </>
   );
 }

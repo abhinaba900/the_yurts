@@ -2,6 +2,7 @@ import { pageMetadata } from "@/lib/seo";
 import { getSettings } from "@/lib/settings";
 import { enquiryKinds, type EnquiryKind } from "@/lib/enquiry";
 import { PageHeader } from "@/components/page/PageHeader";
+import { Section } from "@/components/primitives/Section";
 import { EnquiryForm } from "@/components/forms/EnquiryForm";
 import { WhatsAppLink } from "@/components/site/WhatsAppLink";
 import { Metadata } from "@/components/primitives/Metadata";
@@ -61,7 +62,15 @@ export default async function EnquirePage({
   const hasDirect = Boolean(contact.email || contact.phone || contact.whatsapp);
 
   return (
-    <>
+    /*
+     * The enquiry is the one page on the site that asks the visitor to write
+     * rather than read, so it runs on the light tone: dark ink on cream reads
+     * better in a form, and the switch marks the page as a different kind of
+     * errand. `tone="light"` re-maps the semantic tokens for the whole
+     * subtree, so neither the header nor the form needs light-specific
+     * classes.
+     */
+    <Section tone="light" space="none">
       <PageHeader
         eyebrow="Enquire"
         title={title}
@@ -144,6 +153,6 @@ export default async function EnquirePage({
           </aside>
         </div>
       </section>
-    </>
+    </Section>
   );
 }

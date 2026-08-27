@@ -70,7 +70,7 @@ export type NavItem = {
   note?: string;
 };
 
-/** Primary navigation. Six items — anything more and it stops being a decision. */
+/** Primary navigation. Seven items — anything more and it stops being a decision. */
 export const primaryNav: NavItem[] = [
   { label: "Yurts", href: "/yurts", note: "The range" },
   { label: "Applications", href: "/applications", note: "What they are for" },
@@ -78,6 +78,7 @@ export const primaryNav: NavItem[] = [
   { label: "Projects", href: "/projects", note: "Gallery and inspiration" },
   { label: "Journal", href: "/journal", note: "Writing" },
   { label: "About", href: "/about", note: "The company" },
+  { label: "FAQ", href: "/faq", note: "Before you build one" },
 ];
 
 export const footerNav: { title: string; items: NavItem[] }[] = [

@@ -39,16 +39,18 @@ export function Hero() {
             <div className="max-w-4xl">
               <Reveal kind="up">
                 <Metadata className="text-accent-text">
-                  Designed in India &middot; Made in India &middot; Installed across India
+                  Designed in India &middot; Made in India &middot; Installed
+                  across India
                 </Metadata>
 
                 <h1 className="mt-5 font-display text-display-xl u-optical-left leading-[1.05]">
-                  A different way to build.
+                  Build outside the ordinary.
                 </h1>
 
                 <p className="mt-6 max-w-2xl font-sans text-lead text-text-muted leading-relaxed">
-                  Premium yurts designed and made in India for resorts, retreats,
-                  glamping destinations, farm stays and private spaces.
+                  Premium yurts designed and made in India for resorts,
+                  retreats, glamping destinations, farm stays and private
+                  spaces.
                 </p>
 
                 <div className="mt-9 flex flex-wrap items-center gap-5 sm:gap-8">

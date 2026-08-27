@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/lib/seo";
-import { VrLoader } from "@/components/vr/VrLoader";
+import { SketchfabEmbed } from "@/components/vr/SketchfabEmbed";
 import { Metadata } from "@/components/primitives/Metadata";
 import { Section } from "@/components/primitives/Section";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
@@ -12,21 +12,22 @@ export const metadata = pageMetadata({
 });
 
 /**
- * The 360° experience. The page is a server component; everything WebGL is
- * loaded on demand by VrLoader.
+ * The 360° experience. The stage is a Sketchfab embed of the yurt model — the
+ * in-house panorama viewer (`components/vr/VrExperience`) is kept but unused
+ * until the 360° capture is shot.
  */
 export default function VrPage() {
   return (
     <>
       {/*
-        Same reason as the builder: the visible headings are inside a component
-        that is never server-rendered, so the page would otherwise have no h1
-        for crawlers or screen readers.
+        Same reason as the builder: the visible headings sit beside an embedded
+        viewer, so the page would otherwise have no h1 for crawlers or screen
+        readers.
       */}
       <h1 className="sr-only">
         VR experience — step inside a yurt in 360&deg;
       </h1>
-      <VrLoader />
+      <SketchfabEmbed />
 
       <Section surface="alt" space="lg">
         <div className="u-container">

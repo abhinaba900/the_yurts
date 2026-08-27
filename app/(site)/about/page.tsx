@@ -39,7 +39,7 @@ const makingChain = ["Design", "Build", "Prepare", "Deliver", "Install"];
 /**
  * ABOUT US
  *
- * Eight sections:
+ * Seven sections:
  * 01. Hero — A new way to build an old idea.
  * 02. The idea — There is a space between a tent and a building.
  * 03. What we hold to — Four positions.
@@ -47,7 +47,6 @@ const makingChain = ["Design", "Build", "Prepare", "Deliver", "Install"];
  * 05. Team — The people behind Theyurts.
  * 06. Certifications — Quality, testing & standards.
  * 07. Workshop — Where Theyurts are made.
- * 08. Final CTA — Tell us about the land.
  *
  * The page deliberately carries no performance figures. That is not an
  * omission: "Specifications should be true" is one of the four positions, and a
@@ -336,42 +335,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* 08. FINAL CTA */}
-      <Section tone="light" space="lg">
-        <div className="u-container">
-          <div className="u-grid">
-            <div className="col-span-4 md:col-span-6 lg:col-span-5">
-              <Reveal kind="up">
-                <Metadata className="text-accent-text">
-                  Commission a structure
-                </Metadata>
-                <h2 className="mt-3 font-display text-display-lg u-optical-left">
-                  Tell us about the land.
-                </h2>
-              </Reveal>
-            </div>
-
-            <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-3">
-              <Reveal kind="up" delay={0.08}>
-                <div className="space-y-1 font-sans text-lead text-text-muted leading-relaxed">
-                  <p>Where is it?</p>
-                  <p>What do you want to create?</p>
-                  <p>And roughly when would you like to begin?</p>
-                  <p className="pt-2 font-medium text-text">
-                    That&apos;s enough to start a conversation.
-                  </p>
-                </div>
-
-                <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:gap-10">
-                  <ArrowLink href="/enquire">Start an enquiry</ArrowLink>
-                  <ArrowLink href="/contact">Book a consultation</ArrowLink>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </Section>
     </>
   );
 }
