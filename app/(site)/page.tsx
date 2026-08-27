@@ -8,7 +8,6 @@ import { Anatomy } from "@/components/home/Anatomy";
 import { WhyYurts } from "@/components/home/WhyYurts";
 import { BuiltForIndia } from "@/components/home/BuiltForIndia";
 import { RangeRail } from "@/components/home/RangeRail";
-import { Applications } from "@/components/home/Applications";
 import { BuilderIntro } from "@/components/home/BuilderIntro";
 import { VrBand } from "@/components/home/VrBand";
 import { ProcessIndex } from "@/components/home/ProcessIndex";
@@ -30,7 +29,7 @@ export const metadata = {
 /**
  * THEYURTS.IN — HOMEPAGE
  *
- * 13 Curated Editorial Sections:
+ * 12 Curated Editorial Sections:
  * 01. Hero — A different way to build.
  * --- Image band — the hinge between the hero and the argument.
  * 02. Introduction — Architecture that changes the way you experience a place.
@@ -38,13 +37,12 @@ export const metadata = {
  * 04. Why Yurts — Build less. Experience more.
  * 05. Built for India — Made for the Indian landscape.
  * 06. The Range — One structure. Many possibilities.
- * 07. Applications — What could you build?
- * 08. 3D Builder — Build your yurt before we build it.
- * 09. VR Experience — Don't just look at a yurt. Step inside one.
- * 10. Build Process — From an idea on paper to a space on your land.
- * 11. Materials & Craft — Made of what it looks like.
- * 12. Sustainability — A lighter footprint on the land.
- * 13. Inspiration & Gallery — The beginning of something different.
+ * 07. 3D Builder — Build your yurt before we build it.
+ * 08. VR Experience — Don't just look at a yurt. Step inside one.
+ * 09. Build Process — From an idea on paper to a space on your land.
+ * 10. Materials & Craft — Made of what it looks like.
+ * 11. Sustainability — A lighter footprint on the land.
+ * 12. Inspiration & Gallery — The beginning of something different.
  */
 export default function HomePage() {
   return (
@@ -56,7 +54,6 @@ export default function HomePage() {
       <WhyYurts />
       <BuiltForIndia />
       <RangeRail />
-      <Applications />
       <BuilderIntro />
       <VrBand />
       <ProcessIndex />

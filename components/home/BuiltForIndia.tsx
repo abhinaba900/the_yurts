@@ -2,6 +2,7 @@ import { Metadata } from "@/components/primitives/Metadata";
 import { Reveal } from "@/components/primitives/Reveal";
 import { Section } from "@/components/primitives/Section";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
+import { IndiaFlag } from "@/components/primitives/IndiaFlag";
 
 /**
  * One line-drawn mark per configuration pillar, in the same idiom as the icons
@@ -117,7 +118,10 @@ export function BuiltForIndia() {
         <div className="u-grid">
           <div className="col-span-4 md:col-span-6 lg:col-span-5">
             <Reveal kind="up">
-              <Metadata className="text-accent-text">Built For India</Metadata>
+              <Metadata className="inline-flex items-center gap-2 text-accent-text">
+                <span>Built For India</span>
+                <IndiaFlag className="h-3 w-4.5 rounded-[1px]" />
+              </Metadata>
               <h2 className="mt-4 font-display text-display-lg u-optical-left">
                 Made for the Indian landscape.
               </h2>
