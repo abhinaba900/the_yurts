@@ -115,6 +115,8 @@ export default async function ProjectsPage() {
                     ratio="landscape"
                     sizes="(min-width: 1024px) 62vw, 100vw"
                     className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                    quality={100}
+                    unoptimized
                   />
                 </div>
                 <div className="mt-3 flex items-baseline justify-between gap-4">
@@ -133,9 +135,11 @@ export default async function ProjectsPage() {
                   <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[168px] sm:h-[206px] lg:h-[246px] xl:h-[276px] w-full">
                     <Media
                       id="home.gallery-2"
-                      ratio="editorial"
+                      ratio="landscape"
                       sizes="(min-width: 1024px) 34vw, 50vw"
                       className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                      quality={100}
+                      unoptimized
                     />
                   </div>
                   <div className="mt-2.5 flex items-baseline justify-between gap-4">
@@ -155,6 +159,8 @@ export default async function ProjectsPage() {
                       ratio="landscape"
                       sizes="(min-width: 1024px) 34vw, 50vw"
                       className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                      quality={100}
+                      unoptimized
                     />
                   </div>
                   <div className="mt-2.5 flex items-baseline justify-between gap-4">
@@ -178,10 +184,12 @@ export default async function ProjectsPage() {
               >
                 <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[260px] sm:h-[320px] lg:h-[380px] xl:h-[420px] w-full">
                   <Media
-                    id="home.range-event"
+                    id="home.gallery-evening"
                     ratio="landscape"
                     sizes="(min-width: 1024px) 50vw, 100vw"
                     className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                    quality={100}
+                    unoptimized
                   />
                 </div>
                 <div className="mt-3 flex items-baseline justify-between gap-4">

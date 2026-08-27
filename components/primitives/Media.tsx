@@ -31,8 +31,8 @@ export function Media({
   sizes = "100vw",
   ratio: ratioOverride,
   parallax,
-  quality = 95,
-  unoptimized,
+  quality = 100,
+  unoptimized = true,
   priority,
 }: {
   id: MediaId;

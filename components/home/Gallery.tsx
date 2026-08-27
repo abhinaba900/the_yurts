@@ -12,7 +12,7 @@ import { ArrowLink } from "@/components/primitives/ArrowLink";
  */
 export function Gallery() {
   return (
-    <section className="py-14 lg:py-16 lg:min-h-[calc(100vh-6rem)] lg:flex lg:flex-col lg:justify-center overflow-hidden">
+    <section className="py-12 lg:py-14 overflow-hidden">
       {/* Section Header */}
       <div className="u-container">
         <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-4 border-b border-line pb-6 lg:pb-8">
@@ -38,18 +38,20 @@ export function Gallery() {
 
       {/* Viewport-Fitted Gallery Mosaic */}
       <div className="u-container mt-8 lg:mt-10">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 items-stretch">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 items-start">
           {/* Main Primary Visual */}
           <Reveal
             kind="media"
             className="sm:col-span-2 lg:col-span-7 xl:col-span-8 flex flex-col"
           >
-            <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-xl h-[360px] sm:h-[440px] lg:h-[500px] xl:h-[540px] w-full">
+            <div className="group relative w-full overflow-hidden rounded-sm bg-surface-alt shadow-xl h-[260px] sm:h-[320px] lg:h-[390px]">
               <Media
                 id="home.gallery-1"
                 ratio="landscape"
                 sizes="(min-width: 1024px) 62vw, 100vw"
                 className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                quality={100}
+                unoptimized
               />
             </div>
             <p className="mt-2.5 font-sans text-meta uppercase text-text-muted text-xs">
@@ -58,31 +60,35 @@ export function Gallery() {
           </Reveal>
 
           {/* Right Stacked Pair */}
-          <div className="col-span-1 sm:col-span-2 lg:col-span-5 xl:col-span-4 flex flex-col justify-between gap-6">
-            <Reveal kind="media" delay={0.06}>
-              <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[168px] sm:h-[206px] lg:h-[235px] xl:h-[255px] w-full">
+          <div className="col-span-1 sm:col-span-2 lg:col-span-5 xl:col-span-4 flex flex-col justify-between h-auto lg:h-[390px] gap-4">
+            <Reveal kind="media" delay={0.06} className="flex flex-col">
+              <div className="group relative w-full overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[120px] sm:h-[145px] lg:h-[168px]">
                 <Media
                   id="home.gallery-2"
                   ratio="editorial"
                   sizes="(min-width: 1024px) 34vw, 50vw"
                   className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                  quality={100}
+                  unoptimized
                 />
               </div>
-              <p className="mt-2 font-sans text-meta uppercase text-text-muted text-xs">
+              <p className="mt-1.5 font-sans text-meta uppercase text-text-muted text-xs">
                 Crown Wheel &middot; Skylight Structure
               </p>
             </Reveal>
 
-            <Reveal kind="media" delay={0.1}>
-              <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[168px] sm:h-[206px] lg:h-[235px] xl:h-[255px] w-full">
+            <Reveal kind="media" delay={0.1} className="flex flex-col">
+              <div className="group relative w-full overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[120px] sm:h-[145px] lg:h-[168px]">
                 <Media
                   id="home.gallery-3"
                   ratio="landscape"
                   sizes="(min-width: 1024px) 34vw, 50vw"
                   className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                  quality={100}
+                  unoptimized
                 />
               </div>
-              <p className="mt-2 font-sans text-meta uppercase text-text-muted text-xs">
+              <p className="mt-1.5 font-sans text-meta uppercase text-text-muted text-xs">
                 Timber Deck &middot; Custom Entrance
               </p>
             </Reveal>
