@@ -22,19 +22,25 @@ export function Hero() {
           className="absolute inset-0 h-full w-full object-cover"
         />
 
-        {/* Bottom-weighted scrim */}
+        {/* Scrim: bottom-weighted and left-weighted for balanced text contrast */}
         {hasMedia("home.hero") ? (
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-walnut-deep/80 via-walnut-deep/20 to-transparent"
-          />
+          <>
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-t from-walnut-deep/90 via-walnut-deep/20 to-transparent"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-r from-walnut-deep/40 via-walnut-deep/20 to-transparent"
+            />
+          </>
         ) : null}
 
         <div className="relative z-10 pb-12 pt-32 md:pb-16 lg:pb-20">
           <div className="u-container">
             <div className="max-w-4xl">
               <Reveal kind="up">
-                <Metadata className="text-accent-text">
+                <Metadata className="text-gold font-medium tracking-[0.18em] [text-shadow:_0_1px_6px_rgba(0,0,0,0.7)]">
                   Designed in India &middot; Made in India &middot; Installed
                   across India
                 </Metadata>
