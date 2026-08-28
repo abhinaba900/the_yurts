@@ -18,13 +18,15 @@ function getSiteUrl(): string {
   }
   const vercelUrl = (
     process.env.NEXT_PUBLIC_VERCEL_URL ||
-    process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-    process.env.VERCEL_URL
+    process.env.VERCEL_URL ||
+    process.env.VERCEL_PROJECT_PRODUCTION_URL
   )?.trim();
   if (vercelUrl && vercelUrl.length > 0) {
-    return `https://${vercelUrl}`;
+    return vercelUrl.startsWith("http://") || vercelUrl.startsWith("https://")
+      ? vercelUrl
+      : `https://${vercelUrl}`;
   }
-  return "https://theyurts.in";
+  return "https://the-yurts.vercel.app";
 }
 
 export const site = {

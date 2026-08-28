@@ -20,7 +20,7 @@ import { Gallery } from "@/components/home/Gallery";
  * section label: someone searching for a yurt maker in India should recognise
  * this result without having to read past the brand.
  */
-const HOME_TITLE = `Luxury Yurt Manufacturers in India — ${site.name}`;
+const HOME_TITLE = "Luxury Yurt Manufacturers in India";
 
 export const metadata = pageMetadata({
   title: HOME_TITLE,

@@ -21,7 +21,7 @@ export function pageMetadata({
   type?: "website" | "article";
 }): Metadata {
   const url = new URL(path, site.url).toString();
-  const rawImage = image ?? "/opengraph-image";
+  const rawImage = image ?? "/og-image.jpg";
   const ogImageUrl = rawImage.startsWith("http://") || rawImage.startsWith("https://")
     ? rawImage
     : new URL(rawImage, site.url).toString();
