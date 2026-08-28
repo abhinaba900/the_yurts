@@ -21,10 +21,16 @@ export function pageMetadata({
   type?: "website" | "article";
 }): Metadata {
   const url = new URL(path, site.url).toString();
-  const ogImage = image ?? "/opengraph-image";
+  const rawImage = image ?? "/opengraph-image";
+  const ogImageUrl = rawImage.startsWith("http://") || rawImage.startsWith("https://")
+    ? rawImage
+    : new URL(rawImage, site.url).toString();
+
+  const alreadyHasBrand = title.toLowerCase().includes(site.name.toLowerCase());
+  const fullTitle = alreadyHasBrand ? title : `${title} — ${site.name}`;
 
   return {
-    title,
+    title: alreadyHasBrand ? { absolute: title } : title,
     description,
     alternates: { canonical: url },
     robots: noIndex ? { index: false, follow: false } : undefined,
@@ -32,16 +38,25 @@ export function pageMetadata({
       type,
       url,
       siteName: site.name,
-      title: `${title} — ${site.name}`,
+      title: fullTitle,
       description,
       locale: site.locale,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+      images: [
+        {
+          url: ogImageUrl,
+          secureUrl: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: fullTitle,
+          type: ogImageUrl.endsWith(".png") ? "image/png" : "image/jpeg",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} — ${site.name}`,
+      title: fullTitle,
       description,
-      images: [ogImage],
+      images: [ogImageUrl],
     },
   };
 }

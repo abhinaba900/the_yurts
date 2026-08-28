@@ -6,6 +6,7 @@ import { site } from "@/lib/site";
 export const alt = `${site.name} — ${site.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const runtime = "nodejs";
 
 /**
  * Default social card — the hero banner, with the wordmark and tagline held over

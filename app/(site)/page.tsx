@@ -22,16 +22,11 @@ import { Gallery } from "@/components/home/Gallery";
  */
 const HOME_TITLE = `Luxury Yurt Manufacturers in India — ${site.name}`;
 
-export const metadata = {
-  ...pageMetadata({
-    title: HOME_TITLE,
-    description: site.description,
-    path: "/",
-  }),
-  // `absolute` opts out of the layout's "%s — Theyurts" template, which would
-  // otherwise repeat the brand at both ends of the home page title.
-  title: { absolute: HOME_TITLE },
-};
+export const metadata = pageMetadata({
+  title: HOME_TITLE,
+  description: site.description,
+  path: "/",
+});
 
 /**
  * THEYURTS.IN — HOMEPAGE
