@@ -45,11 +45,11 @@ export default async function JournalPage() {
         }
       />
 
-      <div className="u-container pb-(--spacing-section-lg)">
+      <div className="u-container pb-12 sm:pb-16 lg:pb-(--spacing-section-lg)">
         {posts.length > 0 ? (
           <>
             {featured ? (
-              <ul className="mb-14">
+              <ul className="mb-8 sm:mb-12 lg:mb-14">
                 <PostRow post={featured} feature />
               </ul>
             ) : null}

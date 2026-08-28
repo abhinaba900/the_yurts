@@ -17,47 +17,45 @@ export function PostMeta({
   const date = formatDate(post.publishedAt);
 
   return (
-    <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+    <div className="flex flex-wrap items-center gap-x-2.5 sm:gap-x-3.5 gap-y-1 font-sans text-meta uppercase text-text-muted">
       {date ? (
-        <time
-          dateTime={isoDate(post.publishedAt)}
-          className="font-sans text-meta uppercase text-text-muted"
-        >
+        <time dateTime={isoDate(post.publishedAt)}>
           {date}
         </time>
       ) : null}
 
       {post.readingTime ? (
-        <span className="font-sans text-meta uppercase text-text-muted">
-          {post.readingTime} min read
-        </span>
+        <>
+          <span aria-hidden="true" className="opacity-35 select-none">&middot;</span>
+          <span>{post.readingTime} min read</span>
+        </>
       ) : null}
 
       {post.author?.name ? (
-        <span className="font-sans text-meta uppercase text-text-muted">
-          {post.author.name}
-        </span>
+        <>
+          <span aria-hidden="true" className="opacity-35 select-none">&middot;</span>
+          <span>{post.author.name}</span>
+        </>
       ) : null}
 
       {post.categories?.length
-        ? post.categories.map((category) =>
-            linkCategories ? (
-              <Link
-                key={category.slug}
-                href={`/journal/category/${category.slug}`}
-                className="font-sans text-meta uppercase text-accent-text transition-opacity duration-(--duration-quick) hover:opacity-70"
-              >
-                {category.title}
-              </Link>
-            ) : (
-              <span
-                key={category.slug}
-                className="font-sans text-meta uppercase text-accent-text"
-              >
-                {category.title}
-              </span>
-            ),
-          )
+        ? post.categories.map((category) => (
+            <span key={category.slug} className="inline-flex items-center gap-x-2.5 sm:gap-x-3.5">
+              <span aria-hidden="true" className="opacity-35 select-none">&middot;</span>
+              {linkCategories ? (
+                <Link
+                  href={`/journal/category/${category.slug}`}
+                  className="text-accent-text transition-opacity duration-(--duration-quick) hover:opacity-70"
+                >
+                  {category.title}
+                </Link>
+              ) : (
+                <span className="text-accent-text">
+                  {category.title}
+                </span>
+              )}
+            </span>
+          ))
         : null}
     </div>
   );
