@@ -190,6 +190,26 @@ export function MobileNav({
                   </span>
                 ) : null}
               </Link>
+
+              {/* Secondary destinations, indented under their parent. */}
+              {item.children ? (
+                <ul className="mb-4 ml-10 flex flex-col gap-2.5 border-l border-line pl-5">
+                  {item.children.map((child) => (
+                    <li key={child.href}>
+                      <Link
+                        href={child.href}
+                        onClick={onClose}
+                        className="flex items-baseline gap-3 font-sans text-meta uppercase text-text-muted transition-colors duration-(--duration-base) hover:text-text"
+                      >
+                        <span aria-hidden className="text-accent-text">
+                          &rarr;
+                        </span>
+                        {child.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </li>
           ))}
         </ul>

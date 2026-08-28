@@ -2,7 +2,7 @@ import { pageMetadata } from "@/lib/seo";
 import { PageStub } from "@/components/site/PageStub";
 
 export const metadata = pageMetadata({
-  title: "Terms",
+  title: "Terms of Use",
   description: "Terms of use for the Theyurts website.",
   path: "/terms",
 });

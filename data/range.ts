@@ -10,6 +10,11 @@ export type RangeEntry = {
   capacity: string;
   idealFor: string;
   media?: MediaId;
+  /**
+   * Meta description for /yurts/<slug>. Written separately from `use`, which is
+   * a one-line label on the index and too short to earn a result on its own.
+   */
+  metaDescription?: string;
 };
 
 export const rangeFallback: RangeEntry[] = [
@@ -21,6 +26,8 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "5.0m – 6.0m (20 – 28 sqm)",
     capacity: "2 Guests / Studio",
     idealFor: "Private estates & serene garden retreats",
+    metaDescription:
+      "The Classic yurt: a 5–6m circular timber structure for private retreats, gardens and studios. Footprint, occupancy and specification, made in India.",
     media: "home.range-classic",
   },
   {
@@ -31,6 +38,8 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "6.0m – 8.0m (28 – 50 sqm)",
     capacity: "2–4 Guests / Ensuite Suite",
     idealFor: "Eco-resorts, boutique lodges & glamping hotels",
+    metaDescription:
+      "The Resort yurt: a 6–8m ensuite structure built as guest accommodation for eco-resorts, boutique lodges and glamping hotels. Sizes and specification.",
     media: "home.range-resort",
   },
   {
@@ -41,6 +50,8 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "7.0m – 9.0m (38 – 64 sqm)",
     capacity: "2–4 Guests / Master Villa",
     idealFor: "High-end luxury experiential resorts & villas",
+    metaDescription:
+      "The Luxury yurt: a 7–9m master suite for destinations where the room is the attraction. A refined specification for high-end resorts and villas in India.",
     media: "home.range-luxury",
   },
   {
@@ -51,6 +62,8 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "6.0m – 8.0m (28 – 50 sqm)",
     capacity: "Treatment rooms / 1–4 Persons",
     idealFor: "Ayurvedic retreats, spa hubs & meditation zones",
+    metaDescription:
+      "The Wellness yurt: a 6–8m circular space for spa treatment rooms, therapy and Ayurvedic retreats. Sizes, capacity and specification, made in India.",
     media: "home.range-wellness",
   },
   {
@@ -61,6 +74,8 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "8.0m – 10.0m (50 – 78 sqm)",
     capacity: "12–20 Practitioners",
     idealFor: "Yoga studios, ashrams & group workshops",
+    metaDescription:
+      "The Yoga yurt: an 8–10m column-free floor for 12–20 practitioners, with light from above. Built in India for studios, ashrams and group workshops.",
     media: "home.range-yoga",
   },
   {
@@ -71,6 +86,8 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "5.0m – 7.0m (20 – 38 sqm)",
     capacity: "2–3 Guests",
     idealFor: "Wilderness camps, hillsides & national park borders",
+    metaDescription:
+      "The Glamping yurt: a 5–7m guest structure for wilderness camps, hillsides and park-edge sites. Premium outdoor accommodation designed and made in India.",
     media: "home.range-glamping",
   },
   {
@@ -81,6 +98,8 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "10.0m – 12.0m (78 – 113 sqm)",
     capacity: "40–70 Guests",
     idealFor: "Destination weddings, banquet dining & pop-up events",
+    metaDescription:
+      "The Event yurt: a 10–12m space seating 40–70 for weddings, banquet dining and pop-up events. Spans, capacity and specification from Theyurts.",
     media: "home.range-event",
   },
   {
@@ -91,6 +110,8 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "7.0m – 9.0m (38 – 64 sqm)",
     capacity: "16–30 Seats",
     idealFor: "Farm-to-table farmstays, roadside cafés & vineyards",
+    metaDescription:
+      "The Café yurt: a 7–9m structure seating 16–30 for cafés, food concepts and hospitality outposts on farms, roadsides and vineyards. Made in India.",
     media: "home.range-cafe",
   },
   {
@@ -101,6 +122,8 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "8.0m – 10.0m (50 – 78 sqm)",
     capacity: "Permanent Residence / Family Suite",
     idealFor: "Off-grid farm homes, artists' studios & caretaker pods",
+    metaDescription:
+      "The Residential yurt: an 8–10m structure for off-grid homes, guest houses and studios. A different way to live on land, made in India.",
     media: "home.range-residential",
   },
   {
@@ -111,6 +134,8 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "Custom Spans & Conjoined Multi-Domes",
     capacity: "Bespoke Capacity",
     idealFor: "Architectural commissions & unique topography",
+    metaDescription:
+      "A yurt designed around your site — custom spans, conjoined multi-domes and bespoke capacity for architectural commissions and difficult ground.",
     media: "home.range-custom",
   },
 ];

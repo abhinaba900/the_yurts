@@ -15,15 +15,22 @@ import { Materials } from "@/components/home/Materials";
 import { Sustainability } from "@/components/home/Sustainability";
 import { Gallery } from "@/components/home/Gallery";
 
+/**
+ * The one page that has to carry the primary commercial term rather than a
+ * section label: someone searching for a yurt maker in India should recognise
+ * this result without having to read past the brand.
+ */
+const HOME_TITLE = `Luxury Yurt Manufacturers in India — ${site.name}`;
+
 export const metadata = {
   ...pageMetadata({
-    title: `${site.name} — ${site.tagline}`,
+    title: HOME_TITLE,
     description: site.description,
     path: "/",
   }),
   // `absolute` opts out of the layout's "%s — Theyurts" template, which would
-  // otherwise render "Theyurts — <tagline> — Theyurts" on the home page.
-  title: { absolute: `${site.name} — ${site.tagline}` },
+  // otherwise repeat the brand at both ends of the home page title.
+  title: { absolute: HOME_TITLE },
 };
 
 /**

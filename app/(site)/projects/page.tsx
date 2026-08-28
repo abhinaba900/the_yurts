@@ -11,9 +11,9 @@ import { Section } from "@/components/primitives/Section";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 export const metadata = pageMetadata({
-  title: "Projects",
+  title: "Yurt Projects and Installations",
   description:
-    "Completed Theyurts installations, published as they are handed over — location, type, configuration and photography.",
+    "Completed Theyurts installations, published as each one is handed over — location, structure type, configuration and photography from the site.",
   path: "/projects",
 });
 

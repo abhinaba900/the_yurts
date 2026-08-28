@@ -2,7 +2,7 @@ import { pageMetadata } from "@/lib/seo";
 import { PageStub } from "@/components/site/PageStub";
 
 export const metadata = pageMetadata({
-  title: "Privacy",
+  title: "Privacy Policy",
   description: "How Theyurts handles the information you send through this website.",
   path: "/privacy",
 });

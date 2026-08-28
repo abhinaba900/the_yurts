@@ -7,9 +7,9 @@ import { Section } from "@/components/primitives/Section";
 import { RangeShowcase } from "@/components/range/RangeShowcase";
 
 export const metadata = pageMetadata({
-  title: "Yurts",
+  title: "Yurt Range: 10 Models and Sizes",
   description:
-    "The Theyurts range — yurts designed and manufactured in India for resorts, glamping sites, wellness retreats, farm stays, event spaces and private land.",
+    "Ten yurt models, from 5m studios to 12m event pavilions — footprint, occupancy and what each one suits. Made in India for resorts, retreats and homes.",
   path: "/yurts",
 });
 

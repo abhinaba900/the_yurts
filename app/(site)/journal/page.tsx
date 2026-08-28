@@ -8,9 +8,9 @@ import { JournalAdvisory } from "@/components/journal/JournalAdvisory";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 export const metadata = pageMetadata({
-  title: "The Yurt Journal",
+  title: "The Yurt Journal: Guides and Ideas",
   description:
-    "Ideas, guides and stories about yurts, glamping, hospitality, architecture, wellness and building differently.",
+    "Guides and writing on yurts, glamping and hospitality in India — planning a site, permits, climate, materials, costs and building differently.",
   path: "/journal",
 });
 

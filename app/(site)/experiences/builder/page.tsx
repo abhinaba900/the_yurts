@@ -4,9 +4,9 @@ import { resolveGroups } from "@/lib/configurator";
 import { BuilderLoader } from "@/components/builder/BuilderLoader";
 
 export const metadata = pageMetadata({
-  title: "3D yurt builder",
+  title: "3D Yurt Builder: Configure Yours",
   description:
-    "Configure a yurt in 3D — size, exterior, roof, doors, windows, flooring and interior — and send the configuration with your enquiry.",
+    "Design your yurt online in 3D — size, exterior, roof, doors, windows, flooring and interior — then send the finished configuration with your enquiry.",
   path: "/experiences/builder",
 });
 

@@ -9,7 +9,7 @@ import { Metadata } from "@/components/primitives/Metadata";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 export const metadata = pageMetadata({
-  title: "Enquire",
+  title: "Request a Quote for a Yurt",
   description:
     "Tell us about the site — where it is, what you want to put on it and roughly when. Quotes, product questions and consultations all start here.",
   path: "/enquire",

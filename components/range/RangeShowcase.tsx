@@ -54,7 +54,25 @@ export function RangeShowcase({
   const [activeIdx, setActiveIdx] = useState(0);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  /**
+   * The split sticky layout only works from 1024px up (iPad Pro and desktop).
+   * Below that the sticky stage has nowhere to pin, so the section becomes a
+   * plain click-driven accordion: each card carries its own image on top and
+   * its text underneath. Scroll no longer drives the active index there.
+   */
+  const [isSplitLayout, setIsSplitLayout] = useState(false);
+
   useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const sync = () => setIsSplitLayout(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (!isSplitLayout) return;
+
     const handleScroll = () => {
       const triggerY = window.innerHeight * 0.42;
       for (let i = items.length - 1; i >= 0; i--) {
@@ -83,14 +101,33 @@ export function RangeShowcase({
         lenis.off("scroll", handleScroll);
       }
     };
-  }, [items.length]);
+  }, [items.length, isSplitLayout]);
+
+  /** Compact layout: open the tapped card and bring its top edge into view. */
+  const handleSelect = (i: number) => {
+    setActiveIdx(i);
+    if (isSplitLayout) return;
+
+    const el = itemRefs.current[i];
+    if (!el) return;
+
+    requestAnimationFrame(() => {
+      const lenis = window.__lenis;
+      if (lenis?.scrollTo) {
+        lenis.scrollTo(el, { offset: -88, duration: 0.8 });
+      } else {
+        const top = el.getBoundingClientRect().top + window.scrollY - 88;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+    });
+  };
 
   const activeItem = items[activeIdx] ?? items[0];
 
   return (
     <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10 items-start relative">
       {/* Left Column: Sticky Stage dynamically filling viewport height */}
-      <div className="lg:col-span-6 lg:sticky lg:top-20 lg:h-[calc(100vh-6.5rem)] lg:flex lg:flex-col lg:justify-between self-start">
+      <div className="hidden lg:col-span-6 lg:sticky lg:top-20 lg:h-[calc(100vh-6.5rem)] lg:flex lg:flex-col lg:justify-between self-start">
         {/* Dynamic Image Container that consumes all remaining screen height */}
         <div className="relative overflow-hidden rounded-sm bg-surface-alt shadow-2xl flex-1 min-h-[240px] w-full border border-line/60">
           {items.map((item, i) => (
@@ -208,10 +245,22 @@ export function RangeShowcase({
                   ? "border-accent/40 bg-surface-alt/70 shadow-xl p-6 lg:p-7"
                   : "border-line/60 bg-surface-alt/20 hover:border-line hover:bg-surface-alt/40 p-5 cursor-pointer",
               )}
-              onClick={() => setActiveIdx(i)}
+              onClick={() => handleSelect(i)}
             >
               {/* Item Header */}
-              <div className="flex items-baseline justify-between gap-4">
+              <div
+                role={isSplitLayout ? undefined : "button"}
+                tabIndex={isSplitLayout ? undefined : 0}
+                aria-expanded={isSplitLayout ? undefined : isActive}
+                onKeyDown={(e) => {
+                  if (isSplitLayout) return;
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleSelect(i);
+                  }
+                }}
+                className="flex items-baseline justify-between gap-4"
+              >
                 <div className="flex items-baseline gap-4">
                   <span
                     className={cn(
@@ -252,6 +301,40 @@ export function RangeShowcase({
               {/* Expanded Content when active */}
               {isActive ? (
                 <div className="mt-4 border-t border-line/80 pt-4 font-sans animate-in fade-in slide-in-from-top-1 duration-300">
+                  {/* Compact layout only: the model's own photo sits on top of its text */}
+                  <div className="lg:hidden relative mb-4 overflow-hidden rounded-sm border border-line/60 bg-surface-alt aspect-[4/3] sm:aspect-[16/10]">
+                    {item.heroImage ? (
+                      <CmsImage
+                        image={item.heroImage}
+                        ratio="landscape"
+                        sizes="(min-width: 640px) 90vw, 100vw"
+                        pendingLabel={`${item.name}-hero.jpg`}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : item.media ? (
+                      <Media
+                        id={item.media}
+                        ratio="landscape"
+                        sizes="(min-width: 640px) 90vw, 100vw"
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-end bg-surface-alt p-4">
+                        <span className="font-sans text-meta uppercase text-text-muted">
+                          {item.name} Structure
+                        </span>
+                      </div>
+                    )}
+
+                    <div className="absolute top-3 left-3 z-10 flex items-center gap-2 rounded-xs border border-line/40 bg-surface-deep/85 px-2.5 py-1 shadow-lg backdrop-blur-xs">
+                      <span className="font-sans text-meta font-semibold uppercase text-accent-text">
+                        {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
+                      </span>
+                      <span className="text-text-muted opacity-40">&middot;</span>
+                      <span className="font-display text-small text-text">{item.name}</span>
+                    </div>
+                  </div>
+
                   <p className="text-body text-text-muted leading-relaxed">
                     {item.use}
                   </p>

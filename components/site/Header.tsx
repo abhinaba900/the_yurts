@@ -131,16 +131,28 @@ export function Header({ contact }: { contact?: HeaderContact }) {
               className="hidden items-center gap-9 lg:flex"
             >
               {primaryNav.map((item) => {
+                const isCurrent = (href: string) =>
+                  pathname === href || pathname.startsWith(`${href}/`);
                 const active =
-                  pathname === item.href || pathname.startsWith(`${item.href}/`);
-                return (
+                  isCurrent(item.href) ||
+                  (item.children?.some((child) => isCurrent(child.href)) ??
+                    false);
+
+                const trigger = (
                   <Link
-                    key={item.href}
                     href={item.href}
-                    aria-current={active ? "page" : undefined}
-                    className="group relative py-1.5 font-sans text-meta uppercase text-text"
+                    aria-current={isCurrent(item.href) ? "page" : undefined}
+                    className="group relative flex items-center gap-1.5 py-1.5 font-sans text-meta uppercase text-text"
                   >
                     {item.label}
+                    {item.children ? (
+                      <span
+                        aria-hidden
+                        className="text-[0.6em] leading-none transition-transform duration-(--duration-base) ease-(--ease-out-soft) group-hover:translate-y-0.5"
+                      >
+                        &#9660;
+                      </span>
+                    ) : null}
                     <span
                       aria-hidden
                       className={cn(
@@ -150,6 +162,54 @@ export function Header({ contact }: { contact?: HeaderContact }) {
                       )}
                     />
                   </Link>
+                );
+
+                if (!item.children) {
+                  return <div key={item.href}>{trigger}</div>;
+                }
+
+                /**
+                 * Hover and focus both open the panel. It is kept in the layout
+                 * with `invisible` rather than unmounted so the children are
+                 * unfocusable while closed, and focusable the moment the parent
+                 * link takes focus.
+                 */
+                return (
+                  <div key={item.href} className="group/nav relative">
+                    {trigger}
+                    <div
+                      className={cn(
+                        "absolute left-0 top-full z-50 pt-3",
+                        "invisible translate-y-1 opacity-0",
+                        "transition-[opacity,transform,visibility] duration-(--duration-base) ease-(--ease-out-soft)",
+                        "group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:opacity-100",
+                        "group-focus-within/nav:visible group-focus-within/nav:translate-y-0 group-focus-within/nav:opacity-100",
+                        "motion-reduce:transition-none",
+                      )}
+                    >
+                      <ul className="min-w-56 rounded-xs border border-line bg-surface py-2 shadow-2xl">
+                        {item.children.map((child) => (
+                          <li key={child.href}>
+                            <Link
+                              href={child.href}
+                              aria-current={
+                                isCurrent(child.href) ? "page" : undefined
+                              }
+                              className={cn(
+                                "block px-4 py-2.5 font-sans text-meta uppercase",
+                                "transition-colors duration-(--duration-base) ease-(--ease-out-soft)",
+                                isCurrent(child.href)
+                                  ? "text-accent-text"
+                                  : "text-text-muted hover:text-text",
+                              )}
+                            >
+                              {child.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 );
               })}
             </nav>

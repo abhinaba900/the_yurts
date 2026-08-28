@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/lib/seo";
-import { whyPoints, whyNot } from "@/data/pages";
+import { whyPoints, yurtPossibilities } from "@/data/pages";
 import { PageHeader } from "@/components/page/PageHeader";
 import { Media } from "@/components/primitives/Media";
 import { Metadata } from "@/components/primitives/Metadata";
@@ -8,22 +8,22 @@ import { Section } from "@/components/primitives/Section";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 export const metadata = pageMetadata({
-  title: "Why a yurt",
+  title: "Why Build With a Yurt",
   description:
-    "Modular construction, difficult sites, staged expansion and relocatability — the case for building with yurts, and the situations where it is the wrong answer.",
+    "Modular construction, difficult sites, staged expansion and relocatability — the case for building with a yurt, and everything one structure can become.",
   path: "/why-theyurts",
 });
 
 /**
  * Why a yurt.
  *
- * Two halves, and the second one is the point: a page that only argues in
- * favour is advertising. The "wrong answer" section is set on the dark tone so
- * it reads as a deliberate counterweight rather than a caveat in small print.
+ * Two halves: the case for building this way, then the range of things the
+ * structure becomes once it is on a site. The second section is set on the
+ * light tone so the list of uses reads as an opening out, not a footnote.
  *
- * No insulation values, wind ratings, lifespans or installation times. Those are
- * exactly the claims this page would want, and exactly the ones that have to
- * come from the workshop.
+ * The closing section names the details performance actually rests on without
+ * quoting figures for them. Those numbers are exactly the claims this page would
+ * want, and exactly the ones that have to come from the workshop first.
  */
 export default function WhyPage() {
   return (
@@ -76,24 +76,23 @@ export default function WhyPage() {
         </Reveal>
       </div>
 
-      {/* The counterweight. */}
+      {/* What the structure opens up. */}
       <Section tone="light" space="lg">
         <div className="u-container">
           <div className="u-grid">
             <header className="col-span-4 md:col-span-6 lg:col-span-4">
-              <Metadata className="text-accent-text">The other side</Metadata>
+              <Metadata className="text-accent-text">The opportunity</Metadata>
               <h2 className="mt-5 font-display text-display-lg u-optical-left">
-                When it is the wrong answer.
+                More than a structure.
               </h2>
               <p className="mt-7 u-measure-tight font-sans text-body text-text-muted">
-                We would rather lose an enquiry here than six months into a
-                project that was never going to suit.
+                A yurt can be many things.
               </p>
             </header>
 
             <div className="col-span-4 mt-12 md:col-span-6 lg:col-span-7 lg:col-start-6 lg:mt-0">
               <dl>
-                {whyNot.map((item) => (
+                {yurtPossibilities.map((item) => (
                   <Reveal
                     key={item.title}
                     kind="up"
@@ -106,6 +105,12 @@ export default function WhyPage() {
                   </Reveal>
                 ))}
               </dl>
+
+              <Reveal kind="up">
+                <p className="mt-8 font-display text-display-sm text-text">
+                  The structure is only the beginning.
+                </p>
+              </Reveal>
             </div>
           </div>
         </div>
@@ -116,21 +121,23 @@ export default function WhyPage() {
           <div className="col-span-4 md:col-span-6 lg:col-span-5">
             <Metadata>Technical claims</Metadata>
             <h2 className="mt-5 font-display text-display-md">
-              What we have not said here.
+              Built around the details.
             </h2>
           </div>
           <div className="col-span-4 mt-8 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-2">
             <p className="u-measure font-sans text-body text-text-muted">
-              You will notice there are no insulation values, wind ratings,
-              lifespans or installation times on this page. Those figures matter,
-              and they are being established properly in the workshop rather than
-              estimated for a website. When we publish them they will be ours to
-              stand behind.
+              A yurt&rsquo;s performance comes down to the details — its
+              structure, materials, insulation, weather protection, ventilation,
+              foundation and installation.
             </p>
             <p className="mt-5 u-measure font-sans text-body text-text-muted">
-              If you need one of them to make a decision now, ask — you will get
-              the real answer, including where it is still &ldquo;we do not know
-              yet&rdquo;.
+              Every site in India brings its own requirements. That&rsquo;s why we
+              approach each project around its location, intended use and local
+              conditions rather than treating every yurt as the same.
+            </p>
+            <p className="mt-5 u-measure font-sans text-body text-text-muted">
+              As our structures are tested and developed, we&rsquo;ll publish the
+              specifications behind them — clearly and transparently.
             </p>
             <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:gap-10">
               <ArrowLink href="/enquire">Ask a technical question</ArrowLink>

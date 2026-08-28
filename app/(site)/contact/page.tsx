@@ -9,9 +9,9 @@ import { Section } from "@/components/primitives/Section";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 export const metadata = pageMetadata({
-  title: "Contact",
+  title: "Contact Us and Book a Consultation",
   description:
-    "Book a consultation about your site, or get in touch with Theyurts directly by email, phone or WhatsApp.",
+    "Talk to Theyurts about your site or project — book a consultation, or get in touch directly by email, phone or WhatsApp.",
   path: "/contact",
 });
 

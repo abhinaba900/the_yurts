@@ -13,9 +13,9 @@ import { Section } from "@/components/primitives/Section";
 import { ApplicationsShowcase } from "@/components/applications/ApplicationsShowcase";
 
 export const metadata = pageMetadata({
-  title: "Applications",
+  title: "Yurt Uses: Resorts, Glamping and Retreats",
   description:
-    "How yurts are used — resort accommodation, glamping, farm stays, wellness retreats, eco tourism, event spaces, cafés, private homes and studios.",
+    "Where a yurt works — resort rooms, glamping units, wellness retreats, farm stays, event spaces, cafés, studios and private homes on land across India.",
   path: "/applications",
 });
 

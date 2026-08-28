@@ -5,9 +5,9 @@ import { Section } from "@/components/primitives/Section";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 export const metadata = pageMetadata({
-  title: "VR experience",
+  title: "360° Virtual Yurt Tour",
   description:
-    "Step inside a yurt in 360° — move between viewpoints on desktop, on a phone, or in a VR headset.",
+    "Step inside a yurt in 360°. Move between viewpoints on a desktop, a phone or a VR headset, and get a feel for the space before you build one.",
   path: "/experiences/vr",
 });
 

@@ -7,9 +7,9 @@ import { Section } from "@/components/primitives/Section";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 export const metadata = pageMetadata({
-  title: "About",
+  title: "Who We Are and How We Build",
   description:
-    "Theyurts designs, manufactures and installs modern yurts across India — creating spaces for hospitality, wellness, living and experiences.",
+    "Theyurts designs, manufactures and installs modern yurts across India. What we hold to on structure, materials, craft and the sites we build on.",
   path: "/about",
 });
 

@@ -44,7 +44,7 @@ export const site = {
    * fallback: anything filled into the Sanity site-settings document wins.
    */
   contact: {
-    email: "unthink@theyurts.com" as string | null,
+    email: "hello@theyurts.in" as string | null,
     phone: "+91 9880114331" as string | null,
     whatsapp: null as string | null,
     address: null as string | null,
@@ -68,11 +68,24 @@ export type NavItem = {
   href: string;
   /** Shown in the fullscreen mobile navigation only. */
   note?: string;
+  /**
+   * Secondary destinations under this item. The parent stays a real link — the
+   * children are an additional way in, not a replacement for it.
+   */
+  children?: NavItem[];
 };
 
 /** Primary navigation. Seven items — anything more and it stops being a decision. */
 export const primaryNav: NavItem[] = [
-  { label: "Yurts", href: "/yurts", note: "The range" },
+  {
+    label: "Yurts",
+    href: "/yurts",
+    note: "The range",
+    children: [
+      { label: "Why Yurts", href: "/why-theyurts", note: "The case" },
+      { label: "How It’s Made", href: "/process", note: "Eight stages" },
+    ],
+  },
   { label: "Applications", href: "/applications", note: "What they are for" },
   { label: "Experiences", href: "/experiences", note: "Configure and explore" },
   { label: "Projects", href: "/projects", note: "Gallery and inspiration" },
@@ -88,7 +101,6 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
       { label: "The range", href: "/yurts" },
       { label: "Build process", href: "/process" },
       { label: "Why a yurt", href: "/why-theyurts" },
-      { label: "Materials", href: "/about#materials" },
     ],
   },
   {

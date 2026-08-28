@@ -90,73 +90,6 @@ type LocalPost = Omit<Post, "related">;
 
 const articles: LocalPost[] = [
   {
-    _id: "local-post-unit-economics-glamping",
-    title:
-      "The Unit Economics of a 6-Yurt Glamping Resort: Capex, ARR & Payback Horizons",
-    slug: "unit-economics-of-a-glamping-resort",
-    excerpt:
-      "A line-by-line financial model comparing traditional brick-and-mortar masonry suites against modular circular timber yurts across Himachal, Goa, and Maharashtra. How non-permanent installations reach full operational breakeven in 14–18 months.",
-    publishedAt: PUBLISHED_AT,
-    readingTime: 8,
-    heroImage: {
-      assetId: "/media/application-resorts.jpg",
-      url: "/media/application-resorts.jpg",
-      lqip: null,
-      aspectRatio: 16 / 9,
-      alt: "Multi-unit luxury yurt resort development on an open hillside",
-      caption: "Turnkey 6-Unit Yurt Glamping Resort Layout in India",
-    },
-    author: {
-      name: "Theyurts Research & Advisory",
-      slug: "theyurts-research",
-      role: "Architectural & Financial Practice",
-      bio: "The engineering, design, and commercial advisory practice at Theyurts.",
-      image: null,
-    },
-    categories: [
-      CATEGORIES.business,
-      CATEGORIES.hospitality,
-      CATEGORIES.glamping,
-    ],
-    seo: null,
-    body: [
-      h2("Executive Summary: The Capex Trap of Traditional Resorts"),
-      p(
-        "For hospitality entrepreneurs in India, developing a boutique 6-to-10 key mountain or coastal retreat usually involves massive upfront capital expenditure (₹60L to ₹1Cr+ per key for RCC masonry), 18-to-24 months of construction delays, and arduous Change of Land Use (CLU) permitting processes.",
-      ),
-      p(
-        "By contrast, engineered circular timber yurts offer a turnkey, modular, and non-permanent alternative that slashes construction timelines from 18 months to under 4 weeks—drastically accelerating revenue generation and capital payback.",
-      ),
-      h2("Comparative Capex Breakdown: 6 Keys"),
-      p(
-        "When analyzing all line items required to open a 6-suite boutique destination:",
-      ),
-      ...bullets([
-        "Civil Groundworks: ₹12L (Yurt platform ground screws) vs ₹54L (Excavation, retaining walls & concrete footings)",
-        "Structure & Envelope: ₹96L (6 fully insulated 7.0m Luxury Yurts) vs ₹2.4Cr (RCC structure, brickwork & plastering)",
-        "Ensuite & MEP Integration: ₹18L (Modular dry bathrooms) vs ₹36L (Wet plumbing & septic excavation)",
-        "Interior Furnishing: ₹24L (Bespoke timber joinery & luxury beds) vs ₹30L (Conventional interior fit-outs)",
-        "Total Turnkey Capex: ~₹1.50 Cr for 6 Yurts vs ~₹3.60 Cr for 6 Masonry Cottages",
-      ]),
-      h2("Revenue Models & Operational Performance"),
-      p(
-        "In nature-centric tourism hubs such as Himachal Pradesh, Coorg, Wayanad, and Goa, experiential luxury yurts consistently command premium Average Daily Rates (ADR) due to their unique aesthetic and circular column-free spatial drama.",
-      ),
-      ...bullets([
-        "Conservative ADR: ₹11,000 – ₹16,000 / night (including breakfast & guided experience)",
-        "Projected High-Season Occupancy: 68% – 76%",
-        "Annual Gross Revenue (6 Units at 60% Annual Blended Occupancy): ₹1.44 Cr – ₹1.92 Cr",
-        "Operating Margins (EBITDA): 48% – 55% after staffing, F&B, energy and maintenance",
-        "Net Operational Payback Period: 14 to 18 months from launch",
-      ]),
-      h2("Phased Expansion Strategy: Growth Out of Operating Cashflow"),
-      p(
-        "One of the greatest financial advantages of modular yurt architecture is scalable phasing. A landowner can commission Phase 1 (3 yurts + central dining pavilion), begin accepting guests within 45 days, and fund Phase 2 (an additional 3 to 6 units) entirely out of operational cashflow without incurring high-interest bank debt.",
-      ),
-    ],
-  },
-
-  {
     _id: "local-post-what-is-a-yurt",
     title:
       "What Is a Yurt? A Complete Architectural Guide to Modern Yurts in India",
@@ -337,6 +270,86 @@ const articles: LocalPost[] = [
       h3("3. Arid Plains & Summer Heat (Stack-Effect Convection)"),
       p(
         "During hot seasons, opening the central operable crown skylight triggers a powerful natural stack effect: warm rising air vents through the ceiling oculus, creating a continuous vacuum that draws cool ambient air in through low wall windows.",
+      ),
+    ],
+  },
+
+  {
+    _id: "local-post-starting-a-glamping-business",
+    title:
+      "Starting a Glamping Business: What to Work Out Before You Build",
+    slug: "starting-a-glamping-business-what-to-work-out",
+    excerpt:
+      "Written for people weighing up a first site. The eight things that decide whether a glamping site opens or stays a plan \u2014 land, access, permissions, density, cost, revenue, guest experience and how to expand.",
+    publishedAt: PUBLISHED_AT,
+    readingTime: 7,
+    heroImage: {
+      assetId: "/media/application-glamping.jpg",
+      url: "/media/application-glamping.jpg",
+      lqip: null,
+      aspectRatio: 16 / 9,
+      alt: "A glamping yurt at the edge of a treeline.",
+      caption: "A single structure, sited for the landscape around it",
+    },
+    author: {
+      name: "Theyurts Hospitality Advisory",
+      slug: "theyurts-hospitality",
+      role: "Commercial Planning",
+      bio: "Hospitality economics and eco-resort masterplanning advisors.",
+      image: null,
+    },
+    categories: [
+      CATEGORIES.business,
+      CATEGORIES.glamping,
+      CATEGORIES.hospitality,
+    ],
+    seo: null,
+    body: [
+      p(
+        "Written for people weighing up a first site: what to look at, what to plan for, and what to ask before committing anything.",
+      ),
+      h2("The accommodation is the easy part. Everything around it is the business."),
+      p(
+        "Most first sites are not limited by structures. They are limited by access, water, sanitation, permissions and the fact that the nicest part of the property is a long walk from anywhere a car can stop. Working those out early is what separates a site that opens from a site that stays a plan.",
+      ),
+      h2("01. The land"),
+      p(
+        "Not all of a property is worth sleeping on. Aspect, shelter, drainage, noise and what the view actually does at six in the morning matter more than total acreage. The best plot is often not the flattest one.",
+      ),
+      h2("02. Access and services"),
+      p(
+        "How guests arrive, where they park, how far they walk with a bag, and where power and water come from. This is usually the largest cost nobody budgets for, and it is worth knowing before anything else is decided.",
+      ),
+      h2("03. Permissions"),
+      p(
+        "Rules for temporary and semi-permanent accommodation vary by state and by local authority. Establish your position early \u2014 it shapes what you can build, how long it can stay, and sometimes whether the plan works at all.",
+      ),
+      h2("04. Site planning"),
+      p(
+        "How many structures, how far apart, and what guests see from each one. Density is the decision that determines whether a site feels like a retreat or a car park with better tents.",
+      ),
+      h2("05. Investment"),
+      p(
+        "Structures are one line among several: groundworks, services, sanitation, furnishing, landscaping, booking systems and the cost of running the thing. Any plan that only counts the structures will be wrong.",
+      ),
+      h2("06. Revenue"),
+      p(
+        "Rate, occupancy and season length are specific to your location, your market and how good the site actually is. We will not put numbers on your project, and you should be wary of anyone who does before seeing the land.",
+      ),
+      h2("07. Guest experience"),
+      p(
+        "What happens between check-in and sleep. Light, warmth, a bed worth the rate, somewhere to put a bag, and a bathroom that does not undo the rest of it.",
+      ),
+      h2("08. Expansion"),
+      p(
+        "Starting small and growing from revenue is the most common route, and it works better when the first phase is planned as a first phase rather than as the whole thing.",
+      ),
+      h2("Bring us the land, not the plan"),
+      p(
+        "A conversation about the site itself \u2014 where the structures would sit, what the ground and access allow, and what a realistic first phase looks like. If the answer is that yurts are wrong for your site, you will hear that too.",
+      ),
+      quote(
+        "There are no revenue projections here. Rate, occupancy and season length depend on your land and your market, and anyone quoting you a return before seeing the site is guessing.",
       ),
     ],
   },

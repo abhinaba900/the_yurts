@@ -23,12 +23,26 @@ export function IndiaFlag({ className }: { className?: string }) {
         {/* Top: Saffron */}
         <rect width="24" height="5.333" fill="#FF9933" />
         {/* Middle: White */}
-        <rect y="5.333" width="24" height="5.333" fill="#FFFFFF" />
+        <rect y="5.333" width="24" height="5.334" fill="#FFFFFF" />
         {/* Bottom: India Green */}
         <rect y="10.667" width="24" height="5.333" fill="#138808" />
         {/* Center: Ashoka Chakra (Navy Blue) */}
-        <circle cx="12" cy="8" r="2.1" stroke="#000080" strokeWidth="0.45" fill="none" />
-        <circle cx="12" cy="8" r="0.5" fill="#000080" />
+        <g transform="translate(12, 8)">
+          <circle r="2.1" fill="none" stroke="#000080" strokeWidth="0.4" />
+          <circle r="0.45" fill="#000080" />
+          {Array.from({ length: 24 }).map((_, i) => (
+            <line
+              key={i}
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="-2.0"
+              stroke="#000080"
+              strokeWidth="0.22"
+              transform={`rotate(${i * 15})`}
+            />
+          ))}
+        </g>
       </svg>
     </span>
   );

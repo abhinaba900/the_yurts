@@ -10,9 +10,9 @@ import { Section } from "@/components/primitives/Section";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 export const metadata = pageMetadata({
-  title: "Frequently asked",
+  title: "Yurt FAQs: Build, Cost and Care",
   description:
-    "Questions about how yurts are built, installed, customised and maintained — construction, materials, weather, transport, lifespan, pricing and support.",
+    "Common questions about yurts — how they are built, installed, customised and maintained, plus materials, weather, transport, lifespan and pricing.",
   path: "/faq",
 });
 

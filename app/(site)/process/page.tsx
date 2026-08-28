@@ -8,9 +8,9 @@ import { Section } from "@/components/primitives/Section";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 export const metadata = pageMetadata({
-  title: "Build process",
+  title: "How a Yurt Is Made: Eight Stages",
   description:
-    "How a Theyurts yurt is made — design, material selection, manufacturing, customisation, quality check, transportation, installation and handover.",
+    "From the first conversation about a site to handover — design, materials, manufacturing, customisation, quality checks, transport and installation.",
   path: "/process",
 });
 

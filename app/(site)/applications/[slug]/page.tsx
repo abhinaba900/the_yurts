@@ -61,12 +61,15 @@ export async function generateMetadata({
   const found = await resolve(slug);
   if (!found) return { title: "Not found", robots: { index: false } };
 
-  const title = found.cms?.title ?? found.fallback!.name;
+  // "Resorts" alone is a label; "Yurts for Resorts" is what someone searches.
+  const name = found.cms?.title ?? found.fallback!.name;
+  const title = /yurt/i.test(name) ? name : `Yurts for ${name}`;
   const description = truncate(
     found.cms?.seo?.metaDescription ??
+      found.fallback?.metaDescription ??
       found.cms?.summary ??
       found.fallback?.body ??
-      `Yurts for ${title.toLowerCase()}.`,
+      `Yurts for ${name.toLowerCase()} — how they are used, what the space suits and how it is specified. Designed and made in India.`,
     155,
   );
 

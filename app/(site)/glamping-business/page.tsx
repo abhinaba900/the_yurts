@@ -9,7 +9,7 @@ import { ArrowLink } from "@/components/primitives/ArrowLink";
 import { Button } from "@/components/primitives/Button";
 
 export const metadata = pageMetadata({
-  title: "Starting a glamping business",
+  title: "How to Start a Glamping Business in India",
   description:
     "Land, access, permissions, site planning, investment and guest experience — what to work out before building glamping accommodation in India.",
   path: "/glamping-business",

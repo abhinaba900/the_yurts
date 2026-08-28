@@ -8,9 +8,9 @@ import { Section } from "@/components/primitives/Section";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 export const metadata = pageMetadata({
-  title: "Experiences",
+  title: "See a Yurt in 3D and 360°",
   description:
-    "Configure a yurt in 3D, or step inside one in 360°. Two ways to work out what you want before anyone quotes for it.",
+    "Configure a yurt in 3D, or step inside one in 360°. Two ways to work out the size, layout and finishes you want before anyone quotes for it.",
   path: "/experiences",
 });
 

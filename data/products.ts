@@ -80,7 +80,16 @@ const toProduct = (entry: RangeEntry): Product => ({
   applications: null,
   downloads: null,
   faqs: null,
-  seo: null,
+  // Only the description is authored locally; the rest of the SEO block is the
+  // CMS editor's to fill, and a null here lets pageMetadata fall through.
+  seo: entry.metaDescription
+    ? {
+        metaTitle: null,
+        metaDescription: entry.metaDescription,
+        noIndex: false,
+        shareImage: null,
+      }
+    : null,
 });
 
 const products: Product[] = rangeFallback.map(toProduct);

@@ -44,7 +44,7 @@ export async function generateMetadata({
     title: category.title,
     description:
       category.description ??
-      `Writing on ${category.title.toLowerCase()} from the Theyurts Journal.`,
+      `Articles and guides on ${category.title.toLowerCase()} from the Theyurts Journal — yurts, glamping and building differently in India.`,
     path: `/journal/category/${category.slug}`,
   });
 }

@@ -10,9 +10,9 @@ import { Section } from "@/components/primitives/Section";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 export const metadata = pageMetadata({
-  title: "Resources",
+  title: "Catalogues, Specifications and Guides",
   description:
-    "Catalogues, specifications, brochures and guides for yurts, glamping structures and outdoor hospitality projects.",
+    "Catalogues, technical specifications, brochures and planning guides for yurts, glamping structures and hospitality projects, as each one is finished.",
   path: "/resources",
 });
 

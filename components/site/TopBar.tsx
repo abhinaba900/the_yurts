@@ -1,5 +1,6 @@
 import { cn } from "@/lib/cn";
 import { hasTopBar } from "@/lib/site";
+import { IndiaFlag } from "@/components/primitives/IndiaFlag";
 
 /**
  * Utility bar above the primary navigation.
@@ -88,8 +89,9 @@ export function TopBar({
     >
       <div className="u-container">
         <div className="flex h-9 items-center justify-between gap-6">
-          <p className="hidden font-sans text-meta uppercase text-text-muted sm:block">
-            Designed &amp; made in India
+          <p className="hidden font-sans text-meta uppercase text-text-muted sm:inline-flex sm:items-center sm:gap-2">
+            <span>Designed &amp; made in India</span>
+            <IndiaFlag className="h-3 w-4.5 rounded-[1px]" />
           </p>
 
           <div className="flex flex-1 items-center justify-end gap-5 sm:flex-none sm:gap-7">

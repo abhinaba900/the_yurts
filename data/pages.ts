@@ -108,6 +108,40 @@ export const whyNot: { title: string; body: string }[] = [
   },
 ];
 
+/**
+ * What a yurt can become.
+ *
+ * The counterpart to whyNot: the same structure read through the uses people
+ * actually put it to, so the page argues the opportunity as plainly as it
+ * argues the limits.
+ */
+export const yurtPossibilities: { title: string; body: string }[] = [
+  {
+    title: "A resort room.",
+    body: "A different kind of stay.",
+  },
+  {
+    title: "A glamping unit.",
+    body: "Closer to the landscape, without giving up comfort.",
+  },
+  {
+    title: "A wellness space.",
+    body: "A room designed for stillness and connection.",
+  },
+  {
+    title: "A farm stay.",
+    body: "A new way to experience the land.",
+  },
+  {
+    title: "A private retreat.",
+    body: "A space to step away without stepping too far.",
+  },
+  {
+    title: "A destination.",
+    body: "A place people travel to experience.",
+  },
+];
+
 export const glampingTopics: { index: string; title: string; body: string }[] = [
   {
     index: "01",

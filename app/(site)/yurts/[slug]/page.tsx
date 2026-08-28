@@ -41,13 +41,19 @@ export async function generateMetadata({
   const product = await getProduct(slug);
   if (!product) return { title: "Not found", robots: { index: false } };
 
+  // Model names are single words ("Classic", "Wellness"), which say nothing on
+  // their own in a result list. Name the category unless the title already does.
+  const named = /yurt/i.test(product.title)
+    ? product.title
+    : `${product.title} Yurt`;
+
   return pageMetadata({
-    title: product.seo?.metaTitle ?? product.title,
+    title: product.seo?.metaTitle ?? named,
     description:
       product.seo?.metaDescription ??
       product.summary ??
       product.tagline ??
-      `${product.title} — a yurt by ${site.name}.`,
+      `The ${product.title} yurt from ${site.name} — size, occupancy, specification and what it is designed for. Made in India.`,
     path: `/yurts/${product.slug}`,
     image:
       imageUrl(product.seo?.shareImage ?? product.heroImage, { width: 1200, height: 630 }) ??
