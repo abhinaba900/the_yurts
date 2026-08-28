@@ -121,9 +121,11 @@ const components: PortableTextComponents = {
           <Image
             src={src}
             alt={image.alt ?? ""}
-            width={1800}
-            height={Math.round(1800 / (image.aspectRatio || 1.5))}
+            width={2400}
+            height={Math.round(2400 / (image.aspectRatio || 1.5))}
             sizes="(min-width: 1024px) 60vw, 100vw"
+            quality={100}
+            unoptimized={true}
             className="w-full"
             placeholder={image.lqip ? "blur" : undefined}
             blurDataURL={image.lqip ?? undefined}

@@ -156,7 +156,7 @@ export function JournalIndex({ posts }: { posts: PostSummary[] }) {
                 )}
               >
                 <CmsImage
-                  image={post.heroImage}
+                  image={post.verticalImage ?? post.heroImage}
                   ratio="editorial"
                   sizes="(min-width: 1024px) 40vw, 100vw"
                   width={1400}

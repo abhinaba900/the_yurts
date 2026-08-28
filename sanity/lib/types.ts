@@ -167,6 +167,7 @@ export type PostSummary = {
   publishedAt: string;
   readingTime: number | null;
   heroImage: SanityImage | null;
+  verticalImage?: SanityImage | null;
   author: { name: string; slug: string; role: string | null } | null;
   categories: CategoryRef[] | null;
 };

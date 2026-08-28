@@ -40,8 +40,10 @@ export function CmsImage({
   image,
   ratio = "landscape",
   sizes = "100vw",
-  width = 1600,
+  width = 2400,
   priority,
+  quality = 100,
+  unoptimized = true,
   pendingLabel,
   className,
 }: {
@@ -50,6 +52,8 @@ export function CmsImage({
   sizes?: string;
   width?: number;
   priority?: boolean;
+  quality?: number;
+  unoptimized?: boolean;
   /** Shown on the placeholder when there is no image. */
   pendingLabel?: string;
   className?: string;
@@ -77,6 +81,8 @@ export function CmsImage({
           fill
           sizes={sizes}
           priority={priority}
+          quality={quality}
+          unoptimized={unoptimized}
           placeholder={image?.lqip ? "blur" : undefined}
           blurDataURL={image?.lqip ?? undefined}
           className="object-cover"
