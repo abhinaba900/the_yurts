@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Theyurts">
+  <title>Theyurts</title>
+  <rect width="64" height="64" rx="13" fill="#17110D"/>
+  <g stroke="#D4A548" stroke-linecap="round" fill="none">
+    <circle cx="32" cy="32" r="19" stroke-width="6"/>
+    <g stroke-width="5.5">
+      <path d="M32 13V51"/>
+      <path d="M15.5 22.5 48.5 41.5"/>
+      <path d="M15.5 41.5 48.5 22.5"/>
+    </g>
+  </g>
+  <circle cx="32" cy="32" r="9.5" fill="#17110D"/>
+  <circle cx="32" cy="32" r="5.5" fill="#D4A548"/>
+</svg>
