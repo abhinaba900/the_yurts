@@ -69,7 +69,15 @@ export const primaryNav: NavItem[] = [
     ],
   },
   { label: "Applications", href: "/applications", note: "What they are for" },
-  { label: "Experiences", href: "/experiences", note: "Configure and explore" },
+  {
+    label: "Experiences",
+    href: "/experiences",
+    note: "Configure and explore",
+    children: [
+      { label: "3D Yurt Builder", href: "/experiences/builder", note: "3D Configurator" },
+      { label: "Experience yurt in VR", href: "/experiences/vr", note: "Virtual Reality" },
+    ],
+  },
   { label: "Projects", href: "/projects", note: "Gallery and inspiration" },
   { label: "Journal", href: "/journal", note: "Writing" },
   { label: "About", href: "/about", note: "The company" },

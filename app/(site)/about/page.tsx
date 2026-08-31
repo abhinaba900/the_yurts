@@ -233,71 +233,7 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* 05. TEAM */}
-      <section className="py-(--spacing-section-lg) border-t border-line">
-        <div className="u-container">
-          <div className="u-grid">
-            <div className="col-span-4 md:col-span-6 lg:col-span-5">
-              <Reveal kind="up">
-                <Metadata className="text-accent-text">Team</Metadata>
-                <h2 className="mt-3 font-display text-display-lg u-optical-left">
-                  The people behind Theyurts.
-                </h2>
-              </Reveal>
-            </div>
 
-            <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-3">
-              <Reveal kind="up" delay={0.08}>
-                <p className="u-measure font-sans text-lead text-text-muted leading-relaxed">
-                  Theyurts is being built by people who believe there is a better
-                  way to create spaces in the landscape.
-                </p>
-                <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
-                  Our team brings together design, construction, manufacturing and
-                  hospitality thinking to create structures that are as considered
-                  in their details as they are in their overall experience.
-                </p>
-                <p className="mt-8 border-t border-line pt-6 font-display text-display-xs text-text">
-                  Meet the people building Theyurts.
-                </p>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 06. CERTIFICATIONS */}
-      <Section tone="light" space="lg">
-        <div className="u-container">
-          <div className="u-grid">
-            <div className="col-span-4 md:col-span-6 lg:col-span-5">
-              <Reveal kind="up">
-                <Metadata className="text-accent-text">Certifications</Metadata>
-                <h2 className="mt-3 font-display text-display-lg u-optical-left">
-                  Quality, testing &amp; standards.
-                </h2>
-              </Reveal>
-            </div>
-
-            <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-3">
-              <Reveal kind="up" delay={0.08}>
-                <p className="u-measure font-sans text-lead text-text-muted leading-relaxed">
-                  As Theyurts grows, this section will document the certifications,
-                  testing and standards behind our structures.
-                </p>
-                <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
-                  Every certification will be listed with the issuing body and
-                  relevant details.
-                </p>
-                <p className="mt-8 border-t border-line pt-6 font-display text-display-xs text-text">
-                  No borrowed badges. No inflated claims. Just information you can
-                  verify.
-                </p>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </Section>
 
       {/* 07. WORKSHOP */}
       <section className="py-(--spacing-section-lg) border-t border-line">
