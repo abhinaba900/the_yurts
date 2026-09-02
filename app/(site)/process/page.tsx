@@ -1,7 +1,6 @@
 import { pageMetadata } from "@/lib/seo";
 import { processStages } from "@/data/pages";
 import { PageHeader } from "@/components/page/PageHeader";
-import { Media } from "@/components/primitives/Media";
 import { Metadata } from "@/components/primitives/Metadata";
 import { Reveal } from "@/components/primitives/Reveal";
 import { Section } from "@/components/primitives/Section";
@@ -18,8 +17,8 @@ export const metadata = pageMetadata({
  * Build process. Eight stages as a vertical narrative.
  *
  * Numerals run down the left at display size and the copy is held right — the
- * page reads as a sequence rather than a grid, and the alternating image
- * positions keep the scroll from settling into a pattern.
+ * page reads as a sequence rather than a grid. No photography until the
+ * workshop has shot the real thing; the header says as much.
  *
  * No timescales anywhere. How long each stage takes depends on the structure and
  * the site, and nobody has given us real figures.
@@ -45,7 +44,7 @@ export default function ProcessPage() {
 
       <div className="u-container pb-(--spacing-section)">
         <ol>
-          {processStages.map((stage, i) => (
+          {processStages.map((stage) => (
             <Reveal
               key={stage.index}
               kind="up"
@@ -66,16 +65,6 @@ export default function ProcessPage() {
                     {stage.body}
                   </p>
                 </div>
-
-                {/* One image in the sequence, at the stage it means most. */}
-                {i === 2 ? (
-                  <div className="col-span-4 mt-4 md:col-span-6 lg:col-span-8 lg:col-start-4">
-                    <Media
-                      id="home.process"
-                      sizes="(min-width: 1024px) 60vw, 100vw"
-                    />
-                  </div>
-                ) : null}
               </div>
             </Reveal>
           ))}
