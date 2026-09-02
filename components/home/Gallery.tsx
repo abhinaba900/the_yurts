@@ -24,7 +24,14 @@ export function Gallery() {
               </h2>
             </Reveal>
           </div>
-          <Reveal kind="up" delay={0.08} className="max-w-xl">
+          {/*
+            The heading is wide enough to take the whole row on its own, so this
+            paragraph always wraps beneath it, and runs the container's full
+            width rather than sitting as a stranded narrow column. Set as one
+            column: splitting it in two broke the sentence across a wide gutter
+            and made the eye jump the width of the page mid-clause.
+          */}
+          <Reveal kind="up" delay={0.08} className="w-full">
             <p className="font-sans text-body text-text-muted leading-relaxed">
               Theyurts is a new company, and we&apos;re building our first collection
               of structures right now. This space will soon become a record of the

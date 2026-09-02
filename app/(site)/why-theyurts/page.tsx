@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/lib/seo";
-import { whyPoints, yurtPossibilities } from "@/data/pages";
+import { whyPoints } from "@/data/pages";
 import { PageHeader } from "@/components/page/PageHeader";
 import { Media } from "@/components/primitives/Media";
 import { Metadata } from "@/components/primitives/Metadata";
@@ -17,9 +17,9 @@ export const metadata = pageMetadata({
 /**
  * Why a yurt.
  *
- * Two halves: the case for building this way, then the range of things the
- * structure becomes once it is on a site. The second section is set on the
- * light tone so the list of uses reads as an opening out, not a footnote.
+ * Two halves: the case for building this way, then what that case actually
+ * rests on. The closing section is set on the light tone so the detail argument
+ * reads as the conclusion rather than a footnote in small print.
  *
  * The closing section names the details performance actually rests on without
  * quoting figures for them. Those numbers are exactly the claims this page would
@@ -76,76 +76,50 @@ export default function WhyPage() {
         </Reveal>
       </div>
 
-      {/* What the structure opens up. */}
+      {/* The detail argument, set on the light tone so it closes the page. */}
       <Section tone="light" space="lg">
         <div className="u-container">
           <div className="u-grid">
-            <header className="col-span-4 md:col-span-6 lg:col-span-4">
-              <Metadata className="text-accent-text">The opportunity</Metadata>
+            <header className="col-span-4 md:col-span-6 lg:col-span-5">
+              <Metadata className="text-accent-text">Technical claims</Metadata>
               <h2 className="mt-5 font-display text-display-lg u-optical-left">
-                More than a structure.
+                Built around the details.
               </h2>
-              <p className="mt-7 u-measure-tight font-sans text-body text-text-muted">
-                A yurt can be many things.
-              </p>
             </header>
 
-            <div className="col-span-4 mt-12 md:col-span-6 lg:col-span-7 lg:col-start-6 lg:mt-0">
-              <dl>
-                {yurtPossibilities.map((item) => (
-                  <Reveal
-                    key={item.title}
-                    kind="up"
-                    className="border-t border-line py-6 last:border-b"
-                  >
-                    <dt className="font-display text-display-sm">{item.title}</dt>
-                    <dd className="mt-3 u-measure font-sans text-body text-text-muted">
-                      {item.body}
-                    </dd>
-                  </Reveal>
-                ))}
-              </dl>
-
+            <div className="col-span-4 mt-10 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-2">
               <Reveal kind="up">
-                <p className="mt-8 font-display text-display-sm text-text">
-                  The structure is only the beginning.
+                <p className="u-measure font-sans text-body text-text-muted">
+                  A yurt&rsquo;s performance comes down to the details — its
+                  structure, materials, insulation, weather protection,
+                  ventilation, foundation and installation.
                 </p>
+              </Reveal>
+              <Reveal kind="up" delay={0.08}>
+                <p className="mt-5 u-measure font-sans text-body text-text-muted">
+                  Every site in India brings its own requirements. That&rsquo;s
+                  why we approach each project around its location, intended use
+                  and local conditions rather than treating every yurt as the
+                  same.
+                </p>
+              </Reveal>
+              <Reveal kind="up" delay={0.12}>
+                <p className="mt-5 u-measure font-sans text-body text-text-muted">
+                  As our structures are tested and developed, we&rsquo;ll publish
+                  the specifications behind them — clearly and transparently.
+                </p>
+              </Reveal>
+              <Reveal kind="up" delay={0.16}>
+                <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:gap-10">
+                  <ArrowLink href="/enquire">Ask a technical question</ArrowLink>
+                  <ArrowLink href="/process">How one gets made</ArrowLink>
+                </div>
               </Reveal>
             </div>
           </div>
         </div>
       </Section>
 
-      <section className="u-container py-(--spacing-section-lg)">
-        <div className="u-grid">
-          <div className="col-span-4 md:col-span-6 lg:col-span-5">
-            <Metadata>Technical claims</Metadata>
-            <h2 className="mt-5 font-display text-display-md">
-              Built around the details.
-            </h2>
-          </div>
-          <div className="col-span-4 mt-8 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-2">
-            <p className="u-measure font-sans text-body text-text-muted">
-              A yurt&rsquo;s performance comes down to the details — its
-              structure, materials, insulation, weather protection, ventilation,
-              foundation and installation.
-            </p>
-            <p className="mt-5 u-measure font-sans text-body text-text-muted">
-              Every site in India brings its own requirements. That&rsquo;s why we
-              approach each project around its location, intended use and local
-              conditions rather than treating every yurt as the same.
-            </p>
-            <p className="mt-5 u-measure font-sans text-body text-text-muted">
-              As our structures are tested and developed, we&rsquo;ll publish the
-              specifications behind them — clearly and transparently.
-            </p>
-            <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:gap-10">
-              <ArrowLink href="/enquire">Ask a technical question</ArrowLink>
-              <ArrowLink href="/process">How one gets made</ArrowLink>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }
