@@ -70,12 +70,7 @@ export function Introduction() {
 
           <Reveal kind="up" delay={0.14}>
             <div className="mt-10 border-t border-line pt-8">
-              <p className="u-measure font-sans text-body text-text-muted leading-relaxed">
-                That thinking is what makes the yurt so compelling even today. A
-                circular room. An open connection to the landscape. A structure
-                designed to belong to its surroundings rather than dominate
-                them.
-              </p>
+              
               <p className="mt-5 u-measure font-sans text-lead text-text leading-relaxed">
                 At Theyurts, we take that enduring idea and reimagine it for
                 modern living &mdash; creating spaces that bring the warmth of a
