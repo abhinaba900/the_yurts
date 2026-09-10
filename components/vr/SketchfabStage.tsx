@@ -25,11 +25,14 @@ const API_SRC = "https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js";
  * TOP takes the title/author bar and its share button. BOTTOM takes the whole
  * lower strip in one cut — the Sketchfab logo at its left end, the annotation
  * pager in the middle, and the control row at its right end (help, settings,
- * model inspector, headset, fullscreen). Most of the `ui_*` options below ask
- * for the same thing, but Sketchfab only honours those for models owned by a
- * Pro account and this model is not ours, so the crop is what actually works.
+ * model inspector, headset, fullscreen).
  *
- * See the note in SketchfabEmbed about the credit this removes.
+ * ONLY APPLIED TO A MODEL THAT IS NOT OURS. The `ui_*` options below ask
+ * Sketchfab for the same result properly, but it honours them only for models
+ * owned by the embedding account. For an owned model the crop is therefore both
+ * unnecessary and harmful — it would eat 156px of a viewer that had already
+ * hidden its own chrome — so `owned` turns it off. It also means the crop stops
+ * removing anyone else's author credit the moment the placeholder is replaced.
  */
 const CHROME_CROP_TOP = 80;
 const CHROME_CROP_BOTTOM = 76;
@@ -95,10 +98,15 @@ const distance = (a: number[], b: number[]) =>
 export function SketchfabStage({
   modelId,
   title,
+  owned = false,
 }: {
   modelId: string;
   title: string;
+  /** See `VrModel.owned` in data/vr.ts — decides whether the crop is needed. */
+  owned?: boolean;
 }) {
+  const cropTop = owned ? 0 : CHROME_CROP_TOP;
+  const cropBottom = owned ? 0 : CHROME_CROP_BOTTOM;
   const frameRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -279,8 +287,8 @@ export function SketchfabStage({
         allowFullScreen
         className="absolute inset-x-0 w-full border-0"
         style={{
-          top: `-${CHROME_CROP_TOP}px`,
-          height: `calc(100% + ${CHROME_CROP_TOP + CHROME_CROP_BOTTOM}px)`,
+          top: `-${cropTop}px`,
+          height: `calc(100% + ${cropTop + cropBottom}px)`,
         }}
       />
 

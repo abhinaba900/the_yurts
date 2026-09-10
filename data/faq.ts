@@ -1,6 +1,27 @@
 /**
  * Comprehensive FAQ with questions, answers, and category groupings.
+ *
+ * The pricing and customisation answers read their figures out of
+ * `data/specifications.ts` rather than repeating them. An FAQ that quietly
+ * disagrees with the range page is worse than one that says nothing, and the
+ * only way to guarantee it cannot is to not have a second copy of the number.
  */
+
+import { layouts, priceLabel } from "./specifications";
+
+/** The cheapest and dearest quotes on the sheet, whichever layouts they are. */
+const allPrices = layouts.flatMap((layout) => layout.variants.map((v) => v.price));
+const cheapest = Math.min(...allPrices);
+const dearest = Math.max(...allPrices);
+
+/** Names the layout and door depth a given price belongs to — "a Symmetry with 300mm doors". */
+const describe = (price: number) => {
+  for (const layout of layouts) {
+    const variant = layout.variants.find((v) => v.price === price);
+    if (variant) return `a ${layout.name} with ${variant.doorDepthMm}mm doors`;
+  }
+  return "the standard specification";
+};
 
 export type FaqItem = {
   question: string;
@@ -79,7 +100,7 @@ export const faqData: FaqCategory[] = [
       {
         question: "What can be changed from the standard structure?",
         answer:
-          "You can configure yurt diameters (5m, 6m, 7m, 8m, 10m), door styles (single, French double glass), window count and placement, insulation density, canvas colorways, and bespoke timber finishes.",
+          "The standard range is built on three shells — 6000mm, 7200mm and 9600mm diameter — in three layouts: Symmetry (one door, four windows), Trinity (one door, five windows) and Bistro (two doors, six windows). Doors are flush or glazed at 300mm or 500mm, windows are UPVC casement, and both come in Black, Walnut or Teak. The crown dome is remote operated on every one. Insulation density, canvas colourways, interior fit-out and any diameter outside those three are specified per project.",
       },
       {
         question: "Can I specify my own interior?",
@@ -203,8 +224,7 @@ export const faqData: FaqCategory[] = [
     items: [
       {
         question: "What does a yurt cost?",
-        answer:
-          "Structures range from standard glamping suites to bespoke luxury master dwellings. Pricing depends on diameter, insulation grade, and door/window configurations. Contact us for our detailed pricing catalogue.",
+        answer: `Indicative prices for the standard layouts start at ${priceLabel(cheapest)} for ${describe(cheapest)} and run to ${priceLabel(dearest)} for ${describe(dearest)} — the full list is on the range page. Those are for the structure only: the platform deck, groundworks, services, transport and interior fit-out depend on the site and are quoted once we know where it is going.`,
       },
       {
         question: "What is included in a quote, and what is not?",

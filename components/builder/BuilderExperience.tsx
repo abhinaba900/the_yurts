@@ -249,9 +249,9 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
               starting point for a conversation, not an order.
             </p>
             <p className="mt-4 u-measure font-sans text-small text-text-muted">
-              Finishes and proportions shown here are indicative. The confirmed
-              range, with real dimensions, is published once the workshop settles
-              it.
+              The three sizes are the real ones and are drawn to scale. Covers
+              and finishes shown here are indicative — the full specification,
+              with layouts and prices, is on the range page.
             </p>
           </header>
 

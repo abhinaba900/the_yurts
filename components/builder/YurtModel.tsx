@@ -3,6 +3,8 @@
 import { useLayoutEffect, useMemo, useRef } from "react";
 import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { SCENE_SCALE } from "@/data/configurator";
+import { glazing } from "@/data/materials";
 import type { OptionGroupId, RenderSpec } from "@/lib/configurator";
 import type { PartId, Parts } from "./parts";
 
@@ -40,7 +42,24 @@ import type { PartId, Parts } from "./parts";
  */
 
 const CROWN_RATIO = 0.19; // crown radius as a fraction of wall radius
-const ROOF_RISE = 0.52; // roof height as a fraction of wall radius
+/**
+ * Fallback roof height, as a fraction of wall radius.
+ *
+ * Only used when a size carries no `roofRise` of its own. The three standard
+ * shells all do, and their real rise is not a constant fraction of the radius,
+ * so this is the shape of a yurt in the abstract rather than of any built one.
+ */
+const ROOF_RISE = 0.52;
+
+/**
+ * Door height, in millimetres.
+ *
+ * Fixed rather than taken from the wall. The wall is 2700mm on every standard
+ * size, and a door is not 2700mm tall — deriving one from the other used to be
+ * harmless when the wall was a relative number, and stopped being harmless the
+ * moment the wall became a real one.
+ */
+const DOOR_HEIGHT_MM = 2100;
 const CUTAWAY_GAP = Math.PI * 0.42;
 
 const POLE_COUNT = 16;
@@ -296,7 +315,7 @@ export function YurtModel({
   const radius = spec.size.radius ?? 2;
   const wallHeight = spec.size.wallHeight ?? 1.2;
   const crownRadius = radius * CROWN_RATIO;
-  const roofHeight = radius * ROOF_RISE;
+  const roofHeight = spec.size.roofRise ?? radius * ROOF_RISE;
   const roofTop = wallHeight + roofHeight;
 
   const exteriorColor = spec.exterior.color ?? "#d9d0bd";
@@ -308,8 +327,16 @@ export function YurtModel({
   // Opens the wedge to the front-left, away from the door.
   const coverStart = cutaway ? CUTAWAY_GAP * 0.5 + Math.PI * 0.15 : 0;
 
+  // Door and window finish, from the workshop's own SketchUp materials.
+  // Falls back to the previous hard-coded browns when a spec omits them.
+  const frameColor = spec.joinery?.frameColor ?? "#6b5138";
+  const panelColor = spec.joinery?.panelColor ?? "#8a6a4b";
+  const revealColor = spec.joinery?.revealColor ?? "#5f4a35";
+  const joineryRoughness = spec.joinery?.roughness ?? 0.62;
+
   const doorWidth = spec.doors.double ? radius * 0.42 : radius * 0.26;
-  const doorHeight = wallHeight * 1.02;
+  // Never taller than the wall it sits in — a fallback size can be shorter.
+  const doorHeight = Math.min(wallHeight * 0.98, (DOOR_HEIGHT_MM / 1000) * SCENE_SCALE);
   const windowCount = spec.windows.count ?? 0;
 
   // How far each part travels at offset = 1, in world units. Scaled off the
@@ -490,8 +517,8 @@ export function YurtModel({
           <mesh position={[0, doorHeight / 2, 0.02]} castShadow>
             <boxGeometry args={[doorWidth + 0.1, doorHeight + 0.08, 0.06]} />
             <meshStandardMaterial
-              color="#6b5138"
-              roughness={0.62}
+              color={frameColor}
+              roughness={joineryRoughness}
               normalMap={grain ?? undefined}
               normalScale={grain ? new THREE.Vector2(0.3, 0.3) : undefined}
             />
@@ -517,8 +544,8 @@ export function YurtModel({
                 <Glass />
               ) : (
                 <meshStandardMaterial
-                  color="#8a6a4b"
-                  roughness={0.68}
+                  color={panelColor}
+                  roughness={joineryRoughness + 0.06}
                   normalMap={grain ?? undefined}
                   normalScale={grain ? new THREE.Vector2(0.3, 0.3) : undefined}
                 />
@@ -550,7 +577,7 @@ export function YurtModel({
                     args={[windowRadius, windowRadius, 0.06, 24, 1, true]}
                   />
                   <meshStandardMaterial
-                    color="#5f4a35"
+                    color={revealColor}
                     roughness={0.8}
                     side={THREE.BackSide}
                   />
@@ -558,7 +585,7 @@ export function YurtModel({
 
                 <mesh>
                   <torusGeometry args={[windowRadius, 0.028, 8, 28]} />
-                  <meshStandardMaterial color="#6b5138" roughness={0.62} />
+                  <meshStandardMaterial color={frameColor} roughness={joineryRoughness} />
                 </mesh>
 
                 <mesh position={[0, 0, 0.01]}>
@@ -591,14 +618,15 @@ export function YurtModel({
  * a hard specular and almost no roughness reads as glass from any distance
  * anyone will view this from, and costs one blended draw.
  */
+/** Clear glazing, taken from the model's own `GlassClear` material. */
 function Glass() {
   return (
     <meshStandardMaterial
-      color="#b7c8c6"
-      roughness={0.06}
-      metalness={0.2}
+      color={glazing.clear.color}
+      roughness={glazing.clear.roughness}
+      metalness={glazing.clear.metalness}
       transparent
-      opacity={0.34}
+      opacity={glazing.clear.opacity}
       side={THREE.DoubleSide}
       depthWrite={false}
     />

@@ -20,6 +20,69 @@
  * degrees above (positive) or below (negative) the horizon.
  */
 
+/* -------------------------------------------------------------------------- */
+/* The 3D model on the stage                                                  */
+/* -------------------------------------------------------------------------- */
+
+export type VrModel = {
+  /**
+   * Sketchfab model UID — the 32 hex characters at the end of the model's URL
+   * (sketchfab.com/3d-models/<slug>-<uid>), or in Share → Embed.
+   */
+  id: string;
+  title: string;
+  /**
+   * Set true when the viewer hides its own chrome, which turns off the crop in
+   * `SketchfabStage`.
+   *
+   * That happens when the model is on the Theyurts account AND the plan honours
+   * the `ui_*` embed options — Sketchfab gates several of them (the title/author
+   * bar, the watermark) behind a paid tier, so ownership alone is not always
+   * enough. It is therefore something to confirm by looking, not to assume:
+   *
+   *   - switch the model over and set this true;
+   *   - if Sketchfab's bars are gone, it is correct;
+   *   - if they are still showing, set it back to false and the crop takes them
+   *     off as it does today. Nothing else needs changing either way.
+   *
+   * The crop is a blunt instrument — it also removes the author credit, which
+   * Sketchfab's embed terms ask us to keep. That only stops being a problem once
+   * the model on the stage is our own, which is the point of replacing it.
+   */
+  owned: boolean;
+  /** Author credit. Meaningful only while `owned` is false. */
+  author?: { name: string; url: string };
+};
+
+/**
+ * CURRENT STATE — this is a placeholder model and not a Theyurts yurt.
+ *
+ * It is a third-party Mongolian ger: red felt, ornate carpets, painted furniture.
+ * It is the wrong building to be showing on a page selling a modern UPVC-windowed
+ * structure, and it is not ours to strip the credit from.
+ *
+ * TO REPLACE IT with the workshop's own model: upload the SketchUp file to the
+ * Theyurts Sketchfab account — Sketchfab imports `.skp` natively, so the model
+ * does not need converting first — then set `id` to the new UID, `title` to the
+ * model's name, `owned` to true, and delete `author`. Nothing else changes.
+ */
+export const vrModel: VrModel = {
+  id: "9dbc41311f4543e79fbb6bf2d30aacaf",
+  title: "Tent - Yurt V2 (With Cloth Simulation)",
+  owned: false,
+  // Recorded so the credit the crop removes is at least written down somewhere.
+  // Read off the viewer chrome itself; the /models/<uid> form resolves to the
+  // model page without needing its slug.
+  author: {
+    name: "Aykut Serin",
+    url: "https://sketchfab.com/models/9dbc41311f4543e79fbb6bf2d30aacaf",
+  },
+};
+
+/* -------------------------------------------------------------------------- */
+/* 360° scenes                                                                */
+/* -------------------------------------------------------------------------- */
+
 export type VrHotspot = {
   yaw: number;
   pitch: number;

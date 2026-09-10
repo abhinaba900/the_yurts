@@ -5,11 +5,12 @@ import { Metadata } from "@/components/primitives/Metadata";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 import { Section } from "@/components/primitives/Section";
 import { RangeShowcase } from "@/components/range/RangeShowcase";
+import { StandardSpecification } from "@/components/range/StandardSpecification";
 
 export const metadata = pageMetadata({
-  title: "Yurt Range: 10 Models and Sizes",
+  title: "Yurt Range: 10 Models, 3 Sizes and Prices",
   description:
-    "Ten yurt models, from 5m studios to 12m event pavilions — footprint, occupancy and what each one suits. Made in India for resorts, retreats and homes.",
+    "Ten yurt models on three shells — 6000mm, 7200mm and 9600mm diameter, 314 to 804 sq ft. Symmetry, Trinity and Bistro layouts with indicative prices. Made in India.",
   path: "/yurts",
 });
 
@@ -55,8 +56,18 @@ export default async function YurtsPage() {
         }
       />
 
-      <div className="u-container pb-(--spacing-section-lg)">
+      <div className="u-container">
         <RangeShowcase products={formattedProducts} />
+      </div>
+
+      {/*
+        The confirmed specification sits under the ten models rather than above
+        them: someone arrives looking for a use, not a diameter. Once they have
+        found the model, this is the sheet that says what it is actually built
+        from and what it costs.
+      */}
+      <div className="u-container pb-(--spacing-section-lg)">
+        <StandardSpecification />
       </div>
 
       <Section tone="light" space="lg">

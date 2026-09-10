@@ -1,4 +1,5 @@
 import type { MediaId } from "./media";
+import type { ShellSizeId } from "./specifications";
 
 export type RangeEntry = {
   name: string;
@@ -9,6 +10,18 @@ export type RangeEntry = {
   diameter: string;
   capacity: string;
   idealFor: string;
+  /**
+   * The confirmed shell sizes this model can be built at — see
+   * `data/specifications.ts`.
+   *
+   * Listed per model rather than derived by parsing `diameter`, so the mapping
+   * is something a person can check against the sheet rather than something a
+   * regex decides. The rule used: a size appears here only when it falls inside
+   * the diameter range already published above it. That is why Event has none —
+   * the sheet stops at 9600mm and Event starts at 10m — and why the block simply
+   * does not render on that page rather than showing a size it cannot be built at.
+   */
+  standardSizes?: ShellSizeId[];
   media?: MediaId;
   /**
    * Meta description for /yurts/<slug>. Written separately from `use`, which is
@@ -26,6 +39,7 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "5.0m – 6.0m (20 – 28 sqm)",
     capacity: "2 Guests / Studio",
     idealFor: "Private estates & serene garden retreats",
+    standardSizes: ["d6000"],
     metaDescription:
       "The Classic yurt: a 5–6m circular timber structure for private retreats, gardens and studios. Footprint, occupancy and specification, made in India.",
     media: "home.range-classic",
@@ -38,6 +52,7 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "6.0m – 8.0m (28 – 50 sqm)",
     capacity: "2–4 Guests / Ensuite Suite",
     idealFor: "Eco-resorts, boutique lodges & glamping hotels",
+    standardSizes: ["d6000", "d7200"],
     metaDescription:
       "The Resort yurt: a 6–8m ensuite structure built as guest accommodation for eco-resorts, boutique lodges and glamping hotels. Sizes and specification.",
     media: "home.range-resort",
@@ -50,6 +65,7 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "7.0m – 9.0m (38 – 64 sqm)",
     capacity: "2–4 Guests / Master Villa",
     idealFor: "High-end luxury experiential resorts & villas",
+    standardSizes: ["d7200"],
     metaDescription:
       "The Luxury yurt: a 7–9m master suite for destinations where the room is the attraction. A refined specification for high-end resorts and villas in India.",
     media: "home.range-luxury",
@@ -62,6 +78,7 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "6.0m – 8.0m (28 – 50 sqm)",
     capacity: "Treatment rooms / 1–4 Persons",
     idealFor: "Ayurvedic retreats, spa hubs & meditation zones",
+    standardSizes: ["d6000", "d7200"],
     metaDescription:
       "The Wellness yurt: a 6–8m circular space for spa treatment rooms, therapy and Ayurvedic retreats. Sizes, capacity and specification, made in India.",
     media: "home.range-wellness",
@@ -74,6 +91,7 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "8.0m – 10.0m (50 – 78 sqm)",
     capacity: "12–20 Practitioners",
     idealFor: "Yoga studios, ashrams & group workshops",
+    standardSizes: ["d9600"],
     metaDescription:
       "The Yoga yurt: an 8–10m column-free floor for 12–20 practitioners, with light from above. Built in India for studios, ashrams and group workshops.",
     media: "home.range-yoga",
@@ -86,6 +104,7 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "5.0m – 7.0m (20 – 38 sqm)",
     capacity: "2–3 Guests",
     idealFor: "Wilderness camps, hillsides & national park borders",
+    standardSizes: ["d6000"],
     metaDescription:
       "The Glamping yurt: a 5–7m guest structure for wilderness camps, hillsides and park-edge sites. Premium outdoor accommodation designed and made in India.",
     media: "home.range-glamping",
@@ -98,6 +117,7 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "10.0m – 12.0m (78 – 113 sqm)",
     capacity: "40–70 Guests",
     idealFor: "Destination weddings, banquet dining & pop-up events",
+    standardSizes: [],
     metaDescription:
       "The Event yurt: a 10–12m space seating 40–70 for weddings, banquet dining and pop-up events. Spans, capacity and specification from Theyurts.",
     media: "home.range-event",
@@ -110,6 +130,7 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "7.0m – 9.0m (38 – 64 sqm)",
     capacity: "16–30 Seats",
     idealFor: "Farm-to-table farmstays, roadside cafés & vineyards",
+    standardSizes: ["d7200"],
     metaDescription:
       "The Café yurt: a 7–9m structure seating 16–30 for cafés, food concepts and hospitality outposts on farms, roadsides and vineyards. Made in India.",
     media: "home.range-cafe",
@@ -122,6 +143,7 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "8.0m – 10.0m (50 – 78 sqm)",
     capacity: "Permanent Residence / Family Suite",
     idealFor: "Off-grid farm homes, artists' studios & caretaker pods",
+    standardSizes: ["d9600"],
     metaDescription:
       "The Residential yurt: an 8–10m structure for off-grid homes, guest houses and studios. A different way to live on land, made in India.",
     media: "home.range-residential",
@@ -134,6 +156,7 @@ export const rangeFallback: RangeEntry[] = [
     diameter: "Custom Spans & Conjoined Multi-Domes",
     capacity: "Bespoke Capacity",
     idealFor: "Architectural commissions & unique topography",
+    standardSizes: ["d6000", "d7200", "d9600"],
     metaDescription:
       "A yurt designed around your site — custom spans, conjoined multi-domes and bespoke capacity for architectural commissions and difficult ground.",
     media: "home.range-custom",

@@ -3,15 +3,20 @@
  *
  * A NOTE ON SIZES.
  *
- * Sizes here are relative — Compact, Standard, Large, Grand — and carry no
- * dimensions. Publishing "5m diameter · 19.6 sq m · sleeps 4" would be inventing
- * a specification, which is the one thing this project must not do. The
- * configurator therefore lets someone explore proportions and finishes without
- * asserting a single figure Theyurts has not confirmed.
+ * Sizes used to be relative — Compact, Standard, Large, Grand — carrying no
+ * dimensions, because publishing a figure the workshop had not confirmed is the
+ * one thing this project must not do.
  *
- * The same applies to finishes: these are plausible options for a yurt, shown so
- * a visitor can say "that one" — not a published product range. The interface
- * states this plainly rather than burying it.
+ * The workshop has now confirmed them. The three sizes below are the real ones
+ * from `data/specifications.ts`, and the scene draws them to scale: one scene
+ * unit is 1.8m, so a 9600mm yurt really is 1.6× the radius of a 6000mm one, and
+ * the 2700mm wall is the same height on all three exactly as the sheet says.
+ *
+ * Door and window *counts* are still offered freely here rather than being
+ * locked to the Symmetry / Trinity / Bistro layouts. That is deliberate: this is
+ * the toy that lets someone see what four windows looks like before they read
+ * the layouts on /yurts. The finishes below are likewise plausible covers rather
+ * than a published cover range, and the interface says so.
  *
  * When the workshop confirms the real range, `configuratorOption` documents in
  * the CMS take over: they are matched to the entries below by `id` (the schema's
@@ -25,14 +30,32 @@ export type OptionGroupId =
   | "exterior"
   | "roof"
   | "doors"
+  | "joinery"
   | "windows"
   | "flooring"
   | "interior";
 
+import { joineryFinishes } from "./materials";
+
+/** Scene units per metre. One unit is 1.8m — see the note on sizes above. */
+export const SCENE_SCALE = 1 / 1.8;
+
+/** Millimetres to scene units. */
+const mm = (value: number) => (value / 1000) * SCENE_SCALE;
+
 export type RenderSpec = {
-  /** Wall radius in scene units. Relative proportion only — not a dimension. */
+  /** Wall radius in scene units, drawn to scale. */
   radius?: number;
   wallHeight?: number;
+  /**
+   * Wall head to crown, in scene units.
+   *
+   * Carried per size rather than derived from the radius, because the sheet's
+   * rise is not a constant fraction of it — 1150mm on a 6000mm shell is a
+   * shallower roof than 2350mm on a 9600mm one. The model falls back to its own
+   * ratio when this is absent, so nothing else has to set it.
+   */
+  roofRise?: number;
   color?: string;
   roughness?: number;
   /** Window or door count around the wall. */
@@ -40,6 +63,15 @@ export type RenderSpec = {
   glazed?: boolean;
   double?: boolean;
   furniture?: "none" | "minimal" | "full";
+  /**
+   * Door and window finish, from `data/materials.ts`.
+   *
+   * Three colours rather than one because a door drawn in a single flat tone
+   * loses the shadow line between leaf and frame, and stops reading as a door.
+   */
+  frameColor?: string;
+  panelColor?: string;
+  revealColor?: string;
 };
 
 export type OptionDef = {
@@ -61,12 +93,26 @@ export const groups: GroupDef[] = [
   {
     id: "size",
     label: "Size",
-    note: "Relative proportions. Exact diameters are confirmed with the workshop.",
+    note: "The three standard shells, drawn to scale. Other diameters are quoted per project.",
     options: [
-      { id: "compact", label: "Compact", description: "A single room.", render: { radius: 1.55, wallHeight: 1.05 } },
-      { id: "standard", label: "Standard", description: "The common choice for guest accommodation.", render: { radius: 2, wallHeight: 1.2 } },
-      { id: "large", label: "Large", description: "Room for a seating area as well as a bed.", render: { radius: 2.5, wallHeight: 1.32 } },
-      { id: "grand", label: "Grand", description: "Gatherings, dining and event use.", render: { radius: 3.1, wallHeight: 1.45 } },
+      {
+        id: "d6000",
+        label: "6000mm Dia",
+        description: "314 sq ft. A single room.",
+        render: { radius: mm(3000), wallHeight: mm(2700), roofRise: mm(1150) },
+      },
+      {
+        id: "d7200",
+        label: "7200mm Dia",
+        description: "452 sq ft. The common choice for guest accommodation.",
+        render: { radius: mm(3600), wallHeight: mm(2700), roofRise: mm(1750) },
+      },
+      {
+        id: "d9600",
+        label: "9600mm Dia",
+        description: "804 sq ft. Gatherings, dining and event use.",
+        render: { radius: mm(4800), wallHeight: mm(2700), roofRise: mm(2350) },
+      },
     ],
   },
   {
@@ -97,6 +143,21 @@ export const groups: GroupDef[] = [
       { id: "double", label: "Double timber", render: { double: true, glazed: false } },
       { id: "glazed", label: "Glazed", description: "Glass in the upper panel.", render: { double: true, glazed: true } },
     ],
+  },
+  {
+    id: "joinery",
+    label: "Door & window finish",
+    note: "The three finishes on the specification sheet, in their real colours.",
+    options: joineryFinishes.map((finish) => ({
+      id: finish.id,
+      label: finish.label,
+      render: {
+        frameColor: finish.frame,
+        panelColor: finish.panel,
+        revealColor: finish.reveal,
+        roughness: finish.roughness,
+      },
+    })),
   },
   {
     id: "windows",
