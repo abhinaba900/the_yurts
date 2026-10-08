@@ -6,7 +6,7 @@ import { BuilderLoader } from "@/components/builder/BuilderLoader";
 export const metadata = pageMetadata({
   title: "3D Yurt Builder: Configure Yours",
   description:
-    "Design your yurt online in 3D — size, exterior, roof, doors, windows, flooring and interior — then send the finished configuration with your enquiry.",
+    "Explore our 10m yurt in 3D — choose one of three interior layouts, the wall and roof covers and the flooring — then send the finished configuration with your enquiry.",
   path: "/experiences/builder",
 });
 

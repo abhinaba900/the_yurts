@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef } from "react";
 
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, useProgress } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { SizedCanvas } from "@/components/three/SizedCanvas";
 import * as THREE from "three";
-import { YurtModel } from "./YurtModel";
+import { MODEL_FLOOR_Y, MODEL_RADIUS, YurtModel } from "./YurtModel";
+import { Metadata } from "@/components/primitives/Metadata";
 import type { OptionGroupId, RenderSpec } from "@/lib/configurator";
 import type { PartId, Parts } from "./parts";
 
@@ -18,12 +19,11 @@ import type { PartId, Parts } from "./parts";
  * loop at 60fps while the visitor reads the options is a battery drain with no
  * benefit — and this page sits on a marketing site, not in a game.
  *
- * There is no HDR environment and no external asset of any kind. Lighting is
- * four lights and a painted shadow, so the experience has nothing to download
- * beyond the code itself — and ACES tone mapping does the work an environment
- * map would otherwise be needed for, rolling the highlights off instead of
- * clipping them to flat white, which is most of what made the model read as
- * plastic.
+ * The one download is the client's model itself, about a megabyte per layout.
+ * There is no HDR environment: lighting is four lights and a painted shadow,
+ * and ACES tone mapping does the work an environment map would otherwise be
+ * needed for, rolling the highlights off instead of clipping them to flat
+ * white, which is most of what made the model read as plastic.
  *
  * ZOOM IS HELD BEHIND Ctrl (Cmd on a Mac). A canvas that eats the wheel traps
  * the page: the reader scrolls expecting to reach the options and the model
@@ -70,16 +70,17 @@ function Stage({
   parts,
   offsets,
   onDragPart,
+  interactive,
 }: {
   spec: Spec;
   cutaway: boolean;
   parts: Parts;
   offsets: Record<PartId, number>;
   onDragPart: (id: PartId, delta: number) => void;
+  interactive: boolean;
 }) {
   const shadow = useShadowTexture();
-  const radius = spec.size.radius ?? 2;
-  const wallHeight = spec.size.wallHeight ?? 1.2;
+  const radius = MODEL_RADIUS;
 
   return (
     <>
@@ -94,21 +95,36 @@ function Stage({
       {shadow ? (
         <mesh
           rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, -wallHeight * 0.45 - 0.07, 0]}
+          position={[0, MODEL_FLOOR_Y - 0.02, 0]}
         >
           <planeGeometry args={[radius * 3.4, radius * 3.4]} />
           <meshBasicMaterial map={shadow} transparent depthWrite={false} />
         </mesh>
       ) : null}
 
-      <YurtModel
-        spec={spec}
-        cutaway={cutaway}
-        parts={parts}
-        offsets={offsets}
-        onDragPart={onDragPart}
-      />
+      <Suspense fallback={null}>
+        <YurtModel
+          spec={spec}
+          cutaway={cutaway}
+          parts={parts}
+          offsets={offsets}
+          onDragPart={onDragPart}
+          interactive={interactive}
+        />
+      </Suspense>
     </>
+  );
+}
+
+/** Shown over the stage while a layout downloads. */
+function LoadingNote() {
+  const { active, progress } = useProgress();
+  if (!active) return null;
+
+  return (
+    <div className="pointer-events-none absolute inset-x-0 top-0 z-10 p-5">
+      <Metadata>Loading the model · {Math.round(progress)}%</Metadata>
+    </div>
   );
 }
 
@@ -118,6 +134,7 @@ export function BuilderCanvas({
   parts,
   offsets,
   onDragPart,
+  interactive,
   reducedMotion,
 }: {
   spec: Spec;
@@ -125,9 +142,10 @@ export function BuilderCanvas({
   parts: Parts;
   offsets: Record<PartId, number>;
   onDragPart: (id: PartId, delta: number) => void;
+  interactive: boolean;
   reducedMotion: boolean;
 }) {
-  const radius = spec.size.radius ?? 2;
+  const radius = MODEL_RADIUS;
   const controls = useRef<OrbitControlsImpl>(null);
   const wrapper = useRef<HTMLDivElement>(null);
 
@@ -169,7 +187,8 @@ export function BuilderCanvas({
   }, []);
 
   return (
-    <div ref={wrapper} className="size-full">
+    <div ref={wrapper} className="relative size-full">
+    <LoadingNote />
     <SizedCanvas
       frameloop="demand"
       dpr={[1, 1.75]}
@@ -180,7 +199,7 @@ export function BuilderCanvas({
         gl.toneMapping = THREE.ACESFilmicToneMapping;
         gl.toneMappingExposure = 1.05;
       }}
-      camera={{ position: [4.2, 2.4, 5.4], fov: 38 }}
+      camera={{ position: [5.6, 3.0, 7.2], fov: 38 }}
       style={{ background: "transparent" }}
       // The canvas is decorative; every option is reachable through the panel.
       aria-hidden
@@ -191,6 +210,7 @@ export function BuilderCanvas({
         parts={parts}
         offsets={offsets}
         onDragPart={onDragPart}
+        interactive={interactive}
       />
 
       <OrbitControls
@@ -204,7 +224,7 @@ export function BuilderCanvas({
         enableZoom={false}
         enableDamping={!reducedMotion}
         dampingFactor={0.08}
-        minDistance={radius * 1.9}
+        minDistance={radius * 1.6}
         maxDistance={radius * 4.4}
         // Stops short of the horizon so the model is never viewed from beneath.
         minPolarAngle={0.18}

@@ -126,6 +126,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
             parts={parts}
             offsets={offsets}
             onDragPart={dragPart}
+            interactive={inspecting}
             reducedMotion={reducedMotion}
           />
         </div>
@@ -249,9 +250,10 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
               starting point for a conversation, not an order.
             </p>
             <p className="mt-4 u-measure font-sans text-small text-text-muted">
-              The three sizes are the real ones and are drawn to scale. Covers
-              and finishes shown here are indicative — the full specification,
-              with layouts and prices, is on the range page.
+              This is our 10m yurt, from the workshop&rsquo;s own drawings, with
+              three ways of fitting it out. Covers and finishes shown here are
+              indicative — the full specification, with sizes and prices, is on
+              the range page.
             </p>
           </header>
 

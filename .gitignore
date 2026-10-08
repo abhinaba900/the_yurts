@@ -8,3 +8,7 @@ build
 *.tsbuildinfo
 next-env.d.ts
 .vercel
+
+# The client's raw SketchUp export (313MB, over GitHub's 100MB limit).
+# The site uses the optimised files in public/models/ — see scripts/optimize-yurt-model.mjs.
+public/3D-Modal/

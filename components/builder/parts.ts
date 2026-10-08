@@ -4,16 +4,17 @@
  * Ordered outside-in, which is the order someone dismantling one would take
  * them off — so hiding them from the top of the list down reads as undressing
  * the building rather than deleting bits of a picture.
+ *
+ * Which meshes of the client's model belong to which part is in
+ * `data/yurtModel.ts`; anything not claimed there is interior.
  */
 export const PART_IDS = [
   "roofCover",
-  "wallCover",
   "roofFrame",
-  "wallFrame",
-  "door",
-  "windows",
+  "wallCover",
+  "doorsWindows",
   "interior",
-  "deck",
+  "floor",
 ] as const;
 
 export type PartId = (typeof PART_IDS)[number];
@@ -21,25 +22,21 @@ export type PartId = (typeof PART_IDS)[number];
 export type Parts = Record<PartId, boolean>;
 
 export const partLabels: Record<PartId, string> = {
-  roofCover: "Roof cover",
+  roofCover: "Roof cover & crown",
+  roofFrame: "Roof poles",
   wallCover: "Wall cover",
-  roofFrame: "Roof poles & crown",
-  wallFrame: "Lattice & tension band",
-  door: "Door",
-  windows: "Windows",
+  doorsWindows: "Doors & windows",
   interior: "Interior",
-  deck: "Deck",
+  floor: "Floor & deck",
 };
 
 export const allParts: Parts = {
   roofCover: true,
-  wallCover: true,
   roofFrame: true,
-  wallFrame: true,
-  door: true,
-  windows: true,
+  wallCover: true,
+  doorsWindows: true,
   interior: true,
-  deck: true,
+  floor: true,
 };
 
 /** Everything seated in place. */

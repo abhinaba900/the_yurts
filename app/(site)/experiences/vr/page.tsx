@@ -40,8 +40,8 @@ export default function VrPage() {
             </div>
             <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-2">
               <p className="u-measure font-sans text-body text-text-muted">
-                The configurator lets you change size, cover, doors, windows and
-                interior, and send the result with your enquiry.
+                The configurator lets you choose an interior layout and the cover
+                and floor finishes, and send the result with your enquiry.
               </p>
               <div className="mt-8 flex flex-col items-start gap-4">
                 <ArrowLink href="/experiences/builder">Open the 3D builder</ArrowLink>

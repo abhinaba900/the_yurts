@@ -158,14 +158,10 @@ export const configuratorOption = defineType({
       type: "string",
       options: {
         list: [
-          { title: "Size", value: "size" },
-          { title: "Exterior", value: "exterior" },
-          { title: "Roof", value: "roof" },
-          { title: "Doors", value: "doors" },
-          { title: "Windows", value: "windows" },
+          { title: "Interior layout", value: "layout" },
+          { title: "Wall cover", value: "exterior" },
+          { title: "Roof cover", value: "roof" },
           { title: "Flooring", value: "flooring" },
-          { title: "Interior package", value: "interior" },
-          { title: "Furniture", value: "furniture" },
         ],
       },
       validation: (r) => r.required(),

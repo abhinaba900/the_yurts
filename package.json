@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "content:todo": "node scripts/content-todo.ts",
     "payload": "node scripts/payload.mjs",
-    "verify:media": "node scripts/verify-media.mjs"
+    "verify:media": "node scripts/verify-media.mjs",
+    "optimize:model": "node --max-old-space-size=12288 scripts/optimize-yurt-model.mjs"
   },
   "dependencies": {
     "@portabletext/react": "^8.0.1",
@@ -33,11 +34,15 @@
     "three": "^0.185.1"
   },
   "devDependencies": {
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/extensions": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.2.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "@types/three": "^0.185.4",
+    "meshoptimizer": "^1.3.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2"
   }
