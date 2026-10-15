@@ -21,28 +21,33 @@ const BuilderExperience = dynamic(
 );
 
 /**
- * The loading state is laid out like the finished page, so nothing jumps when it
- * arrives. A spinner in the middle of an empty screen would be worse.
+ * The loading state is laid out like the finished page — stage, stepper, step,
+ * back and next — so nothing jumps when it arrives.
  */
 function BuilderSkeleton() {
   return (
-    <div className="landscape-split:flex lg:flex lg:min-h-[calc(100svh-5rem)]">
-      <div className="relative h-[52svh] w-full bg-surface-alt landscape-split:h-[calc(100svh-5rem)] landscape-split:w-[58%] landscape-split:shrink-0 lg:h-[calc(100svh-5rem)] lg:w-[58%] lg:shrink-0">
-        <div className="absolute inset-0 flex items-end p-5">
+    <div className="landscape-split:grid landscape-split:h-[calc(100svh-4rem)] landscape-split:grid-cols-[minmax(0,1fr)_22rem] lg:grid lg:h-[calc(100svh-8.25rem)] lg:min-h-[38rem] lg:grid-cols-[minmax(0,1fr)_25rem] xl:grid-cols-[minmax(0,1fr)_28rem]">
+      <div className="relative h-[44svh] min-h-[18rem] bg-surface-alt landscape-split:h-full lg:h-full">
+        <div className="absolute left-0 top-0 p-4 lg:p-6">
+          <Metadata className="text-accent-text">3D yurt builder</Metadata>
+          <p className="mt-1.5 font-display text-display-sm leading-none">Your yurt</p>
+        </div>
+        <div className="absolute inset-0 grid place-items-center">
           <Metadata>Preparing the model</Metadata>
         </div>
       </div>
-      <div className="landscape-split:w-[42%] lg:w-[42%]">
-        <div className="u-container py-14 lg:px-10 lg:py-16">
-          <Metadata className="text-accent-text">Build one</Metadata>
-          <p className="mt-4 font-display text-display-md">Your yurt.</p>
-          <div className="mt-12 space-y-6" aria-hidden>
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="border-t border-line pt-4">
-                <div className="h-3 w-24 bg-surface-deep" />
-                <div className="mt-4 h-3 w-full bg-surface-deep opacity-60" />
-              </div>
-            ))}
+      <div className="border-line landscape-split:border-l lg:border-l" aria-hidden>
+        <div className="flex justify-between border-b border-line px-6 py-4">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="size-7 rounded-full border border-line-strong" />
+          ))}
+        </div>
+        <div className="px-6 pt-7">
+          <div className="h-3 w-20 bg-surface-deep" />
+          <div className="mt-4 h-7 w-48 bg-surface-deep" />
+          <div className="mt-8 grid grid-cols-2 gap-3">
+            <div className="h-56 border border-line" />
+            <div className="h-56 border border-line" />
           </div>
         </div>
       </div>

@@ -7,21 +7,25 @@ import * as THREE from "three";
 import { SCENE_SCALE } from "@/data/configurator";
 import { glazing } from "@/data/materials";
 import {
+  allModelFiles,
+  EXTERIOR,
   glassMeshes,
   layoutById,
+  modelFileFor,
   paintable,
   partMeshes,
-  yurtLayouts,
+  sizeById,
 } from "@/data/yurtModel";
 import type { OptionGroupId, RenderSpec } from "@/lib/configurator";
 import { PART_IDS, type PartId, type Parts } from "./parts";
 
 /**
- * The client's 10m yurt.
+ * The client's 6m and 10m yurts.
  *
- * Loaded from the optimised files in `public/models/yurt-10m/` (see
- * `scripts/optimize-yurt-model.mjs`), one per layout, ~0.6–1.3MB each with
- * meshopt compression. drei's `useGLTF` decodes meshopt out of the box.
+ * Loaded from the optimised files in `public/models/` (see `data/yurtModel.ts`):
+ * a shell per size, under 150KB each, and the 10m's three fitted-out layouts,
+ * ~0.6–1.3MB each with meshopt compression. drei's `useGLTF` decodes meshopt
+ * out of the box.
  *
  * PREPARING A LAYOUT happens once per file, on first load, and the result is
  * kept on the cached scene. It is deliberately cheap — anything heavy (normals,
@@ -47,7 +51,23 @@ type Spec = Record<OptionGroupId, RenderSpec>;
 export const MODEL_FLOOR_Y = -1.45;
 
 /** Wall radius in scene units, for framing the camera and the shadow. */
-export const MODEL_RADIUS = 5.05 * SCENE_SCALE;
+export const modelRadius = (size: string | undefined) =>
+  sizeById(size).radiusM * SCENE_SCALE;
+
+/**
+ * Half the size of the yurt on its deck, in scene units — the radius of a
+ * sphere that holds it. The camera is framed on this, so a tall narrow 6m and a
+ * broad 10m both fill the stage.
+ */
+export const modelFit = (size: string | undefined) => {
+  const { radiusM, heightM } = sizeById(size);
+  return Math.hypot(radiusM + DECK_MARGIN, heightM / 2) * SCENE_SCALE;
+};
+
+/** How far the deck runs out past the wall, in metres. */
+const DECK_MARGIN = 0.9;
+/** Deck thickness in metres. The yurt stands on it, so it sits below y = 0. */
+const DECK_DEPTH = 0.18;
 
 type Original = {
   color: THREE.Color;
@@ -119,19 +139,6 @@ function prepare(scene: THREE.Object3D): Prepared {
   const result = { parts, byName };
   prepared.set(scene, result);
   return result;
-}
-
-/** The colour a mesh shows as drawn — its material, or its first vertex. */
-function drawnColour(mesh: THREE.Mesh): THREE.Color {
-  const original = (mesh.material as THREE.Material).userData.original as Original;
-  const colour = original.color.clone();
-  const attribute = mesh.geometry.getAttribute("color");
-  if (original.vertexColors && attribute) {
-    colour.multiply(
-      new THREE.Color(attribute.getX(0), attribute.getY(0), attribute.getZ(0)),
-    );
-  }
-  return colour;
 }
 
 function paint(
@@ -274,16 +281,26 @@ export function YurtModel({
   interactive: boolean;
 }) {
   const layout = layoutById(spec.layout.layout);
-  const { scene } = useGLTF(layout.file);
+  const size = sizeById(spec.size.size);
+  const { scene } = useGLTF(modelFileFor(size.id, layout.id));
+  // The shells are drawn standing on nothing; the fitted-out layouts bring
+  // their own floor and deck.
+  const ownDeck = layout.id === EXTERIOR;
   const model = useMemo(() => prepare(scene), [scene]);
   const invalidate = useThree((state) => state.invalidate);
   const drag = useDragHandlers(onDragPart);
 
-  // The other layouts are small; fetch them once this one is up, so switching
+  // The other models are small; fetch them once this one is up, so switching
   // is instant rather than a blank stage.
   useEffect(() => {
-    for (const other of yurtLayouts) useGLTF.preload(other.file);
+    for (const file of allModelFiles) useGLTF.preload(file);
   }, []);
+
+  const deckMaterial = useMemo(
+    () => new THREE.MeshStandardMaterial({ color: "#8a6a4b", roughness: 0.8 }),
+    [],
+  );
+  useEffect(() => () => deckMaterial.dispose(), [deckMaterial]);
 
   useLayoutEffect(() => {
     const meshesFor = (names: string[]) =>
@@ -292,18 +309,13 @@ export function YurtModel({
     const wall = meshesFor(paintable.wall);
     paint(wall, spec.exterior.color, spec.exterior.roughness);
 
-    const roofColour = spec.roof.matchWall
-      ? (spec.exterior.color ?? (wall[0] ? drawnColour(wall[0]) : undefined))
-      : spec.roof.color;
-    paint(
-      meshesFor(paintable.roof),
-      roofColour,
-      spec.roof.matchWall ? spec.exterior.roughness : spec.roof.roughness,
-    );
+    paint(meshesFor(paintable.roof), spec.roof.color, spec.roof.roughness);
 
     paint(meshesFor(paintable.floor), spec.flooring.color, spec.flooring.roughness);
+    deckMaterial.color.set(spec.flooring.color ?? "#8a6a4b");
+    deckMaterial.roughness = spec.flooring.roughness ?? 0.8;
     invalidate();
-  }, [model, spec, invalidate]);
+  }, [model, spec, invalidate, deckMaterial]);
 
   return (
     <group scale={SCENE_SCALE} position={[0, MODEL_FLOOR_Y, 0]}>
@@ -320,6 +332,21 @@ export function YurtModel({
             {...(interactive && visible ? drag[id] : {})}
           >
             <primitive object={model.parts[id]} />
+            {id === "floor" && ownDeck ? (
+              <mesh
+                material={deckMaterial}
+                position={[0, -DECK_DEPTH / 2, 0]}
+              >
+                <cylinderGeometry
+                  args={[
+                    size.radiusM + DECK_MARGIN,
+                    size.radiusM + DECK_MARGIN,
+                    DECK_DEPTH,
+                    96,
+                  ]}
+                />
+              </mesh>
+            ) : null}
           </group>
         );
       })}
@@ -327,4 +354,4 @@ export function YurtModel({
   );
 }
 
-useGLTF.preload(yurtLayouts[0].file);
+useGLTF.preload(modelFileFor(undefined, EXTERIOR));

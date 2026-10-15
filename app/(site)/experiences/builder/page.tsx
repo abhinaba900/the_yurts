@@ -6,7 +6,7 @@ import { BuilderLoader } from "@/components/builder/BuilderLoader";
 export const metadata = pageMetadata({
   title: "3D Yurt Builder: Configure Yours",
   description:
-    "Explore our 10m yurt in 3D — choose one of three interior layouts, the wall and roof covers and the flooring — then send the finished configuration with your enquiry.",
+    "Build your yurt in 3D, step by step — choose the 6m or 10m, an interior layout, the roof and wall colours, the deck and add-ons — then send the finished design with your enquiry.",
   path: "/experiences/builder",
 });
 

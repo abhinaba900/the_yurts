@@ -49,16 +49,41 @@ export function resolveGroups(cmsOptions: ConfiguratorOption[]): GroupDef[] {
     .filter((group) => group.options.length > 0);
 }
 
-/** The chosen option in each group, falling back to the first available. */
+/** The group's default, if it is offered for the size, else its first that is. */
+const fallbackFor = (group: GroupDef, size?: string): string => {
+  const offered = group.options.filter((option) => isAvailable(option, size));
+  const pool = offered.length > 0 ? offered : group.options;
+  return pool.some((option) => option.id === group.defaultOption)
+    ? group.defaultOption!
+    : pool[0].id;
+};
+
+/** Whether an option is offered for the size currently selected. */
+export function isAvailable(option: OptionDef, size: string | undefined): boolean {
+  return !option.sizes || !size || option.sizes.includes(size as never);
+}
+
+/**
+ * The chosen option in each group, falling back to the group's default.
+ *
+ * Also keeps the selection consistent: an option that is not offered for the
+ * chosen size (the 10m's interiors, on a 6m) falls back too, so switching size
+ * can never leave the scene asked for a model that does not exist.
+ */
 export function resolveSelection(
   selection: Partial<Selection>,
   resolved: GroupDef[],
 ): Selection {
+  const sizeGroup = resolved.find((group) => group.id === "size");
+  const size =
+    sizeGroup?.options.find((option) => option.id === selection.size)?.id ??
+    (sizeGroup ? fallbackFor(sizeGroup) : undefined);
+
   return Object.fromEntries(
     resolved.map((group) => {
-      const chosen = selection[group.id];
-      const valid = chosen && group.options.some((option) => option.id === chosen);
-      return [group.id, valid ? chosen : group.options[0].id];
+      const chosen = group.options.find((option) => option.id === selection[group.id]);
+      const valid = chosen && isAvailable(chosen, size);
+      return [group.id, valid ? chosen.id : fallbackFor(group, size)];
     }),
   ) as Selection;
 }

@@ -17,3 +17,18 @@
    in landscape lands here: stacking gives the 3D stage about 200px of height,
    where splitting gives it the full screen. */
 @custom-variant landscape-split (@media (min-width: 48rem) and (max-height: 34rem));
+
+/* 3D builder: each step's content settles in rather than snapping. */
+@keyframes builder-step {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  @keyframes builder-step {
+    from {
+      opacity: 1;
+    }
+  }
+}

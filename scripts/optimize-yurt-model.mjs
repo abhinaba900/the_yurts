@@ -293,6 +293,10 @@ const triangles = (doc) =>
     .reduce((sum, prim) => sum + (prim.getIndices()?.getCount() ?? 0) / 3, 0);
 
 for (const [bin, yurt] of YURTS.entries()) {
+  // The empty shell is superseded by the client's own exterior drawings,
+  // which `optimize-yurt-shells.mjs` turns into `exterior.glb`. It is still
+  // split out above, because the split needs every yurt's bounds.
+  if (yurt.id === "shell") continue;
   const doc = cloneDocument(source);
   const docScene = doc.getRoot().getDefaultScene() ?? doc.getRoot().listScenes()[0];
 

@@ -1,12 +1,13 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useRef } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
 
 import { OrbitControls, useProgress } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { SizedCanvas } from "@/components/three/SizedCanvas";
 import * as THREE from "three";
-import { MODEL_FLOOR_Y, MODEL_RADIUS, YurtModel } from "./YurtModel";
+import { MODEL_FLOOR_Y, modelFit, modelRadius, YurtModel } from "./YurtModel";
 import { Metadata } from "@/components/primitives/Metadata";
 import type { OptionGroupId, RenderSpec } from "@/lib/configurator";
 import type { PartId, Parts } from "./parts";
@@ -19,7 +20,8 @@ import type { PartId, Parts } from "./parts";
  * loop at 60fps while the visitor reads the options is a battery drain with no
  * benefit — and this page sits on a marketing site, not in a game.
  *
- * The one download is the client's model itself, about a megabyte per layout.
+ * The one download is the client's model itself: under 150KB for a shell, about
+ * a megabyte for a fitted-out layout.
  * There is no HDR environment: lighting is four lights and a painted shadow,
  * and ACES tone mapping does the work an environment map would otherwise be
  * needed for, rolling the highlights off instead of clipping them to flat
@@ -28,8 +30,25 @@ import type { PartId, Parts } from "./parts";
  * ZOOM IS HELD BEHIND Ctrl (Cmd on a Mac). A canvas that eats the wheel traps
  * the page: the reader scrolls expecting to reach the options and the model
  * silently zooms instead. With the modifier, plain wheel scrolls the page as it
- * should and zoom is deliberate.
+ * should and zoom is deliberate. The stage's own + and - buttons zoom without
+ * it, and are what most people will use.
+ *
+ * VIEWS. The camera is moved by `CameraRig`, which eases it towards a goal and
+ * renders only while it is moving: to a preset view (3D, plan, front), in or
+ * out, or back out to frame a different size.
  */
+
+/** A request to move the camera. `n` makes a repeated request a new one. */
+export type ViewCommand = {
+  kind: "reset" | "plan" | "front" | "zoomIn" | "zoomOut";
+  n: number;
+};
+
+/** Camera distance from the target for the default view, in `modelFit`s. */
+const FRAME = 3.3;
+/** Default 3D view direction: front-right, a little above. */
+const HOME = new THREE.Vector3(5.6, 3.0, 7.2).normalize();
+const TARGET = new THREE.Vector3(0, 0.15, 0);
 
 type Spec = Record<OptionGroupId, RenderSpec>;
 
@@ -80,7 +99,7 @@ function Stage({
   interactive: boolean;
 }) {
   const shadow = useShadowTexture();
-  const radius = MODEL_RADIUS;
+  const radius = modelRadius(spec.size.size);
 
   return (
     <>
@@ -116,14 +135,137 @@ function Stage({
   );
 }
 
-/** Shown over the stage while a layout downloads. */
+/**
+ * Eases the camera to wherever it has been asked to go.
+ *
+ * Renders only while something is moving — on `frameloop="demand"` each frame
+ * asks for the next until the camera arrives — and jumps straight there for
+ * anyone who has asked for reduced motion. The turntable is the one thing that
+ * keeps frames coming, and only while it is switched on.
+ */
+function CameraRig({
+  fit,
+  command,
+  autoRotate,
+  reducedMotion,
+}: {
+  fit: number;
+  command: ViewCommand;
+  autoRotate: boolean;
+  reducedMotion: boolean;
+}) {
+  const camera = useThree((state) => state.camera);
+  const controls = useThree((state) => state.controls) as OrbitControlsImpl | null;
+  const invalidate = useThree((state) => state.invalidate);
+  const goal = useRef<THREE.Vector3 | null>(null);
+  const framed = useRef(fit);
+  const handled = useRef(0);
+
+  useEffect(() => {
+    if (!controls) return;
+
+    const direction = () =>
+      camera.position.clone().sub(controls.target).normalize();
+
+    const go = (position: THREE.Vector3) => {
+      if (reducedMotion) {
+        camera.position.copy(position);
+        controls.update();
+      } else {
+        goal.current = position;
+      }
+      invalidate();
+    };
+
+    // A new size: same angle, framed to fit.
+    if (framed.current !== fit) {
+      framed.current = fit;
+      go(TARGET.clone().add(direction().multiplyScalar(fit * FRAME)));
+      return;
+    }
+
+    // Effects re-run for reasons of their own; a command is acted on once.
+    if (command.n === handled.current) return;
+    handled.current = command.n;
+    const distance = camera.position.distanceTo(controls.target);
+
+    switch (command.kind) {
+      case "reset":
+        go(TARGET.clone().add(HOME.clone().multiplyScalar(fit * FRAME)));
+        break;
+      case "plan":
+        // Straight down, nudged off the pole so the controls keep their bearings.
+        go(
+          TARGET.clone().add(
+            new THREE.Vector3(0, 1, 0.02).normalize().multiplyScalar(fit * 3.6),
+          ),
+        );
+        break;
+      case "front":
+        go(
+          TARGET.clone().add(
+            new THREE.Vector3(0, 0.22, 1).normalize().multiplyScalar(fit * FRAME),
+          ),
+        );
+        break;
+      case "zoomIn":
+      case "zoomOut": {
+        const factor = command.kind === "zoomIn" ? 0.8 : 1.25;
+        const next = THREE.MathUtils.clamp(
+          distance * factor,
+          controls.minDistance,
+          controls.maxDistance,
+        );
+        go(controls.target.clone().add(direction().multiplyScalar(next)));
+        break;
+      }
+    }
+  }, [command, fit, controls, camera, invalidate, reducedMotion]);
+
+  useEffect(() => {
+    if (!controls) return;
+    controls.autoRotate = autoRotate;
+    controls.autoRotateSpeed = 0.8;
+    invalidate();
+  }, [autoRotate, controls, invalidate]);
+
+  useFrame((_, delta) => {
+    if (!controls) return;
+    if (goal.current) {
+      camera.position.lerp(goal.current, 1 - Math.exp(-delta * 7));
+      if (camera.position.distanceTo(goal.current) < 0.002) {
+        camera.position.copy(goal.current);
+        goal.current = null;
+      }
+      controls.update();
+      invalidate();
+    } else if (autoRotate) {
+      controls.update();
+      invalidate();
+    }
+  });
+
+  return null;
+}
+
+/** Shown over the stage while a model downloads. */
 function LoadingNote() {
   const { active, progress } = useProgress();
   if (!active) return null;
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 z-10 p-5">
-      <Metadata>Loading the model · {Math.round(progress)}%</Metadata>
+    <div className="pointer-events-none absolute inset-0 z-10 grid place-items-center">
+      <div className="flex flex-col items-center gap-3 rounded-full bg-surface/80 px-6 py-3 backdrop-blur-sm">
+        <Metadata className="text-text">
+          Loading the model · {Math.round(progress)}%
+        </Metadata>
+        <span className="block h-0.5 w-40 overflow-hidden rounded-full bg-line">
+          <span
+            className="block h-full bg-accent-text transition-[width] duration-(--duration-quick)"
+            style={{ width: `${Math.round(progress)}%` }}
+          />
+        </span>
+      </div>
     </div>
   );
 }
@@ -136,6 +278,9 @@ export function BuilderCanvas({
   onDragPart,
   interactive,
   reducedMotion,
+  command,
+  autoRotate,
+  onInteract,
 }: {
   spec: Spec;
   cutaway: boolean;
@@ -144,8 +289,12 @@ export function BuilderCanvas({
   onDragPart: (id: PartId, delta: number) => void;
   interactive: boolean;
   reducedMotion: boolean;
+  command: ViewCommand;
+  autoRotate: boolean;
+  /** Called when the visitor starts moving the model themselves. */
+  onInteract?: () => void;
 }) {
-  const radius = MODEL_RADIUS;
+  const fit = modelFit(spec.size.size);
   const controls = useRef<OrbitControlsImpl>(null);
   const wrapper = useRef<HTMLDivElement>(null);
 
@@ -199,7 +348,10 @@ export function BuilderCanvas({
         gl.toneMapping = THREE.ACESFilmicToneMapping;
         gl.toneMappingExposure = 1.05;
       }}
-      camera={{ position: [5.6, 3.0, 7.2], fov: 38 }}
+      camera={{
+        position: HOME.clone().multiplyScalar(fit * FRAME).add(TARGET).toArray(),
+        fov: 38,
+      }}
       style={{ background: "transparent" }}
       // The canvas is decorative; every option is reachable through the panel.
       aria-hidden
@@ -213,6 +365,13 @@ export function BuilderCanvas({
         interactive={interactive}
       />
 
+      <CameraRig
+        fit={fit}
+        command={command}
+        autoRotate={autoRotate}
+        reducedMotion={reducedMotion}
+      />
+
       <OrbitControls
         ref={controls}
         makeDefault
@@ -224,12 +383,14 @@ export function BuilderCanvas({
         enableZoom={false}
         enableDamping={!reducedMotion}
         dampingFactor={0.08}
-        minDistance={radius * 1.6}
-        maxDistance={radius * 4.4}
-        // Stops short of the horizon so the model is never viewed from beneath.
-        minPolarAngle={0.18}
+        minDistance={fit * 1.2}
+        maxDistance={fit * 5}
+        // Down to straight overhead, for the plan view, and stops short of the
+        // horizon so the model is never viewed from beneath.
+        minPolarAngle={0}
         maxPolarAngle={Math.PI / 2 - 0.08}
-        target={[0, 0.15, 0]}
+        target={TARGET.toArray()}
+        onStart={onInteract}
       />
     </SizedCanvas>
     </div>

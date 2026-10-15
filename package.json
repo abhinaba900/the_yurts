@@ -11,7 +11,8 @@
     "content:todo": "node scripts/content-todo.ts",
     "payload": "node scripts/payload.mjs",
     "verify:media": "node scripts/verify-media.mjs",
-    "optimize:model": "node --max-old-space-size=12288 scripts/optimize-yurt-model.mjs"
+    "optimize:model": "node --max-old-space-size=12288 scripts/optimize-yurt-model.mjs",
+    "optimize:shells": "node --max-old-space-size=8192 scripts/optimize-yurt-shells.mjs"
   },
   "dependencies": {
     "@portabletext/react": "^8.0.1",
