@@ -230,7 +230,12 @@ export function RangeShowcase({
       </div>
 
       {/* Right Column: Numbered List (01, 02, 03...) with scroll-driven accordion */}
-      <div className="lg:col-span-6 space-y-4">
+      {/* Bottom padding is run-out for the last items: an item turns active when
+          its top reaches the trigger line, and the pinned stage only stays put
+          while this column is still scrolling past it. Without room after the
+          last item the list ends first, so the last items activate late and
+          the stage is pushed up under the header. Same fix as RangeRail. */}
+      <div className="lg:col-span-6 space-y-4 lg:pb-[45vh]">
         {items.map((item, i) => {
           const isActive = activeIdx === i;
           return (

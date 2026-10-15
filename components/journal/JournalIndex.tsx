@@ -64,7 +64,12 @@ export function JournalIndex({ posts }: { posts: PostSummary[] }) {
     <div>
       {/* -- List left, pinned image right ----------------------------------- */}
       <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-12">
-        <div className="lg:col-span-7">
+        {/* Bottom padding is run-out for the last items: an item turns active when
+          its top reaches the trigger line, and the pinned stage only stays put
+          while this column is still scrolling past it. Without room after the
+          last item the list ends first, so the last items activate late and
+          the stage is pushed up under the header. Same fix as RangeRail. */}
+        <div className="lg:col-span-7 lg:pb-[45vh]">
           <ul>
             {posts.map((post, i) => (
               <li

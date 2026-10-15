@@ -183,7 +183,7 @@ export function RangeRail() {
                 </div>
                 <div>
                   <span className="block text-meta uppercase text-text-muted">Ideal For</span>
-                  <span className="mt-0.5 block font-medium text-text truncate" title={activeModel.idealFor}>
+                  <span className="mt-0.5 block font-medium text-text line-clamp-2" title={activeModel.idealFor}>
                     {activeModel.idealFor}
                   </span>
                 </div>
@@ -207,8 +207,15 @@ export function RangeRail() {
             </div>
           </div>
 
-          {/* Right Column: Numbered List (01, 02, 03...) with scroll-driven accordion */}
-          <div className="lg:col-span-6 space-y-4">
+          {/* Right Column: Numbered List (01, 02, 03...) with scroll-driven accordion.
+
+              The bottom padding is run-out for the last items. An item turns
+              active when its top reaches 42% of the viewport, and the stage on
+              the left stays pinned only while this column is still scrolling
+              past it. Without room after the last card, the list ends before
+              09 and 10 reach that line: they activate late, and the pinned
+              stage is pushed up under the header and cut off. */}
+          <div className="lg:col-span-6 space-y-4 lg:pb-[45vh]">
             {range.map((item, i) => {
               const isActive = activeIdx === i;
               return (

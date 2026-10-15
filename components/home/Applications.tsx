@@ -55,7 +55,12 @@ export function Applications() {
         <div className="mt-14 lg:mt-20">
           <div className="u-grid items-start relative">
             {/* Left Column: Index list */}
-            <ul className="col-span-4 md:col-span-6 lg:col-span-6">
+            {/* Bottom padding is run-out for the last items: an item turns active when
+          its top reaches the trigger line, and the pinned stage only stays put
+          while this column is still scrolling past it. Without room after the
+          last item the list ends first, so the last items activate late and
+          the stage is pushed up under the header. Same fix as RangeRail. */}
+            <ul className="col-span-4 md:col-span-6 lg:col-span-6 lg:pb-[45vh]">
               {applications.map((item, i) => (
                 <li
                   key={item.name}
