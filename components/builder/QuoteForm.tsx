@@ -135,7 +135,7 @@ export function QuoteForm({
         setTried(true);
         if (!localOk) event.preventDefault();
       }}
-      className="border border-line p-4 sm:p-5"
+      className="relative border border-line p-4 sm:p-5"
     >
       <h3 className="font-sans text-body text-text">Shipping information</h3>
       <p className="mt-1 font-sans text-small text-text-muted">
@@ -151,7 +151,10 @@ export function QuoteForm({
       <input type="hidden" name="message" value={message} />
       <input type="hidden" name="configuration" value={configuration} />
       <input type="hidden" name="sourcePath" value="/experiences/builder" />
-      <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
+      {/* Pinned inside the form: the panel scrolls, and a field positioned
+          against anything outside that scroll box escapes it and stretches
+          the page below the footer. */}
+      <div aria-hidden className="pointer-events-none absolute left-0 top-0 h-px w-px overflow-hidden opacity-0 [clip-path:inset(50%)]">
         <label htmlFor="quote-company">Company</label>
         <input id="quote-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
       </div>

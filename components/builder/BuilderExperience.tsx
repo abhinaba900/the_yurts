@@ -1480,7 +1480,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
         <div
           ref={panelRef}
           data-lenis-prevent
-          className="flex-1 px-4 pb-8 pt-7 sm:px-6 landscape-split:min-h-0 landscape-split:overflow-y-auto lg:min-h-0 lg:overflow-y-auto"
+          className="relative flex-1 px-4 pb-8 pt-7 sm:px-6 landscape-split:min-h-0 landscape-split:overflow-y-auto lg:min-h-0 lg:overflow-y-auto"
         >
           <div key={step.id} className="animate-[builder-step_var(--duration-base)_var(--ease-out-soft)]">
             {stepBody[step.id]}
