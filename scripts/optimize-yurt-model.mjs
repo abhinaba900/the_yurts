@@ -10,11 +10,15 @@
  * mesh holds, say, every piece of cushion fabric in all four yurts.
  *
  * WHAT THIS DOES.
- *  1. Splits every mesh by triangle position into the four yurts.
+ *  1. Splits every mesh by triangle position into the four yurts, and drops
+ *     each yurt's shell — covers, crown, roof frame, and the lattice, doors and
+ *     windows at the wall. The builder stands every layout inside the same
+ *     shell, `exterior.glb` (see `optimize-yurt-shells.mjs`), so all the 10m
+ *     options look alike from outside.
  *  2. Moves each yurt to the origin, floor at y = 0.
- *  3. Names every mesh after its material, so the scene can find the covers and
- *     the floor by name (see `data/yurtModel.ts`).
- *  4. Welds, simplifies and meshopt-compresses each yurt, and writes it to
+ *  3. Names every mesh after its material, so the scene can find the floor by
+ *     name (see `data/yurtModel.ts`).
+ *  4. Welds, simplifies and meshopt-compresses each interior, and writes it to
  *     `public/models/yurt-10m/<id>.glb`.
  *
  * Separate files rather than one: someone looking at one layout downloads one
@@ -49,16 +53,32 @@ const OUT_DIR = "public/models/yurt-10m";
  * re-measured and logged below, so a re-export that moves them shows up).
  */
 const YURTS = [
-  { id: "layout-a", maxX: 63.5, centre: [53.84, 7.16] },
-  { id: "layout-b", maxX: 83.5, centre: [73.25, 8.21] },
-  { id: "layout-c", maxX: 101.5, centre: [93.25, 8.21] },
-  { id: "shell", maxX: Infinity, centre: [109.19, 9.67] },
+  // Layout A stands on a raised platform; its floor is 0.4m up.
+  { id: "layout-a", maxX: 63.5, centre: [53.84, 7.16], floor: 0.4 },
+  { id: "layout-b", maxX: 83.5, centre: [73.25, 8.21], floor: 0 },
+  { id: "layout-c", maxX: 101.5, centre: [93.25, 8.21], floor: 0 },
+  { id: "shell", maxX: Infinity, centre: [109.19, 9.67], floor: 0 },
 ];
 
 /** The roof cover is the one material every yurt has, and it is round. */
 const ROOF_COVER = "fabric_1";
 
 const binOf = (x) => YURTS.findIndex((yurt) => x < yurt.maxX);
+
+/** The shell's own materials: the covers and the crown dome. */
+const SHELL_MATERIALS = new Set([
+  "fabric_1",
+  "fabric_2",
+  "fabric_03",
+  "[Translucent Glass Sky Reflection]2",
+]);
+
+/**
+ * The furthest out the fit-out reaches from the centre. Past it, above the
+ * floor, is the lattice and the door and window joinery — read off the source,
+ * where the interiors stop at 4.7m and the wall starts at 4.8m.
+ */
+const INTERIOR_RADIUS = 4.75;
 
 /**
  * Most of the joinery — rafters, crown, partitions, kitchen, door and window
@@ -130,6 +150,9 @@ const grow = (box, p) => {
   }
 };
 
+/** Shell triangles left out of each yurt. */
+const dropped = YURTS.map(() => 0);
+
 const oldMeshes = root.listMeshes().slice();
 const oldNodes = scene.listChildren().filter((node) => !groups.includes(node));
 
@@ -159,16 +182,16 @@ for (const mesh of oldMeshes) {
       position.getElement(ib, b);
       position.getElement(ic, c);
       const bin = binOf((a[0] + b[0] + c[0]) / 3);
+      const cy = (a[1] + b[1] + c[1]) / 3;
+      const radius = Math.hypot(
+        (a[0] + b[0] + c[0]) / 3 - YURTS[bin].centre[0],
+        (a[2] + b[2] + c[2]) / 3 - YURTS[bin].centre[1],
+      );
 
       let part = name;
       if (name === VERTEX_COLOURED) {
         color.getElement(ia, rgb);
-        const cy = (a[1] + b[1] + c[1]) / 3;
         const flat = Math.abs(a[1] - b[1]) < 0.005 && Math.abs(a[1] - c[1]) < 0.005;
-        const radius = Math.hypot(
-          (a[0] + b[0] + c[0]) / 3 - YURTS[bin].centre[0],
-          (a[2] + b[2] + c[2]) / 3 - YURTS[bin].centre[1],
-        );
 
         if (isGlass(rgb)) part = GLASS;
         else if (cy > WALL_HEAD) part = ROOF_FRAME;
@@ -176,15 +199,25 @@ for (const mesh of oldMeshes) {
         else if (isDefaultGrey(rgb) && radius > WALL_RADIUS && cy > 0.05) part = WALL_COVER;
       }
 
-      const key = `${bin}|${part}`;
-      if (!buckets.has(key)) buckets.set(key, []);
-      buckets.get(key).push(ia, ib, ic);
-
       if (name === ROOF_COVER) {
         grow(roofBounds[bin], a);
         grow(roofBounds[bin], b);
         grow(roofBounds[bin], c);
       }
+
+      const shell =
+        SHELL_MATERIALS.has(part) ||
+        part === ROOF_FRAME ||
+        part === WALL_COVER ||
+        (radius > INTERIOR_RADIUS && cy > YURTS[bin].floor + 0.05);
+      if (shell) {
+        dropped[bin] += 1;
+        continue;
+      }
+
+      const key = `${bin}|${part}`;
+      if (!buckets.has(key)) buckets.set(key, []);
+      buckets.get(key).push(ia, ib, ic);
     }
 
     for (const [key, list] of buckets) {
@@ -216,7 +249,7 @@ const centres = YURTS.map((yurt, bin) => {
   const cx = (roof.min[0] + roof.max[0]) / 2;
   const cz = (roof.min[2] + roof.max[2]) / 2;
   // The floor, not the lowest vertex: the wall skirt hangs a little below it.
-  const floor = 0;
+  const floor = yurt.floor;
   return [cx, floor, cz];
 });
 
@@ -237,7 +270,8 @@ YURTS.forEach((yurt, bin) => {
   console.log(
     `${yurt.id}: centre (${cx.toFixed(2)}, ${cz.toFixed(2)}), ` +
       `roof ${(roof.max[0] - roof.min[0]).toFixed(2)} × ${(roof.max[2] - roof.min[2]).toFixed(2)}m, ` +
-      `${groups[bin].listChildren().length} meshes`,
+      `${groups[bin].listChildren().length} meshes, ` +
+      `${dropped[bin].toLocaleString()} shell triangles dropped`,
   );
 });
 

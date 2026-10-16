@@ -5,9 +5,10 @@
  *  - `public/models/yurt-6m/exterior.glb` and `yurt-10m/exterior.glb` are the
  *    6m and 10m shells, generated from "6M Yurt.glb" and "10M Yurt.glb" by
  *    `scripts/optimize-yurt-shells.mjs`.
- *  - `public/models/yurt-10m/layout-*.glb` are the 10m with its three fitted-out
- *    interiors, generated from "10m YURT WITH 3 INTERNAL OPTIONS" by
- *    `scripts/optimize-yurt-model.mjs`.
+ *  - `public/models/yurt-10m/layout-*.glb` are the 10m's three fitted-out
+ *    interiors, without a shell of their own, generated from "10m YURT WITH 3
+ *    INTERNAL OPTIONS" by `scripts/optimize-yurt-model.mjs`. The builder stands
+ *    each one inside the 10m shell, so every 10m option has the same outside.
  *
  * Re-run those scripts, never edit the files by hand. The sources have no
  * meaningful object names, so meshes carry their SketchUp *material* names (or
@@ -61,12 +62,19 @@ export const sizeById = (id: string | undefined): YurtSize =>
 export const floorArea = (size: YurtSize) =>
   Math.round(Math.PI * (size.diameterM / 2) ** 2);
 
+/** The shell every option of a size stands in. */
+export const shellFiles: Record<YurtSizeId, string> = {
+  "6m": "/models/yurt-6m/exterior.glb",
+  "10m": "/models/yurt-10m/exterior.glb",
+};
+
 export type YurtLayout = {
   id: string;
   label: string;
   description: string;
-  /** Model file per size. A layout without a file for a size is not offered. */
-  files: Partial<Record<YurtSizeId, string>>;
+  /** Interior per size, fitted inside that size's shell. Without one for a
+   *  size, the layout shows the bare shell. */
+  interiors: Partial<Record<YurtSizeId, string>>;
 };
 
 export const EXTERIOR = "exterior";
@@ -76,43 +84,42 @@ export const yurtLayouts: YurtLayout[] = [
     id: EXTERIOR,
     label: "Exterior only",
     description: "The shell, doors and windows — fit it out your way.",
-    files: {
-      "6m": "/models/yurt-6m/exterior.glb",
-      "10m": "/models/yurt-10m/exterior.glb",
-    },
+    interiors: {},
   },
   {
     id: "layout-a",
     label: "Layout A",
     description: "A bedroom with its own bathroom, and a lounge.",
-    files: { "10m": "/models/yurt-10m/layout-a.glb" },
+    interiors: { "10m": "/models/yurt-10m/layout-a.glb" },
   },
   {
     id: "layout-b",
     label: "Layout B",
     description: "Two bedrooms either side of a sitting room, with a shower room.",
-    files: { "10m": "/models/yurt-10m/layout-b.glb" },
+    interiors: { "10m": "/models/yurt-10m/layout-b.glb" },
   },
   {
     id: "layout-c",
     label: "Layout C",
     description: "Open plan: kitchen, dining, lounge and sleeping.",
-    files: { "10m": "/models/yurt-10m/layout-c.glb" },
+    interiors: { "10m": "/models/yurt-10m/layout-c.glb" },
   },
 ];
 
 export const layoutById = (id: string | undefined): YurtLayout =>
   yurtLayouts.find((layout) => layout.id === id) ?? yurtLayouts[0];
 
-/** The file to show for a size and layout, falling back to the exterior. */
-export const modelFileFor = (size: string | undefined, layout: string | undefined) => {
+/** The files to show for a size and layout: its shell, and the interior if any. */
+export const modelFilesFor = (size: string | undefined, layout: string | undefined) => {
   const sizeId = sizeById(size).id;
-  return layoutById(layout).files[sizeId] ?? yurtLayouts[0].files[sizeId]!;
+  const interior = layoutById(layout).interiors[sizeId];
+  return interior ? [shellFiles[sizeId], interior] : [shellFiles[sizeId]];
 };
 
 /** Every file the builder can show, for preloading. */
 export const allModelFiles = [
-  ...new Set(yurtLayouts.flatMap((layout) => Object.values(layout.files))),
+  ...Object.values(shellFiles),
+  ...yurtLayouts.flatMap((layout) => Object.values(layout.interiors)),
 ] as string[];
 
 /** Meshes the configurator recolours. */

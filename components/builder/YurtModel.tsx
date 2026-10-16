@@ -11,7 +11,7 @@ import {
   EXTERIOR,
   glassMeshes,
   layoutById,
-  modelFileFor,
+  modelFilesFor,
   paintable,
   partMeshes,
   sizeById,
@@ -23,9 +23,9 @@ import { PART_IDS, type PartId, type Parts } from "./parts";
  * The client's 6m and 10m yurts.
  *
  * Loaded from the optimised files in `public/models/` (see `data/yurtModel.ts`):
- * a shell per size, under 150KB each, and the 10m's three fitted-out layouts,
- * ~0.6–1.3MB each with meshopt compression. drei's `useGLTF` decodes meshopt
- * out of the box.
+ * a shell per size, under 150KB each, and the 10m's three fitted-out interiors,
+ * ~2–4MB each with meshopt compression, drawn inside the 10m shell. drei's
+ * `useGLTF` decodes meshopt out of the box.
  *
  * PREPARING A LAYOUT happens once per file, on first load, and the result is
  * kept on the cached scene. It is deliberately cheap — anything heavy (normals,
@@ -282,11 +282,11 @@ export function YurtModel({
 }) {
   const layout = layoutById(spec.layout.layout);
   const size = sizeById(spec.size.size);
-  const { scene } = useGLTF(modelFileFor(size.id, layout.id));
-  // The shells are drawn standing on nothing; the fitted-out layouts bring
-  // their own floor and deck.
-  const ownDeck = layout.id === EXTERIOR;
-  const model = useMemo(() => prepare(scene), [scene]);
+  const gltfs = useGLTF(modelFilesFor(size.id, layout.id));
+  // The shells are drawn standing on nothing; the interiors bring their own
+  // floor and deck.
+  const ownDeck = gltfs.length === 1;
+  const models = useMemo(() => gltfs.map((gltf) => prepare(gltf.scene)), [gltfs]);
   const invalidate = useThree((state) => state.invalidate);
   const drag = useDragHandlers(onDragPart);
 
@@ -304,7 +304,7 @@ export function YurtModel({
 
   useLayoutEffect(() => {
     const meshesFor = (names: string[]) =>
-      names.flatMap((name) => model.byName.get(name) ?? []);
+      names.flatMap((name) => models.flatMap((model) => model.byName.get(name) ?? []));
 
     const wall = meshesFor(paintable.wall);
     paint(wall, spec.exterior.color, spec.exterior.roughness);
@@ -315,7 +315,7 @@ export function YurtModel({
     deckMaterial.color.set(spec.flooring.color ?? "#8a6a4b");
     deckMaterial.roughness = spec.flooring.roughness ?? 0.8;
     invalidate();
-  }, [model, spec, invalidate, deckMaterial]);
+  }, [models, spec, invalidate, deckMaterial]);
 
   return (
     <group scale={SCENE_SCALE} position={[0, MODEL_FLOOR_Y, 0]}>
@@ -331,7 +331,9 @@ export function YurtModel({
             scale={[spread, 1, spread]}
             {...(interactive && visible ? drag[id] : {})}
           >
-            <primitive object={model.parts[id]} />
+            {models.map((model, i) => (
+              <primitive key={i} object={model.parts[id]} />
+            ))}
             {id === "floor" && ownDeck ? (
               <mesh
                 material={deckMaterial}
@@ -354,4 +356,4 @@ export function YurtModel({
   );
 }
 
-useGLTF.preload(modelFileFor(undefined, EXTERIOR));
+useGLTF.preload(modelFilesFor(undefined, EXTERIOR));
