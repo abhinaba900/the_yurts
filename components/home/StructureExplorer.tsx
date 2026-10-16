@@ -13,21 +13,20 @@ import { cn } from "@/lib/cn";
  */
 const slides = [
   {
-    id: "door",
-    name: "Door",
-    body: "Provides physical access, security and privacy.",
-  },
-  {
     id: "dome",
     name: "Dome",
     body: "An openable dome that works as a manual thermostat.",
   },
   {
     id: "centre-ring",
-    name: "Centre ring",
+    name: "Center ring",
     body: "Acts as a keystone, holding the rafters up.",
   },
-  { id: "rafter", name: "Rafter", body: "Holds the structure in place." },
+  {
+    id: "rafter",
+    name: "Rafter",
+    body: "The frame holding the structure in place.",
+  },
   {
     id: "tension-cable",
     name: "Tension cable",
@@ -41,7 +40,12 @@ const slides = [
   {
     id: "windows",
     name: "Windows",
-    body: "Translucent openings that let in natural light and fresh air.",
+    body: "Translucent openings that admit natural light and fresh air.",
+  },
+  {
+    id: "door",
+    name: "Door",
+    body: "Provides physical access, security and privacy.",
   },
 ] as const;
 
@@ -49,7 +53,7 @@ const slides = [
  * Indexed to `anatomy` (crown, roof, lattice, tension, envelope): the slide
  * each card opens. The envelope has no drawing of its own, so it stays text.
  */
-const cardSlide: (number | null)[] = [2, 3, 5, 4, null];
+const cardSlide: (number | null)[] = [1, 2, 4, 3, null];
 
 const CYCLE_MS = 3500;
 
@@ -134,7 +138,7 @@ export function StructureExplorer({
               {/* White drawings multiplied onto the cream so they sit in the
                   section rather than on a card. The box carries the section's
                   own surface because Reveal isolates the blend from it. */}
-              <div className="relative isolate aspect-[700/484] w-full bg-surface">
+              <div className="relative isolate aspect-[718/496] w-full bg-surface">
                 {slides.map((s, i) => (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -146,8 +150,8 @@ export function StructureExplorer({
                         : ""
                     }
                     aria-hidden={i !== index}
-                    width={700}
-                    height={484}
+                    width={1436}
+                    height={992}
                     loading={i === 0 ? "eager" : "lazy"}
                     decoding="async"
                     className={cn(
