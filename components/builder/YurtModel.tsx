@@ -283,9 +283,6 @@ export function YurtModel({
   const layout = layoutById(spec.layout.layout);
   const size = sizeById(spec.size.size);
   const gltfs = useGLTF(modelFilesFor(size.id, layout.id));
-  // The shells are drawn standing on nothing; the interiors bring their own
-  // floor and deck.
-  const ownDeck = gltfs.length === 1;
   const models = useMemo(() => gltfs.map((gltf) => prepare(gltf.scene)), [gltfs]);
   const invalidate = useThree((state) => state.invalidate);
   const drag = useDragHandlers(onDragPart);
@@ -334,7 +331,9 @@ export function YurtModel({
             {models.map((model, i) => (
               <primitive key={i} object={model.parts[id]} />
             ))}
-            {id === "floor" && ownDeck ? (
+            {/* The shells stand on nothing and the interiors' floors stop at
+                the wall, so every yurt gets the same deck underneath. */}
+            {id === "floor" ? (
               <mesh
                 material={deckMaterial}
                 position={[0, -DECK_DEPTH / 2, 0]}
