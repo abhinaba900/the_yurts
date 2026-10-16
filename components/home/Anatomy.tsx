@@ -1,8 +1,7 @@
 import { Metadata } from "@/components/primitives/Metadata";
 import { Reveal } from "@/components/primitives/Reveal";
 import { Section } from "@/components/primitives/Section";
-import { YurtDiagram } from "./YurtDiagram";
-import { anatomy } from "@/data/home";
+import { StructureExplorer } from "./StructureExplorer";
 
 
 /**
@@ -10,7 +9,7 @@ import { anatomy } from "@/data/home";
  * BuiltForIndia: 24px box, 1.5 stroke, currentColor so each inherits the
  * section's accent.
  *
- * Each mark is the part as the diagram above draws it — the crown as a ring of
+ * Each mark is the part as the drawings above show it — the crown as a ring of
  * spokes, the roof as radial poles, the lattice as its diamond grid — so the
  * list reads as five details pulled out of that drawing rather than five
  * generic symbols.
@@ -74,59 +73,26 @@ const partIcons = [
 export function Anatomy() {
   return (
     <Section tone="light" space="lg" className="lg:min-h-[calc(100vh-6rem)] lg:flex lg:flex-col lg:justify-center lg:py-20">
-      <div className="u-container">
-        <div className="u-grid">
-          <header className="col-span-4 md:col-span-6 lg:col-span-4">
-            <Reveal kind="up">
-              <Metadata className="text-accent-text">The Structure</Metadata>
-              <h2 className="mt-4 font-display text-display-lg u-optical-left">
-                Simple in form. Sophisticated in structure.
-              </h2>
-              <p className="mt-6 u-measure font-sans text-lead text-text-muted leading-relaxed">
-                A modern yurt is built around a simple principle: a strong circular
-                frame, a central crown, a tensioned roof and a protective outer
-                envelope.
-              </p>
-              <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
-                The result is a column-free interior that can be adapted for
-                everything from a private retreat to a luxury resort suite.
-              </p>
-            </Reveal>
-          </header>
-
-          <div className="col-span-4 mt-12 md:col-span-6 lg:col-span-7 lg:col-start-6 lg:mt-0">
-            <Reveal kind="media">
-              <YurtDiagram className="text-text" />
-            </Reveal>
-          </div>
-        </div>
-
-        {/* Five Components Grid */}
-        <div className="mt-16 lg:mt-24">
-          <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {anatomy.map((part, i) => (
-              <Reveal
-                key={part.label}
-                kind="up"
-                delay={i * 0.04}
-                className="border-t border-line pt-5"
-              >
-                <dt>
-                  <span className="flex size-9 items-center justify-center rounded-full border border-line/60 bg-surface-alt/40 text-accent-text">
-                    {partIcons[i]}
-                  </span>
-                  <span className="mt-3.5 block font-display text-display-sm">
-                    {part.label}
-                  </span>
-                </dt>
-                <dd className="mt-3 font-sans text-small text-text-muted leading-relaxed">
-                  {part.body}
-                </dd>
-              </Reveal>
-            ))}
-          </dl>
-        </div>
-      </div>
+      <StructureExplorer
+        icons={partIcons}
+        header={
+          <Reveal kind="up">
+            <Metadata className="text-accent-text">The Structure</Metadata>
+            <h2 className="mt-4 font-display text-display-lg u-optical-left">
+              Simple in form. Sophisticated in structure.
+            </h2>
+            <p className="mt-6 u-measure font-sans text-lead text-text-muted leading-relaxed">
+              A modern yurt is built around a simple principle: a strong circular
+              frame, a central crown, a tensioned roof and a protective outer
+              envelope.
+            </p>
+            <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
+              The result is a column-free interior that can be adapted for
+              everything from a private retreat to a luxury resort suite.
+            </p>
+          </Reveal>
+        }
+      />
     </Section>
   );
 }
