@@ -12,13 +12,37 @@ import { cn } from "@/lib/cn";
  * it in the site's type so the slide reads without squinting at the image.
  */
 const slides = [
-  { id: "door", name: "Door", body: "Provides physical access, security and privacy." },
-  { id: "dome", name: "Dome", body: "An openable dome that works as a manual thermostat." },
-  { id: "centre-ring", name: "Centre ring", body: "Acts as a keystone, holding the rafters up." },
+  {
+    id: "door",
+    name: "Door",
+    body: "Provides physical access, security and privacy.",
+  },
+  {
+    id: "dome",
+    name: "Dome",
+    body: "An openable dome that works as a manual thermostat.",
+  },
+  {
+    id: "centre-ring",
+    name: "Centre ring",
+    body: "Acts as a keystone, holding the rafters up.",
+  },
   { id: "rafter", name: "Rafter", body: "Holds the structure in place." },
-  { id: "tension-cable", name: "Tension cable", body: "Holds the structure in while the roof pushes it out." },
-  { id: "lattice-rods", name: "Lattice rods", body: "Put the yurt wall into a perfect circle." },
-  { id: "windows", name: "Windows", body: "Translucent openings that let in natural light and fresh air." },
+  {
+    id: "tension-cable",
+    name: "Tension cable",
+    body: "Holds the structure in while the roof pushes it out.",
+  },
+  {
+    id: "lattice-rods",
+    name: "Lattice rods",
+    body: "Put the yurt wall into a perfect circle.",
+  },
+  {
+    id: "windows",
+    name: "Windows",
+    body: "Translucent openings that let in natural light and fresh air.",
+  },
 ] as const;
 
 /**
@@ -86,14 +110,17 @@ export function StructureExplorer({
     onMouseLeave: () => setPaused(false),
     onFocus: () => setPaused(true),
     onBlur: (e: React.FocusEvent) => {
-      if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setPaused(false);
+      if (!e.currentTarget.contains(e.relatedTarget as Node | null))
+        setPaused(false);
     },
   };
 
   return (
     <div className="u-container">
       <div className="u-grid">
-        <header className="col-span-4 md:col-span-6 lg:col-span-4">{header}</header>
+        <header className="col-span-4 md:col-span-6 lg:col-span-4">
+          {header}
+        </header>
 
         <div className="col-span-4 mt-12 md:col-span-6 lg:col-span-7 lg:col-start-6 lg:mt-0">
           <Reveal kind="media">
@@ -112,8 +139,12 @@ export function StructureExplorer({
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     key={s.id}
-                    src={`/media/structure/structure-${s.id}.webp`}
-                    alt={i === index ? `Front elevation of a yurt with the ${s.name.toLowerCase()} highlighted.` : ""}
+                    src={`/media/structure/structure-${s.id}.png`}
+                    alt={
+                      i === index
+                        ? `Front elevation of a yurt with the ${s.name.toLowerCase()} highlighted.`
+                        : ""
+                    }
                     aria-hidden={i !== index}
                     width={700}
                     height={484}
@@ -129,17 +160,27 @@ export function StructureExplorer({
               </div>
 
               <div className="mt-6 flex flex-col gap-5 border-t border-line pt-5 sm:flex-row sm:items-start sm:justify-between">
-                <div aria-live={running ? "off" : "polite"} className="min-h-[4.5rem]">
+                <div
+                  aria-live={running ? "off" : "polite"}
+                  className="min-h-[4.5rem]"
+                >
                   <Metadata className="text-accent-text">
-                    {String(index + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
+                    {String(index + 1).padStart(2, "0")} /{" "}
+                    {String(slides.length).padStart(2, "0")}
                   </Metadata>
-                  <p className="mt-2 font-display text-display-sm">{current.name}</p>
+                  <p className="mt-2 font-display text-display-sm">
+                    {current.name}
+                  </p>
                   <p className="mt-1.5 font-sans text-small text-text-muted leading-relaxed">
                     {current.body}
                   </p>
                 </div>
 
-                <div className="flex shrink-0 items-center gap-1 sm:pt-1" role="group" aria-label="Choose a part">
+                <div
+                  className="flex shrink-0 items-center gap-1 sm:pt-1"
+                  role="group"
+                  aria-label="Choose a part"
+                >
                   {slides.map((s, i) => (
                     <button
                       key={s.id}
@@ -177,12 +218,16 @@ export function StructureExplorer({
                 <span
                   className={cn(
                     "flex size-9 items-center justify-center rounded-full border text-accent-text transition-colors duration-(--duration-base)",
-                    active ? "border-accent-text bg-surface-alt" : "border-line/60 bg-surface-alt/40",
+                    active
+                      ? "border-accent-text bg-surface-alt"
+                      : "border-line/60 bg-surface-alt/40",
                   )}
                 >
                   {icons[i]}
                 </span>
-                <span className="mt-3.5 block font-display text-display-sm">{part.label}</span>
+                <span className="mt-3.5 block font-display text-display-sm">
+                  {part.label}
+                </span>
               </>
             );
             return (
