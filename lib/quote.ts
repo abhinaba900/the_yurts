@@ -12,7 +12,6 @@
 
 import {
   accessoryPrices,
-  canopies,
   doorStyles,
   EXTRA_WINDOW,
   formatPrice,
@@ -21,7 +20,6 @@ import {
   sizePricing,
   windowTypes,
   woodFinishes,
-  type Canopy,
   type DoorStyle,
   type Plan,
 } from "@/data/pricing";
@@ -38,7 +36,6 @@ export type Quote = {
   doorStyle: Record<number, string>;
   /** Door position → wood finish id. */
   doorFinish: Record<number, string>;
-  canopy: string;
 };
 
 export const emptyQuote: Quote = {
@@ -47,7 +44,6 @@ export const emptyQuote: Quote = {
   windowFinish: {},
   doorStyle: {},
   doorFinish: {},
-  canopy: "leaf",
 };
 
 export type DoorRow = {
@@ -72,7 +68,6 @@ export type PricedQuote = {
   plan: Plan;
   doors: DoorRow[];
   windows: WindowRow[];
-  canopy: Canopy;
   accessories: { label: string; price: number }[];
   lines: PriceLine[];
   total: number;
@@ -112,8 +107,6 @@ export function priceQuote(
     price: index < included ? 0 : EXTRA_WINDOW,
   }));
 
-  const canopy = canopies.find((item) => item.id === quote.canopy) ?? canopies[0];
-
   const accessories = [
     ...(addOns.opener ? [{ label: "Remote-operated dome opener", price: accessoryPrices.opener }] : []),
     ...(addOns.blinds ? [{ label: "Blackout blind for the dome", price: accessoryPrices.blinds }] : []),
@@ -125,7 +118,6 @@ export function priceQuote(
     { label: `Plan · ${plan.label}`, amount: plan.price },
     { label: "Window configuration (extras)", amount: sum(windows.map((row) => row.price)) },
     { label: "Door configuration (extras)", amount: sum(doors.map((row) => row.price)) },
-    { label: `Door canopy · ${canopy.label}`, amount: canopy.price },
     { label: "Accessories", amount: sum(accessories.map((item) => item.price)) },
     { label: "Installation", amount: pricing.installation },
     { label: "Shipping", amount: null, note: "Quoted for your site" },
@@ -135,7 +127,6 @@ export function priceQuote(
     plan,
     doors,
     windows,
-    canopy,
     accessories,
     lines,
     total: sum(lines.map((line) => line.amount ?? 0)),
@@ -149,7 +140,7 @@ export const positionLabel = (kind: "D" | "W", position: number) =>
 /* -------------------------------------------------------------------------- */
 /* URL encoding                                                               */
 /*                                                                            */
-/* Readable, like the selection: `w2.8~t2upvc~f2ash~d6glass~e6teak~cleaf`.    */
+/* Readable, like the selection: `w2.8~t2upvc~f2ash~d6glass~e6teak`.          */
 /* Anything unrecognised is dropped on read.                                  */
 /* -------------------------------------------------------------------------- */
 
@@ -160,7 +151,6 @@ export function encodeQuote(quote: Quote): string {
   for (const [position, id] of Object.entries(quote.windowFinish)) parts.push(`f${position}${id}`);
   for (const [position, id] of Object.entries(quote.doorStyle)) parts.push(`d${position}${id}`);
   for (const [position, id] of Object.entries(quote.doorFinish)) parts.push(`e${position}${id}`);
-  if (quote.canopy !== emptyQuote.canopy) parts.push(`c${quote.canopy}`);
   return parts.join("~");
 }
 
@@ -201,8 +191,6 @@ export function decodeQuote(value: string | null | undefined): Quote {
       quote.doorStyle[position] = id;
     } else if (kind === "e" && onClock && valid(woodFinishes, id)) {
       quote.doorFinish[position] = id;
-    } else if (kind === "c" && valid(canopies, rest)) {
-      quote.canopy = rest;
     }
   }
   return quote;
@@ -227,7 +215,6 @@ export function quoteText(
       (row) =>
         `  ${positionLabel("W", row.position)} · ${row.type.label} · ${row.finish?.label ?? "Standard finish"} · ${row.included ? "Included" : formatPrice(row.price)}`,
     ),
-    `Door canopy: ${priced.canopy.label}`,
     `Accessories: ${priced.accessories.map((item) => item.label).join(", ") || "None"}`,
     "",
     "PRICE SUMMARY",

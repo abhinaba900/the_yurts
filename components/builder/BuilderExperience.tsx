@@ -18,7 +18,6 @@ import {
 import { EXTERIOR, sizeById } from "@/data/yurtModel";
 import {
   accessoryPrices,
-  canopies,
   CUSTOM_PLAN,
   doorStyles,
   EXTRA_WINDOW,
@@ -41,7 +40,7 @@ import {
   type Quote,
 } from "@/lib/quote";
 import { PlanRing } from "./PlanRing";
-import { QuoteSummary } from "./QuoteSummary";
+import { QuoteSummary, type SummaryView } from "./QuoteSummary";
 import { QuoteForm } from "./QuoteForm";
 import { BuilderCanvas, type ViewCommand } from "./BuilderCanvas";
 import {
@@ -89,6 +88,14 @@ const STEPS: { id: StepId; label: string; groups: OptionGroupId[] }[] = [
   { id: "colours", label: "Colours", groups: ["roof", "exterior"] },
   { id: "addons", label: "Add-ons", groups: ["opener", "blinds", "flooring"] },
   { id: "review", label: "Summary", groups: [] },
+];
+
+/** The summary step's tabs: the order in parts, then the request form. */
+const SUMMARY_TABS: { id: SummaryView | "quote"; label: string }[] = [
+  { id: "yurt", label: "Yurt" },
+  { id: "openings", label: "Doors & windows" },
+  { id: "price", label: "Price" },
+  { id: "quote", label: "Get quote" },
 ];
 
 /** Combinations that work, as a quicker start than 56 swatches. */
@@ -328,6 +335,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
   const [autoRotate, setAutoRotate] = useState(false);
   const [touched, setTouched] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [summaryTab, setSummaryTab] = useState<SummaryView | "quote">("yurt");
   const panelRef = useRef<HTMLDivElement>(null);
   const stepperRef = useRef<HTMLElement>(null);
 
@@ -881,7 +889,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
         {/* Doors */}
         <section className="mt-8">
           <div className="flex items-baseline justify-between border-b border-line pb-2">
-            <h3 className="font-sans text-meta uppercase text-text">Door & canopy</h3>
+            <h3 className="font-sans text-meta uppercase text-text">Doors</h3>
             <span className="font-sans text-meta uppercase text-text-muted">{lockStyles[0].label}</span>
           </div>
           <div className="divide-y divide-line">
@@ -911,20 +919,6 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
                 />
               </div>
             ))}
-            <div className="grid grid-cols-[3.25rem_1fr] items-center gap-2 py-3">
-              <span className="font-sans text-[0.625rem] uppercase tracking-[0.12em] text-text-muted">
-                Canopy
-              </span>
-              <MiniSelect
-                label="Canopy over the main door"
-                value={priced.canopy.id}
-                onChange={(value) => setQuote((current) => ({ ...current, canopy: value }))}
-                options={canopies.map((canopy) => ({
-                  id: canopy.id,
-                  label: canopy.price ? `${canopy.label} (+${formatPrice(canopy.price)})` : `${canopy.label} (included)`,
-                }))}
-              />
-            </div>
           </div>
         </section>
 
@@ -975,10 +969,10 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
         </section>
 
         <div className="mt-6 flex items-center justify-between border-t border-line pt-3 font-sans text-small">
-          <span className="text-text-muted">Doors, windows & canopy extras</span>
+          <span className="text-text-muted">Door & window extras</span>
           <span className="text-accent-text">
             {formatPrice(
-              (priced.lines[1].amount ?? 0) + (priced.lines[2].amount ?? 0) + (priced.lines[3].amount ?? 0),
+              (priced.lines[1].amount ?? 0) + (priced.lines[2].amount ?? 0),
             )}
           </span>
         </div>
@@ -1149,23 +1143,64 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
           </span>
         </div>
 
-        <QuoteSummary priced={priced} configuration={configurationRows} />
-
-        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
-          {STEPS.slice(0, -1).map((item, index) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => goTo(index)}
-              className="font-sans text-meta uppercase text-accent-text underline-offset-4 hover:underline"
-            >
-              Edit {item.label.toLowerCase()}
-            </button>
-          ))}
+        {/* One part of the summary at a time, so it fits the panel. */}
+        <div id="quote-form" role="tablist" aria-label="Order summary" className="mt-6 grid scroll-mt-24 grid-cols-4 border border-line">
+          {SUMMARY_TABS.map((tab) => {
+            const selected = summaryTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                id={`summary-tab-${tab.id}`}
+                aria-selected={selected}
+                aria-controls="summary-panel"
+                onClick={() => setSummaryTab(tab.id)}
+                className={cn(
+                  "min-h-10 border-l border-line px-1 py-2 font-sans leading-tight text-[0.625rem] uppercase tracking-[0.12em] transition-colors duration-(--duration-quick) first:border-l-0",
+                  selected ? "bg-surface-alt text-accent-text" : "text-text-muted hover:text-text",
+                )}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
 
-        <div id="quote-form" className="mt-8 scroll-mt-24">
-          <QuoteForm configuration={encodeSelection(selection)} summary={summaryText} />
+        <div id="summary-panel" role="tabpanel" aria-labelledby={`summary-tab-${summaryTab}`} className="mt-4">
+          {summaryTab === "quote" ? (
+            <QuoteForm configuration={encodeSelection(selection)} summary={summaryText} />
+          ) : (
+            <>
+              <QuoteSummary view={summaryTab} priced={priced} configuration={configurationRows} />
+              <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2">
+                {(summaryTab === "yurt"
+                  ? STEPS.slice(0, -1).filter((item) => item.id !== "doors")
+                  : summaryTab === "openings"
+                    ? STEPS.filter((item) => item.id === "doors")
+                    : []
+                ).map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => goTo(STEPS.indexOf(item))}
+                    className="font-sans text-meta uppercase text-accent-text underline-offset-4 hover:underline"
+                  >
+                    Edit {item.label.toLowerCase()}
+                  </button>
+                ))}
+                {summaryTab !== "price" ? null : (
+                  <button
+                    type="button"
+                    onClick={() => setSummaryTab("quote")}
+                    className="font-sans text-meta uppercase text-accent-text underline-offset-4 hover:underline"
+                  >
+                    Request this quote
+                  </button>
+                )}
+              </div>
+            </>
+          )}
         </div>
 
         <div className="mt-6">
@@ -1515,6 +1550,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
           ) : (
             <a
               href="#quote-form"
+              onClick={() => setSummaryTab("quote")}
               className="group inline-flex h-12 flex-1 items-center justify-between gap-3 bg-accent-text px-5 font-sans text-meta uppercase text-surface transition-colors duration-(--duration-quick) hover:bg-cream"
             >
               <span>

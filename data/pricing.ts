@@ -10,7 +10,6 @@
  *   plan price            the plan as drawn: its doors, windows and covers
  *   + window extras       each window beyond the plan's own, frame + canopy
  *   + door extras         upgrading a door from the 3' flush door it comes with
- *   + door canopy         a pergola other than the leaf one included
  *   + accessories         dome opener, dome blackout blind
  *   + installation        on site, by our team
  *   shipping              quoted separately — it depends on the site
@@ -230,18 +229,6 @@ export const windowTypes = [
 /** A window beyond the plan's own: frame, uPVC window and its leaf canopy. */
 export const EXTRA_WINDOW = 71458 + 16990;
 
-export type Canopy = { id: string; label: string; price: number };
-
-/** Over the main door. The leaf pergola is included in every plan. */
-export const canopies: Canopy[] = [
-  { id: "leaf", label: "Leaf pergola", price: 0 },
-  { id: "classic", label: "Classic pergola", price: 73288 - PERGOLA_LEAF },
-  { id: "contemporary", label: "Contemporary pergola", price: 82280 - PERGOLA_LEAF },
-  { id: "clear-view", label: "Clear-view pergola", price: 98204 - PERGOLA_LEAF },
-  { id: "french-balcony", label: "French balcony pergola", price: 114828 - PERGOLA_LEAF },
-  { id: "tropical", label: "Tropical pergola", price: 125174 - PERGOLA_LEAF },
-];
-
 /* -------------------------------------------------------------------------- */
 /* Covers and accessories                                                     */
 /* -------------------------------------------------------------------------- */
@@ -269,12 +256,4 @@ export const buyerCategories = [
   "Architect",
   "ADU / private residence",
   "Other",
-];
-
-export const shippingTypes = [
-  { id: "EXW", label: "Ex works", note: "Pick up from our Bangalore factory." },
-  { id: "FOB", label: "FOB", note: "Free on board: we deliver to an Indian port and load the vessel." },
-  { id: "CIF", label: "CIF", note: "Cost, insurance and freight: we ship and insure to your port." },
-  { id: "DAP", label: "DAP", note: "Delivered at place: to your site, duties excluded." },
-  { id: "DDP", label: "DDP", note: "Delivered duty paid: door to door, all duties paid." },
 ];

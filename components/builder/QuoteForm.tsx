@@ -3,18 +3,18 @@
 import { useActionState, useId, useState } from "react";
 import { submitEnquiry } from "@/app/actions/enquiry";
 import type { EnquiryState } from "@/lib/enquiry";
-import { buyerCategories, shippingTypes } from "@/data/pricing";
+import { buyerCategories } from "@/data/pricing";
 import { cn } from "@/lib/cn";
 import { Metadata } from "@/components/primitives/Metadata";
 
 /**
- * The builder's own quote request: who is asking, where it is going, and how
- * they want it shipped — sent with the whole order summary.
+ * The builder's own quote request: who is asking and where it is going —
+ * sent with the whole order summary.
  *
  * It posts through the site's one enquiry action, so it is stored and emailed
  * exactly like every other enquiry, and validated on the server the same way.
  * The fields a yurt quote needs and a general enquiry does not (address,
- * buyer category, shipping terms) are folded into the message, after the
+ * buyer category) are folded into the message, after the
  * visitor's own words and before the order summary.
  */
 
@@ -72,7 +72,6 @@ export function QuoteForm({
     state: "",
     pin: "",
     category: "",
-    shipping: "",
     requirement: "",
     consent: true,
   });
@@ -98,7 +97,6 @@ export function QuoteForm({
     street: values.street.trim() ? undefined : "We need an address to quote delivery.",
     city: values.city.trim() ? undefined : "Which city?",
     category: values.category ? undefined : "Choose the one that fits best.",
-    shipping: values.shipping ? undefined : "Choose how you would like it shipped.",
   };
   const localOk = Object.values(local).every((value) => !value);
   const server = state.errors ?? {};
@@ -107,7 +105,6 @@ export function QuoteForm({
     values.requirement.trim() || "Please send me a quote for this yurt.",
     "",
     `Buyer category: ${values.category}`,
-    `Shipping type: ${values.shipping}`,
     `Address: ${address}`,
     `Receive other communications: ${values.consent ? "Yes" : "No"}`,
     "",
@@ -137,7 +134,7 @@ export function QuoteForm({
       }}
       className="relative border border-line p-4 sm:p-5"
     >
-      <h3 className="font-sans text-body text-text">Shipping information</h3>
+      <h3 className="font-sans text-body text-text">Your details</h3>
       <p className="mt-1 font-sans text-small text-text-muted">
         Fill in your details and we will send you an accurate quote.
       </p>
@@ -228,38 +225,6 @@ export function QuoteForm({
         </div>
         {tried && local.category ? (
           <p role="alert" className="mt-1 font-sans text-small text-accent-text">{local.category}</p>
-        ) : null}
-      </fieldset>
-
-      <fieldset className="mt-6 border-0 p-0">
-        <legend className="font-sans text-[0.625rem] uppercase tracking-[0.12em] text-text-muted">
-          Shipping type
-        </legend>
-        <div className="mt-2 grid gap-1.5">
-          {shippingTypes.map((type) => (
-            <label
-              key={type.id}
-              className={cn(
-                "flex cursor-pointer items-start gap-2.5 border px-3 py-2 transition-colors duration-(--duration-quick)",
-                values.shipping === type.id ? "border-accent-text bg-surface-alt" : "border-line hover:border-line-strong",
-              )}
-            >
-              <input
-                type="radio"
-                name="shipping-type"
-                checked={values.shipping === type.id}
-                onChange={() => setValues((current) => ({ ...current, shipping: type.id }))}
-                className="mt-0.5 size-4 shrink-0 accent-[var(--color-accent-text)]"
-              />
-              <span>
-                <span className="block font-sans text-small text-text">{type.label}</span>
-                <span className="block font-sans text-small text-text-muted">{type.note}</span>
-              </span>
-            </label>
-          ))}
-        </div>
-        {tried && local.shipping ? (
-          <p role="alert" className="mt-1 font-sans text-small text-accent-text">{local.shipping}</p>
         ) : null}
       </fieldset>
 
