@@ -1,9 +1,9 @@
 /**
  * The client's yurts, as the 3D builder sees them.
  *
- * Two sizes, from the client's own SketchUp exports:
- *  - `public/models/yurt-6m/exterior.glb` and `yurt-10m/exterior.glb` are the
- *    6m and 10m shells, generated from "6M Yurt.glb" and "10M Yurt.glb" by
+ * Three sizes, from the client's own SketchUp exports:
+ *  - `public/models/yurt-{6m,7m,10m}/exterior.glb` are the shells, generated
+ *    from "6M Yurt.glb", "7M Yurt.glb" and "10M Yurt.glb" by
  *    `scripts/optimize-yurt-shells.mjs`.
  *  - `public/models/yurt-10m/layout-*.glb` are the 10m's three fitted-out
  *    interiors, without a shell of their own, generated from "10m YURT WITH 3
@@ -19,7 +19,7 @@
  * not listed is interior.
  */
 
-export type YurtSizeId = "6m" | "10m";
+export type YurtSizeId = "6m" | "7m" | "10m";
 
 export type YurtSize = {
   id: YurtSizeId;
@@ -45,6 +45,15 @@ export const yurtSizes: YurtSize[] = [
     description: "A bedroom-sized retreat, a studio or a treatment room.",
   },
   {
+    id: "7m",
+    label: "7m yurt",
+    feet: 23,
+    diameterM: 7,
+    heightM: 5.1,
+    radiusM: 3.5,
+    description: "A roomier bedroom with an en-suite, or a small studio.",
+  },
+  {
     id: "10m",
     label: "10m yurt",
     feet: 32,
@@ -56,7 +65,8 @@ export const yurtSizes: YurtSize[] = [
 ];
 
 export const sizeById = (id: string | undefined): YurtSize =>
-  yurtSizes.find((size) => size.id === id) ?? yurtSizes[1];
+  yurtSizes.find((size) => size.id === id) ??
+  yurtSizes.find((size) => size.id === "10m")!;
 
 /** Floor area in square metres, from the diameter. */
 export const floorArea = (size: YurtSize) =>
@@ -65,6 +75,7 @@ export const floorArea = (size: YurtSize) =>
 /** The shell every option of a size stands in. */
 export const shellFiles: Record<YurtSizeId, string> = {
   "6m": "/models/yurt-6m/exterior.glb",
+  "7m": "/models/yurt-7m/exterior.glb",
   "10m": "/models/yurt-10m/exterior.glb",
 };
 

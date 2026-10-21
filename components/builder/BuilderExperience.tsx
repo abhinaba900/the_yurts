@@ -15,7 +15,7 @@ import {
   type OptionGroupId,
   type Selection,
 } from "@/lib/configurator";
-import { EXTERIOR, sizeById } from "@/data/yurtModel";
+import { EXTERIOR, sizeById, type YurtSizeId } from "@/data/yurtModel";
 import {
   accessoryPrices,
   CUSTOM_PLAN,
@@ -636,7 +636,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
 
   const sizeGroup = groupById("size");
   const sizePrice = sizePricing[size.id];
-  const fromPrice = (sizeId: "6m" | "10m") =>
+  const fromPrice = (sizeId: YurtSizeId) =>
     Math.min(...plansFor(sizeId).map((plan) => plan.price));
 
   /** The yurt itself, for the summary's configuration table. */
@@ -677,7 +677,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
         {sizeGroup ? (
           <fieldset className="mt-7 border-0 p-0">
             <legend className="sr-only">Size</legend>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-3 gap-3">
               {sizeGroup.options.map((option) => {
                 const info = sizeById(option.id);
                 const pricing = sizePricing[info.id];
@@ -761,7 +761,9 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
         <StepHeading index={1} title="Choose a plan.">
           {size.id === "10m"
             ? "Our popular 10m plans, shown fitted out from above. Each price includes its doors, windows and covers."
-            : "Our popular 6m plans. Each price includes its doors, windows and covers."}
+            : size.id === "6m"
+              ? "Our popular 6m plans. Each price includes its doors, windows and covers."
+              : "Start from the 7m kit and place the doors and windows yourself."}
         </StepHeading>
         <fieldset className="mt-7 border-0 p-0">
           <legend className="sr-only">Plan</legend>
@@ -832,7 +834,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
             })}
           </div>
         </fieldset>
-        {size.id === "6m" ? (
+        {size.id !== "10m" ? (
           <button
             type="button"
             onClick={() => choose("size", "10m")}
@@ -1245,7 +1247,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
   const next = STEPS[stepIndex + 1];
 
   return (
-    <div className="landscape-split:grid landscape-split:h-[calc(100svh-4rem)] landscape-split:grid-cols-[minmax(0,1fr)_22rem] lg:grid lg:h-[calc(100svh-8.25rem)] lg:min-h-[38rem] lg:grid-cols-[minmax(0,1fr)_25rem] xl:grid-cols-[minmax(0,1fr)_28rem]">
+    <div className="landscape-split:grid landscape-split:h-[calc(100svh-4rem)] landscape-split:grid-cols-[minmax(0,1fr)_22rem] lg:grid lg:h-[calc(100svh-8.25rem)] lg:min-h-[38rem] lg:grid-cols-[minmax(0,1fr)_30rem] xl:grid-cols-[minmax(0,1fr)_34rem] 2xl:grid-cols-[minmax(0,1fr)_38rem]">
       {/* ---- Stage ---- */}
       <div className="sticky top-16 z-20 h-[44svh] min-h-[18rem] bg-surface-alt landscape-split:relative landscape-split:top-auto landscape-split:h-full lg:relative lg:top-auto lg:h-full">
         <div

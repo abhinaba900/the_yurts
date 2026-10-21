@@ -1,9 +1,9 @@
 /**
- * Turns the client's 6m and 10m exterior exports into the builder's shells.
+ * Turns the client's 6m, 7m and 10m exterior exports into the builder's shells.
  *
  *   node --max-old-space-size=8192 scripts/optimize-yurt-shells.mjs
  *
- * THE SOURCES. "6M Yurt.glb" and "10M Yurt.glb" are SketchUp exports of a
+ * THE SOURCES. "6M Yurt.glb", "7M Yurt.glb" and "10M Yurt.glb" are SketchUp exports of a
  * colour catalogue: 34 copies of the same yurt in a grid, each with a
  * different roof and wall cover. Everything is in one vertex-coloured mesh,
  * plus a handful of material meshes (frames, crown dome).
@@ -77,6 +77,15 @@ const SHELLS = [
     source: "public/3D-Modal/6M Yurt.glb",
     centre: [3.1, 41.7],
     reach: 4.5,
+    roof: rgb255(173, 112, 0),
+    wall: rgb255(114, 114, 114),
+    wallHead: 2.55,
+  },
+  {
+    id: "yurt-7m",
+    source: "public/3D-Modal/7M Yurt.glb",
+    centre: [8.8, 96.7],
+    reach: 5.0,
     roof: rgb255(173, 112, 0),
     wall: rgb255(114, 114, 114),
     wallHead: 2.55,

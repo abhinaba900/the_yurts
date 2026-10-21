@@ -53,16 +53,27 @@ export const sizePricing: Record<YurtSizeId, SizePricing> = {
     name: "20' / 6m",
     areaSqft: 314,
     areaM2: 29,
-    kitPrice: 997175,
+    kitPrice: 1000087,
     kitWindows: 2,
     installation: 84000,
+    manufacturing: "2–12 weeks",
+  },
+  // Installation is interpolated by floor area between the 6m and 10m; the
+  // client hasn't given a 7m figure.
+  "7m": {
+    name: "23' / 7m",
+    areaSqft: 414,
+    areaM2: 38,
+    kitPrice: 1198998,
+    kitWindows: 2,
+    installation: 93690,
     manufacturing: "2–12 weeks",
   },
   "10m": {
     name: "32' / 10m",
     areaSqft: 804,
     areaM2: 75,
-    kitPrice: 1837049,
+    kitPrice: 1820362,
     kitWindows: 4,
     installation: 130909,
     manufacturing: "4–12 weeks",
@@ -227,7 +238,7 @@ export const windowTypes = [
 ];
 
 /** A window beyond the plan's own: frame, uPVC window and its leaf canopy. */
-export const EXTRA_WINDOW = 71458 + 16990;
+export const EXTRA_WINDOW = 82257;
 
 /* -------------------------------------------------------------------------- */
 /* Covers and accessories                                                     */
@@ -241,8 +252,8 @@ export const fabricSpec = [
 ];
 
 export const accessoryPrices = {
-  opener: 21300,
-  blinds: 44148,
+  opener: 19809,
+  blinds: 41058,
 } as const;
 
 /* -------------------------------------------------------------------------- */
