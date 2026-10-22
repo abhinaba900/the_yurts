@@ -4,6 +4,7 @@ import { getSettings } from "@/lib/settings";
 import { Metadata } from "@/components/primitives/Metadata";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 import { WhatsAppLink } from "@/components/site/WhatsAppLink";
+import { SocialLinks } from "@/components/site/SocialLinks";
 
 /**
  * Footer. An editorial closing passage — a line, an invitation, then the index.
@@ -100,12 +101,13 @@ export async function Footer() {
             </div>
           ))}
 
-          {/* Contact renders only when the client has supplied details. */}
-          {hasContact ? (
-            <div className="col-span-4 md:col-span-6 lg:col-span-3 lg:col-start-10">
-              <Metadata as="h3" className="text-accent-text">
-                Contact
-              </Metadata>
+          {/* Contact details render only when the client has supplied them;
+              the social icons always do, linked once their URLs are set. */}
+          <div className="col-span-4 md:col-span-6 lg:col-span-3 lg:col-start-10">
+            <Metadata as="h3" className="text-accent-text">
+              Contact
+            </Metadata>
+            {hasContact ? (
               <div className="mt-5 space-y-2.5">
                 {contact.email ? (
                   <a
@@ -134,8 +136,9 @@ export async function Footer() {
                   className="text-text-muted hover:text-text"
                 />
               </div>
-            </div>
-          ) : null}
+            ) : null}
+            <SocialLinks links={settings.social} className="mt-6" />
+          </div>
         </div>
       </div>
 
