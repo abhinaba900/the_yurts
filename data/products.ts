@@ -1,6 +1,6 @@
 import type { PortableTextBlock } from "sanity";
 import type { NamedNote, Product, ProductSummary, SizeOption } from "@/sanity/lib/types";
-import { media } from "./media";
+import { media, type MediaAsset } from "./media";
 import { rangeFallback, type RangeEntry } from "./range";
 import {
   doorDepthsMm,
@@ -57,7 +57,7 @@ const p = (text: string): PortableTextBlock =>
 /** The manifest already holds the photograph and its alt text — reuse both. */
 const heroFor = (entry: RangeEntry) => {
   if (!entry.media) return null;
-  const asset = media[entry.media];
+  const asset: MediaAsset | undefined = media[entry.media];
   if (!asset?.src) return null;
   return {
     assetId: asset.src,

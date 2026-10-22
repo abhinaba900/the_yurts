@@ -48,6 +48,24 @@ export function Button({
   const classes = cn(base, sizes[size], variants[variant], className);
   const inner = <span className="relative z-10">{children}</span>;
 
+  // In-page anchors stay plain links, so SmoothScroll's anchor handler owns
+  // the scroll rather than the router.
+  if (href?.startsWith("#")) {
+    return (
+      <a href={href} className={classes}>
+        {inner}
+      </a>
+    );
+  }
+
+  if (href && /^https?:\/\//.test(href)) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className={classes}>
+        {inner}
+      </a>
+    );
+  }
+
   if (href) {
     return (
       <Link href={href} className={classes}>

@@ -34,6 +34,7 @@ export const enquiry = defineType({
           "Consultation",
           "Brochure download",
           "3D configuration",
+          "Experience Centre visit",
         ],
       },
     }),

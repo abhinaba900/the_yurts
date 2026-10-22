@@ -31,6 +31,12 @@ export type MediaAsset = {
   src?: string;
   /** Priority load — hero images only. */
   priority?: boolean;
+  /**
+   * Must be a real photograph of a specific place. CONTENT-NEEDED.md gives no
+   * generation prompt for these — a generated image would misrepresent what a
+   * visitor will actually find there.
+   */
+  photographOnly?: boolean;
 };
 
 export const media = {
@@ -293,6 +299,191 @@ export const media = {
     alt: "Timber lattice being assembled in the workshop.",
     note: "Hands and tools in frame. Workshop, not staged.",
     src: "/media/manufacturing-process.jpg",
+  },
+
+  /*
+   * INFRASTRUCTURE — PENDING CLIENT.
+   *
+   * Documentary photographs for /infrastructure, shot in Theyurts' own
+   * workshop. Real people, real work in progress, the space as it actually
+   * looks. NOT generated imagery and not the existing workshop-frame-assembly
+   * render: this page's whole argument is that it shows the real thing.
+   */
+  "infrastructure.workshop-wide": {
+    file: "infrastructure-workshop-wide.jpg",
+    ratio: "cinema",
+    alt: "The Theyurts workshop, with yurt components in production.",
+    note: "Wide establishing shot of the workshop floor. Work in progress visible, people at work if possible. Update the alt text to describe what is actually in frame.",
+    priority: true,
+  },
+  "infrastructure.workbench": {
+    file: "infrastructure-workbench.jpg",
+    ratio: "editorial",
+    alt: "A workbench in the Theyurts workshop with components being prepared.",
+    note: "Hands, tools and a component on the bench. Unstaged.",
+  },
+  "infrastructure.material-store": {
+    file: "infrastructure-material-store.jpg",
+    ratio: "editorial",
+    alt: "Timber and materials stored in the workshop before fabrication.",
+    note: "Raw material as it arrives or is stored — timber stacks, cover fabric rolls.",
+  },
+  "infrastructure.capability-timber": {
+    file: "infrastructure-timber.jpg",
+    ratio: "editorial",
+    alt: "Lattice rods and rafters being cut and prepared in the workshop.",
+    note: "Timber components mid-preparation. Grain and tooling legible.",
+  },
+  "infrastructure.capability-frame": {
+    file: "infrastructure-frame-assembly.jpg",
+    ratio: "landscape",
+    alt: "A yurt frame being assembled from its components.",
+    note: "Lattice wall opened out or rafters going into the ring. Wide enough to read the structure.",
+  },
+  "infrastructure.capability-cover": {
+    file: "infrastructure-cover.jpg",
+    ratio: "editorial",
+    alt: "The exterior cover being prepared for a yurt frame.",
+    note: "Cover fabric laid out or being worked. Seams, cut-outs or edges in frame.",
+  },
+  "infrastructure.capability-openings": {
+    file: "infrastructure-doors-windows.jpg",
+    ratio: "editorial",
+    alt: "A door and window frame prepared for a yurt.",
+    note: "A finished door or window frame before fitting. Finish colour visible.",
+  },
+  "infrastructure.capability-interior": {
+    file: "infrastructure-interior.jpg",
+    ratio: "landscape",
+    alt: "Interior components prepared for a yurt fit-out.",
+    note: "Flooring, insulation or interior joinery in preparation.",
+  },
+  "infrastructure.capability-dispatch": {
+    file: "infrastructure-dispatch.jpg",
+    ratio: "landscape",
+    alt: "A yurt packed as components and ready for dispatch.",
+    note: "The folded frame and packed cover, ready to load. Shows how compact it travels.",
+  },
+
+  /*
+   * FLOOR PLANS — PENDING CLIENT.
+   *
+   * One drawing per layout on /floor-plans. Square, because a yurt's plan is a
+   * circle: the page shows the whole drawing (object-contain), never a crop.
+   * Export as a flat plan on a plain light ground, with the door at the
+   * bottom of the sheet so every plan reads the same way round.
+   */
+  "floorplans.open-plan": {
+    file: "floorplan-open-plan.webp",
+    ratio: "square",
+    alt: "Floor plan of a yurt left open and unfurnished.",
+    note: "Plan view, roof off. Shell, door and windows only — no furniture.",
+  },
+  "floorplans.retreat": {
+    file: "floorplan-retreat.webp",
+    ratio: "square",
+    alt: "Floor plan of a yurt arranged for sleeping and relaxation.",
+    note: "Plan view. Bed, seating and any en-suite drawn to scale.",
+  },
+  "floorplans.suite": {
+    file: "floorplan-suite.webp",
+    ratio: "square",
+    alt: "Floor plan of a yurt arranged as a hospitality suite.",
+    note: "Plan view. Sleeping, lounge and bathroom zones legible at small size.",
+  },
+  "floorplans.gathering": {
+    file: "floorplan-gathering.webp",
+    ratio: "square",
+    alt: "Floor plan of a yurt arranged around shared seating.",
+    note: "Plan view. Seating arrangement and circulation around it.",
+  },
+  "floorplans.wellness-studio": {
+    file: "floorplan-wellness-studio.webp",
+    ratio: "square",
+    alt: "Floor plan of a yurt kept open for yoga, meditation or treatments.",
+    note: "Plan view. Mats or treatment beds placed, floor kept clear.",
+  },
+  "floorplans.living-space": {
+    file: "floorplan-living-space.webp",
+    ratio: "square",
+    alt: "Floor plan of a yurt arranged as a home.",
+    note: "Plan view. Kitchen, living, sleeping and bathroom zones.",
+  },
+  /*
+   * Experience Centre, Bengaluru — /experience-centre.
+   * Photographs of the centre itself only: not another site, not a render, not
+   * generated. Re-check each alt text against the photograph when it lands.
+   */
+  "experience-centre.hero": {
+    file: "experience-centre-hero.webp",
+    ratio: "cinema",
+    alt: "The Theyurts Experience Centre yurt in Bengaluru.",
+    note: "Real photograph of the Bengaluru centre. The whole structure and enough of its surroundings to read as a place you can visit.",
+    photographOnly: true,
+    priority: true,
+  },
+  "experience-centre.exterior-approach": {
+    file: "experience-centre-exterior-approach.webp",
+    ratio: "landscape",
+    alt: "The Experience Centre yurt seen on the approach.",
+    note: "Real photograph. The view a visitor gets on arrival.",
+    photographOnly: true,
+  },
+  "experience-centre.surroundings": {
+    file: "experience-centre-surroundings.webp",
+    ratio: "landscape",
+    alt: "The Experience Centre yurt within its surroundings.",
+    note: "Real photograph. Wider view: the landscape, planting and paths around the structure.",
+    photographOnly: true,
+  },
+  "experience-centre.entrance": {
+    file: "experience-centre-entrance.webp",
+    ratio: "editorial",
+    alt: "The entrance to the Experience Centre yurt.",
+    note: "Real photograph. Door, threshold and any deck or steps.",
+    photographOnly: true,
+  },
+  "experience-centre.interior-wide": {
+    file: "experience-centre-interior-wide.webp",
+    ratio: "editorial",
+    alt: "The circular interior of the Experience Centre yurt, seen from the doorway.",
+    note: "Real photograph. Wide lens from the door, the full circle readable.",
+    photographOnly: true,
+  },
+  "experience-centre.interior-crown": {
+    file: "experience-centre-interior-crown.webp",
+    ratio: "editorial",
+    alt: "Looking up at the crown and rafters inside the Experience Centre yurt.",
+    note: "Real photograph. Straight up from the centre of the floor.",
+    photographOnly: true,
+  },
+  "experience-centre.detail-lattice": {
+    file: "experience-centre-detail-lattice.webp",
+    ratio: "editorial",
+    alt: "Close view of the timber lattice wall and its joints.",
+    note: "Real photograph. Close enough to see the joints and the finish on the timber.",
+    photographOnly: true,
+  },
+  "experience-centre.detail-roof": {
+    file: "experience-centre-detail-roof.webp",
+    ratio: "editorial",
+    alt: "Rafters meeting the crown ring of the Experience Centre yurt.",
+    note: "Real photograph. Where the rafters seat into the crown.",
+    photographOnly: true,
+  },
+  "experience-centre.detail-cover": {
+    file: "experience-centre-detail-cover.webp",
+    ratio: "editorial",
+    alt: "The cover, door frame and finishes of the Experience Centre yurt.",
+    note: "Real photograph. Fabric, seams and the door frame in raking light.",
+    photographOnly: true,
+  },
+  "experience-centre.arrangement": {
+    file: "experience-centre-arrangement.webp",
+    ratio: "editorial",
+    alt: "The Experience Centre yurt interior arranged for use.",
+    note: "Real photograph of an interior set-up actually used at the centre. Drop the gallery entry if there is only one arrangement.",
+    photographOnly: true,
   },
 } as const satisfies Record<string, MediaAsset>;
 

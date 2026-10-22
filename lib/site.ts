@@ -9,6 +9,8 @@
  * recoverable, a wrong one on a live site is not.
  */
 
+import { isCentreOpen } from "@/data/experienceCentre";
+
 export const site = {
   name: "Theyurts",
   wordmark: "Theyurts",
@@ -66,6 +68,8 @@ export const primaryNav: NavItem[] = [
     children: [
       { label: "Why Yurts", href: "/why-theyurts", note: "The case" },
       { label: "How It’s Made", href: "/process", note: "Eight stages" },
+      { label: "Behind the Build", href: "/infrastructure", note: "Workshop and production" },
+      { label: "Floor Plans", href: "/floor-plans", note: "Interior layouts" },
     ],
   },
   { label: "Applications", href: "/applications", note: "What they are for" },
@@ -76,6 +80,7 @@ export const primaryNav: NavItem[] = [
     children: [
       { label: "3D Yurt Builder", href: "/experiences/builder", note: "3D Configurator" },
       { label: "Experience yurt in VR", href: "/experiences/vr", note: "Virtual Reality" },
+      { label: "Experience Centre", href: "/experience-centre", note: "Visit us in Bengaluru" },
     ],
   },
   { label: "Projects", href: "/projects", note: "Gallery and inspiration" },
@@ -89,6 +94,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     title: "Yurts",
     items: [
       { label: "Explore Yurt Types", href: "/yurts" },
+      { label: "Floor Plans", href: "/floor-plans" },
       { label: "How We Build & Install", href: "/process" },
       { label: "Why Choose a Yurt?", href: "/why-theyurts" },
     ],
@@ -107,6 +113,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     items: [
       { label: "3D Yurt Builder", href: "/experiences/builder" },
       { label: "360° Virtual Tour", href: "/experiences/vr" },
+      ...(isCentreOpen ? [{ label: "Experience Centre", href: "/experience-centre" }] : []),
       { label: "Design Gallery", href: "/projects" },
       { label: "Yurt Guides & Articles", href: "/journal" },
     ],
@@ -115,6 +122,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     title: "Company",
     items: [
       { label: "About Theyurts", href: "/about" },
+      { label: "Behind the Build", href: "/infrastructure" },
       { label: "Resources", href: "/resources" },
       { label: "Frequently Asked Questions", href: "/faq" },
       { label: "Contact & Enquiries", href: "/contact" },

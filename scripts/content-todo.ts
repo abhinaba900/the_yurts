@@ -257,15 +257,19 @@ for (const [group, items] of [...groups].sort()) {
       `#### \`${asset.file}\``,
       "",
       `- **Status** ${asset.src ? "Supplied" : "**Outstanding**"}`,
-      `- **Generate at** ${crop.px4k} (${crop.ratio})`,
+      asset.photographOnly
+        ? `- **Photograph at** ${crop.min} or larger (${crop.ratio})`
+        : `- **Generate at** ${crop.px4k} (${crop.ratio})`,
       `- **Appears on** ${usedIn(id)}`,
       `- **Manifest id** \`${id}\``,
       `- **Alt text** ${asset.alt}`,
       ...(asset.note ? [`- **Art direction** ${asset.note}`] : []),
       "",
-      "```",
-      prompt(asset),
-      "```",
+      // A photograph of a real place a visitor can go to — a generated one
+      // would show them something they will not find there.
+      ...(asset.photographOnly
+        ? ["**Real photograph only — do not generate, render or substitute.**"]
+        : ["```", prompt(asset), "```"]),
       "",
     );
   }
@@ -370,6 +374,20 @@ push(
   "| Founder and team names, roles, short bios | `/about` — the Team empty state |",
   "| Any certification or testing, with issuing body and date | `/about` — Certifications |",
   "| Workshop location and whether it can be visited | `/about` — Workshop |",
+  "| Workshop floor area, main equipment, whether visits are possible | `/infrastructure` — `facilityFacts` in data/infrastructure.ts |",
+  "| Which production stages are in-house and which use specialist partners | `/infrastructure` — `capabilities[].by` |",
+  "| Team names, roles, portraits, own-words focus and prior experience | `/infrastructure` — `team` |",
+  "| What is inspected before dispatch, by whom; whether frames are trial-assembled | `/infrastructure` — journey step 04 |",
+  "| Who prepares the base on site, and what it must be | `/infrastructure` — journey step 06 |",
+  "| Production capacity and number of simultaneous projects (approved for publication) | `/infrastructure` — `capacity` |",
+  "| Test reports or certificates, with issuer, date and the document itself | `/infrastructure` — `supportingDocuments` |",
+  "| Experience Centre street address, locality and postcode | `/experience-centre` — `location` in data/experienceCentre.ts |",
+  "| Experience Centre Google Maps share link and embed URL | `/experience-centre` — `location.mapsUrl`, `location.mapEmbedUrl` |",
+  "| Experience Centre visiting days and hours; whether appointment-only; fixed slots if any | `/experience-centre` — `visiting` |",
+  "| Experience Centre parking, gate and step-free access details | `/experience-centre` — `location.access` |",
+  "| Experience Centre contact person and number, if different from the main line | `/experience-centre` — `visiting.contactName`, `visiting.contactPhone` |",
+  "| Confirmation that the interior arrangement and installation talk-through are available on a visit | `/experience-centre` — `visitPoints[].verified` |",
+  "| Go-ahead that the centre is ready for visitors | `/experience-centre` — set `status` to \"open\" |",
   "| Answers to the questions on `/faq` | Studio → Questions |",
   "| PDFs: catalogue, specifications, buyer's guide | Studio → Resources |",
   "",

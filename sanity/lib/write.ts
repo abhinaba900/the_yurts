@@ -57,7 +57,8 @@ export async function createEnquiryDocument(fields: {
     await writeClient.create({
       _type: "enquiry",
       name: fields.name,
-      email: fields.email,
+      // Optional on visit requests, which ask for a phone number instead.
+      email: fields.email || undefined,
       phone: fields.phone || undefined,
       enquiryType: fields.enquiryType,
       location: fields.location || undefined,
