@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Media } from "@/components/primitives/Media";
 import { rangeFallback } from "@/data/range";
+import { rangeHomeCopy } from "@/data/home";
 
 /**
  * The range band that sits between the hero and the introduction.
@@ -50,7 +51,7 @@ function Run({ duplicate }: { duplicate?: boolean }) {
                   {model.name}
                 </span>
                 <span className="mt-0.5 block font-sans text-meta uppercase text-cream/70">
-                  {model.tagline}
+                  {rangeHomeCopy[model.slug]?.band ?? model.tagline}
                 </span>
               </div>
               <span

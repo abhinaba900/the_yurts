@@ -31,8 +31,14 @@ function IconFrame({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** Indexed to `anatomy`: crown, roof, lattice, tension, envelope. */
+/** Indexed to `anatomy`: dome, crown, roof, lattice, tension, envelope. */
 const partIcons = [
+  // Dome — the raised skylight over the crown, with light falling through.
+  <IconFrame key="dome">
+    <path d="M5.5 13.5a6.5 6.5 0 0 1 13 0" />
+    <path d="M3.5 13.5h17" />
+    <path d="M12 16.5v3M8 16.5l-1.5 2.5M16 16.5l1.5 2.5" />
+  </IconFrame>,
   // Crown — the compression ring, seen from above with its spokes.
   <IconFrame key="crown">
     <circle cx="12" cy="12" r="7.5" />
@@ -66,9 +72,9 @@ const partIcons = [
 ];
 
 /**
- * 03. WHAT IS A YURT?
+ * 03. THE STRUCTURE
  *
- * Simple in form. Sophisticated in structure.
+ * How is a modern yurt built?
  */
 export function Anatomy() {
   return (
@@ -79,16 +85,16 @@ export function Anatomy() {
           <Reveal kind="up">
             <Metadata className="text-accent-text">The Structure</Metadata>
             <h2 className="mt-4 font-display text-display-lg u-optical-left">
-              Simple in form. Sophisticated in structure.
+              How Is a Modern Yurt Built?
             </h2>
             <p className="mt-6 u-measure font-sans text-lead text-text-muted leading-relaxed">
-              A modern yurt is built around a simple principle: a strong circular
-              frame, a central crown, a tensioned roof and a protective outer
-              envelope.
+              A yurt uses a circular timber wall frame, sloping roof rafters and
+              a central roof ring to create a strong, open interior.
             </p>
             <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
-              The result is a column-free interior that can be adapted for
-              everything from a private retreat to a luxury resort suite.
+              Its outer layers provide protection from the weather, while
+              windows, roof openings and insulation can be configured to improve
+              light, ventilation and indoor comfort.
             </p>
           </Reveal>
         }

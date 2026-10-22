@@ -41,35 +41,46 @@ export function Hero() {
             <div className="max-w-4xl">
               <Reveal kind="up">
                 <Metadata className="text-gold font-medium tracking-[0.18em] [text-shadow:_0_1px_6px_rgba(0,0,0,0.7)]">
-                  Designed in India &middot; Made in India &middot; Installed
-                  across India
+                  Yurt Manufacturer in India
                 </Metadata>
 
-                <h1 className="mt-5 font-display text-display-xl u-optical-left leading-[1.05]">
-                  Build outside the ordinary.
+                <h1 className="mt-5 font-display text-display-lg u-optical-left leading-[1.05]">
+                  Custom-Built Yurts for Resorts, Farm Stays &amp; Private
+                  Properties.
                 </h1>
 
                 <p className="mt-6 max-w-2xl font-sans text-lead text-text-muted leading-relaxed">
-                  Premium yurts designed and made in India for resorts,
-                  retreats, glamping destinations, farm stays and private
-                  spaces.
+                  We design and manufacture modern yurts &mdash; circular
+                  structures with a strong timber frame, weather-protective
+                  coverings and customisable interiors.
+                </p>
+                <p className="mt-4 max-w-2xl font-sans text-body text-text-muted leading-relaxed">
+                  Whether you&apos;re developing a luxury resort, adding guest
+                  rooms to a farm stay or creating a private retreat, we help
+                  you choose, customise and install a yurt suited to your
+                  property.
                 </p>
 
                 <div className="mt-9 flex flex-wrap items-center gap-5 sm:gap-8">
                   <Link
-                    href="/yurts"
+                    href="/enquire"
                     className="inline-flex items-center gap-2 rounded-xs bg-cream px-6 py-3.5 font-sans text-small uppercase tracking-wider text-walnut-deep font-semibold transition-all duration-200 hover:bg-accent-text hover:text-walnut-deep"
                   >
-                    Explore Yurts &rarr;
+                    Get a Yurt Quote &rarr;
                   </Link>
 
                   <Link
-                    href="/experiences/builder"
+                    href="/yurts"
                     className="inline-flex items-center gap-2 rounded-xs border border-line-strong bg-surface/60 backdrop-blur-xs px-6 py-3.5 font-sans text-small uppercase tracking-wider text-text transition-all duration-200 hover:border-accent hover:text-accent-text"
                   >
-                    Build Your Yurt &rarr;
+                    Explore Our Yurts &rarr;
                   </Link>
                 </div>
+
+                <Metadata className="mt-8 text-cream/80 [text-shadow:_0_1px_6px_rgba(0,0,0,0.7)]">
+                  Available in 6m, 7.2m and 9.6m diameters &middot; Custom
+                  layouts and finishes &middot; India-wide project enquiries
+                </Metadata>
               </Reveal>
             </div>
           </div>

@@ -4,25 +4,25 @@ import { ArrowLink } from "@/components/primitives/ArrowLink";
 import { whyYurts } from "@/data/home";
 
 const featureIcons = [
-  // 01 Faster to the landscape
+  // 01 Faster on-site assembly
   (
     <svg aria-hidden="true" className="size-5 text-accent-text opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A2.67 2.67 0 0021 17.25l-5.83-5.83M11.42 15.17l2.496-3.034a2.6 2.6 0 00-.73-3.66l-.78-.585a2.6 2.6 0 00-3.66.73L5.71 11.66M11.42 15.17l-5.71-3.51M5.71 11.66A2.6 2.6 0 002.05 15.32l.585.78a2.6 2.6 0 003.66.73l3.034-2.496" />
     </svg>
   ),
-  // 02 Designed for different ground
+  // 02 Suitable for different locations
   (
     <svg aria-hidden="true" className="size-5 text-accent-text opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" />
     </svg>
   ),
-  // 03 Made to evolve
+  // 03 Flexible to expand or relocate
   (
     <svg aria-hidden="true" className="size-5 text-accent-text opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
     </svg>
   ),
-  // 04 A space people remember
+  // 04 A unique experience for guests
   (
     <svg aria-hidden="true" className="size-5 text-accent-text opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <circle cx="12" cy="12" r="9" strokeLinecap="round" strokeLinejoin="round" />
@@ -36,7 +36,7 @@ const featureIcons = [
  * 04. WHY YURTS
  *
  * Section label: WHY A YURT
- * Heading: Build less. Experience more.
+ * Heading: Why choose a yurt instead of conventional construction?
  */
 export function WhyYurts() {
   return (
@@ -47,13 +47,15 @@ export function WhyYurts() {
           <Reveal kind="up">
             <Metadata className="text-accent-text">Why a Yurt</Metadata>
             <h2 className="mt-2 font-display text-display-lg u-optical-left">
-              Build less. Experience more.
+              Why Choose a Yurt Instead of Conventional Construction?
             </h2>
           </Reveal>
         </div>
         <Reveal kind="up" delay={0.08} className="max-w-md">
           <p className="font-sans text-small text-text-muted">
-            Four fundamental advantages over conventional permanent construction.
+            If you&apos;re planning guest accommodation, a private retreat or an
+            outdoor commercial space, a yurt offers four practical advantages
+            worth considering.
           </p>
         </Reveal>
       </div>
@@ -93,10 +95,10 @@ export function WhyYurts() {
       {/* Footer Navigation */}
       <div className="mt-8 border-t border-line pt-5 flex flex-wrap items-center justify-between gap-4">
         <ArrowLink href="/why-theyurts">
-          Discover the complete architectural case
+          Explore the Benefits of Yurts
         </ArrowLink>
         <span className="font-sans text-meta uppercase text-text-muted text-xs">
-          04 Editorial Principles
+          04 Practical Advantages
         </span>
       </div>
     </section>

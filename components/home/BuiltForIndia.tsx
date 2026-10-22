@@ -31,7 +31,7 @@ function IconFrame({ children }: { children: React.ReactNode }) {
 const climatePillars = [
   {
     name: "Climate",
-    desc: "Specified around the temperature range your location actually sees.",
+    desc: "We review the seasonal temperatures and weather conditions at your location to determine the appropriate yurt specifications.",
     icon: (
       <IconFrame>
         <path d="M14 14.8V5.5a2.5 2.5 0 0 0-5 0v9.3a4.5 4.5 0 1 0 5 0Z" />
@@ -41,7 +41,7 @@ const climatePillars = [
   },
   {
     name: "Insulation",
-    desc: "Layered to suit the season, altitude and comfort you need indoors.",
+    desc: "Roof and wall insulation options are selected according to your climate and indoor comfort requirements, including whether the space will be used throughout the year.",
     icon: (
       <IconFrame>
         <path d="M12 3 3 7.5 12 12l9-4.5L12 3Z" />
@@ -52,7 +52,7 @@ const climatePillars = [
   },
   {
     name: "Ventilation",
-    desc: "Airflow planned through the crown and the wall openings.",
+    desc: "Openable windows and roof ventilation can be positioned to improve airflow and help release warm air from inside the yurt.",
     icon: (
       <IconFrame>
         <circle cx="12" cy="4.5" r="2.5" />
@@ -63,8 +63,8 @@ const climatePillars = [
     ),
   },
   {
-    name: "Rain",
-    desc: "Roof geometry and outer layers configured for monsoon exposure.",
+    name: "Rain Protection",
+    desc: "Roof coverings, drainage details and platform height are planned around your site's rainfall and monsoon exposure.",
     icon: (
       <IconFrame>
         <path d="M7 16.5a3.75 3.75 0 0 1 .4-7.48 5.25 5.25 0 0 1 10.1.98A3.25 3.25 0 0 1 17.2 16.5H7Z" />
@@ -73,8 +73,8 @@ const climatePillars = [
     ),
   },
   {
-    name: "Heat",
-    desc: "Outer finishes and shading chosen to manage daytime solar gain.",
+    name: "Heat Management",
+    desc: "Roof materials, insulation, shading and ventilation are considered to help manage heat. Electrical provisions for fans or air conditioning can also be planned where required.",
     icon: (
       <IconFrame>
         <circle cx="12" cy="12" r="4" />
@@ -83,8 +83,8 @@ const climatePillars = [
     ),
   },
   {
-    name: "Wind",
-    desc: "Frame and anchoring specified for the exposure of your site.",
+    name: "Wind Resistance",
+    desc: "The frame, connections and anchoring system must be specified according to the wind exposure and structural requirements of your site.",
     icon: (
       <IconFrame>
         <path d="M3 8.5h10a2.75 2.75 0 1 0-2.75-2.75" />
@@ -94,8 +94,8 @@ const climatePillars = [
     ),
   },
   {
-    name: "Site conditions",
-    desc: "Foundations adapted to sloped, uneven or low-intervention ground.",
+    name: "Site Conditions",
+    desc: "We review slope, soil conditions, site access and platform requirements to help determine whether a yurt can be installed on your property.",
     icon: (
       <IconFrame>
         <path d="m2.5 14.5 5.5-7.5 3.5 4.5L15 6.5l6.5 8" />
@@ -108,8 +108,7 @@ const climatePillars = [
 /**
  * 05. BUILT FOR INDIA
  *
- * Heading: Made for the Indian landscape.
- * Description: From monsoon-heavy coasts to dry interiors and cooler mountain regions, every site has its own requirements.
+ * Heading: Yurts designed for Indian weather & site conditions.
  */
 export function BuiltForIndia() {
   return (
@@ -123,7 +122,7 @@ export function BuiltForIndia() {
                 <IndiaFlag className="h-3 w-4.5 rounded-[1px]" />
               </Metadata>
               <h2 className="mt-4 font-display text-display-lg u-optical-left">
-                Made for the Indian landscape.
+                Yurts Designed for Indian Weather &amp; Site Conditions.
               </h2>
             </Reveal>
           </div>
@@ -131,12 +130,14 @@ export function BuiltForIndia() {
           <div className="col-span-4 mt-6 md:col-span-6 lg:col-span-6 lg:col-start-7 lg:mt-4">
             <Reveal kind="up" delay={0.08}>
               <p className="u-measure font-sans text-lead text-text-muted leading-relaxed">
-                From monsoon-heavy coasts to dry interiors and cooler mountain
-                regions, every site has its own requirements.
+                India has very different climatic conditions. A yurt installed
+                in a humid coastal resort needs different planning from one
+                built on a dry farm or in a cool mountain region.
               </p>
               <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
-                Theyurts are designed and made in India, and every structure is
-                configured around the conditions of the place it will stand in.
+                We consider your location, temperature, rainfall, wind
+                exposure, terrain and intended use before recommending the right
+                materials, insulation, ventilation and installation approach.
               </p>
             </Reveal>
           </div>
@@ -146,7 +147,7 @@ export function BuiltForIndia() {
         <div className="mt-12 lg:mt-16">
           <Reveal kind="up">
             <span className="font-sans text-meta uppercase tracking-wider text-text-muted">
-              Configured Around Your Site:
+              What We Consider for Your Location
             </span>
           </Reveal>
 
@@ -175,10 +176,10 @@ export function BuiltForIndia() {
         {/* Action CTA */}
         <div className="mt-12 border-t border-line pt-6 flex flex-wrap items-center justify-between gap-4">
           <ArrowLink href="/enquire?topic=Site+Assessment">
-            Talk to us about your site
+            Check if a Yurt Suits My Property
           </ArrowLink>
           <span className="font-sans text-meta uppercase text-text-muted text-xs">
-            Site-Specific Engineering
+            Site-Specific Design &amp; Installation Planning
           </span>
         </div>
       </div>

@@ -148,7 +148,7 @@ export const plans: Plan[] = [
     doors: [6],
     windows: [2, 4, 8, 9],
     toiletWindows: 2,
-    layout: "layout-b",
+    layout: "layout-c",
   },
   {
     id: "trinity",
@@ -159,7 +159,6 @@ export const plans: Plan[] = [
     doors: [6],
     windows: [1, 3, 5, 9, 11],
     toiletWindows: 1,
-    layout: "layout-a",
   },
   {
     id: "bistro",
@@ -170,7 +169,6 @@ export const plans: Plan[] = [
     doors: [6, 9],
     windows: [7, 8, 10, 11, 12, 1],
     toiletWindows: 2,
-    layout: "layout-c",
   },
 ];
 

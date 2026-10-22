@@ -7,35 +7,39 @@ const materialsList = [
   {
     id: "home.material-timber" as const,
     title: "Timber",
-    subtitle: "The structure.",
+    subtitle: "The Main Structural Framework",
+    body: "Timber forms the circular wall frame and supporting roof structure. The species, treatment, finish and structural requirements are selected according to the project specifications.",
   },
   {
     id: "home.material-canvas" as const,
     title: "Canvas / Outer Envelope",
-    subtitle: "Protection from the elements.",
+    subtitle: "Protection from Rain, Sun & Weather",
+    body: "The outer covering forms the yurt's protective shell. Fabric specifications, weather-resistant layers and insulation options are chosen according to the installation environment.",
   },
   {
     id: "home.material-crown" as const,
     title: "Crown",
-    subtitle: "The defining centre of the space.",
+    subtitle: "The Central Roof Structure",
+    body: "The crown connects the roof rafters and creates the central ceiling feature. It can also accommodate an openable roof dome, depending on the selected configuration.",
   },
   {
     id: "home.gallery-3" as const,
     title: "Joinery",
-    subtitle: "Where craft meets engineering.",
+    subtitle: "Doors, Windows & Fittings",
+    body: "Doors, windows, frames and fittings are selected to provide access, daylight, ventilation and practical day-to-day usability.",
   },
   {
     id: "home.range-luxury" as const,
     title: "Interiors",
-    subtitle: "Where the structure becomes yours.",
+    subtitle: "Designed Around Your Requirements",
+    body: "Plan the interior for your intended use, whether that means a guest bedroom, lounge, yoga studio, café or wellness room. Flooring, partitions, lighting and other fit-out requirements can be discussed during the design stage.",
   },
 ];
 
 /**
  * 11. MATERIALS & CRAFT
  *
- * Heading: Made of what it looks like.
- * Lead: The beauty of a yurt comes from its structure being honest. Timber, fabric, light, joinery and carefully chosen finishes come together to create a space that feels natural because it is.
+ * Heading: What goes into building a quality yurt?
  */
 export function Materials() {
   return (
@@ -46,15 +50,21 @@ export function Materials() {
           <Reveal kind="up">
             <Metadata className="text-accent-text">Materials & Craft</Metadata>
             <h2 className="mt-2 font-display text-display-lg u-optical-left">
-              Made of what it looks like.
+              What Goes Into Building a Quality Yurt?
             </h2>
           </Reveal>
         </div>
         <Reveal kind="up" delay={0.08} className="max-w-xl">
           <p className="font-sans text-lead text-text-muted leading-relaxed">
-            The beauty of a yurt comes from its structure being honest. Timber,
-            fabric, light, joinery and carefully chosen finishes come together to
-            create a space that feels natural because it is.
+            The durability and comfort of a yurt depend on more than its
+            appearance.
+          </p>
+          <p className="mt-3 font-sans text-small text-text-muted leading-relaxed">
+            Its timber frame, roof structure, external covering, insulation,
+            doors and windows all play an important role in how it performs. We
+            select materials according to the yurt design, your location and
+            intended use. The final specifications are confirmed as part of your
+            project quotation.
           </p>
         </Reveal>
       </div>
@@ -85,8 +95,11 @@ export function Materials() {
                   0{i + 1}
                 </span>
               </div>
-              <p className="mt-1 font-sans text-small text-text-muted text-[0.8125rem] leading-snug">
+              <p className="mt-1 font-sans text-small font-medium text-text text-[0.8125rem] leading-snug">
                 {item.subtitle}
+              </p>
+              <p className="mt-1.5 font-sans text-small text-text-muted text-[0.8125rem] leading-snug">
+                {item.body}
               </p>
             </div>
           </Reveal>
@@ -94,9 +107,9 @@ export function Materials() {
       </div>
 
       <div className="mt-10 border-t border-line pt-6 flex flex-wrap items-center justify-between gap-4">
-        <ArrowLink href="/process">Learn about our craftsmanship standards</ArrowLink>
+        <ArrowLink href="/process">Explore Our Materials &amp; Construction</ArrowLink>
         <span className="font-sans text-meta uppercase text-text-muted text-xs">
-          05 Core Architectural Elements
+          05 Main Construction Elements
         </span>
       </div>
     </section>

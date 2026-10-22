@@ -88,36 +88,36 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
   {
     title: "Yurts",
     items: [
-      { label: "The range", href: "/yurts" },
-      { label: "Build process", href: "/process" },
-      { label: "Why a yurt", href: "/why-theyurts" },
+      { label: "Explore Yurt Types", href: "/yurts" },
+      { label: "How We Build & Install", href: "/process" },
+      { label: "Why Choose a Yurt?", href: "/why-theyurts" },
     ],
   },
   {
     title: "Applications",
     items: [
-      { label: "Resorts", href: "/applications/resorts" },
-      { label: "Glamping", href: "/applications/glamping" },
-      { label: "Wellness retreats", href: "/applications/wellness-retreats" },
-      { label: "Starting a glamping business", href: "/glamping-business" },
+      { label: "Yurts for Resorts", href: "/applications/resorts" },
+      { label: "Yurts for Glamping", href: "/applications/glamping" },
+      { label: "Yurts for Wellness Retreats", href: "/applications/wellness-retreats" },
+      { label: "Starting a Glamping Business", href: "/glamping-business" },
     ],
   },
   {
     title: "Experiences",
     items: [
-      { label: "3D yurt builder", href: "/experiences/builder" },
-      { label: "VR experience", href: "/experiences/vr" },
-      { label: "Projects", href: "/projects" },
-      { label: "Journal", href: "/journal" },
+      { label: "3D Yurt Builder", href: "/experiences/builder" },
+      { label: "360° Virtual Tour", href: "/experiences/vr" },
+      { label: "Design Gallery", href: "/projects" },
+      { label: "Yurt Guides & Articles", href: "/journal" },
     ],
   },
   {
     title: "Company",
     items: [
-      { label: "About", href: "/about" },
+      { label: "About Theyurts", href: "/about" },
       { label: "Resources", href: "/resources" },
-      { label: "Frequently asked", href: "/faq" },
-      { label: "Contact", href: "/contact" },
+      { label: "Frequently Asked Questions", href: "/faq" },
+      { label: "Contact & Enquiries", href: "/contact" },
     ],
   },
 ];

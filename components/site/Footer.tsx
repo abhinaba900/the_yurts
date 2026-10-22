@@ -24,17 +24,54 @@ export async function Footer() {
         <div className="u-grid">
           <div className="col-span-4 md:col-span-6 lg:col-span-8">
             <h2 className="font-display text-display-lg u-optical-left">
-              Tell us about the land.
+              Planning to Install a Yurt? Let&apos;s Discuss Your Project.
             </h2>
             <p className="mt-6 u-measure font-sans text-lead text-text-muted">
-              Where it is, what you want to put on it, and roughly when. That is
-              enough to start a conversation.
+              Whether you&apos;re developing a resort, expanding a farm stay or
+              building a private retreat, tell us what you have in mind.
             </p>
+            <p className="mt-4 u-measure font-sans text-body text-text-muted">
+              Share your property location, intended use, approximate size or
+              number of yurts, and preferred timeline. We&apos;ll help you
+              understand the available options, site requirements and next
+              steps for receiving a detailed quotation.
+            </p>
+            <p className="mt-4 u-measure font-sans text-body text-text-muted">
+              Not sure which size or model you need? That&apos;s fine. We can
+              help you narrow down the options.
+            </p>
+            {contact.phone || contact.email ? (
+              <p className="mt-6 font-sans text-small text-text-muted">
+                {contact.phone ? (
+                  <>
+                    Call{" "}
+                    <a
+                      href={`tel:${contact.phone.replace(/\s/g, "")}`}
+                      className="text-text transition-colors duration-(--duration-quick) hover:text-accent-text"
+                    >
+                      {contact.phone}
+                    </a>
+                  </>
+                ) : null}
+                {contact.phone && contact.email ? " or " : null}
+                {contact.email ? (
+                  <>
+                    {contact.phone ? "email" : "Email"}{" "}
+                    <a
+                      href={`mailto:${contact.email}`}
+                      className="text-text transition-colors duration-(--duration-quick) hover:text-accent-text"
+                    >
+                      {contact.email}
+                    </a>
+                  </>
+                ) : null}
+              </p>
+            ) : null}
           </div>
           <div className="col-span-4 mt-10 flex md:col-span-6 lg:col-span-3 lg:col-start-10 lg:mt-2 lg:justify-end">
             <div className="flex flex-col items-start gap-5">
-              <ArrowLink href="/enquire">Start an enquiry</ArrowLink>
-              <ArrowLink href="/contact">Book a consultation</ArrowLink>
+              <ArrowLink href="/enquire">Request a Site-Specific Quote</ArrowLink>
+              <ArrowLink href="/contact">Book a Consultation</ArrowLink>
             </div>
           </div>
         </div>
@@ -113,7 +150,7 @@ export async function Footer() {
       <div className="u-container pb-10">
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-line pt-6">
           <Metadata>
-            &copy; {year} {settings.name}
+            &copy; {year} {settings.name}. All Rights Reserved.
           </Metadata>
 
           <div className="flex items-center">

@@ -31,20 +31,22 @@ export const metadata = pageMetadata({
 /**
  * THEYURTS.IN — HOMEPAGE
  *
- * 12 Curated Editorial Sections:
- * 01. Hero — A different way to build.
- * --- Image band — the hinge between the hero and the argument.
- * 02. Introduction — Architecture that changes the way you experience a place.
- * 03. What is a Yurt? — Simple in form. Sophisticated in structure.
- * 04. Why Yurts — Build less. Experience more.
- * 05. Built for India — Made for the Indian landscape.
- * 06. The Range — One structure. Many possibilities.
- * 07. 3D Builder — Build your yurt before we build it.
- * 08. VR Experience — Don't just look at a yurt. Step inside one.
- * 09. Build Process — From an idea on paper to a space on your land.
- * 10. Materials & Craft — Made of what it looks like.
- * 11. Sustainability — A lighter footprint on the land.
- * 12. Inspiration & Gallery — The beginning of something different.
+ * 12 Sections:
+ * 01. Hero — Custom-built yurts for resorts, farm stays & private properties.
+ * --- Image band — the ten models, each named by what it is used for.
+ * 02. The Yurt — What exactly is a yurt?
+ * 03. The Structure — How is a modern yurt built?
+ * 04. Why a Yurt — Why choose a yurt instead of conventional construction?
+ * 05. Built for India — Yurts designed for Indian weather & site conditions.
+ * 06. The Range — Find the right yurt for your property.
+ * 07. Design Yours — Customise your yurt in 3D before ordering.
+ * 08. Step Inside — Take a virtual tour of a yurt.
+ * 09. Build Process — How we design, manufacture & install your yurt.
+ * 10. Materials & Craft — What goes into building a quality yurt?
+ * 11. Sustainability — A more considered approach to building on your land.
+ * 12. Inspiration & Gallery — Explore yurt designs & installation ideas.
+ *
+ * The closing enquiry ("Planning to install a yurt?") is the site footer.
  */
 export default function HomePage() {
   return (

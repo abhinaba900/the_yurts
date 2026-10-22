@@ -50,10 +50,11 @@ const slides = [
 ] as const;
 
 /**
- * Indexed to `anatomy` (crown, roof, lattice, tension, envelope): the slide
- * each card opens. The envelope has no drawing of its own, so it stays text.
+ * Indexed to `anatomy` (dome, crown, roof, lattice, tension, envelope): the
+ * slide each card opens. The envelope has no drawing of its own, so it stays
+ * text.
  */
-const cardSlide: (number | null)[] = [1, 2, 4, 3, null];
+const cardSlide: (number | null)[] = [0, 1, 2, 4, 3, null];
 
 const CYCLE_MS = 3500;
 
@@ -211,9 +212,9 @@ export function StructureExplorer({
         </div>
       </div>
 
-      {/* Five Components Grid */}
+      {/* Six Features Grid */}
       <div className="mt-16 lg:mt-24">
-        <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
+        <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-6">
           {anatomy.map((part, i) => {
             const target = cardSlide[i];
             const active = target === index;
@@ -259,6 +260,7 @@ export function StructureExplorer({
                   )}
                 </dt>
                 <dd className="mt-3 font-sans text-small text-text-muted leading-relaxed">
+                  <span className="block text-text">{part.title}</span>
                   {part.body}
                 </dd>
               </Reveal>

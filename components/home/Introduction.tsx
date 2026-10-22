@@ -5,12 +5,9 @@ import { ArrowLink } from "@/components/primitives/ArrowLink";
 /**
  * 02. INTRODUCTION
  *
- * Architecture that learned to move with the land.
- *
- * The origin story, told as an argument rather than a history lesson: the
- * question first, then the two problems the form solves — wind, then mobility —
- * and only at the end what Theyurts does with it. The closing statement is set
- * apart above the rule so the section lands on the present tense.
+ * What exactly is a yurt? The answer in plain terms: where the form comes
+ * from, what the circle gives you inside, how a modern one is built, and only
+ * at the end what Theyurts does with it.
  */
 export function Introduction() {
   return (
@@ -25,68 +22,58 @@ export function Introduction() {
         <div className="col-span-4 mt-8 md:col-span-6 lg:col-span-8 lg:col-start-4 lg:mt-0">
           <Reveal kind="up">
             <h2 className="u-measure-wide font-display text-display-lg leading-tight">
-              Architecture that learned to move with the land.
+              What Exactly Is a Yurt?
             </h2>
           </Reveal>
 
           <Reveal kind="up" delay={0.08}>
             <p className="mt-8 u-measure-wide font-display text-display-sm text-accent-text">
-              Why did the Mongolians unthink the square?
+              A circular structure that combines the comfort of a room with the
+              flexibility of modular construction.
             </p>
           </Reveal>
 
           <Reveal kind="up" delay={0.1}>
             <div className="mt-10 grid gap-8 sm:grid-cols-2 sm:gap-12">
-              <div className="flex flex-col gap-5">
-                <p className="font-sans text-body text-text-muted leading-relaxed">
-                  For centuries, the yurt has been shaped by a simple idea: work
-                  with nature, not against it.
-                </p>
-                <p className="font-sans text-body text-text-muted leading-relaxed">
-                  Across the vast Mongolian steppe, where open grasslands leave
-                  little to break the wind, a circular structure made sense. With
-                  no sharp corners or flat faces to catch the force, wind can
-                  move smoothly around a yurt rather than pushing against it.
-                  What emerged was a home that was remarkably resilient,
-                  comfortable and efficient.
-                </p>
-              </div>
+              <p className="font-sans text-body text-text-muted leading-relaxed">
+                A yurt is a round, single-room structure originally developed by
+                nomadic communities in Mongolia. Unlike a conventional camping
+                tent, a modern yurt has a strong timber framework, a structured
+                roof, protective outer coverings and options for insulation,
+                flooring, doors and windows.
+              </p>
 
-              <div className="flex flex-col gap-5">
-                <p className="font-sans text-body text-text leading-relaxed">
-                  But the yurt had another challenge to solve: mobility.
-                </p>
-                <p className="font-sans text-body text-text-muted leading-relaxed">
-                  For nomadic communities, a home could not be something
-                  permanently fixed to the ground. It had to be built from
-                  materials at hand, assembled quickly, taken apart just as
-                  easily, and carried to the next place. Timber formed the
-                  structure; natural coverings enclosed it. Simple, practical,
-                  ingenious.
-                </p>
-              </div>
+              <p className="font-sans text-body text-text-muted leading-relaxed">
+                Its circular design creates a spacious interior without
+                supporting pillars in the middle. Depending on the size and
+                layout, it can be fitted out as a comfortable guest room, private
+                retreat, yoga studio or hospitality space.
+              </p>
+
+              <p className="font-sans text-body text-text-muted leading-relaxed sm:col-span-2">
+                Modern yurts are manufactured in sections and assembled on a
+                prepared base at your location. This makes them an option worth
+                considering when you want a distinctive, customisable space
+                without undertaking conventional brick-and-concrete
+                construction.
+              </p>
             </div>
           </Reveal>
 
           <Reveal kind="up" delay={0.14}>
             <div className="mt-10 border-t border-line pt-8">
-              
-              <p className="mt-5 u-measure font-sans text-lead text-text leading-relaxed">
-                At Theyurts, we take that enduring idea and reimagine it for
-                modern living &mdash; creating spaces that bring the warmth of a
-                room together with the openness of the landscape.
+              <p className="u-measure font-sans text-lead text-text leading-relaxed">
+                At Theyurts, we adapt this traditional structure for modern
+                Indian properties, with designs tailored to your intended use,
+                local climate and site conditions.
               </p>
             </div>
           </Reveal>
 
           <Reveal kind="up" delay={0.18}>
             <div className="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:gap-10">
-              <ArrowLink href="/why-theyurts">
-                Discover the idea behind yurts
-              </ArrowLink>
-              <ArrowLink href="/yurts">
-                Explore the range
-              </ArrowLink>
+              <ArrowLink href="/why-theyurts">Why Choose a Yurt?</ArrowLink>
+              <ArrowLink href="/yurts">View Yurt Models</ArrowLink>
             </div>
           </Reveal>
         </div>

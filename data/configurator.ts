@@ -2,12 +2,12 @@
  * 3D BUILDER — option definitions.
  *
  * THE MODELS ARE THE CLIENT'S. The builder shows the 6m and 10m yurts from the
- * client's own SketchUp drawings, and the 10m's three fitted-out interiors. See
+ * client's own SketchUp drawings, and the 10m Symmetry plan fitted out. See
  * `data/yurtModel.ts` for the files and how their meshes are mapped onto the
  * groups below.
  *
  * The groups here are what the 3D scene shows: the size, the plan (the 10m
- * plans are drawn fitted out; the 6m is drawn as a shell), the roof and wall
+ * Symmetry is drawn fitted out; every other plan as a shell), the roof and wall
  * cover colours and the deck, plus the two accessories. Doors, windows and
  * every price live in `data/pricing.ts` and `lib/quote.ts`, because they drive
  * the quote rather than the model.
@@ -129,7 +129,7 @@ export const groups: GroupDef[] = [
   {
     id: "layout",
     label: "Plan",
-    note: "The 10m plans are shown fitted out, from above with the roof off. Interiors are indicative — the fit-out is specified per project.",
+    note: "The 10m Symmetry plan is shown fitted out, from above with the roof off. Interiors are indicative — the fit-out is specified per project.",
     // No default: the first plan offered for the chosen size.
     options: [
       ...plans.map((plan) => ({

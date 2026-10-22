@@ -15,7 +15,7 @@ import {
   type OptionGroupId,
   type Selection,
 } from "@/lib/configurator";
-import { EXTERIOR, sizeById, type YurtSizeId } from "@/data/yurtModel";
+import { EXTERIOR, floorPlanDrawings, sizeById, type YurtSizeId } from "@/data/yurtModel";
 import {
   accessoryPrices,
   CUSTOM_PLAN,
@@ -151,6 +151,8 @@ const icons = {
   arrowRight: "M5 12h14M13 6l6 6-6 6",
   link: "M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1",
   drag: "M8 9l-4 3 4 3M16 9l4 3-4 3M4 12h16",
+  floorPlan: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h7v-5M14 7v10M14 12h7",
+  close: "M6 6l12 12M18 6L6 18",
 };
 
 /** The size cards' line drawing: a yurt in elevation, drawn to scale. */
@@ -315,6 +317,95 @@ function StepHeading({
   );
 }
 
+/**
+ * The client's floor-plan drawings for the chosen size, over the stage.
+ *
+ * Every drawing is prepared in the same frame (see
+ * `scripts/prepare-plan-drawings.py`), so the picture stays put and only the
+ * plan inside it changes as the visitor flicks between them.
+ */
+function FloorPlanViewer({
+  sizeLabel,
+  drawings,
+  index,
+  onSelect,
+  onClose,
+}: {
+  sizeLabel: string;
+  drawings: string[];
+  index: number;
+  onSelect: (index: number) => void;
+  onClose: () => void;
+}) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => closeRef.current?.focus(), []);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${sizeLabel} floor plans`}
+      className="absolute inset-0 z-30 flex flex-col bg-surface-alt/97 backdrop-blur-sm"
+    >
+      <div className="flex items-start justify-between gap-4 p-4 lg:p-6">
+        <div>
+          <Metadata className="text-accent-text">Floor plan</Metadata>
+          <p className="mt-1.5 font-display text-display-sm leading-none">
+            {sizeLabel} yurt · option {index + 1} of {drawings.length}
+          </p>
+        </div>
+        <button
+          ref={closeRef}
+          type="button"
+          onClick={onClose}
+          aria-label="Close the floor plans"
+          className="grid size-10 shrink-0 place-items-center border border-line-strong bg-surface/90 text-text transition-colors duration-(--duration-quick) hover:border-accent-text hover:text-accent-text"
+        >
+          <Icon path={icons.close} />
+        </button>
+      </div>
+
+      <div className="relative min-h-0 flex-1 px-4 lg:px-6">
+        {drawings.map((src, i) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={src}
+            src={src}
+            alt={i === index ? `Floor plan option ${i + 1} for the ${sizeLabel} yurt, from above.` : ""}
+            aria-hidden={i !== index}
+            width={1200}
+            height={1200}
+            decoding="async"
+            className={cn(
+              "absolute inset-0 m-auto size-full object-contain transition-opacity duration-(--duration-base)",
+              i === index ? "opacity-100" : "opacity-0",
+            )}
+          />
+        ))}
+      </div>
+
+      <div className="flex items-center justify-center gap-2 p-4 lg:p-6" role="group" aria-label="Choose a floor plan">
+        {drawings.map((src, i) => (
+          <button
+            key={src}
+            type="button"
+            onClick={() => onSelect(i)}
+            aria-label={`Option ${i + 1}`}
+            aria-current={i === index ? "true" : undefined}
+            className={cn(
+              "size-14 border bg-surface/60 p-1 transition-colors duration-(--duration-quick) lg:size-16",
+              i === index ? "border-accent-text" : "border-line hover:border-line-strong",
+            )}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={src} alt="" width={1200} height={1200} className="size-full object-contain" />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* -------------------------------------------------------------------------- */
 
 export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
@@ -336,6 +427,8 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
   const [touched, setTouched] = useState(false);
   const [copied, setCopied] = useState(false);
   const [summaryTab, setSummaryTab] = useState<SummaryView | "quote">("yurt");
+  // The floor-plan viewer, over the stage: open or not, and which drawing.
+  const [floorPlan, setFloorPlan] = useState<number | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const stepperRef = useRef<HTMLElement>(null);
 
@@ -385,6 +478,19 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
 
   const partsAreDefault =
     spread.every((value) => value === 0) && PART_IDS.every((id) => parts[id]);
+
+  useEffect(() => {
+    if (floorPlan === null) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setFloorPlan(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [floorPlan]);
+
+  useEffect(() => {
+    setFloorPlan(null);
+  }, [step.id, selection.size]);
 
   // Restore from the URL on mount. Read here rather than through
   // useSearchParams so this component needs no Suspense boundary.
@@ -760,7 +866,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
       <>
         <StepHeading index={1} title="Choose a plan.">
           {size.id === "10m"
-            ? "Our popular 10m plans, shown fitted out from above. Each price includes its doors, windows and covers."
+            ? "Our popular 10m plans; Symmetry is shown fitted out from above. Each price includes its doors, windows and covers."
             : size.id === "6m"
               ? "Our popular 6m plans. Each price includes its doors, windows and covers."
               : "Start from the 7m kit and place the doors and windows yourself."}
@@ -840,7 +946,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
             onClick={() => choose("size", "10m")}
             className="mt-5 inline-flex items-center gap-2 font-sans text-meta uppercase text-accent-text underline-offset-4 hover:underline"
           >
-            See the 10m plans fitted out in 3D
+            See the 10m Symmetry plan fitted out in 3D
             <Icon path={icons.arrowRight} />
           </button>
         ) : (
@@ -1308,20 +1414,43 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
           </div>
         </div>
 
-        {/* Running estimate, top right */}
-        <button
-          type="button"
-          onClick={() => goTo(STEPS.length - 1)}
-          className="absolute right-0 top-0 bg-surface/90 px-4 py-3 text-right backdrop-blur-sm transition-colors duration-(--duration-quick) hover:bg-surface lg:px-5"
-          aria-label={`Estimated total ${formatPrice(priced.total)}. See the price summary`}
-        >
-          <span className="block font-display text-display-sm leading-none text-accent-text">
-            {formatPrice(priced.total)}
-          </span>
-          <span className="mt-1 block font-sans text-[0.625rem] uppercase tracking-[0.12em] text-text-muted">
-            Estimate · ex works
-          </span>
-        </button>
+        {/* Running estimate, top right, and the floor plans on the plan step */}
+        <div className="absolute right-0 top-0 flex flex-col items-end">
+          <button
+            type="button"
+            onClick={() => goTo(STEPS.length - 1)}
+            className="bg-surface/90 px-4 py-3 text-right backdrop-blur-sm transition-colors duration-(--duration-quick) hover:bg-surface lg:px-5"
+            aria-label={`Estimated total ${formatPrice(priced.total)}. See the price summary`}
+          >
+            <span className="block font-display text-display-sm leading-none text-accent-text">
+              {formatPrice(priced.total)}
+            </span>
+            <span className="mt-1 block font-sans text-[0.625rem] uppercase tracking-[0.12em] text-text-muted">
+              Estimate · ex works
+            </span>
+          </button>
+          {step.id === "plan" ? (
+            <button
+              type="button"
+              onClick={() => setFloorPlan(0)}
+              aria-haspopup="dialog"
+              className="mr-4 mt-3 inline-flex items-center gap-2 border border-line-strong bg-surface/90 px-3.5 py-2.5 font-sans text-meta uppercase text-text backdrop-blur-sm transition-colors duration-(--duration-quick) hover:border-accent-text hover:text-accent-text lg:mr-6"
+            >
+              <Icon path={icons.floorPlan} />
+              Floor plan
+            </button>
+          ) : null}
+        </div>
+
+        {floorPlan !== null ? (
+          <FloorPlanViewer
+            sizeLabel={`${size.diameterM}m`}
+            drawings={floorPlanDrawings[size.id]}
+            index={floorPlan}
+            onSelect={setFloorPlan}
+            onClose={() => setFloorPlan(null)}
+          />
+        ) : null}
 
         {/* Drag hint, until the model has been moved */}
         <div

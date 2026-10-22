@@ -5,10 +5,12 @@
  *  - `public/models/yurt-{6m,7m,10m}/exterior.glb` are the shells, generated
  *    from "6M Yurt.glb", "7M Yurt.glb" and "10M Yurt.glb" by
  *    `scripts/optimize-yurt-shells.mjs`.
- *  - `public/models/yurt-10m/layout-*.glb` are the 10m's three fitted-out
+ *  - `public/models/yurt-10m/layout-*.glb` are the 10m's fitted-out
  *    interiors, without a shell of their own, generated from "10m YURT WITH 3
  *    INTERNAL OPTIONS" by `scripts/optimize-yurt-model.mjs`. The builder stands
- *    each one inside the 10m shell, so every 10m option has the same outside.
+ *    one inside the 10m shell, so it has the same outside as every other 10m.
+ *    Only layout C is shown, as the Symmetry plan; the client asked for A and B
+ *    to come out, so their files are generated but not listed below.
  *
  * Re-run those scripts, never edit the files by hand. The sources have no
  * meaningful object names, so meshes carry their SketchUp *material* names (or
@@ -72,6 +74,21 @@ export const sizeById = (id: string | undefined): YurtSize =>
 export const floorArea = (size: YurtSize) =>
   Math.round(Math.PI * (size.diameterM / 2) ** 2);
 
+/**
+ * The client's floor-plan drawings per size, for the builder's floor-plan
+ * viewer. Made from the SketchUp exports by `scripts/prepare-plan-drawings.py`,
+ * which puts every drawing in the same frame — wall centred, same scale, door
+ * at the bottom — so flicking between them nothing jumps.
+ *
+ * They are numbered, not named: the client has not said which drawing is
+ * which plan in `data/pricing.ts`.
+ */
+export const floorPlanDrawings: Record<YurtSizeId, string[]> = {
+  "6m": [1, 2, 3, 4].map((n) => `/media/builder/plans/6m-${n}.webp`),
+  "7m": [1, 2, 3, 4].map((n) => `/media/builder/plans/7m-${n}.webp`),
+  "10m": [1, 2, 3, 4].map((n) => `/media/builder/plans/10m-${n}.webp`),
+};
+
 /** The shell every option of a size stands in. */
 export const shellFiles: Record<YurtSizeId, string> = {
   "6m": "/models/yurt-6m/exterior.glb",
@@ -98,21 +115,9 @@ export const yurtLayouts: YurtLayout[] = [
     interiors: {},
   },
   {
-    id: "layout-a",
-    label: "Layout A",
-    description: "A bedroom with its own bathroom, and a lounge.",
-    interiors: { "10m": "/models/yurt-10m/layout-a.glb" },
-  },
-  {
-    id: "layout-b",
-    label: "Layout B",
-    description: "Two bedrooms either side of a sitting room, with a shower room.",
-    interiors: { "10m": "/models/yurt-10m/layout-b.glb" },
-  },
-  {
     id: "layout-c",
     label: "Layout C",
-    description: "Open plan: kitchen, dining, lounge and sleeping.",
+    description: "Two bedrooms either side of a sitting room, each with a bathroom.",
     interiors: { "10m": "/models/yurt-10m/layout-c.glb" },
   },
 ];

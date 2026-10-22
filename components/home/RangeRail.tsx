@@ -8,6 +8,7 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 import { cn } from "@/lib/cn";
 import { rangeFallback as range } from "@/data/range";
+import { featuredSpec, rangeHomeCopy } from "@/data/home";
 
 /**
  * Split Sticky Range Showcase:
@@ -92,6 +93,7 @@ export function RangeRail() {
   };
 
   const activeModel = range[activeIdx];
+  const activeSpec = featuredSpec[activeModel.slug] ?? activeModel;
 
   return (
     <section className="bg-surface py-16 lg:py-12">
@@ -102,14 +104,26 @@ export function RangeRail() {
             <Reveal kind="up">
               <Metadata className="text-accent-text">The Range</Metadata>
               <h2 className="mt-2 font-display text-display-lg u-optical-left">
-                One structure. Many possibilities.
+                Find the Right Yurt for Your Property.
               </h2>
             </Reveal>
           </div>
           <Reveal kind="up" delay={0.08} className="max-w-md">
             <p className="font-sans text-small text-text-muted">
-              From intimate private spaces to full-scale hospitality destinations,
-              start with a structure and make it your own.
+              From resort accommodation and luxury farm stays to yoga studios and
+              private guest houses, our yurts can be configured for different
+              purposes.
+            </p>
+            <p className="mt-3 font-sans text-small text-text-muted">
+              Start by choosing how you want to use the space. Then select the
+              diameter, doors, windows, exterior finishes and interior layout to
+              match your requirements.
+            </p>
+            <p className="mt-4 font-sans text-meta uppercase text-accent-text">
+              Standard diameter options: 6m &middot; 7.2m &middot; 9.6m
+            </p>
+            <p className="mt-1 font-sans text-small text-text-muted">
+              Custom configurations can be discussed based on your project.
             </p>
           </Reveal>
         </div>
@@ -168,23 +182,23 @@ export function RangeRail() {
                   Specification Summary
                 </span>
                 <span className="font-sans text-small font-medium text-text">
-                  {activeModel.name} Structure
+                  {activeModel.name} Yurt
                 </span>
               </div>
 
               <div className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-3 font-sans text-[0.8125rem]">
                 <div>
                   <span className="block text-meta uppercase text-text-muted">Diameter</span>
-                  <span className="mt-0.5 block font-medium text-text">{activeModel.diameter}</span>
+                  <span className="mt-0.5 block font-medium text-text">{activeSpec.diameter}</span>
                 </div>
                 <div>
                   <span className="block text-meta uppercase text-text-muted">Capacity</span>
-                  <span className="mt-0.5 block font-medium text-text">{activeModel.capacity}</span>
+                  <span className="mt-0.5 block font-medium text-text">{activeSpec.capacity}</span>
                 </div>
                 <div>
                   <span className="block text-meta uppercase text-text-muted">Ideal For</span>
-                  <span className="mt-0.5 block font-medium text-text line-clamp-2" title={activeModel.idealFor}>
-                    {activeModel.idealFor}
+                  <span className="mt-0.5 block font-medium text-text line-clamp-2" title={activeSpec.idealFor}>
+                    {activeSpec.idealFor}
                   </span>
                 </div>
               </div>
@@ -194,14 +208,14 @@ export function RangeRail() {
                   href="/enquire"
                   className="u-link-underline font-sans text-meta uppercase text-accent-text flex items-center gap-1.5"
                 >
-                  <span>Enquire about {activeModel.name}</span>
+                  <span>Request {activeModel.name} Yurt Quote</span>
                   <span>&rarr;</span>
                 </Link>
                 <Link
                   href="/yurts"
                   className="u-link-underline font-sans text-meta uppercase text-text-muted hover:text-text transition-colors duration-300"
                 >
-                  View full catalogue
+                  View All Yurt Options
                 </Link>
               </div>
             </div>
@@ -265,7 +279,7 @@ export function RangeRail() {
                           {item.name}
                         </h3>
                         <span className="font-sans text-meta uppercase text-accent-text/80 block mt-0.5">
-                          {item.tagline}
+                          {rangeHomeCopy[item.slug]?.heading ?? item.tagline}
                         </span>
                       </div>
                     </div>
@@ -313,7 +327,7 @@ export function RangeRail() {
                       </div>
 
                       <p className="text-body text-text-muted leading-relaxed">
-                        {item.use}
+                        {rangeHomeCopy[item.slug]?.body ?? item.use}
                       </p>
 
                       <div className="mt-4 grid grid-cols-2 gap-3 border-t border-line/60 pt-3 text-[0.8125rem]">
@@ -339,7 +353,7 @@ export function RangeRail() {
                     </div>
                   ) : (
                     <p className="mt-2 font-sans text-small text-text-muted/70 line-clamp-1">
-                      {item.use}
+                      {rangeHomeCopy[item.slug]?.body ?? item.use}
                     </p>
                   )}
                 </div>
@@ -350,9 +364,9 @@ export function RangeRail() {
 
         {/* Section Footer */}
         <div className="mt-14 border-t border-line pt-6 flex items-center justify-between">
-          <ArrowLink href="/yurts">Explore the complete range</ArrowLink>
+          <ArrowLink href="/yurts">Explore All Yurt Types</ArrowLink>
           <span className="font-sans text-meta uppercase text-text-muted">
-            10 Architectural Configurations
+            10 Applications &middot; Multiple Sizes &amp; Layouts
           </span>
         </div>
       </div>

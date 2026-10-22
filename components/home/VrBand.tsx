@@ -8,9 +8,8 @@ import { ArrowLink } from "@/components/primitives/ArrowLink";
  * 09. VR EXPERIENCE
  *
  * Label: STEP INSIDE
- * Heading: Don't just look at a yurt. Step inside one.
- * Lead: Explore a finished yurt through an immersive 360° experience and understand the space before you ever set foot inside it.
- * CTA: Enter the experience →
+ * Heading: Take a virtual tour of a yurt.
+ * CTA: Explore the 360° yurt tour →
  */
 export function VrBand() {
   return (
@@ -36,14 +35,23 @@ export function VrBand() {
                 Step Inside
               </Metadata>
               <h2 className="mx-auto mt-4 max-w-[24ch] font-display text-display-lg leading-tight">
-                Don&apos;t just look at a yurt. Step inside one.
+                Take a Virtual Tour of a Yurt.
               </h2>
               <p className="mx-auto mt-5 max-w-xl font-sans text-lead text-text-muted leading-relaxed">
-                Explore a finished yurt through an immersive 360&deg; experience
-                and understand the space before you ever set foot inside it.
+                Wondering how spacious a yurt feels from the inside?
+              </p>
+              <p className="mx-auto mt-3 max-w-2xl font-sans text-body text-text-muted leading-relaxed">
+                Explore a sample yurt in our interactive 360&deg; virtual
+                experience. View the circular interior, roof structure, windows
+                and available floor space to better understand how a finished
+                yurt could work for your resort, retreat or personal property.
+              </p>
+              <p className="mx-auto mt-3 max-w-2xl font-sans text-small text-text-muted/80 leading-relaxed">
+                The virtual tour is illustrative; actual interiors and finishes
+                depend on the model and configuration you choose.
               </p>
               <div className="mt-8 flex justify-center">
-                <ArrowLink href="/experiences/vr">Enter the experience</ArrowLink>
+                <ArrowLink href="/experiences/vr">Explore the 360&deg; Yurt Tour</ArrowLink>
               </div>
             </Reveal>
           </div>

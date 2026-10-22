@@ -8,7 +8,7 @@ import { process } from "@/data/home";
 /**
  * 10. BUILD PROCESS
  *
- * Heading: From an idea on paper to a space on your land.
+ * Heading: How we design, manufacture & install your yurt.
  * 8 Stages: Discover, Design, Select, Build, Prepare, Deliver, Install, Hand Over.
  */
 export function ProcessIndex() {
@@ -21,11 +21,17 @@ export function ProcessIndex() {
               <Reveal kind="up">
                 <Metadata className="text-accent-text">Build Process</Metadata>
                 <h2 className="mt-4 font-display text-display-lg u-optical-left leading-tight">
-                  From an idea on paper to a space on your land.
+                  How We Design, Manufacture &amp; Install Your Yurt.
                 </h2>
                 <p className="mt-6 u-measure font-sans text-lead text-text-muted leading-relaxed">
-                  A structured eight-stage journey from initial topographical
-                  discovery to on-site assembly and key handover.
+                  From choosing the right structure to assembling it on your
+                  property, our process covers eight stages.
+                </p>
+                <p className="mt-4 u-measure font-sans text-body text-text-muted leading-relaxed">
+                  We discuss your site requirements, finalise specifications,
+                  prepare the yurt components and coordinate delivery and
+                  installation. The exact scope of work is agreed before the
+                  project begins.
                 </p>
               </Reveal>
               <Reveal kind="media" delay={0.1} className="mt-10">
@@ -57,7 +63,10 @@ export function ProcessIndex() {
                       {stage.title}
                     </span>
                   </div>
-                  <p className="mt-2 font-sans text-small text-text-muted leading-relaxed">
+                  <p className="mt-1.5 font-sans text-small font-medium text-text">
+                    {stage.heading}
+                  </p>
+                  <p className="mt-1.5 font-sans text-small text-text-muted leading-relaxed">
                     {stage.body}
                   </p>
                 </Reveal>
@@ -65,9 +74,9 @@ export function ProcessIndex() {
             </ol>
 
             <div className="mt-12 border-t border-line pt-6 flex flex-wrap items-center justify-between gap-4">
-              <ArrowLink href="/process">Explore the complete process</ArrowLink>
+              <ArrowLink href="/process">Understand Our Complete Build Process</ArrowLink>
               <span className="font-sans text-meta uppercase text-text-muted text-xs">
-                08 Turnkey Stages
+                08 Stages &middot; From Enquiry to Handover
               </span>
             </div>
           </div>

@@ -4,11 +4,12 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 
 /**
- * 13. NEW COMPANY / INSPIRATION
+ * 12. INSPIRATION & GALLERY
  *
- * Heading: The beginning of something different.
- * Description: Theyurts is a new company, and we're building our first collection of structures right now. This space will soon become a record of the places we've helped create — from the first build to the many landscapes that follow. Until then, explore our ideas, designs and references.
- * CTA: Explore the gallery →
+ * Heading: Explore yurt designs & installation ideas.
+ * The images are design and reference visuals, not completed installations,
+ * and the copy says so.
+ * CTA: Explore the design gallery →
  */
 export function Gallery() {
   return (
@@ -20,7 +21,7 @@ export function Gallery() {
             <Reveal kind="up">
               <Metadata className="text-accent-text">Inspiration & Gallery</Metadata>
               <h2 className="mt-2 font-display text-display-lg u-optical-left">
-                The beginning of something different.
+                Explore Yurt Designs &amp; Installation Ideas.
               </h2>
             </Reveal>
           </div>
@@ -33,11 +34,15 @@ export function Gallery() {
           */}
           <Reveal kind="up" delay={0.08} className="w-full">
             <p className="font-sans text-body text-text-muted leading-relaxed">
-              Theyurts is a new company, and we&apos;re building our first collection
-              of structures right now. This space will soon become a record of the
-              places we&apos;ve helped create &mdash; from the first build to the
-              many landscapes that follow. Until then, explore our ideas, designs
-              and references.
+              Looking for inspiration for your resort, farm stay or private
+              property? Explore yurt design concepts, interior ideas, roof details
+              and possible installation settings to understand what you could
+              create.
+            </p>
+            <p className="mt-3 font-sans text-small text-text-muted/80 leading-relaxed">
+              The images shown are design and reference visuals, not completed
+              Theyurts installations. Photographs of our completed projects will
+              be added as they become available.
             </p>
           </Reveal>
         </div>
@@ -62,7 +67,7 @@ export function Gallery() {
               />
             </div>
             <p className="mt-2.5 font-sans text-meta uppercase text-text-muted text-xs">
-              Mountain Retreat &middot; High Altitude Setting
+              01 &middot; Hillside Retreat &mdash; Outdoor Accommodation Concept
             </p>
           </Reveal>
 
@@ -80,7 +85,7 @@ export function Gallery() {
                 />
               </div>
               <p className="mt-1.5 font-sans text-meta uppercase text-text-muted text-xs">
-                Crown Wheel &middot; Skylight Structure
+                02 &middot; Central Roof Dome &mdash; Skylight &amp; Ventilation Detail
               </p>
             </Reveal>
 
@@ -96,7 +101,7 @@ export function Gallery() {
                 />
               </div>
               <p className="mt-1.5 font-sans text-meta uppercase text-text-muted text-xs">
-                Timber Deck &middot; Custom Entrance
+                03 &middot; Raised Timber Deck &mdash; Entrance &amp; Platform Concept
               </p>
             </Reveal>
           </div>
@@ -104,9 +109,9 @@ export function Gallery() {
 
         {/* Gallery Action Footer */}
         <div className="mt-8 border-t border-line pt-5 flex items-center justify-between">
-          <ArrowLink href="/projects">Explore the gallery</ArrowLink>
+          <ArrowLink href="/projects">Explore the Design Gallery</ArrowLink>
           <span className="font-sans text-meta uppercase text-text-muted text-xs">
-            03 Perspectives
+            03 Design References
           </span>
         </div>
       </div>
