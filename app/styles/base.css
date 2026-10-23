@@ -73,7 +73,7 @@
   }
 
   select option:disabled {
-    color: var(--color-text-muted, #c0b4a3);
+    color: var(--color-text-muted, #dcd2c3);
   }
 
   /* Focus: a clay hairline offset from the element. Visible on both tones,

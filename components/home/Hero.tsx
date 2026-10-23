@@ -51,12 +51,12 @@ export function Hero() {
                   Properties.
                 </h1>
 
-                <p className="mt-6 max-w-2xl font-sans text-lead text-text-muted leading-relaxed">
+                <p className="mt-6 max-w-2xl font-sans text-lead text-cream leading-relaxed [text-shadow:_0_1px_8px_rgba(0,0,0,0.6)]">
                   We design and manufacture modern yurts &mdash; circular
                   structures with a strong timber frame, weather-protective
                   coverings and customisable interiors.
                 </p>
-                <p className="mt-4 max-w-2xl font-sans text-body text-text-muted leading-relaxed">
+                <p className="mt-4 max-w-2xl font-sans text-body text-cream/90 leading-relaxed [text-shadow:_0_1px_8px_rgba(0,0,0,0.6)]">
                   Whether you&apos;re developing a luxury resort, adding guest
                   rooms to a farm stay or creating a private retreat, we help
                   you choose, customise and install a yurt suited to your

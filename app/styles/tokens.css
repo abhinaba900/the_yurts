@@ -44,7 +44,7 @@
   /* Ink & muted */
   --color-ink: #241a13;
   --color-ink-muted: #5c4a3a; /* clears AA on cream, parchment AND sand */
-  --color-cream-muted: #c0b4a3; /* 9.18:1 on walnut */
+  --color-cream-muted: #dcd2c3; /* lighter, for running text on dark */
 
   /* -- 2. SEMANTIC --------------------------------------------------------
      What a colour is *for*. Components only ever use these.
@@ -57,7 +57,7 @@
   --color-surface-alt: #241a13;
   --color-surface-deep: #0f0b08;
   --color-text: #f0e9de;
-  --color-text-muted: #c0b4a3;
+  --color-text-muted: #dcd2c3;
   --color-accent: #2f6b4f;
   --color-accent-text: #d4a548;
   --color-line: rgb(240 233 222 / 0.14);
