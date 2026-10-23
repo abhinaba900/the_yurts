@@ -8,31 +8,31 @@ const materialsList = [
     id: "home.material-timber" as const,
     title: "Timber",
     subtitle: "The Main Structural Framework",
-    body: "Timber forms the circular wall frame and supporting roof structure. The species, treatment, finish and structural requirements are selected according to the project specifications.",
+    body: "The wall frame and roof, in a species and finish chosen for the project.",
   },
   {
     id: "home.material-canvas" as const,
     title: "Canvas / Outer Envelope",
     subtitle: "Protection from Rain, Sun & Weather",
-    body: "The outer covering forms the yurt's protective shell. Fabric specifications, weather-resistant layers and insulation options are chosen according to the installation environment.",
+    body: "Weather-resistant fabric and insulation, specified for the site.",
   },
   {
     id: "home.material-crown" as const,
     title: "Crown",
     subtitle: "The Central Roof Structure",
-    body: "The crown connects the roof rafters and creates the central ceiling feature. It can also accommodate an openable roof dome, depending on the selected configuration.",
+    body: "Joins the rafters at the centre, with an openable dome if you want one.",
   },
   {
     id: "home.gallery-3" as const,
     title: "Joinery",
     subtitle: "Doors, Windows & Fittings",
-    body: "Doors, windows, frames and fittings are selected to provide access, daylight, ventilation and practical day-to-day usability.",
+    body: "Doors, windows and fittings for light, air and everyday use.",
   },
   {
     id: "home.range-luxury" as const,
     title: "Interiors",
     subtitle: "Designed Around Your Requirements",
-    body: "Plan the interior for your intended use, whether that means a guest bedroom, lounge, yoga studio, café or wellness room. Flooring, partitions, lighting and other fit-out requirements can be discussed during the design stage.",
+    body: "Fitted out as a bedroom, lounge, studio or café — planned with you.",
   },
 ];
 
@@ -69,14 +69,14 @@ export function Materials() {
         </Reveal>
       </div>
 
-      {/* 5-Item Material Showcase Cards Grid */}
-      <div className="mt-8 lg:mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-5">
+      {/* The five materials: three to a row, all five in one from 1280px */}
+      <div className="mt-8 lg:mt-12 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-3 xl:grid-cols-5">
         {materialsList.map((item, i) => (
           <Reveal
             key={item.title}
             kind="media"
             delay={i * 0.04}
-            className="group flex flex-col justify-between"
+            className="group flex flex-col"
           >
             <div className="relative overflow-hidden rounded-sm bg-surface-alt shadow-lg w-full">
               <Media
@@ -95,10 +95,10 @@ export function Materials() {
                   0{i + 1}
                 </span>
               </div>
-              <p className="mt-1 font-sans text-small font-medium text-text text-[0.8125rem] leading-snug">
+              <p className="mt-1 font-sans text-body font-medium text-text leading-snug">
                 {item.subtitle}
               </p>
-              <p className="mt-1.5 font-sans text-small text-text-muted text-[0.8125rem] leading-snug">
+              <p className="mt-1.5 font-sans text-body text-text-muted leading-relaxed">
                 {item.body}
               </p>
             </div>

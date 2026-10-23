@@ -13,7 +13,9 @@ import { ArrowLink } from "@/components/primitives/ArrowLink";
 export function Hero() {
   return (
     <section className="relative -mt-20 bg-surface md:-mt-24">
-      <div className="relative min-h-[92svh] lg:min-h-[100svh] w-full overflow-hidden flex flex-col justify-end">
+      {/* Full screen less the 2.25rem top bar above it, so the buttons and the
+          line under them sit on the first screen. */}
+      <div className="relative min-h-[92svh] lg:min-h-[calc(100svh-2.25rem)] w-full overflow-hidden flex flex-col justify-end">
         <Media
           id="home.hero"
           ratio="cinema"
@@ -40,7 +42,7 @@ export function Hero() {
           <div className="u-container">
             <div className="max-w-4xl">
               <Reveal kind="up">
-                <Metadata className="text-gold font-medium tracking-[0.18em] [text-shadow:_0_1px_6px_rgba(0,0,0,0.7)]">
+                <Metadata className="text-[#f6e3a1] font-medium tracking-[0.18em] [text-shadow:_0_1px_6px_rgba(0,0,0,0.7)]">
                   Yurt Manufacturer in India
                 </Metadata>
 

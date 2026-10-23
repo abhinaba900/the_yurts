@@ -10,9 +10,7 @@ import { BuiltForIndia } from "@/components/home/BuiltForIndia";
 import { RangeRail } from "@/components/home/RangeRail";
 import { BuilderIntro } from "@/components/home/BuilderIntro";
 import { VrBand } from "@/components/home/VrBand";
-import { ProcessIndex } from "@/components/home/ProcessIndex";
 import { Materials } from "@/components/home/Materials";
-import { Sustainability } from "@/components/home/Sustainability";
 import { Gallery } from "@/components/home/Gallery";
 
 /**
@@ -31,7 +29,7 @@ export const metadata = pageMetadata({
 /**
  * THEYURTS.IN — HOMEPAGE
  *
- * 12 Sections:
+ * 10 Sections:
  * 01. Hero — Custom-built yurts for resorts, farm stays & private properties.
  * --- Image band — the ten models, each named by what it is used for.
  * 02. The Yurt — What exactly is a yurt?
@@ -41,10 +39,8 @@ export const metadata = pageMetadata({
  * 06. The Range — Find the right yurt for your property.
  * 07. Design Yours — Customise your yurt in 3D before ordering.
  * 08. Step Inside — Take a virtual tour of a yurt.
- * 09. Build Process — How we design, manufacture & install your yurt.
- * 10. Materials & Craft — What goes into building a quality yurt?
- * 11. Sustainability — A more considered approach to building on your land.
- * 12. Inspiration & Gallery — Explore yurt designs & installation ideas.
+ * 09. Materials & Craft — What goes into building a quality yurt?
+ * 10. Inspiration & Gallery — Explore yurt designs & installation ideas.
  *
  * The closing enquiry ("Planning to install a yurt?") is the site footer.
  */
@@ -60,9 +56,7 @@ export default function HomePage() {
       <RangeRail />
       <BuilderIntro />
       <VrBand />
-      <ProcessIndex />
       <Materials />
-      <Sustainability />
       <Gallery />
     </>
   );

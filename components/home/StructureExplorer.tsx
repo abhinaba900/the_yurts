@@ -176,7 +176,7 @@ export function StructureExplorer({
                   <p className="mt-2 font-display text-display-sm">
                     {current.name}
                   </p>
-                  <p className="mt-1.5 font-sans text-small text-text-muted leading-relaxed">
+                  <p className="mt-1.5 font-sans text-body text-text-muted leading-relaxed">
                     {current.body}
                   </p>
                 </div>
@@ -212,9 +212,9 @@ export function StructureExplorer({
         </div>
       </div>
 
-      {/* Six Features Grid */}
+      {/* The six parts, three to a row */}
       <div className="mt-16 lg:mt-24">
-        <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-6">
+        <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-12">
           {anatomy.map((part, i) => {
             const target = cardSlide[i];
             const active = target === index;
@@ -259,7 +259,7 @@ export function StructureExplorer({
                     </button>
                   )}
                 </dt>
-                <dd className="mt-3 font-sans text-small text-text-muted leading-relaxed">
+                <dd className="mt-3 font-sans text-body text-text-muted leading-relaxed">
                   <span className="block text-text">{part.title}</span>
                   {part.body}
                 </dd>

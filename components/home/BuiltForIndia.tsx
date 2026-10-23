@@ -30,18 +30,8 @@ function IconFrame({ children }: { children: React.ReactNode }) {
 
 const climatePillars = [
   {
-    name: "Climate",
-    desc: "We review the seasonal temperatures and weather conditions at your location to determine the appropriate yurt specifications.",
-    icon: (
-      <IconFrame>
-        <path d="M14 14.8V5.5a2.5 2.5 0 0 0-5 0v9.3a4.5 4.5 0 1 0 5 0Z" />
-        <path d="M11.5 8.5h-2M11.5 11.5h-2" />
-      </IconFrame>
-    ),
-  },
-  {
     name: "Insulation",
-    desc: "Roof and wall insulation options are selected according to your climate and indoor comfort requirements, including whether the space will be used throughout the year.",
+    desc: "Roof and wall insulation chosen for your climate and how often the yurt is used.",
     icon: (
       <IconFrame>
         <path d="M12 3 3 7.5 12 12l9-4.5L12 3Z" />
@@ -52,7 +42,7 @@ const climatePillars = [
   },
   {
     name: "Ventilation",
-    desc: "Openable windows and roof ventilation can be positioned to improve airflow and help release warm air from inside the yurt.",
+    desc: "Windows and the roof dome placed to move air through and let heat out.",
     icon: (
       <IconFrame>
         <circle cx="12" cy="4.5" r="2.5" />
@@ -64,7 +54,7 @@ const climatePillars = [
   },
   {
     name: "Rain Protection",
-    desc: "Roof coverings, drainage details and platform height are planned around your site's rainfall and monsoon exposure.",
+    desc: "Covers, drainage and platform height planned for the monsoon.",
     icon: (
       <IconFrame>
         <path d="M7 16.5a3.75 3.75 0 0 1 .4-7.48 5.25 5.25 0 0 1 10.1.98A3.25 3.25 0 0 1 17.2 16.5H7Z" />
@@ -74,7 +64,7 @@ const climatePillars = [
   },
   {
     name: "Heat Management",
-    desc: "Roof materials, insulation, shading and ventilation are considered to help manage heat. Electrical provisions for fans or air conditioning can also be planned where required.",
+    desc: "Shading, insulation and airflow for the hot months, with power for fans or AC if needed.",
     icon: (
       <IconFrame>
         <circle cx="12" cy="12" r="4" />
@@ -84,7 +74,7 @@ const climatePillars = [
   },
   {
     name: "Wind Resistance",
-    desc: "The frame, connections and anchoring system must be specified according to the wind exposure and structural requirements of your site.",
+    desc: "Frame and anchoring specified for how exposed your site is.",
     icon: (
       <IconFrame>
         <path d="M3 8.5h10a2.75 2.75 0 1 0-2.75-2.75" />
@@ -95,7 +85,7 @@ const climatePillars = [
   },
   {
     name: "Site Conditions",
-    desc: "We review slope, soil conditions, site access and platform requirements to help determine whether a yurt can be installed on your property.",
+    desc: "Slope, soil and access checked before anything is built.",
     icon: (
       <IconFrame>
         <path d="m2.5 14.5 5.5-7.5 3.5 4.5L15 6.5l6.5 8" />
@@ -151,23 +141,25 @@ export function BuiltForIndia() {
             </span>
           </Reveal>
 
-          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
             {climatePillars.map((p, i) => (
               <Reveal
                 key={p.name}
                 kind="up"
                 delay={i * 0.03}
-                className="group rounded-sm border border-line bg-surface p-5 shadow-xs transition-all duration-300 hover:border-accent hover:shadow-md flex flex-col"
+                className="group flex h-full items-start gap-4 rounded-sm border border-line bg-surface p-5 shadow-xs transition-all duration-300 hover:border-accent hover:shadow-md lg:p-6"
               >
-                <span className="flex size-9 items-center justify-center rounded-full border border-line/60 bg-surface-alt/40 text-accent-text transition-colors duration-300 group-hover:border-accent/40">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-line/60 bg-surface-alt/40 text-accent-text transition-colors duration-300 group-hover:border-accent/40">
                   {p.icon}
                 </span>
-                <span className="mt-4 font-display text-display-xs text-text font-medium block">
-                  {p.name}
-                </span>
-                <p className="mt-2 font-sans text-small text-text-muted leading-relaxed">
-                  {p.desc}
-                </p>
+                <div>
+                  <span className="block font-display text-display-xs font-medium text-text">
+                    {p.name}
+                  </span>
+                  <p className="mt-1.5 font-sans text-body leading-relaxed text-text-muted">
+                    {p.desc}
+                  </p>
+                </div>
               </Reveal>
             ))}
           </div>

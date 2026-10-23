@@ -11,32 +11,32 @@ export const anatomy: { label: string; title: string; body: string }[] = [
   {
     label: "Dome",
     title: "Natural Light & Ventilation",
-    body: "An openable roof dome allows daylight into the centre of the yurt and lets rising warm air escape when opened. Operation and specifications depend on the chosen model.",
+    body: "Lets daylight into the centre and warm air out when opened.",
   },
   {
     label: "Crown",
     title: "The Centre of the Roof",
-    body: "A circular structural ring connects the roof rafters, holding the roof structure together and creating the distinctive central ceiling feature.",
+    body: "The ring every rafter meets, holding the roof together.",
   },
   {
     label: "Roof",
     title: "A Strong Sloping Roof",
-    body: "Timber rafters extend from the outer walls to the central crown, forming a sloped roof that helps channel rainwater away from the structure.",
+    body: "Timber rafters run from wall to crown and shed the rain.",
   },
   {
     label: "Lattice",
     title: "The Circular Wall Frame",
-    body: "An interconnected timber lattice forms the yurt's walls, supporting the roof while creating its recognisable round shape.",
+    body: "A timber lattice that carries the roof and makes the circle.",
   },
   {
     label: "Tension",
     title: "Keeps the Structure Secure",
-    body: "A tension system connects the structural elements and helps resist the outward forces created by the roof.",
+    body: "A cable round the wall head that resists the roof's outward push.",
   },
   {
     label: "Envelope",
     title: "Weather Protection & Insulation",
-    body: "External coverings and selected insulation layers protect the structure from rain, sun and temperature changes. Materials are specified according to the installation location and intended use.",
+    body: "Covers and insulation, specified for the site, against rain, sun and heat.",
   },
 ];
 
@@ -172,62 +172,6 @@ export const applications: {
     name: "Private spaces",
     line: "A room that feels closer to nature.",
     media: "home.application-homes",
-  },
-];
-
-export const process: {
-  index: string;
-  title: string;
-  heading: string;
-  body: string;
-}[] = [
-  {
-    index: "01",
-    title: "Discover",
-    heading: "Tell Us About Your Project",
-    body: "Share your property location, intended use, approximate space requirements, number of yurts and preferred timeline. We begin by understanding what you want to build.",
-  },
-  {
-    index: "02",
-    title: "Design",
-    heading: "Plan the Right Yurt",
-    body: "Choose a suitable diameter and plan the layout, doors, windows, roof configuration and requirements for the installation platform.",
-  },
-  {
-    index: "03",
-    title: "Select",
-    heading: "Finalise Materials & Finishes",
-    body: "Select your preferred exterior finishes, windows, doors, insulation options and interior requirements. We finalise the project specifications and quotation.",
-  },
-  {
-    index: "04",
-    title: "Build",
-    heading: "Manufacturing Begins",
-    body: "The structural components, including timber frames, roof elements and other specified parts, are manufactured and prepared.",
-  },
-  {
-    index: "05",
-    title: "Prepare",
-    heading: "Quality Checks & Packing",
-    body: "The components are checked, organised and packed for transportation. We also coordinate site-readiness requirements before delivery.",
-  },
-  {
-    index: "06",
-    title: "Deliver",
-    heading: "Transport to Your Property",
-    body: "The yurt components are transported to your location according to the agreed delivery plan and site access requirements.",
-  },
-  {
-    index: "07",
-    title: "Install",
-    heading: "Assemble the Yurt On-Site",
-    body: "The structure is assembled on the prepared platform, followed by the coverings, doors, windows and other agreed components.",
-  },
-  {
-    index: "08",
-    title: "Hand Over",
-    heading: "Your Yurt Is Ready",
-    body: "Once the agreed installation work is completed, we walk you through the finished structure, its features and recommended maintenance procedures.",
   },
 ];
 
