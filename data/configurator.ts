@@ -1,13 +1,14 @@
 /**
  * 3D BUILDER — option definitions.
  *
- * THE MODELS ARE THE CLIENT'S. The builder shows the 6m and 10m yurts from the
- * client's own SketchUp drawings, and the 10m Symmetry plan fitted out. See
+ * THE MODELS ARE THE CLIENT'S. The builder shows the 6m, 7m and 10m yurts from
+ * the client's own SketchUp drawings, and the Symmetry plan fitted out at each
+ * size. See
  * `data/yurtModel.ts` for the files and how their meshes are mapped onto the
  * groups below.
  *
- * The groups here are what the 3D scene shows: the size, the plan (the 10m
- * Symmetry is drawn fitted out; every other plan as a shell), the roof and wall
+ * The groups here are what the 3D scene shows: the size, the plan (Symmetry is
+ * drawn fitted out; every other plan as a shell), the roof and wall
  * cover colours and the deck, plus the two accessories. Doors, windows and
  * every price live in `data/pricing.ts` and `lib/quote.ts`, because they drive
  * the quote rather than the model.
@@ -129,16 +130,21 @@ export const groups: GroupDef[] = [
   {
     id: "layout",
     label: "Plan",
-    note: "The 10m Symmetry plan is shown fitted out, from above with the roof off. Interiors are indicative — the fit-out is specified per project.",
+    note: "The Symmetry plan is shown fitted out, from above with the roof off. Interiors are indicative — the fit-out is specified per project.",
     // No default: the first plan offered for the chosen size.
     options: [
-      ...plans.map((plan) => ({
-        id: plan.id,
-        label: plan.label,
-        description: plan.description,
-        sizes: [plan.size],
-        render: { layout: plan.layout ?? EXTERIOR },
-      })),
+      // One option per plan, offered at every size it is drawn for: Symmetry
+      // is one plan at three sizes, so it stays chosen when the size changes.
+      ...[...new Set(plans.map((plan) => plan.id))].map((id) => {
+        const sized = plans.filter((plan) => plan.id === id);
+        return {
+          id,
+          label: sized[0].label,
+          description: sized[0].description,
+          sizes: sized.map((plan) => plan.size),
+          render: { layout: sized[0].layout ?? EXTERIOR },
+        };
+      }),
       {
         id: CUSTOM_PLAN,
         label: "Make your own plan",

@@ -5,12 +5,14 @@
  *  - `public/models/yurt-{6m,7m,10m}/exterior.glb` are the shells, generated
  *    from "6M Yurt.glb", "7M Yurt.glb" and "10M Yurt.glb" by
  *    `scripts/optimize-yurt-shells.mjs`.
- *  - `public/models/yurt-10m/layout-*.glb` are the 10m's fitted-out
- *    interiors, without a shell of their own, generated from "10m YURT WITH 3
- *    INTERNAL OPTIONS" by `scripts/optimize-yurt-model.mjs`. The builder stands
- *    one inside the 10m shell, so it has the same outside as every other 10m.
- *    Only layout C is shown, as the Symmetry plan; the client asked for A and B
- *    to come out, so their files are generated but not listed below.
+ *  - `public/models/yurt-{6m,7m,10m}/symmetry.glb` are the Symmetry plan
+ *    fitted out, the same standard at every size, without a shell of their
+ *    own. Generated from "Symmetry interiors.glb" by
+ *    `scripts/optimize-yurt-interiors.mjs`. The builder stands each inside its
+ *    size's shell, so it has the same outside as every other yurt that size.
+ *  - `public/models/yurt-10m/layout-*.glb` are the 10m's older fitted-out
+ *    layouts, from `scripts/optimize-yurt-model.mjs`. None is listed below:
+ *    the client asked for A and B to come out, and Symmetry replaced C.
  *
  * Re-run those scripts, never edit the files by hand. The sources have no
  * meaningful object names, so meshes carry their SketchUp *material* names (or
@@ -115,10 +117,14 @@ export const yurtLayouts: YurtLayout[] = [
     interiors: {},
   },
   {
-    id: "layout-c",
-    label: "Layout C",
+    id: "symmetry",
+    label: "Symmetry",
     description: "Two bedrooms either side of a sitting room, each with a bathroom.",
-    interiors: { "10m": "/models/yurt-10m/layout-c.glb" },
+    interiors: {
+      "6m": "/models/yurt-6m/symmetry.glb",
+      "7m": "/models/yurt-7m/symmetry.glb",
+      "10m": "/models/yurt-10m/symmetry.glb",
+    },
   },
 ];
 

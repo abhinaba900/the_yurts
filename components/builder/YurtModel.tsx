@@ -20,11 +20,12 @@ import type { OptionGroupId, RenderSpec } from "@/lib/configurator";
 import { PART_IDS, type PartId, type Parts } from "./parts";
 
 /**
- * The client's 6m and 10m yurts.
+ * The client's 6m, 7m and 10m yurts.
  *
  * Loaded from the optimised files in `public/models/` (see `data/yurtModel.ts`):
- * a shell per size, under 150KB each, and the 10m Symmetry's fitted-out
- * interior, a few MB with meshopt compression, drawn inside the 10m shell. drei's
+ * a shell per size, under 150KB each, and the Symmetry plan's fitted-out
+ * interior per size, 0.5–1.3MB with meshopt compression, drawn inside that
+ * size's shell. drei's
  * `useGLTF` decodes meshopt out of the box.
  *
  * PREPARING A LAYOUT happens once per file, on first load, and the result is

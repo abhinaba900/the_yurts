@@ -865,11 +865,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
     plan: (
       <>
         <StepHeading index={1} title="Choose a plan.">
-          {size.id === "10m"
-            ? "Our popular 10m plans; Symmetry is shown fitted out from above. Each price includes its doors, windows and covers."
-            : size.id === "6m"
-              ? "Our popular 6m plans. Each price includes its doors, windows and covers."
-              : "Start from the 7m kit and place the doors and windows yourself."}
+          {`Our popular ${size.id} plans; Symmetry is shown fitted out from above. Each price includes its doors, windows and covers.`}
         </StepHeading>
         <fieldset className="mt-7 border-0 p-0">
           <legend className="sr-only">Plan</legend>
@@ -940,18 +936,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
             })}
           </div>
         </fieldset>
-        {size.id !== "10m" ? (
-          <button
-            type="button"
-            onClick={() => choose("size", "10m")}
-            className="mt-5 inline-flex items-center gap-2 font-sans text-meta uppercase text-accent-text underline-offset-4 hover:underline"
-          >
-            See the 10m Symmetry plan fitted out in 3D
-            <Icon path={icons.arrowRight} />
-          </button>
-        ) : (
-          <p className="mt-5 font-sans text-small text-text-muted">{groupById("layout")?.note}</p>
-        )}
+        <p className="mt-5 font-sans text-small text-text-muted">{groupById("layout")?.note}</p>
       </>
     ),
 

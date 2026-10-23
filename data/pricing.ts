@@ -108,7 +108,23 @@ export type Plan = {
 
 export const CUSTOM_PLAN = "custom";
 
+/**
+ * Symmetry is the one plan drawn at every size, fitted out to the same
+ * standard. The 6m and 7m prices are placeholders, the bare kit's price, until
+ * the client prices them.
+ */
 export const plans: Plan[] = [
+  {
+    id: "symmetry",
+    label: "Symmetry",
+    size: "6m",
+    price: 1000087, // TODO(client): 6m Symmetry price; this is the 6m kit.
+    description: "The Symmetry fit-out at 6m: a bedroom with its bathroom, and a sitting area by the door.",
+    doors: [6],
+    windows: [3, 9],
+    toiletWindows: 1,
+    layout: "symmetry",
+  },
   {
     id: "padma",
     label: "Padma",
@@ -148,7 +164,18 @@ export const plans: Plan[] = [
     doors: [6],
     windows: [2, 4, 8, 9],
     toiletWindows: 2,
-    layout: "layout-c",
+    layout: "symmetry",
+  },
+  {
+    id: "symmetry",
+    label: "Symmetry",
+    size: "7m",
+    price: 1198998, // TODO(client): 7m Symmetry price; this is the 7m kit.
+    description: "The Symmetry fit-out at 7m: a bedroom with its bathroom, and a sitting area by the door.",
+    doors: [6],
+    windows: [3, 9],
+    toiletWindows: 1,
+    layout: "symmetry",
   },
   {
     id: "trinity",
