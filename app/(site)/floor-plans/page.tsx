@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/lib/seo";
-import { floorPlans } from "@/data/floorPlans";
+import { floorPlanGroups, floorPlans } from "@/data/floorPlans";
 import { PageHeader } from "@/components/page/PageHeader";
 import { FloorPlanCatalogue } from "@/components/floorplans/FloorPlanCatalogue";
 import { Button } from "@/components/primitives/Button";
@@ -10,7 +10,7 @@ import { Section } from "@/components/primitives/Section";
 export const metadata = pageMetadata({
   title: "Yurt Floor Plans and Interior Layouts",
   description:
-    "Interior layouts for a circular room — open plan, retreat, suite, gathering, wellness studio and living space — and how to choose one for your yurt.",
+    "Interior layouts for the 6m, 7m and 10m yurts, drawn from above — and how to choose one for your yurt.",
   path: "/floor-plans",
 });
 
@@ -22,7 +22,7 @@ const factors = ["Yurt size", "Intended use", "Entrances", "Windows", "Furniture
  *
  * Four sections:
  * 01. Hero — A space for every way of living.
- * 02. Catalogue — the layouts, from `data/floorPlans.ts`.
+ * 02. Catalogue — the layouts by size, from `data/floorPlans.ts`.
  * 03. Guidance — Start with how you want to use the space.
  * 04. Closing — Have a layout in mind?
  *
@@ -30,8 +30,6 @@ const factors = ["Yurt size", "Intended use", "Entrances", "Windows", "Furniture
  * specified, and this page hands over to it.
  */
 export default function FloorPlansPage() {
-  const plans = floorPlans.filter((plan) => plan.available);
-
   return (
     <>
       {/* 01. HERO */}
@@ -58,10 +56,10 @@ export default function FloorPlansPage() {
           <Metadata as="h2" className="text-accent-text">
             <span id="floor-plans-catalogue">The layouts</span>
           </Metadata>
-          <Metadata>{String(plans.length).padStart(2, "0")} plans</Metadata>
+          <Metadata>{String(floorPlans.length).padStart(2, "0")} plans</Metadata>
         </div>
 
-        <FloorPlanCatalogue plans={plans} />
+        <FloorPlanCatalogue groups={floorPlanGroups} />
       </section>
 
       {/* 03. GUIDANCE */}

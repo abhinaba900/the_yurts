@@ -366,50 +366,6 @@ export const media = {
   },
 
   /*
-   * FLOOR PLANS — PENDING CLIENT.
-   *
-   * One drawing per layout on /floor-plans. Square, because a yurt's plan is a
-   * circle: the page shows the whole drawing (object-contain), never a crop.
-   * Export as a flat plan on a plain light ground, with the door at the
-   * bottom of the sheet so every plan reads the same way round.
-   */
-  "floorplans.open-plan": {
-    file: "floorplan-open-plan.webp",
-    ratio: "square",
-    alt: "Floor plan of a yurt left open and unfurnished.",
-    note: "Plan view, roof off. Shell, door and windows only — no furniture.",
-  },
-  "floorplans.retreat": {
-    file: "floorplan-retreat.webp",
-    ratio: "square",
-    alt: "Floor plan of a yurt arranged for sleeping and relaxation.",
-    note: "Plan view. Bed, seating and any en-suite drawn to scale.",
-  },
-  "floorplans.suite": {
-    file: "floorplan-suite.webp",
-    ratio: "square",
-    alt: "Floor plan of a yurt arranged as a hospitality suite.",
-    note: "Plan view. Sleeping, lounge and bathroom zones legible at small size.",
-  },
-  "floorplans.gathering": {
-    file: "floorplan-gathering.webp",
-    ratio: "square",
-    alt: "Floor plan of a yurt arranged around shared seating.",
-    note: "Plan view. Seating arrangement and circulation around it.",
-  },
-  "floorplans.wellness-studio": {
-    file: "floorplan-wellness-studio.webp",
-    ratio: "square",
-    alt: "Floor plan of a yurt kept open for yoga, meditation or treatments.",
-    note: "Plan view. Mats or treatment beds placed, floor kept clear.",
-  },
-  "floorplans.living-space": {
-    file: "floorplan-living-space.webp",
-    ratio: "square",
-    alt: "Floor plan of a yurt arranged as a home.",
-    note: "Plan view. Kitchen, living, sleeping and bathroom zones.",
-  },
-  /*
    * Experience Centre, Bengaluru — /experience-centre.
    * Photographs of the centre itself only: not another site, not a render, not
    * generated. Re-check each alt text against the photograph when it lands.

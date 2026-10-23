@@ -7,7 +7,7 @@
 
 | | Supplied | Outstanding |
 | --- | --- | --- |
-| Site images | 33 | 25 |
+| Site images | 33 | 19 |
 | 360° panoramas | 4 | 0 |
 
 Everything else — product specifications, contact details, company information
@@ -81,7 +81,7 @@ identical means no code changes at all.
 
 ## Every image, with its prompt
 
-58 images. **Supplied** means a file is already in `public/media/`
+52 images. **Supplied** means a file is already in `public/media/`
 and wired up — regenerating it means overwriting that file with a larger one
 under the same name.
 
@@ -196,86 +196,6 @@ under the same name.
 - **Art direction** Real photograph of an interior set-up actually used at the centre. Drop the gallery entry if there is only one arrangement.
 
 **Real photograph only — do not generate, render or substitute.**
-
-### floorplans
-
-#### `floorplan-open-plan.webp`
-
-- **Status** **Outstanding**
-- **Generate at** 3840 × 3840 (1:1)
-- **Appears on** data/floorPlans
-- **Manifest id** `floorplans.open-plan`
-- **Alt text** Floor plan of a yurt left open and unfurnished.
-- **Art direction** Plan view, roof off. Shell, door and windows only — no furniture.
-
-```
-A yurt — a round timber-framed tent with a domed roof and a central crown wheel. Floor plan of a yurt left open and unfurnished. Plan view, roof off. Shell, door and windows only — no furniture. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 1:1, rendered at 3840 × 3840.
-```
-
-#### `floorplan-retreat.webp`
-
-- **Status** **Outstanding**
-- **Generate at** 3840 × 3840 (1:1)
-- **Appears on** data/floorPlans
-- **Manifest id** `floorplans.retreat`
-- **Alt text** Floor plan of a yurt arranged for sleeping and relaxation.
-- **Art direction** Plan view. Bed, seating and any en-suite drawn to scale.
-
-```
-A yurt — a round timber-framed tent with a domed roof and a central crown wheel. Floor plan of a yurt arranged for sleeping and relaxation. Plan view. Bed, seating and any en-suite drawn to scale. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 1:1, rendered at 3840 × 3840.
-```
-
-#### `floorplan-suite.webp`
-
-- **Status** **Outstanding**
-- **Generate at** 3840 × 3840 (1:1)
-- **Appears on** data/floorPlans
-- **Manifest id** `floorplans.suite`
-- **Alt text** Floor plan of a yurt arranged as a hospitality suite.
-- **Art direction** Plan view. Sleeping, lounge and bathroom zones legible at small size.
-
-```
-A yurt — a round timber-framed tent with a domed roof and a central crown wheel. Floor plan of a yurt arranged as a hospitality suite. Plan view. Sleeping, lounge and bathroom zones legible at small size. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 1:1, rendered at 3840 × 3840.
-```
-
-#### `floorplan-gathering.webp`
-
-- **Status** **Outstanding**
-- **Generate at** 3840 × 3840 (1:1)
-- **Appears on** data/floorPlans
-- **Manifest id** `floorplans.gathering`
-- **Alt text** Floor plan of a yurt arranged around shared seating.
-- **Art direction** Plan view. Seating arrangement and circulation around it.
-
-```
-A yurt — a round timber-framed tent with a domed roof and a central crown wheel. Floor plan of a yurt arranged around shared seating. Plan view. Seating arrangement and circulation around it. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 1:1, rendered at 3840 × 3840.
-```
-
-#### `floorplan-wellness-studio.webp`
-
-- **Status** **Outstanding**
-- **Generate at** 3840 × 3840 (1:1)
-- **Appears on** data/floorPlans
-- **Manifest id** `floorplans.wellness-studio`
-- **Alt text** Floor plan of a yurt kept open for yoga, meditation or treatments.
-- **Art direction** Plan view. Mats or treatment beds placed, floor kept clear.
-
-```
-A yurt — a round timber-framed tent with a domed roof and a central crown wheel. Floor plan of a yurt kept open for yoga, meditation or treatments. Plan view. Mats or treatment beds placed, floor kept clear. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 1:1, rendered at 3840 × 3840.
-```
-
-#### `floorplan-living-space.webp`
-
-- **Status** **Outstanding**
-- **Generate at** 3840 × 3840 (1:1)
-- **Appears on** data/floorPlans
-- **Manifest id** `floorplans.living-space`
-- **Alt text** Floor plan of a yurt arranged as a home.
-- **Art direction** Plan view. Kitchen, living, sleeping and bathroom zones.
-
-```
-A yurt — a round timber-framed tent with a domed roof and a central crown wheel. Floor plan of a yurt arranged as a home. Plan view. Kitchen, living, sleeping and bathroom zones. photorealistic architectural photography, natural light, nothing lit like a studio, warm timber, canvas and rope materials, muted earthy palette of walnut brown, cream canvas and deep green foliage, Indian landscape setting, shot on a 35mm lens, medium depth of field, editorial quality in the manner of Architectural Digest, no text, no logos, no watermarks, no signage. Aspect ratio 1:1, rendered at 3840 × 3840.
-```
 
 ### home
 

@@ -88,7 +88,7 @@ export const floorArea = (size: YurtSize) =>
 export const floorPlanDrawings: Record<YurtSizeId, string[]> = {
   "6m": [1, 2, 3, 4].map((n) => `/media/builder/plans/6m-${n}.webp`),
   "7m": [1, 2, 3, 4].map((n) => `/media/builder/plans/7m-${n}.webp`),
-  "10m": [1, 2, 3, 4].map((n) => `/media/builder/plans/10m-${n}.webp`),
+  "10m": [1, 2, 3, 4, 5, 6, 7].map((n) => `/media/builder/plans/10m-${n}.webp`),
 };
 
 /** The shell every option of a size stands in. */

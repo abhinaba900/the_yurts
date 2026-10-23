@@ -1,14 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Media } from "@/components/primitives/Media";
 import { Reveal } from "@/components/primitives/Reveal";
 import { cn } from "@/lib/cn";
-import { floorPlanSizeLabel, type FloorPlan } from "@/data/floorPlans";
+import { floorPlanSizeLabel, type FloorPlanGroup } from "@/data/floorPlans";
 
 /**
- * The floor-plan catalogue: a grid of drawings, and a full-screen viewer for
- * one of them at a time.
+ * The floor-plan catalogue: a grid of drawings per size, and a full-screen
+ * viewer for one of them at a time that steps through every size in turn.
  *
  * Drawings are shown whole (object-contain on a square) — a plan with its edge
  * cropped off is a wrong plan, not a tighter composition.
@@ -19,7 +19,8 @@ import { floorPlanSizeLabel, type FloorPlan } from "@/data/floorPlans";
  * arrow keys to step between plans, and Lenis paused so the page underneath
  * does not scroll.
  */
-export function FloorPlanCatalogue({ plans }: { plans: FloorPlan[] }) {
+export function FloorPlanCatalogue({ groups }: { groups: FloorPlanGroup[] }) {
+  const plans = groups.flatMap((group) => group.plans);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
@@ -69,54 +70,65 @@ export function FloorPlanCatalogue({ plans }: { plans: FloorPlan[] }) {
 
   return (
     <>
-      <ul className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-20">
-        {plans.map((plan, i) => (
-          <Reveal key={plan.slug} as="li" kind="up" delay={(i % 3) * 0.06}>
-            <article className="group">
-              <button
-                type="button"
-                onClick={() => open(i)}
-                aria-haspopup="dialog"
-                aria-label={`View ${plan.name} floor plan larger`}
-                className="relative block w-full cursor-zoom-in bg-surface-alt focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-text"
+      <div className="space-y-20 lg:space-y-28">
+        {groups.map((group) => (
+          <section key={group.size} aria-labelledby={`floor-plans-${group.size}`}>
+            <div className="mb-8 flex items-baseline justify-between gap-6 md:mb-10">
+              <h3
+                id={`floor-plans-${group.size}`}
+                className="font-display text-display-sm leading-tight text-text"
               >
-                <Media
-                  id={plan.media}
-                  sizes="(min-width: 1024px) 30vw, (min-width: 640px) 46vw, 100vw"
-                  imgClassName="object-contain p-4 sm:p-6"
-                />
-                <span
-                  aria-hidden
-                  className={cn(
-                    "absolute right-3 bottom-3 bg-surface/85 px-2.5 py-1.5 font-sans text-meta uppercase text-text",
-                    "opacity-0 transition-opacity duration-(--duration-quick) ease-(--ease-out-soft)",
-                    "group-hover:opacity-100 group-focus-within:opacity-100",
-                  )}
-                >
-                  View plan +
-                </span>
-              </button>
+                {floorPlanSizeLabel(group.size)}
+              </h3>
+              <p className="font-sans text-meta uppercase text-text-muted">
+                {String(group.plans.length).padStart(2, "0")} plans
+              </p>
+            </div>
 
-              <div className="mt-5 border-t border-line pt-4">
-                <p className="font-sans text-meta uppercase text-accent-text">
-                  {plan.application}
-                </p>
-                <h3 className="mt-2 font-display text-display-sm leading-tight text-text">
-                  {plan.name}
-                </h3>
-                {plan.sizes.length > 0 ? (
-                  <p className="mt-2 font-sans text-meta uppercase text-text-muted">
-                    {plan.sizes.map(floorPlanSizeLabel).join(" / ")}
-                  </p>
-                ) : null}
-                <p className="mt-3 u-measure font-sans text-body leading-relaxed text-text-muted">
-                  {plan.description}
-                </p>
-              </div>
-            </article>
-          </Reveal>
+            <ul className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-20">
+              {group.plans.map((plan, i) => (
+                <Reveal key={plan.slug} as="li" kind="up" delay={(i % 3) * 0.06}>
+                  <article className="group">
+                    <button
+                      type="button"
+                      onClick={() => open(plans.indexOf(plan))}
+                      aria-haspopup="dialog"
+                      aria-label={`View ${plan.name}, ${floorPlanSizeLabel(plan.size)}, larger`}
+                      className="relative block w-full cursor-zoom-in bg-surface-alt focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-text"
+                    >
+                      <Image
+                        src={plan.image}
+                        alt={`${plan.name} for the ${floorPlanSizeLabel(plan.size)} yurt, from above.`}
+                        width={1200}
+                        height={1200}
+                        sizes="(min-width: 1024px) 30vw, (min-width: 640px) 46vw, 100vw"
+                        className="aspect-square w-full object-contain p-4 sm:p-6"
+                      />
+                      <span
+                        aria-hidden
+                        className={cn(
+                          "absolute right-3 bottom-3 bg-surface/85 px-2.5 py-1.5 font-sans text-meta uppercase text-text",
+                          "opacity-0 transition-opacity duration-(--duration-quick) ease-(--ease-out-soft)",
+                          "group-hover:opacity-100 group-focus-within:opacity-100",
+                        )}
+                      >
+                        View plan +
+                      </span>
+                    </button>
+
+                    <div className="mt-5 flex items-baseline justify-between gap-4 border-t border-line pt-4">
+                      <p className="font-sans text-meta uppercase text-text">{plan.name}</p>
+                      <p className="font-sans text-meta uppercase text-text-muted">
+                        {plan.size}
+                      </p>
+                    </div>
+                  </article>
+                </Reveal>
+              ))}
+            </ul>
+          </section>
         ))}
-      </ul>
+      </div>
 
       <dialog
         ref={dialogRef}
@@ -163,18 +175,21 @@ export function FloorPlanCatalogue({ plans }: { plans: FloorPlan[] }) {
               <div className="u-grid items-center gap-y-8">
                 <div className="col-span-4 md:col-span-6 lg:col-span-7">
                   <div className="mx-auto w-full max-w-[min(100%,calc(100dvh-14rem))] bg-surface-alt">
-                    <Media
+                    <Image
                       key={active.slug}
-                      id={active.media}
+                      src={active.image}
+                      alt={`${active.name} for the ${floorPlanSizeLabel(active.size)} yurt, from above.`}
+                      width={1200}
+                      height={1200}
                       sizes="(min-width: 1024px) 60vw, 100vw"
-                      imgClassName="object-contain p-4 sm:p-8"
+                      className="aspect-square w-full object-contain p-4 sm:p-8"
                     />
                   </div>
                 </div>
 
                 <div className="col-span-4 md:col-span-6 lg:col-span-4 lg:col-start-9">
                   <p className="font-sans text-meta uppercase text-accent-text">
-                    {active.application}
+                    {floorPlanSizeLabel(active.size)}
                   </p>
                   <h2
                     id="floor-plan-viewer-title"
@@ -183,21 +198,9 @@ export function FloorPlanCatalogue({ plans }: { plans: FloorPlan[] }) {
                     {active.name}
                   </h2>
                   <p className="mt-5 u-measure font-sans text-body leading-relaxed text-text-muted">
-                    {active.description}
+                    Indicative. Each layout is confirmed against the size,
+                    entrances and windows of your yurt.
                   </p>
-
-                  {active.sizes.length > 0 ? (
-                    <dl className="mt-8 border-t border-line pt-4">
-                      <dt className="font-sans text-meta uppercase text-text-muted">
-                        Drawn for
-                      </dt>
-                      {active.sizes.map((size) => (
-                        <dd key={size} className="mt-1.5 font-sans text-body text-text">
-                          {floorPlanSizeLabel(size)}
-                        </dd>
-                      ))}
-                    </dl>
-                  ) : null}
 
                   {plans.length > 1 ? (
                     <div className="mt-10 flex items-center gap-8 border-t border-line pt-5">
