@@ -57,7 +57,7 @@ export function PlanRing({
                   isDoor
                     ? "fill-accent-text"
                     : isWindow
-                      ? "fill-accent stroke-emerald-light"
+                      ? "fill-accent stroke-sage"
                       : "fill-transparent stroke-current",
                 )}
                 strokeOpacity={isWindow ? 1 : 0.35}
@@ -69,7 +69,7 @@ export function PlanRing({
                 textAnchor="middle"
                 dominantBaseline="central"
                 className={cn(
-                  "font-sans text-[10px] tracking-wider",
+                  "font-sans text-[0.625rem] tracking-wider",
                   isDoor ? "fill-accent-text" : isWindow ? "fill-current" : "fill-current opacity-40",
                 )}
               >
@@ -93,7 +93,7 @@ export function PlanRing({
               aria-pressed={on}
               aria-label={`${on ? "Remove" : "Add"} a window at ${hour} o'clock`}
               onClick={() => onToggle(hour)}
-              className="absolute size-10 -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline focus-visible:outline-[1.5px] focus-visible:outline-accent-text hover:bg-cream/5"
+              className="absolute size-10 -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline focus-visible:outline-[0.0938rem] focus-visible:outline-accent-text hover:bg-linen/5"
               style={{ left: `${(x / size) * 100}%`, top: `${(y / size) * 100}%` }}
             />
           );

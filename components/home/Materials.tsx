@@ -43,7 +43,7 @@ const materialsList = [
  */
 export function Materials() {
   return (
-    <section className="u-container py-16 lg:py-20 lg:min-h-[calc(100vh-6rem)] lg:flex lg:flex-col lg:justify-center overflow-hidden">
+    <section className="u-container py-16 lg:py-(--section-space-fit) lg:min-h-[calc(100svh-var(--header-height))] lg:flex lg:flex-col lg:justify-center overflow-hidden">
       {/* Section Header */}
       <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-4 border-b border-line pb-6 lg:pb-8">
         <div>
@@ -83,7 +83,7 @@ export function Materials() {
                 id={item.id}
                 ratio="square"
                 sizes="(min-width: 1024px) 18vw, 45vw"
-                className="h-[190px] sm:h-[230px] lg:h-[260px] xl:h-[290px] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+                className="h-[11.875rem] sm:h-[14.375rem] lg:h-[clamp(12rem,30svh,16.25rem)] xl:h-[clamp(13rem,32svh,18.125rem)] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
               />
             </div>
             <div className="mt-3.5">

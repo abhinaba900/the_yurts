@@ -1,32 +1,39 @@
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 
-type Variant = "solid" | "hairline";
+type Variant = "solid" | "hairline" | "inverse";
 type Size = "sm" | "md";
 
+/**
+ * Buttons are content-sized with a 2.75rem minimum touch target. Sentence case,
+ * medium weight — the tracked uppercase label is kept for editorial metadata,
+ * where it is rare enough to mean something.
+ */
 const base =
-  "group relative inline-flex items-center justify-center gap-3 overflow-hidden " +
-  "font-sans text-meta uppercase tracking-wider select-none " +
-  "transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] " +
-  "hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] " +
-  "disabled:pointer-events-none disabled:opacity-40 disabled:transform-none";
+  "group relative inline-flex items-center justify-center gap-[0.5em] select-none " +
+  "rounded-(--radius-control) font-sans font-medium leading-[1.3] tracking-[0.01em] " +
+  "transition-[background-color,border-color,color,box-shadow,transform] " +
+  "duration-(--duration-quick) ease-(--ease-out-soft) " +
+  "active:translate-y-px " +
+  "disabled:pointer-events-none disabled:opacity-45 aria-disabled:pointer-events-none aria-disabled:opacity-45";
 
 const sizes: Record<Size, string> = {
-  sm: "h-10 px-5 text-[0.6875rem]",
-  md: "h-13 px-8 text-[0.75rem]",
+  sm: "min-h-10 px-4 py-2 text-small",
+  md: "min-h-11 px-6 py-3 text-small sm:text-body",
 };
 
 const variants: Record<Variant, string> = {
-  // High-contrast solid block with subtle elevation glow on hover
+  // Espresso on linen and sand; sand on espresso. The primary action, everywhere.
   solid:
-    "bg-text text-surface shadow-sm hover:bg-accent-text hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.35)] " +
-    "after:pointer-events-none after:absolute after:inset-0 after:bg-gradient-to-t after:from-black/10 after:to-white/10 after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-300",
-  // Hairline border that fills smoothly from the bottom on hover
+    "bg-accent text-on-accent shadow-(--shadow-card) " +
+    "hover:bg-accent-hover hover:shadow-(--shadow-lift)",
+  // Secondary: a quiet outline that fills with the selected surface on hover.
   hairline:
-    "border border-line-strong text-text hover:border-text hover:shadow-[0_8px_20px_-6px_rgba(0,0,0,0.25)] " +
-    "before:absolute before:inset-x-0 before:bottom-0 before:h-0 before:bg-text " +
-    "before:transition-[height] before:duration-300 before:ease-[cubic-bezier(0.16,1,0.3,1)] " +
-    "hover:before:h-full hover:text-surface",
+    "border border-line-strong text-text bg-transparent " +
+    "hover:border-text hover:bg-surface-selected",
+  // A light button for use directly over photography.
+  inverse:
+    "bg-linen text-espresso shadow-(--shadow-card) hover:bg-white hover:shadow-(--shadow-lift)",
 };
 
 type Props = {
@@ -46,7 +53,7 @@ export function Button({
   ...props
 }: Props) {
   const classes = cn(base, sizes[size], variants[variant], className);
-  const inner = <span className="relative z-10">{children}</span>;
+  const inner = children;
 
   // In-page anchors stay plain links, so SmoothScroll's anchor handler owns
   // the scroll rather than the router.

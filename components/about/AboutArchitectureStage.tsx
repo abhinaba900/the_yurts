@@ -87,7 +87,7 @@ export function AboutArchitectureStage() {
       {/* Main Interactive Stage Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
         {/* Left: Dynamic Blueprint / Visual Canvas */}
-        <div className="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-line relative bg-surface-deep/40 min-h-[380px] lg:min-h-[460px]">
+        <div className="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-line relative bg-surface-deep/40 min-h-[23.75rem] lg:min-h-[28.75rem]">
           {/* Subtle architectural crosshair markings */}
           <span className="pointer-events-none absolute top-4 left-4 text-xs font-mono text-text-muted opacity-40">
             + 32°14′N 77°11′E
@@ -98,13 +98,13 @@ export function AboutArchitectureStage() {
 
           {activeTab === "blueprint" ? (
             <div className="py-4">
-              <YurtDiagram className="text-text max-h-[360px] mx-auto drop-shadow-md" />
+              <YurtDiagram className="text-text max-h-[22.5rem] mx-auto drop-shadow-md" />
               <p className="mt-4 text-center font-sans text-meta uppercase text-text-muted text-[0.6875rem] tracking-wider">
                 Parametric Elevation &middot; Solid Compression Crown & Diagonal Lattice Wall
               </p>
             </div>
           ) : activeTab === "elevation" ? (
-            <div className="relative overflow-hidden rounded-xs h-[320px] sm:h-[360px] w-full group">
+            <div className="relative overflow-hidden rounded-xs h-[20rem] sm:h-[22.5rem] w-full group">
               <Media
                 id="home.gallery-1"
                 ratio="landscape"
@@ -116,7 +116,7 @@ export function AboutArchitectureStage() {
               </div>
             </div>
           ) : (
-            <div className="relative overflow-hidden rounded-xs h-[320px] sm:h-[360px] w-full group">
+            <div className="relative overflow-hidden rounded-xs h-[20rem] sm:h-[22.5rem] w-full group">
               <Media
                 id="home.material-crown"
                 ratio="landscape"

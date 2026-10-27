@@ -78,7 +78,7 @@ const partIcons = [
  */
 export function Anatomy() {
   return (
-    <Section tone="light" space="lg" className="lg:min-h-[calc(100vh-6rem)] lg:flex lg:flex-col lg:justify-center lg:py-20">
+    <Section tone="light" space="lg" className="lg:min-h-[calc(100svh-var(--header-height))] lg:flex lg:flex-col lg:justify-center lg:py-(--section-space-fit)">
       <StructureExplorer
         icons={partIcons}
         header={

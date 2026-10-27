@@ -138,8 +138,10 @@ export function StructureExplorer({
             >
               {/* White drawings multiplied onto the cream so they sit in the
                   section rather than on a card. The box carries the section's
-                  own surface because Reveal isolates the blend from it. */}
-              <div className="relative isolate aspect-[718/496] w-full bg-surface">
+                  own surface because Reveal isolates the blend from it. On a
+                  short desktop screen the box gives up height (the drawings are
+                  contained, never cropped) so the caption stays on screen. */}
+              <div className="relative isolate aspect-[718/496] w-full bg-surface lg:max-h-[calc(100svh-var(--header-height)-2*var(--section-space-fit)-8rem)]">
                 {slides.map((s, i) => (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -213,7 +215,7 @@ export function StructureExplorer({
       </div>
 
       {/* The six parts, three to a row */}
-      <div className="mt-16 lg:mt-24">
+      <div className="mt-16 lg:mt-(--spacing-block-lg)">
         <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-12">
           {anatomy.map((part, i) => {
             const target = cardSlide[i];

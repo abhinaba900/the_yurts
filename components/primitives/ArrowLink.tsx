@@ -2,7 +2,7 @@ import Link from "next/link";
 import { cn } from "@/lib/cn";
 
 /**
- * The site's default call-to-action: a tracked label, a rule that draws itself
+ * The site's default text call-to-action: an olive label, a rule that draws itself
  * on hover, and an arrow that steps once. No button chrome.
  */
 export function ArrowLink({
@@ -22,13 +22,13 @@ export function ArrowLink({
     <Link
       href={href}
       className={cn(
-        "group relative inline-flex items-center gap-2.5 py-1.5",
-        "font-sans text-meta uppercase tracking-wider text-text transition-colors duration-300",
+        "group relative inline-flex min-h-11 items-center gap-[0.5em] py-1.5",
+        "font-sans text-small font-medium text-accent-text transition-colors duration-(--duration-quick)",
         className,
       )}
       {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
     >
-      <span className="transition-colors duration-300 group-hover:text-accent-text">{children}</span>
+      <span className="transition-colors duration-(--duration-quick) group-hover:text-text">{children}</span>
       <span
         aria-hidden
         className={cn(
@@ -44,12 +44,12 @@ export function ArrowLink({
       {/* The rule: full width at rest in line, redrawn in accent on hover. */}
       <span
         aria-hidden
-        className="absolute inset-x-0 bottom-0 h-px bg-line opacity-70"
+        className="absolute inset-x-0 bottom-1.5 h-px bg-line-strong"
       />
       <span
         aria-hidden
         className={cn(
-          "absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-accent-text",
+          "absolute inset-x-0 bottom-1.5 h-px origin-left scale-x-0 bg-text",
           "transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]",
           "group-hover:scale-x-100",
         )}

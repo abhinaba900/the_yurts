@@ -162,7 +162,7 @@ export function StandardSpecification() {
               ))}
             </div>
 
-            <p className="mt-8 u-measure font-sans text-small text-text-muted opacity-80">
+            <p className="mt-8 u-measure font-sans text-small text-text-muted">
               Indicative prices for the structure, quoted per layout and door
               depth. They do not vary by diameter on the current sheet, and they
               exclude the site itself — foundation, access, services and

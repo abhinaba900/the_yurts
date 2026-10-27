@@ -214,9 +214,9 @@ function StageButton({
       className={cn(
         "grid size-10 place-items-center border backdrop-blur-sm",
         "transition-colors duration-(--duration-quick)",
-        "focus-visible:outline focus-visible:outline-[1.5px] focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+        "focus-visible:outline focus-visible:outline-[0.0938rem] focus-visible:outline-offset-2 focus-visible:outline-accent-text",
         pressed
-          ? "border-accent bg-accent text-cream"
+          ? "border-accent bg-accent text-linen"
           : "border-line-strong bg-surface/85 text-text hover:border-text",
         className,
       )}
@@ -247,9 +247,9 @@ function StageToggle({
       className={cn(
         "inline-flex h-10 items-center gap-2 border px-3 font-sans text-meta uppercase backdrop-blur-sm",
         "transition-colors duration-(--duration-quick)",
-        "focus-visible:outline focus-visible:outline-[1.5px] focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+        "focus-visible:outline focus-visible:outline-[0.0938rem] focus-visible:outline-offset-2 focus-visible:outline-accent-text",
         pressed
-          ? "border-accent bg-accent text-cream"
+          ? "border-accent bg-accent text-linen"
           : "border-line-strong bg-surface/85 text-text hover:border-text",
       )}
     >
@@ -656,7 +656,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
                     "grid aspect-square cursor-pointer place-items-center border",
                     "transition-[transform,box-shadow] duration-(--duration-quick) ease-(--ease-out-soft)",
                     "hover:scale-[1.08]",
-                    "peer-focus-visible:outline peer-focus-visible:outline-[1.5px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text",
+                    "peer-focus-visible:outline peer-focus-visible:outline-[0.0938rem] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text",
                     checked
                       ? "border-transparent ring-2 ring-accent-text ring-offset-2 ring-offset-surface"
                       : "border-line",
@@ -667,7 +667,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
                   {checked ? (
                     <Icon
                       path={icons.check}
-                      className={cn("size-4", isLight(option.render.color) ? "text-ink" : "text-cream")}
+                      className={cn("size-4", isLight(option.render.color) ? "text-espresso" : "text-linen")}
                     />
                   ) : null}
                 </label>
@@ -702,7 +702,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
           className={cn(
             "flex cursor-pointer items-start gap-4 border px-4 py-4",
             "transition-colors duration-(--duration-quick)",
-            "peer-focus-visible:outline peer-focus-visible:outline-[1.5px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text",
+            "peer-focus-visible:outline peer-focus-visible:outline-[0.0938rem] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text",
             checked
               ? "border-accent-text bg-surface-alt"
               : "border-line hover:border-line-strong hover:bg-surface-alt/50",
@@ -805,7 +805,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
                       className={cn(
                         "relative flex h-full cursor-pointer flex-col border p-4",
                         "transition-colors duration-(--duration-quick)",
-                        "peer-focus-visible:outline peer-focus-visible:outline-[1.5px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text",
+                        "peer-focus-visible:outline peer-focus-visible:outline-[0.0938rem] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text",
                         checked
                           ? "border-accent-text bg-surface-alt"
                           : "border-line hover:border-line-strong hover:bg-surface-alt/50",
@@ -814,7 +814,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
                       {checked ? (
                         <span
                           aria-hidden
-                          className="absolute right-3 top-3 grid size-5 place-items-center rounded-full bg-accent-text text-surface"
+                          className="absolute right-[-0.5rem] top-[-0.5rem] grid size-5 place-items-center rounded-full bg-accent-text text-surface"
                         >
                           <Icon path={icons.check} className="size-3" />
                         </span>
@@ -888,7 +888,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
                     htmlFor={id}
                     className={cn(
                       "block cursor-pointer border transition-colors duration-(--duration-quick)",
-                      "peer-focus-visible:outline peer-focus-visible:outline-[1.5px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text",
+                      "peer-focus-visible:outline peer-focus-visible:outline-[0.0938rem] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text",
                       checked
                         ? "border-accent-text bg-surface-alt"
                         : "border-line hover:border-line-strong hover:bg-surface-alt/50",
@@ -961,7 +961,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
             <span aria-hidden className="h-2 w-4 bg-accent-text" /> Door
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span aria-hidden className="h-2 w-3.5 border border-emerald-light bg-accent" /> Window
+            <span aria-hidden className="h-2 w-3.5 border border-sage bg-accent" /> Window
           </span>
           <span className="inline-flex items-center gap-1.5">
             <span aria-hidden className="h-2 w-3.5 border border-dashed border-line-strong" /> Free
@@ -1105,7 +1105,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
                   className={cn(
                     "inline-flex h-9 items-center gap-2 border pl-1.5 pr-3 font-sans text-small",
                     "transition-colors duration-(--duration-quick)",
-                    "focus-visible:outline focus-visible:outline-[1.5px] focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+                    "focus-visible:outline focus-visible:outline-[0.0938rem] focus-visible:outline-offset-2 focus-visible:outline-accent-text",
                     active
                       ? "border-accent-text bg-surface-alt text-text"
                       : "border-line text-text-muted hover:border-line-strong hover:text-text",
@@ -1190,7 +1190,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
                     className={cn(
                       "flex cursor-pointer items-center gap-3 border p-2.5",
                       "transition-colors duration-(--duration-quick)",
-                      "peer-focus-visible:outline peer-focus-visible:outline-[1.5px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text",
+                      "peer-focus-visible:outline peer-focus-visible:outline-[0.0938rem] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text",
                       checked
                         ? "border-accent-text bg-surface-alt"
                         : "border-line hover:border-line-strong hover:bg-surface-alt/50",
@@ -1338,14 +1338,14 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
   const next = STEPS[stepIndex + 1];
 
   return (
-    <div className="landscape-split:grid landscape-split:h-[calc(100svh-4rem)] landscape-split:grid-cols-[minmax(0,1fr)_22rem] lg:grid lg:h-[calc(100svh-8.25rem)] lg:min-h-[38rem] lg:grid-cols-[minmax(0,1fr)_30rem] xl:grid-cols-[minmax(0,1fr)_34rem] 2xl:grid-cols-[minmax(0,1fr)_38rem]">
+    <div className="landscape-split:grid landscape-split:h-[calc(100svh-4rem)] landscape-split:grid-cols-[minmax(0,1fr)_22rem] lg:grid lg:h-[calc(100svh-var(--header-height-top))] lg:min-h-[30rem] lg:grid-cols-[minmax(0,1fr)_30rem] xl:grid-cols-[minmax(0,1fr)_34rem] 2xl:grid-cols-[minmax(0,1fr)_38rem]">
       {/* ---- Stage ---- */}
       <div className="sticky top-16 z-20 h-[44svh] min-h-[18rem] bg-surface-alt landscape-split:relative landscape-split:top-auto landscape-split:h-full lg:relative lg:top-auto lg:h-full">
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at 50% 42%, color-mix(in oklab, var(--color-cream) 9%, transparent), transparent 70%)",
+              "radial-gradient(ellipse at 50% 42%, color-mix(in oklab, var(--color-linen) 9%, transparent), transparent 70%)",
           }}
         />
         <div className="absolute inset-0">
@@ -1602,7 +1602,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
                       className={cn(
                         "grid size-7 place-items-center rounded-full border font-sans text-[0.6875rem] tabular-nums",
                         "transition-colors duration-(--duration-quick)",
-                        "group-focus-visible:outline group-focus-visible:outline-[1.5px] group-focus-visible:outline-offset-2 group-focus-visible:outline-accent-text",
+                        "group-focus-visible:outline group-focus-visible:outline-[0.0938rem] group-focus-visible:outline-offset-2 group-focus-visible:outline-accent-text",
                         current
                           ? "border-accent-text bg-accent-text text-surface"
                           : done
@@ -1644,7 +1644,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
             type="button"
             onClick={() => goTo(stepIndex - 1)}
             disabled={stepIndex === 0}
-            className="inline-flex h-12 items-center gap-2 border border-line-strong px-4 font-sans text-meta uppercase text-text transition-colors duration-(--duration-quick) hover:border-text disabled:pointer-events-none disabled:opacity-35"
+            className="inline-flex h-12 items-center gap-2 rounded-(--radius-control) border border-field px-4 font-sans text-small font-medium text-text transition-colors duration-(--duration-quick) hover:border-text hover:bg-surface-selected disabled:pointer-events-none disabled:opacity-40"
           >
             <Icon path={icons.arrowLeft} />
             Back
@@ -1653,10 +1653,10 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
             <button
               type="button"
               onClick={() => goTo(stepIndex + 1)}
-              className="group inline-flex h-12 flex-1 items-center justify-between gap-3 bg-accent px-5 font-sans text-meta uppercase text-cream transition-colors duration-(--duration-quick) hover:bg-emerald-deep"
+              className="group inline-flex h-12 flex-1 items-center justify-between gap-3 rounded-(--radius-control) bg-accent px-5 font-sans text-small font-medium text-on-accent transition-colors duration-(--duration-quick) hover:bg-accent-hover"
             >
               <span>
-                Next <span className="text-cream/70">· {next.label}</span>
+                Next <span className="opacity-70">· {next.label}</span>
               </span>
               <Icon
                 path={icons.arrowRight}
@@ -1667,7 +1667,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
             <a
               href="#quote-form"
               onClick={() => setSummaryTab("quote")}
-              className="group inline-flex h-12 flex-1 items-center justify-between gap-3 bg-accent-text px-5 font-sans text-meta uppercase text-surface transition-colors duration-(--duration-quick) hover:bg-cream"
+              className="group inline-flex h-12 flex-1 items-center justify-between gap-3 rounded-(--radius-control) bg-accent px-5 font-sans text-small font-medium text-on-accent transition-colors duration-(--duration-quick) hover:bg-accent-hover"
             >
               <span>
                 Get my quote <span className="opacity-70">· {formatPrice(priced.total)}</span>

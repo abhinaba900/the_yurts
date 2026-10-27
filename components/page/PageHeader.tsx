@@ -24,9 +24,9 @@ export function PageHeader({
   trail?: Crumb[];
 }) {
   return (
-    <header className="u-container pt-6 pb-10 sm:pt-8 sm:pb-14 md:pt-14 md:pb-20">
+    <header className="u-container pt-[clamp(1.5rem,min(4vw,5svh),3.5rem)] pb-[clamp(2.5rem,min(6vw,8svh),5rem)]">
       {trail ? (
-        <div className="mb-8 sm:mb-12">
+        <div className="mb-[clamp(1.5rem,min(4vw,5svh),3rem)]">
           <Breadcrumbs trail={trail} />
         </div>
       ) : null}
@@ -34,12 +34,17 @@ export function PageHeader({
       <div className="u-grid">
         <div className="col-span-4 md:col-span-6 lg:col-span-7">
           <Reveal kind="up">
-            {eyebrow ? <Metadata>{eyebrow}</Metadata> : null}
-            <h1 className="mt-3 sm:mt-5 font-display text-3xl sm:text-display-md md:text-display-lg u-optical-left leading-tight">
+            {eyebrow ? (
+              <Metadata className="inline-flex items-center gap-3 text-accent-text">
+                <span aria-hidden className="h-px w-8 bg-accent" />
+                {eyebrow}
+              </Metadata>
+            ) : null}
+            <h1 className="mt-4 font-display text-display-lg u-optical-left">
               {title}
             </h1>
             {lead ? (
-              <p className="mt-4 sm:mt-8 u-measure font-sans text-body sm:text-lead text-text-muted leading-relaxed">
+              <p className="mt-5 sm:mt-6 u-measure font-sans text-lead text-text-muted">
                 {lead}
               </p>
             ) : null}
@@ -47,7 +52,7 @@ export function PageHeader({
         </div>
 
         {aside ? (
-          <div className="col-span-4 mt-8 sm:mt-12 md:col-span-6 lg:col-span-4 lg:col-start-9 lg:mt-3">
+          <div className="col-span-4 mt-8 sm:mt-10 md:col-span-6 lg:col-span-4 lg:col-start-9 lg:mt-10">
             <Reveal kind="up" delay={0.1}>
               {aside}
             </Reveal>

@@ -13,7 +13,7 @@ import { ArrowLink } from "@/components/primitives/ArrowLink";
  */
 export function VrBand() {
   return (
-    <section className="relative bg-surface lg:min-h-[60vh] lg:flex lg:flex-col lg:justify-center">
+    <section data-tone="dark" className="relative bg-surface lg:flex lg:min-h-[60dvh] lg:flex-col lg:justify-center">
       <div className="relative min-h-[22rem] lg:min-h-[30rem] overflow-hidden flex items-center">
         <Media
           id="home.vr"
@@ -25,7 +25,7 @@ export function VrBand() {
           unoptimized
         />
         {hasMedia("home.vr") ? (
-          <div aria-hidden className="absolute inset-0 bg-walnut-deep/65 backdrop-blur-[1px]" />
+          <div aria-hidden className="absolute inset-0 bg-espresso-deep/60" />
         ) : null}
 
         <div className="relative z-10 w-full py-16 lg:py-24">
@@ -34,7 +34,7 @@ export function VrBand() {
               <Metadata className="text-accent-text">
                 Step Inside
               </Metadata>
-              <h2 className="mx-auto mt-4 max-w-[24ch] font-display text-display-lg leading-tight">
+              <h2 className="mx-auto mt-4 max-w-[22ch] font-display text-display-lg">
                 Take a Virtual Tour of a Yurt.
               </h2>
               <p className="mx-auto mt-5 max-w-xl font-sans text-lead text-text-muted leading-relaxed">
@@ -46,7 +46,7 @@ export function VrBand() {
                 and available floor space to better understand how a finished
                 yurt could work for your resort, retreat or personal property.
               </p>
-              <p className="mx-auto mt-3 max-w-2xl font-sans text-small text-text-muted/80 leading-relaxed">
+              <p className="mx-auto mt-3 max-w-2xl font-sans text-small text-text-muted leading-relaxed">
                 The virtual tour is illustrative; actual interiors and finishes
                 depend on the model and configuration you choose.
               </p>

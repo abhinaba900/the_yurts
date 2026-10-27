@@ -48,7 +48,7 @@ export default function ExperiencesPage() {
               kind="media"
               className="col-span-4 md:col-span-6 lg:col-span-7"
             >
-              <div className="relative overflow-hidden rounded-sm bg-surface-alt/70 border border-line/70 p-6 sm:p-10 flex flex-col items-center justify-center min-h-[380px] lg:min-h-[460px] group">
+              <div className="relative overflow-hidden rounded-sm bg-surface-alt/70 border border-line/70 p-6 sm:p-10 flex flex-col items-center justify-center min-h-[23.75rem] lg:min-h-[28.75rem] group">
                 {/* Floating Tool Badge */}
                 <div className="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1 rounded-xs bg-surface-deep/90 backdrop-blur-xs border border-line/50">
                   <span className="font-sans text-meta text-accent-text uppercase font-semibold">
@@ -57,7 +57,7 @@ export default function ExperiencesPage() {
                 </div>
 
                 {/* Uncropped Model Image with Full Visibility */}
-                <div className="relative w-full h-[280px] sm:h-[340px] lg:h-[380px] flex items-center justify-center">
+                <div className="relative w-full h-[17.5rem] sm:h-[21.25rem] lg:h-[23.75rem] flex items-center justify-center">
                   <Media
                     id="home.builder"
                     ratio="landscape"
@@ -182,7 +182,7 @@ export default function ExperiencesPage() {
               kind="media"
               className="col-span-4 md:col-span-6 lg:col-span-7"
             >
-              <div className="relative overflow-hidden rounded-sm bg-surface border border-line/70 min-h-[380px] lg:min-h-[460px] flex flex-col justify-between group p-6 sm:p-8">
+              <div className="relative overflow-hidden rounded-sm bg-surface border border-line/70 min-h-[23.75rem] lg:min-h-[28.75rem] flex flex-col justify-between group p-6 sm:p-8">
                 {/* Top Badge */}
                 <div className="flex items-center justify-between">
                   <span className="px-3 py-1 rounded-xs bg-surface-deep/90 backdrop-blur-xs font-sans text-meta text-accent-text uppercase border border-line/50">

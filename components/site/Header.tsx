@@ -16,9 +16,9 @@ import { AudioToggle } from "./BackgroundAudio";
  * Transparent while it sits over the top of a page, then settles onto a surface
  * with a hairline once scrolled.
  *
- * TONE: a page section can carry `data-header-tone="light"` (a cinematic hero,
- * say) and the header will switch to its light-on-dark set while that section is
- * beneath it. This is done by sampling the element under the header band rather
+ * TONE: a page section can carry `data-header-tone="dark"` (a photographic
+ * hero, say) and the header will switch to its ink tone — linen type — while
+ * that section is beneath it and the page has not been scrolled. This is done by sampling the element under the header band rather
  * than by React context, so the page stays a server component and only needs an
  * attribute.
  */
@@ -30,7 +30,7 @@ export type HeaderContact = {
 export function Header({ contact }: { contact?: HeaderContact }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [overLight, setOverLight] = useState(false);
+  const [overDark, setOverDark] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const bandRef = useRef<HTMLElement | null>(null);
 
@@ -48,10 +48,10 @@ export function Header({ contact }: { contact?: HeaderContact }) {
     const behind = document
       .elementsFromPoint(24, y)
       .find(
-        (el) => !band?.contains(el) && el.closest('[data-header-tone="light"]'),
+        (el) => !band?.contains(el) && el.closest('[data-header-tone="dark"]'),
       );
 
-    setOverLight(Boolean(behind));
+    setOverDark(Boolean(behind));
   }, []);
 
   useEffect(() => {
@@ -77,13 +77,13 @@ export function Header({ contact }: { contact?: HeaderContact }) {
   // Close the menu on navigation.
   useEffect(() => setMenuOpen(false), [pathname]);
 
-  const light = overLight && !scrolled;
+  const dark = overDark && !scrolled;
 
   return (
     <>
       <header
         ref={bandRef}
-        {...(light ? { "data-tone": "light" } : {})}
+        {...(dark ? { "data-tone": "dark" } : {})}
         // Read by CSS so a dark hero is honoured on the very first paint,
         // before this component has hydrated. See tokens.css.
         data-scrolled={scrolled ? "true" : "false"}
@@ -92,18 +92,19 @@ export function Header({ contact }: { contact?: HeaderContact }) {
           "transition-[background-color,border-color] duration-(--duration-base)",
           "ease-(--ease-out-soft)",
           scrolled
-            ? "border-b border-line bg-surface"
+            ? "border-b border-line bg-surface-alt shadow-(--shadow-card)"
             : "border-b border-transparent bg-transparent",
         )}
       >
-        {/* Top-down gradient scrim: ensures navbar items stay clearly legible over any hero background */}
+        {/* Top-down scrim, over dark photography only: keeps the linen
+            navigation legible whatever the image does at its top edge. */}
         <div
           aria-hidden
           className={cn(
-            "pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 sm:h-36 md:h-44",
-            "bg-gradient-to-b from-walnut-deep/90 via-walnut-deep/55 to-transparent",
+            "u-header-scrim pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 sm:h-36 md:h-44",
+            "bg-gradient-to-b from-espresso-deep/70 via-espresso-deep/30 to-transparent",
             "transition-opacity duration-(--duration-base) ease-(--ease-out-soft)",
-            scrolled ? "opacity-0" : "opacity-100",
+            dark ? "opacity-100" : "opacity-0",
           )}
         />
 
@@ -128,7 +129,7 @@ export function Header({ contact }: { contact?: HeaderContact }) {
             {/* Desktop navigation */}
             <nav
               aria-label="Primary"
-              className="hidden items-center gap-9 lg:flex"
+              className="hidden items-center gap-[clamp(1.25rem,2.2vw,2.25rem)] lg:flex"
             >
               {primaryNav.map((item) => {
                 const isCurrent = (href: string) =>
@@ -142,21 +143,21 @@ export function Header({ contact }: { contact?: HeaderContact }) {
                   <Link
                     href={item.href}
                     aria-current={isCurrent(item.href) ? "page" : undefined}
-                    className="group relative flex items-center gap-1.5 py-1.5 font-sans text-meta uppercase text-text"
+                    className="group relative flex items-center gap-1.5 py-2 font-sans text-small font-medium text-text transition-colors duration-(--duration-quick) hover:text-accent-text"
                   >
                     {item.label}
                     {item.children ? (
                       <span
                         aria-hidden
-                        className="text-[0.6em] leading-none transition-transform duration-(--duration-base) ease-(--ease-out-soft) group-hover:translate-y-0.5"
+                        className="text-[0.7em] leading-none opacity-70 transition-transform duration-(--duration-base) ease-(--ease-out-soft) group-hover:translate-y-0.5"
                       >
-                        &#9660;
+                        &#9662;
                       </span>
                     ) : null}
                     <span
                       aria-hidden
                       className={cn(
-                        "absolute inset-x-0 bottom-0 h-px origin-left bg-accent",
+                        "absolute inset-x-0 bottom-0.5 h-0.5 origin-left rounded-full bg-accent",
                         "transition-transform duration-(--duration-base) ease-(--ease-reveal)",
                         active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
                       )}
@@ -187,7 +188,7 @@ export function Header({ contact }: { contact?: HeaderContact }) {
                         "motion-reduce:transition-none",
                       )}
                     >
-                      <ul className="min-w-56 rounded-xs border border-line bg-surface py-2 shadow-2xl">
+                      <ul className="min-w-60 rounded-(--radius-card) border border-line bg-surface-elevated p-2 shadow-(--shadow-lift)">
                         {item.children.map((child) => (
                           <li key={child.href}>
                             <Link
@@ -196,11 +197,11 @@ export function Header({ contact }: { contact?: HeaderContact }) {
                                 isCurrent(child.href) ? "page" : undefined
                               }
                               className={cn(
-                                "block px-4 py-2.5 font-sans text-meta uppercase",
-                                "transition-colors duration-(--duration-base) ease-(--ease-out-soft)",
+                                "block rounded-(--radius-control) px-3.5 py-2.5 font-sans text-small",
+                                "transition-colors duration-(--duration-quick) ease-(--ease-out-soft)",
                                 isCurrent(child.href)
-                                  ? "text-accent-text"
-                                  : "text-text-muted hover:text-text",
+                                  ? "bg-surface-selected font-medium text-accent-text"
+                                  : "text-text-muted hover:bg-surface-selected hover:text-text",
                               )}
                             >
                               {child.label}
@@ -214,15 +215,15 @@ export function Header({ contact }: { contact?: HeaderContact }) {
               })}
             </nav>
 
-            <div className="flex items-center gap-4 sm:gap-6">
+            <div className="flex items-center gap-3 sm:gap-5">
               <AudioToggle className="hidden sm:inline-flex" />
 
               <Link
                 href="/enquire"
                 className={cn(
-                  "group hidden items-center gap-2 rounded-xs bg-cream px-4 py-2",
-                  "font-sans text-meta uppercase tracking-wider text-walnut-deep font-semibold",
-                  "transition-all duration-200 hover:bg-accent-text hover:text-walnut-deep lg:inline-flex",
+                  "group hidden min-h-11 items-center gap-2 rounded-(--radius-control) bg-accent px-5 py-2.5",
+                  "font-sans text-small font-medium text-on-accent shadow-(--shadow-card)",
+                  "transition-[background-color,box-shadow] duration-(--duration-quick) hover:bg-accent-hover hover:shadow-(--shadow-lift) lg:inline-flex",
                 )}
               >
                 Enquire
@@ -241,10 +242,10 @@ export function Header({ contact }: { contact?: HeaderContact }) {
                 onClick={() => setMenuOpen(true)}
                 aria-expanded={menuOpen}
                 aria-controls="site-menu"
-                className="flex items-center gap-3 py-2 font-sans text-meta uppercase text-text lg:hidden"
+                className="flex min-h-11 items-center gap-3 rounded-(--radius-control) px-1 font-sans text-small font-medium text-text lg:hidden"
               >
                 Menu
-                <span aria-hidden className="flex w-5 flex-col gap-[5px]">
+                <span aria-hidden className="flex w-5 flex-col gap-[0.3125rem]">
                   <span className="h-px w-full bg-current" />
                   <span className="h-px w-full bg-current" />
                 </span>

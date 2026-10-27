@@ -99,7 +99,7 @@ export default async function ResourcesPage() {
                             <span className="block font-sans text-meta uppercase text-text-muted transition-colors duration-(--duration-quick) group-hover:text-accent-text">
                               {item.gated ? "Request" : "Download"}
                             </span>
-                            <span className="mt-1 block font-sans text-meta uppercase text-text-muted opacity-70">
+                            <span className="mt-1 block font-sans text-meta uppercase text-text-muted">
                               {item.gated ? "PDF" : `PDF · ${formatBytes(item.fileSize)}`}
                             </span>
                           </span>

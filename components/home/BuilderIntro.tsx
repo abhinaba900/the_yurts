@@ -22,7 +22,7 @@ const axes = [
  */
 export function BuilderIntro() {
   return (
-    <section className="py-(--spacing-section-lg) lg:min-h-[calc(100vh-6rem)] lg:flex lg:flex-col lg:justify-center lg:py-20">
+    <section className="py-(--spacing-section-lg) lg:min-h-[calc(100svh-var(--header-height))] lg:flex lg:flex-col lg:justify-center lg:py-(--section-space-fit)">
       <div className="u-container">
         <div className="u-grid items-center gap-y-12">
           <Reveal

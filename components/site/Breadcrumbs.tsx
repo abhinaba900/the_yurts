@@ -23,14 +23,14 @@ export function Breadcrumbs({ trail }: { trail: Crumb[] }) {
                 {last ? (
                   <span
                     aria-current="page"
-                    className="font-sans text-meta uppercase text-text-muted"
+                    className="font-sans text-meta uppercase text-text"
                   >
                     {crumb.label}
                   </span>
                 ) : (
                   <Link
                     href={crumb.href}
-                    className="u-tap font-sans text-meta uppercase text-text transition-colors duration-(--duration-quick) hover:text-accent-text"
+                    className="u-tap font-sans text-meta uppercase text-text-muted transition-colors duration-(--duration-quick) hover:text-accent-text"
                   >
                     {crumb.label}
                   </Link>

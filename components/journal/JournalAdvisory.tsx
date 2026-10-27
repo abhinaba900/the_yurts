@@ -92,7 +92,7 @@ export function JournalAdvisory() {
                   <span className="font-sans text-meta uppercase text-accent-text font-semibold">
                     {card.index} &middot; {card.tag}
                   </span>
-                  <span className="text-xs font-mono text-text-muted opacity-60">
+                  <span className="text-xs font-mono text-text-muted">
                     Workshop Review
                   </span>
                 </div>
@@ -109,7 +109,7 @@ export function JournalAdvisory() {
               {/* Deliverable badge & Action */}
               <div className="mt-8 border-t border-line/70 pt-5">
                 <div className="mb-4">
-                  <span className="block font-sans text-[0.6875rem] uppercase tracking-widest text-text-muted opacity-75">
+                  <span className="block font-sans text-[0.6875rem] uppercase tracking-widest text-text-muted">
                     Deliverable:
                   </span>
                   <span className="font-sans text-small text-text font-medium">

@@ -122,7 +122,7 @@ export function JournalIndex({ posts }: { posts: PostSummary[] }) {
                         sizes="100vw"
                         width={1000}
                         pendingLabel={`${post.slug}.jpg`}
-                        className="h-[180px] sm:h-[220px] w-full object-cover"
+                        className="h-[11.25rem] sm:h-[13.75rem] w-full object-cover"
                       />
                     </div>
 

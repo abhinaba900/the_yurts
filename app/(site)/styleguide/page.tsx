@@ -73,7 +73,7 @@ function Swatch({
           {hex}
         </span>
       </div>
-      <p className="mt-1 font-sans text-meta uppercase text-text-muted opacity-70">
+      <p className="mt-1 font-sans text-meta uppercase text-text-muted">
         {token}
       </p>
       <p className="mt-2 u-measure-tight font-sans text-small text-text-muted">
@@ -107,9 +107,9 @@ export default function StyleguidePage() {
             <dl className="space-y-4">
               {[
                 ["Display", "Instrument Serif"],
-                ["Text", "Inter"],
+                ["Text", "DM Sans"],
                 ["Grid", "12 / 6 / 4"],
-                ["Tone", "Light + Dark"],
+                ["Tone", "Linen · Sand · Ink"],
               ].map(([k, v]) => (
                 <div key={k} className="border-t border-line pt-2">
                   <dt className="font-sans text-meta uppercase text-text-muted">
@@ -127,106 +127,89 @@ export default function StyleguidePage() {
       <Spec
         index="01"
         title="Colour"
-        note="Earth, timber, canvas, stone. Nothing saturated. Clay is the only accent and it is rationed — rules, numerals and live states, never a background."
+        note="Dune & Olive. Linen grounds, ink for type and every primary action, camel and olive as restrained accents. Photography carries most of the colour; the palette stays out of its way."
       >
-        <Metadata className="mb-6">Paper</Metadata>
+        <Metadata className="mb-6">Brand</Metadata>
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3">
           <Swatch
-            name="Bone"
-            token="--color-bone"
-            hex="#F4F1EA"
+            name="Linen"
+            token="--color-linen"
+            hex="#F6F1E8"
             border
-            use="Default page surface. Warm paper, never white."
-          />
-          <Swatch
-            name="Canvas"
-            token="--color-canvas"
-            hex="#EAE5DA"
-            use="Alternate sections. A half-step down, not a grey band."
+            use="The page. Warm and pale, never stark white."
           />
           <Swatch
             name="Sand"
             token="--color-sand"
-            hex="#DBD2C1"
-            use="Recessed surfaces, image placeholders, spec tables."
-          />
-        </div>
-
-        <Metadata className="mt-16 mb-6">Earth</Metadata>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3">
-          <Swatch
-            name="Stone"
-            token="--color-stone"
-            hex="#B4AB9A"
-            use="Hairlines only. Never text — 2.02:1 on bone."
+            hex="#D9C6A5"
+            use="Warm accent surfaces, selected cards, the accent on ink."
           />
           <Swatch
-            name="Stone deep"
-            token="--color-stone-deep"
-            hex="#5C5647"
-            use="Strong hairlines and secondary marks. 6.47:1."
+            name="Camel"
+            token="--color-ochre"
+            hex="#B58A5A"
+            use="Rules, marks and decorative details. Never text — 2.8:1."
           />
           <Swatch
-            name="Timber"
-            token="--color-timber"
-            hex="#8A6A4B"
-            use="Diagrams and material references. Large text only."
+            name="Olive"
+            token="--color-sage"
+            hex="#7D8568"
+            use="Focus rings and supporting highlights."
           />
-          <Swatch
-            name="Timber deep"
-            token="--color-timber-deep"
-            hex="#6B5138"
-            use="Timber at text weight. 6.51:1 on bone."
-          />
-          <Swatch
-            name="Moss"
-            token="--color-moss"
-            hex="#4A5442"
-            use="Landscape and sustainability contexts. 7.06:1."
-          />
-        </div>
-
-        <Metadata className="mt-16 mb-6">Accent &mdash; clay</Metadata>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3">
-          <Swatch
-            name="Clay"
-            token="--color-clay"
-            hex="#A8552F"
-            use="Rules, numerals, hover states. Decorative use."
-          />
-          <Swatch
-            name="Clay deep"
-            token="--color-clay-deep"
-            hex="#8E4526"
-            use="Accent at text weight on light. 6.15:1."
-          />
-          <Swatch
-            name="Clay light"
-            token="--color-clay-light"
-            hex="#D69A72"
-            use="Accent at text weight on night. 7.57:1."
-          />
-        </div>
-
-        <Metadata className="mt-16 mb-6">Ink</Metadata>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3">
           <Swatch
             name="Ink"
-            token="--color-ink"
-            hex="#221F1A"
-            use="All body and display text on light. 14.56:1."
+            token="--color-espresso"
+            hex="#292B25"
+            use="Headings, body text, primary buttons and the dark sections. 12.7:1 on linen."
+          />
+        </div>
+
+        <Metadata className="mt-16 mb-6">Supporting</Metadata>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3">
+          <Swatch
+            name="Warm white"
+            token="--color-white"
+            hex="#FFFFFF"
+            border
+            use="Cards, forms and the scrolled header."
           />
           <Swatch
-            name="Ink muted"
-            token="--color-ink-muted"
-            hex="#585245"
-            use="Secondary copy and metadata. Clears AA on bone, canvas and sand."
+            name="Light sand"
+            token="--color-sand-light"
+            hex="#EBE1CF"
+            border
+            use="Alternate sections and selected backgrounds."
           />
           <Swatch
-            name="Night"
-            token="--color-night"
-            hex="#171512"
-            use="Dark section surface. Warm black, not neutral."
+            name="Soft border"
+            token="--color-border"
+            hex="#E8DCC6"
+            border
+            use="Dividers and card outlines. Decorative only."
+          />
+          <Swatch
+            name="Muted text"
+            token="--color-espresso-muted"
+            hex="#636A54"
+            use="Supporting copy and labels. 5.0:1 on linen."
+          />
+          <Swatch
+            name="Deep ink"
+            token="--color-espresso-deep"
+            hex="#1D1E1A"
+            use="Hover and pressed states, the utility bar, photo scrims."
+          />
+          <Swatch
+            name="Camel deep"
+            token="--color-ochre-deep"
+            hex="#694C2E"
+            use="Camel at text weight: links and labels. 7.0:1 on linen."
+          />
+          <Swatch
+            name="Danger"
+            token="--color-danger"
+            hex="#9A3B2C"
+            use="Form errors, always with text. 6.2:1 on linen."
           />
         </div>
 
@@ -239,8 +222,10 @@ export default function StyleguidePage() {
             <code className="text-accent-text">line</code>,{" "}
             <code className="text-accent-text">accent</code> &mdash; which are
             re-mapped by{" "}
-            <code className="text-accent-text">data-tone=&quot;dark&quot;</code>.
-            Swapping the brand palette is a change to one file.
+            <code className="text-accent-text">data-tone=&quot;light&quot;</code>{" "}
+            (light sand) and{" "}
+            <code className="text-accent-text">data-tone=&quot;dark&quot;</code>{" "}
+            (espresso). Swapping the brand palette is a change to one file.
           </p>
         </div>
       </Spec>
@@ -249,7 +234,7 @@ export default function StyleguidePage() {
       <Spec
         index="02"
         title="Typography"
-        note="Instrument Serif for every display line. Inter for everything a reader has to work through. Metadata is the third voice — small, uppercase, widely tracked."
+        note="Instrument Serif for every display line. DM Sans for everything a reader has to work through. Metadata is the third voice — small, uppercase, lightly tracked, and rare."
       >
         <div className="space-y-14">
           {[
@@ -277,11 +262,17 @@ export default function StyleguidePage() {
               "Card and list headings.",
               "The Resort Yurt",
             ],
+            [
+              "Display XS",
+              "text-display-xs",
+              "Small card titles and labels at display weight.",
+              "Six metre diameter",
+            ],
           ].map(([label, cls, use, sample]) => (
             <div key={label} className="border-t border-line pt-5">
               <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
                 <Metadata>{label}</Metadata>
-                <span className="font-sans text-meta uppercase text-text-muted opacity-70">
+                <span className="font-sans text-meta uppercase text-text-muted">
                   {use}
                 </span>
               </div>
@@ -326,7 +317,7 @@ export default function StyleguidePage() {
               Body copy sits at a 34em measure and 1.65 line height. Long-form
               article text uses the same setting &mdash; the Journal is not a
               separate typographic system, it is this one at a longer length.
-              Anything that needs to be read carefully is set in Inter; anything
+              Anything that needs to be read carefully is set in DM Sans; anything
               that needs to be felt is set in Instrument Serif.
             </p>
           </div>

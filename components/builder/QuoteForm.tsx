@@ -21,9 +21,9 @@ import { Metadata } from "@/components/primitives/Metadata";
 const initialState: EnquiryState = { status: "idle" };
 
 const input =
-  "h-11 w-full border border-line bg-surface-alt/60 px-3 font-sans text-small text-text " +
-  "placeholder:text-text-muted placeholder:opacity-70 outline-none transition-colors duration-(--duration-quick) " +
-  "hover:border-line-strong focus:border-accent-text aria-[invalid=true]:border-accent-text";
+  "min-h-11 w-full rounded-(--radius-control) border border-field bg-surface-elevated px-3.5 font-sans text-small text-text " +
+  "placeholder:text-text-muted placeholder:opacity-75 outline-none transition-colors duration-(--duration-quick) " +
+  "hover:border-text focus:border-accent aria-[invalid=true]:border-error";
 
 function Field({
   label,
@@ -254,7 +254,7 @@ export function QuoteForm({
       <button
         type="submit"
         disabled={pending}
-        className="mt-5 inline-flex h-12 w-full items-center justify-center gap-3 bg-accent-text px-6 font-sans text-meta uppercase text-surface transition-colors duration-(--duration-quick) hover:bg-cream disabled:opacity-60"
+        className="mt-5 inline-flex h-12 w-full items-center justify-center gap-3 rounded-(--radius-control) bg-accent px-6 font-sans text-small font-medium text-on-accent transition-colors duration-(--duration-quick) hover:bg-accent-hover disabled:opacity-60"
       >
         {pending ? "Sending…" : "Submit for a quote"}
       </button>

@@ -194,7 +194,7 @@ export function AudioToggle({
       <span
         aria-hidden
         className={cn(
-          "flex h-4.5 items-end gap-[2.5px] pb-0.5",
+          "flex h-4.5 items-end gap-[0.1562rem] pb-0.5",
           isPlaying ? "is-audio-playing text-accent-text" : "opacity-60",
         )}
       >
@@ -209,7 +209,7 @@ export function AudioToggle({
           <span>Music</span>
           <span
             className={cn(
-              "text-[10px] tracking-wider transition-colors duration-200",
+              "text-[0.625rem] tracking-wider transition-colors duration-200",
               isPlaying ? "text-accent-text font-semibold" : "text-text-muted",
             )}
           >

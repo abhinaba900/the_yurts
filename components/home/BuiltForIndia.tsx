@@ -109,7 +109,7 @@ export function BuiltForIndia() {
             <Reveal kind="up">
               <Metadata className="inline-flex items-center gap-2 text-accent-text">
                 <span>Built For India</span>
-                <IndiaFlag className="h-3 w-4.5 rounded-[1px]" />
+                <IndiaFlag className="h-3 w-4.5 rounded-[0.0625rem]" />
               </Metadata>
               <h2 className="mt-4 font-display text-display-lg u-optical-left">
                 Yurts Designed for Indian Weather &amp; Site Conditions.

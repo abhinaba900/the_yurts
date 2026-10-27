@@ -41,7 +41,7 @@ export function Applications() {
   }, []);
 
   return (
-    <section className="bg-surface py-(--spacing-section-lg) lg:min-h-[calc(100vh-6rem)] lg:flex lg:flex-col lg:justify-center lg:py-16">
+    <section className="bg-surface py-(--spacing-section-lg) lg:min-h-[calc(100svh-var(--header-height))] lg:flex lg:flex-col lg:justify-center lg:py-(--section-space-fit)">
       <div className="u-container">
         <div className="u-grid">
           <header className="col-span-4 md:col-span-6 lg:col-span-5">

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { instrumentSerif, inter } from "@/lib/fonts";
+import { dmSans, instrumentSerif } from "@/lib/fonts";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -46,10 +46,10 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#17110d" },
-    { media: "(prefers-color-scheme: dark)", color: "#17110d" },
+    { media: "(prefers-color-scheme: light)", color: "#f6f1e8" },
+    { media: "(prefers-color-scheme: dark)", color: "#f6f1e8" },
   ],
-  colorScheme: "dark",
+  colorScheme: "light",
 };
 
 export default function RootLayout({
@@ -60,7 +60,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-IN"
-      className={`${instrumentSerif.variable} ${inter.variable}`}
+      className={`${instrumentSerif.variable} ${dmSans.variable}`}
       suppressHydrationWarning
     >
       <head>

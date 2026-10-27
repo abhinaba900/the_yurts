@@ -8,7 +8,7 @@ export function IndiaFlag({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center justify-center align-middle overflow-hidden rounded-[2px] shadow-xs shrink-0",
+        "inline-flex items-center justify-center align-middle overflow-hidden rounded-[0.125rem] shadow-xs shrink-0",
         className ?? "h-3.5 w-5"
       )}
       aria-label="India Flag"

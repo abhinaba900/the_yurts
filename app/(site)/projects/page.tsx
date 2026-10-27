@@ -109,7 +109,7 @@ export default async function ProjectsPage() {
                 kind="media"
                 className="sm:col-span-2 lg:col-span-7 xl:col-span-8 flex flex-col"
               >
-                <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-xl h-[360px] sm:h-[440px] lg:h-[520px] xl:h-[580px] w-full">
+                <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-xl h-[22.5rem] sm:h-[27.5rem] lg:h-[32.5rem] xl:h-[36.25rem] w-full">
                   <Media
                     id="home.gallery-1"
                     ratio="landscape"
@@ -132,7 +132,7 @@ export default async function ProjectsPage() {
               {/* Right Stacked Pair */}
               <div className="col-span-1 sm:col-span-2 lg:col-span-5 xl:col-span-4 flex flex-col justify-between gap-6">
                 <Reveal kind="media" delay={0.06}>
-                  <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[168px] sm:h-[206px] lg:h-[246px] xl:h-[276px] w-full">
+                  <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[10.5rem] sm:h-[12.875rem] lg:h-[15.375rem] xl:h-[17.25rem] w-full">
                     <Media
                       id="home.gallery-2"
                       ratio="landscape"
@@ -153,7 +153,7 @@ export default async function ProjectsPage() {
                 </Reveal>
 
                 <Reveal kind="media" delay={0.1}>
-                  <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[168px] sm:h-[206px] lg:h-[246px] xl:h-[276px] w-full">
+                  <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[10.5rem] sm:h-[12.875rem] lg:h-[15.375rem] xl:h-[17.25rem] w-full">
                     <Media
                       id="home.gallery-3"
                       ratio="landscape"
@@ -182,7 +182,7 @@ export default async function ProjectsPage() {
                 delay={0.14}
                 className="col-span-1 sm:col-span-2 lg:col-span-6 flex flex-col"
               >
-                <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[260px] sm:h-[320px] lg:h-[380px] xl:h-[420px] w-full">
+                <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[16.25rem] sm:h-[20rem] lg:h-[23.75rem] xl:h-[26.25rem] w-full">
                   <Media
                     id="home.gallery-evening"
                     ratio="landscape"
@@ -207,7 +207,7 @@ export default async function ProjectsPage() {
                 delay={0.18}
                 className="col-span-1 sm:col-span-2 lg:col-span-6 flex flex-col"
               >
-                <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[260px] sm:h-[320px] lg:h-[380px] xl:h-[420px] w-full">
+                <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[16.25rem] sm:h-[20rem] lg:h-[23.75rem] xl:h-[26.25rem] w-full">
                   <Media
                     id="home.process"
                     ratio="landscape"

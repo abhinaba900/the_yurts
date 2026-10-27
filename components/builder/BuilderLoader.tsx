@@ -26,7 +26,7 @@ const BuilderExperience = dynamic(
  */
 function BuilderSkeleton() {
   return (
-    <div className="landscape-split:grid landscape-split:h-[calc(100svh-4rem)] landscape-split:grid-cols-[minmax(0,1fr)_22rem] lg:grid lg:h-[calc(100svh-8.25rem)] lg:min-h-[38rem] lg:grid-cols-[minmax(0,1fr)_25rem] xl:grid-cols-[minmax(0,1fr)_28rem]">
+    <div className="landscape-split:grid landscape-split:h-[calc(100svh-4rem)] landscape-split:grid-cols-[minmax(0,1fr)_22rem] lg:grid lg:h-[calc(100svh-var(--header-height-top))] lg:min-h-[30rem] lg:grid-cols-[minmax(0,1fr)_25rem] xl:grid-cols-[minmax(0,1fr)_28rem]">
       <div className="relative h-[44svh] min-h-[18rem] bg-surface-alt landscape-split:h-full lg:h-full">
         <div className="absolute left-0 top-0 p-4 lg:p-6">
           <Metadata className="text-accent-text">3D yurt builder</Metadata>

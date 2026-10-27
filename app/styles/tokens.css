@@ -1,98 +1,121 @@
 /* ---------------------------------------------------------------------------
-   THEYURTS — DESIGN TOKENS
+   THEYURTS — DESIGN TOKENS  ·  DUNE & OLIVE
    Single source of truth. Change the palette here and the whole site follows.
 
    Two layers:
-   1. RAW PALETTE   — literal colour values. Never referenced directly in JSX.
+   1. RAW PALETTE   — literal colour values. Never referenced directly in JSX,
+                      except over photography, where the tone of the image (not
+                      the section) decides the colour.
    2. SEMANTIC TONE — what a colour is *for*. Components only use these.
 
-   Semantic tokens are re-mapped by [data-tone="dark"], so any section can be
-   flipped to a dark surface and every child adapts without extra classes.
+   Semantic tokens are re-mapped by [data-tone], so any section can be flipped
+   to another surface and every child adapts without extra classes:
+
+     (none)  Linen — the warm, pale ground of the whole site.
+     light   Light sand — the punctuation between linen passages.
+     dark    Ink — photography, the footer and the immersive stages.
 --------------------------------------------------------------------------- */
 
 @theme {
   /* -- 1. RAW PALETTE -----------------------------------------------------
-     Walnut and emerald. The site is dark by default: deep timber surfaces, with
-     emerald doing structural work and gold carrying the typographic accent.
+     Dune & Olive. Linen grounds, ink for type and primary actions, camel and
+     olive as the restrained accents, photography carrying most of the colour.
 
-     WHY GOLD CARRIES THE TYPE. Emerald (#2f6b4f) is 2.97:1 on walnut — it fails
-     as text and always will at that value. It is used for fills, rules and
-     decorative marks, never for small type on a dark surface. Gold is 8.26:1 on
-     the base surface and does the work emerald cannot. */
+     The token names are the site's original ones, kept so no component has
+     to change: ochre is camel, sage is olive, espresso is ink.
 
-  /* Timber — the ground the whole site stands on */
-  --color-walnut-deep: #0f0b08;
-  --color-walnut: #17110d;
-  --color-walnut-raised: #241a13;
-  --color-walnut-mid: #3a2a1e;
+     WHY CAMEL HAS A DEEP STEP. Camel (#B58A5A) is 2.8:1 on linen — fine for
+     rules and marks, too light for any text. Camel deep is the same hue at
+     7.0:1 and carries every small accented label. On ink the accent becomes
+     sand. */
 
-  /* Paper — for the light sections used as punctuation */
-  --color-cream: #f0e9de;
-  --color-parchment: #e5dccb;
-  --color-sand: #d8cdb8;
+  /* Brand */
+  --color-sand: #d9c6a5;
+  --color-linen: #f6f1e8;
+  --color-ochre: #b58a5a; /* camel */
+  --color-sage: #7d8568; /* olive */
+  --color-espresso: #292b25; /* ink */
 
-  /* Emerald — structure, fills, rules. Never small type on dark. */
-  --color-emerald: #2f6b4f;
-  --color-emerald-deep: #255741; /* 6.92:1 on cream — safe as text on light */
-  --color-emerald-light: #5fa57e; /* 6.39:1 on walnut — safe as text on dark */
+  /* Supporting */
+  --color-white: #ffffff;
+  --color-espresso-muted: #636a54; /* 5.0:1 on linen */
+  --color-border: #e8dcc6;
+  --color-sand-light: #ebe1cf;
+  --color-espresso-deep: #1d1e1a; /* hover, scrims over photography */
 
-  /* Gold — the typographic accent */
-  --color-gold: #d4a548; /* 8.26:1 on walnut */
-  --color-gold-soft: #e0b968;
-  --color-gold-deep: #8a6520; /* large text only on light */
+  /* Derived for readability — see the note above */
+  --color-ochre-deep: #694c2e; /* 7.0:1 on linen, 4.7:1 even on full sand */
+  --color-espresso-muted-deep: #595f4c; /* muted text on sand-light: 5.1:1 */
+  --color-sand-strong: #d0b792; /* outlines that should still be seen */
+  --color-sand-field: #938872; /* form-control boundary: 3.1:1 on linen */
+  --color-espresso-raised: #393b35; /* cards on an ink section */
+  --color-linen-muted: #cfcebf; /* running text on ink: 9.0:1 */
 
-  /* Ink & muted */
-  --color-ink: #241a13;
-  --color-ink-muted: #5c4a3a; /* clears AA on cream, parchment AND sand */
-  --color-cream-muted: #dcd2c3; /* lighter, for running text on dark */
+  /* Status. Never the only signal — errors also carry text and role="alert". */
+  --color-danger: #9a3b2c; /* 6.2:1 on linen */
+  --color-danger-soft: #eaa596; /* 7.0:1 on ink */
 
   /* -- 2. SEMANTIC --------------------------------------------------------
-     What a colour is *for*. Components only ever use these.
-
-     The site is dark-dominant, so these defaults describe the dark ground and
-     [data-tone="light"] is the exception used for accent sections. Flipping
-     those two blocks is the only change needed to invert the whole site — no
-     component knows which tone it is in. */
-  --color-surface: #17110d;
-  --color-surface-alt: #241a13;
-  --color-surface-deep: #0f0b08;
-  --color-text: #f0e9de;
-  --color-text-muted: #dcd2c3;
-  --color-accent: #2f6b4f;
-  --color-accent-text: #d4a548;
-  --color-line: rgb(240 233 222 / 0.14);
-  --color-line-strong: rgb(240 233 222 / 0.38);
+     Defaults describe the linen ground; the [data-tone] blocks below re-map
+     them. Repeated here so Tailwind generates the utilities. */
+  --color-surface: #f6f1e8;
+  --color-surface-alt: #ffffff;
+  --color-surface-deep: #ebe1cf;
+  --color-surface-elevated: #ffffff;
+  --color-surface-selected: #ebe1cf;
+  --color-text: #292b25;
+  --color-text-muted: #636a54;
+  --color-text-inverse: #ffffff;
+  --color-accent: #292b25;
+  --color-accent-hover: #1d1e1a;
+  --color-accent-text: #694c2e;
+  --color-on-accent: #ffffff;
+  --color-error: #9a3b2c;
+  --color-line: #e8dcc6;
+  --color-line-strong: #d0b792;
+  --color-field: #938872;
+  --color-focus: #7d8568;
 
   /* -- TYPOGRAPHY --------------------------------------------------------- */
   --font-display: var(--font-instrument-serif), "Instrument Serif", Georgia,
     "Times New Roman", serif;
-  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", sans-serif;
+  --font-sans: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Arial, sans-serif;
 
-  /* Fluid editorial scale. Display sizes are set tight and optically negative
-     tracked — serif display type at size needs less letter-spacing, not more.
-     Each one follows the smaller of the screen's width and height, so a wide
-     but short laptop screen gets type that still fits its height. */
-  --text-display-xl: clamp(3.25rem, min(8.8vw, 14vh), 9.5rem);
-  --text-display-xl--line-height: 0.92;
-  --text-display-xl--letter-spacing: -0.025em;
+  /* Fluid editorial scale. Each display step follows the smaller of the
+     screen's width and height, so a wide but short laptop screen gets type
+     that still fits its height. Instrument Serif is a condensed display serif,
+     so a line sets shorter than a wider face would at the same step.
 
-  --text-display-lg: clamp(2.625rem, min(6.2vw, 9.5vh), 5.75rem);
-  --text-display-lg--line-height: 0.96;
-  --text-display-lg--letter-spacing: -0.022em;
+       display-xl  hero headline
+       display-lg  H1
+       display-md  H2
+       display-sm  H3
+       display-xs  H4 */
+  --text-display-xl: clamp(2.25rem, min(4.5vw, 7.5vh), 4.25rem);
+  --text-display-xl--line-height: 1.05;
+  --text-display-xl--letter-spacing: -0.02em;
 
-  --text-display-md: clamp(2rem, min(4vw, 6.5vh), 3.5rem);
-  --text-display-md--line-height: 1.04;
-  --text-display-md--letter-spacing: -0.018em;
+  --text-display-lg: clamp(1.875rem, min(3.2vw, 5.5vh), 3.125rem);
+  --text-display-lg--line-height: 1.1;
+  --text-display-lg--letter-spacing: -0.02em;
 
-  --text-display-sm: clamp(1.5rem, min(2.4vw, 3.8vh), 2.125rem);
-  --text-display-sm--line-height: 1.14;
-  --text-display-sm--letter-spacing: -0.012em;
+  --text-display-md: clamp(1.625rem, min(2.6vw, 4.5vh), 2.375rem);
+  --text-display-md--line-height: 1.2;
+  --text-display-md--letter-spacing: -0.015em;
 
-  /* Fixed, like body: running text reads the same at every screen width. */
-  --text-lead: 1.125rem;
-  --text-lead--line-height: 1.55;
-  --text-lead--letter-spacing: -0.005em;
+  --text-display-sm: clamp(1.3125rem, 2vw, 1.625rem);
+  --text-display-sm--line-height: 1.25;
+  --text-display-sm--letter-spacing: -0.01em;
+
+  --text-display-xs: clamp(1.125rem, 1.4vw, 1.3125rem);
+  --text-display-xs--line-height: 1.3;
+  --text-display-xs--letter-spacing: -0.005em;
+
+  /* Large body: fluid, but within a narrow band so running text reads the
+     same at every screen width. */
+  --text-lead: clamp(1.0625rem, 1.2vw, 1.25rem);
+  --text-lead--line-height: 1.6;
 
   --text-body: 1rem;
   --text-body--line-height: 1.65;
@@ -100,32 +123,60 @@
   --text-small: 0.875rem;
   --text-small--line-height: 1.55;
 
-  /* Metadata: small, uppercase, widely tracked. The counterweight to the serif. */
-  --text-meta: 0.6875rem;
-  --text-meta--line-height: 1.2;
-  --text-meta--letter-spacing: 0.14em;
+  /* Editorial label: small, uppercase, tracked. Used sparingly. */
+  --text-meta: 0.75rem;
+  --text-meta--line-height: 1.4;
+  --text-meta--letter-spacing: 0.1em;
 
   /* Large numerals used as editorial anchors (01 — DESIGN, 24 FT, 452 SQ FT) */
-  --text-numeral: clamp(2.5rem, 5.5vw, 5rem);
-  --text-numeral--line-height: 0.85;
+  --text-numeral: clamp(2.125rem, 4vw, 3.5rem);
+  --text-numeral--line-height: 0.9;
   --text-numeral--letter-spacing: -0.03em;
 
-  /* -- LAYOUT ------------------------------------------------------------- */
-  --spacing-gutter: clamp(1.25rem, 4vw, 3.5rem);
-  --spacing-section: clamp(3.5rem, 10vh, 10rem);
-  --spacing-section-lg: clamp(4.5rem, 14vh, 15rem);
+  /* -- LAYOUT -------------------------------------------------------------
+     Vertical rhythm follows the smaller of the screen's width and height, as
+     the display type does: a wide but short laptop gets tighter sections, so
+     a heading and the content under it share the first screen. Phones and
+     tablets are width-bound and keep their spacing. */
+  --spacing-gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --spacing-section: clamp(3.5rem, min(7vw, 10svh), 7rem);
+  --spacing-section-lg: clamp(4rem, min(9vw, 12svh), 8rem);
 
-  /* Inner rhythm — the space between blocks *within* a page, as opposed to
-     between full sections. Two steps, because the site genuinely uses two:
-     a tighter one for stacked editorial blocks and a looser one for blocks
-     carrying media. Fluid rather than jumping at the lg breakpoint, which is
-     how the section spacing above already behaves. */
-  --spacing-block: clamp(3.5rem, 7vh, 5rem);
-  --spacing-block-lg: clamp(4rem, 9vh, 6rem);
+  /* Inner rhythm — the space between blocks *within* a page. */
+  --spacing-block: clamp(3rem, min(6vw, 9svh), 5rem);
+  --spacing-block-lg: clamp(3.5rem, min(7vw, 10svh), 6rem);
+
+  /* -- RADII ---------------------------------------------------------------
+     The two legacy steps are re-pointed at the new scale, so every existing
+     rounded-xs control and rounded-sm card picks the system up. */
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.75rem;
+  --radius-control: 0.5rem;
+  --radius-card: 0.75rem;
+  --radius-panel: 1rem;
+
+  /* -- ELEVATION ------------------------------------------------------------
+     Warm, low and diffuse — ink-tinted rather than black. */
+  --shadow-card: 0 0.0625rem 0.125rem rgb(41 43 37 / 0.05),
+    0 0.75rem 2rem -0.75rem rgb(41 43 37 / 0.16);
+  --shadow-lift: 0 0.125rem 0.25rem rgb(41 43 37 / 0.06),
+    0 1.5rem 3rem -1rem rgb(41 43 37 / 0.24);
+
+  /* Tailwind's stock steps, re-tuned to the same warm ink so legacy
+     shadow-* utilities sit softly on cloud rather than reading as black. */
+  --shadow-xs: 0 0.0625rem 0.125rem rgb(41 43 37 / 0.05);
+  --shadow-sm: 0 0.0625rem 0.1875rem rgb(41 43 37 / 0.07), 0 0.0625rem 0.125rem rgb(41 43 37 / 0.04);
+  --shadow-md: 0 0.25rem 0.75rem -0.125rem rgb(41 43 37 / 0.1);
+  --shadow-lg: 0 0.75rem 1.5rem -0.5rem rgb(41 43 37 / 0.14);
+  --shadow-xl: 0 1rem 2.5rem -0.75rem rgb(41 43 37 / 0.18);
+  --shadow-2xl: 0 1.5rem 3.5rem -1rem rgb(41 43 37 / 0.24);
+  --inset-shadow-2xs: inset 0 0.0625rem rgb(41 43 37 / 0.05);
 
   /* -- IMAGE RATIOS ------------------------------------------------------- */
   --aspect-portrait: 3 / 4;
   --aspect-editorial: 4 / 5;
+  --aspect-card: 4 / 3;
+  --aspect-photo: 3 / 2;
   --aspect-landscape: 16 / 9;
   --aspect-cinema: 21 / 9;
   --aspect-panorama: 2.6 / 1;
@@ -141,38 +192,141 @@
   --duration-slow: 900ms;
 }
 
-/* --- TONE: DARK (the default) -----------------------------------------------
-   Deep walnut. Emerald for fills and rules, gold for accented type. */
-:root,
+/* --- NON-UTILITY TOKENS -------------------------------------------------------
+   Layout and spacing values consumed through var(), not Tailwind utilities. */
+:root {
+  --font-heading: var(--font-display);
+  --font-body: var(--font-sans);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  --container-max: 85rem;
+  --container-wide: 90rem;
+  --page-gutter: var(--spacing-gutter);
+  --section-space: var(--spacing-section);
+  --section-space-compact: clamp(2rem, 4vw, 4rem);
+  /* Padding for desktop sections that are sized to the screen. */
+  --section-space-fit: clamp(2.5rem, 8svh, 5rem);
+
+  /* The fixed header, as Header.tsx and TopBar.tsx draw it. Settled is what
+     covers a section once the page has scrolled; top is the full band (top
+     bar + header) over the first screen from md up. Screen-sized sections
+     subtract these instead of guessing. */
+  --header-height: 4rem;
+  --header-height-top: 8.25rem;
+  --grid-gap: clamp(1rem, 2vw, 2rem);
+
+  --leading-tight: 1.1;
+  --leading-heading: 1.2;
+  --leading-subheading: 1.3;
+  --leading-body: 1.65;
+  --leading-compact: 1.4;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-label: 0.1em;
+
+}
+
+/* --- TONE: LINEN (the default) -------------------------------------------- */
+:root {
+  --color-surface: var(--color-linen);
+  --color-surface-alt: var(--color-white);
+  /* A softer blend than sand-light, so muted text on it still clears AA. */
+  --color-surface-deep: color-mix(in oklab, var(--color-sand-light) 65%, var(--color-linen));
+  --color-surface-elevated: var(--color-white);
+  --color-surface-selected: var(--color-sand-light);
+  --color-text: var(--color-espresso);
+  --color-text-muted: var(--color-espresso-muted);
+  --color-text-inverse: var(--color-white);
+  --color-accent: var(--color-espresso);
+  --color-accent-hover: var(--color-espresso-deep);
+  --color-accent-text: var(--color-ochre-deep);
+  --color-on-accent: var(--color-white);
+  --color-error: var(--color-danger);
+  --color-line: var(--color-border);
+  --color-line-strong: var(--color-sand-strong);
+  /* Form-control boundaries: 3:1 against the surface (WCAG 1.4.11). */
+  --color-field: var(--color-sand-field);
+  --color-focus: var(--color-sage);
+
+  color-scheme: light;
+}
+
+/* --- TONE: LIGHT SAND ---------------------------------------------------------
+   Punctuation between linen passages. Cards inside sit on warm white. */
+[data-tone="light"] {
+  --color-surface: var(--color-sand-light);
+  --color-surface-alt: var(--color-white);
+  --color-surface-deep: var(--color-sand);
+  --color-surface-elevated: var(--color-white);
+  --color-surface-selected: var(--color-sand);
+  --color-text: var(--color-espresso);
+  --color-text-muted: var(--color-espresso-muted-deep);
+  --color-text-inverse: var(--color-white);
+  --color-accent: var(--color-espresso);
+  --color-accent-hover: var(--color-espresso-deep);
+  --color-accent-text: var(--color-ochre-deep);
+  --color-on-accent: var(--color-white);
+  --color-error: var(--color-danger);
+  --color-line: var(--color-border);
+  --color-line-strong: color-mix(in oklab, var(--color-sand-field) 45%, var(--color-sand));
+  --color-field: color-mix(in oklab, var(--color-espresso) 25%, var(--color-sand-field));
+  --color-focus: var(--color-sage);
+
+  color-scheme: light;
+}
+
+/* --- TONE: INK -------------------------------------------------------------
+   Photography, the footer, and the immersive 3D / VR stages. */
 [data-tone="dark"] {
-  --color-surface: var(--color-walnut);
-  --color-surface-alt: var(--color-walnut-raised);
-  --color-surface-deep: var(--color-walnut-deep);
-  --color-text: var(--color-cream);
-  --color-text-muted: var(--color-cream-muted);
-  --color-accent: var(--color-emerald);
-  --color-accent-text: var(--color-gold);
-  --color-line: color-mix(in oklab, var(--color-cream) 14%, transparent);
-  --color-line-strong: color-mix(in oklab, var(--color-cream) 38%, transparent);
+  --color-surface: var(--color-espresso);
+  --color-surface-alt: var(--color-espresso-raised);
+  --color-surface-deep: var(--color-espresso-deep);
+  --color-surface-elevated: color-mix(in oklab, var(--color-espresso-raised) 80%, var(--color-linen));
+  --color-surface-selected: color-mix(in oklab, var(--color-sand) 18%, var(--color-espresso));
+  --color-text: var(--color-linen);
+  --color-text-muted: var(--color-linen-muted);
+  --color-text-inverse: var(--color-espresso);
+  --color-accent: var(--color-sand);
+  --color-accent-hover: var(--color-linen);
+  --color-accent-text: var(--color-sand);
+  --color-on-accent: var(--color-espresso);
+  --color-error: var(--color-danger-soft);
+  --color-line: color-mix(in oklab, var(--color-linen) 16%, transparent);
+  --color-line-strong: color-mix(in oklab, var(--color-sand) 45%, transparent);
+  --color-field: color-mix(in oklab, var(--color-linen) 48%, transparent);
+  --color-focus: var(--color-sand);
 
   color-scheme: dark;
 }
 
-/* --- TONE: LIGHT ------------------------------------------------------------
-   Warm paper, used as punctuation between dark passages rather than as the
-   ground. Every value here clears AA against all three light surfaces — the
-   muted tone especially, which is the one that silently failed the last time
-   this palette was tuned against only the lightest of them. */
-[data-tone="light"] {
-  --color-surface: var(--color-cream);
-  --color-surface-alt: var(--color-parchment);
-  --color-surface-deep: var(--color-sand);
-  --color-text: var(--color-ink);
-  --color-text-muted: var(--color-ink-muted);
-  --color-accent: var(--color-emerald);
-  --color-accent-text: var(--color-emerald-deep);
-  --color-line: color-mix(in oklab, var(--color-ink) 22%, transparent);
-  --color-line-strong: color-mix(in oklab, var(--color-ink) 48%, transparent);
-
-  color-scheme: light;
+/* The fixed header takes the ink tone while it sits, unscrolled, over a
+   page that opens on dark photography. Header.tsx does this after hydration;
+   this rule makes the first paint right before it. */
+body:has(#main > div > [data-header-tone="dark"]:first-child) header[data-scrolled="false"] {
+  --color-text: var(--color-linen);
+  --color-text-muted: var(--color-linen-muted);
+  --color-accent: var(--color-sand);
+  --color-accent-hover: var(--color-linen);
+  --color-accent-text: var(--color-sand);
+  --color-on-accent: var(--color-espresso);
+  --color-line: color-mix(in oklab, var(--color-linen) 16%, transparent);
+  --color-line-strong: color-mix(in oklab, var(--color-sand) 45%, transparent);
+  --color-focus: var(--color-sand);
+}
+body:has(#main > div > [data-header-tone="dark"]:first-child) header[data-scrolled="false"] .u-header-scrim {
+  opacity: 1;
 }

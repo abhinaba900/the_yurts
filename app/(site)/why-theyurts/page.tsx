@@ -62,7 +62,7 @@ export default function WhyPage() {
 
       <div className="u-container pb-(--spacing-section)">
         <Reveal kind="media">
-          <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-2xl h-[340px] sm:h-[420px] lg:h-[500px] xl:h-[560px] w-full">
+          <div className="group relative overflow-hidden rounded-sm bg-surface-alt shadow-2xl h-[21.25rem] sm:h-[26.25rem] lg:h-[31.25rem] xl:h-[35rem] w-full">
             <Media
               id="home.gallery-1"
               ratio="landscape"

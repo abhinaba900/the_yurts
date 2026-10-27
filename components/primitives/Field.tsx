@@ -1,16 +1,17 @@
 import { cn } from "@/lib/cn";
 
 /**
- * Form fields are hairlines, not boxes. A tracked label sits above the rule;
- * the rule thickens to the accent on focus. Nothing is enclosed.
+ * Form fields are quiet boxes: an elevated surface, a boundary that clears 3:1
+ * against its section, and an olive ring on focus. Labels are visible, sentence
+ * case and sit 0.5rem above the control.
  */
 
 const control =
-  "w-full bg-transparent border-0 border-b border-line pb-3 pt-2 " +
-  "font-sans text-lead text-text placeholder:text-text-muted placeholder:opacity-60 " +
-  "outline-none transition-colors duration-(--duration-quick) ease-(--ease-out-soft) " +
-  "hover:border-line-strong focus:border-accent " +
-  "aria-[invalid=true]:border-accent";
+  "block w-full min-h-12 rounded-(--radius-control) border border-field bg-surface-elevated " +
+  "px-4 py-3 font-sans text-body text-text placeholder:text-text-muted placeholder:opacity-75 " +
+  "outline-none transition-[border-color,box-shadow] duration-(--duration-quick) ease-(--ease-out-soft) " +
+  "hover:border-text focus:border-accent focus:shadow-[0_0_0_0.1875rem_color-mix(in_oklab,var(--color-accent)_22%,transparent)] " +
+  "aria-[invalid=true]:border-error";
 
 type FieldShellProps = {
   id: string;
@@ -36,22 +37,22 @@ function FieldShell({
       <div className="flex items-baseline justify-between gap-4">
         <label
           htmlFor={id}
-          className="font-sans text-meta uppercase text-text-muted"
+          className="font-sans text-small font-medium text-text"
         >
           {label}
         </label>
         {optional ? (
-          <span className="font-sans text-meta uppercase text-text-muted opacity-60">
+          <span className="font-sans text-small text-text-muted">
             Optional
           </span>
         ) : null}
       </div>
-      {children}
+      <div className="mt-2">{children}</div>
       {error ? (
         <p
           id={`${id}-error`}
           role="alert"
-          className="mt-2 font-sans text-small text-accent-text"
+          className="mt-2 font-sans text-small font-medium text-error"
         >
           {error}
         </p>
@@ -134,7 +135,7 @@ export function SelectField({
           aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined}
           className={cn(
             control,
-            "appearance-none px-3 pr-10 cursor-pointer bg-transparent [&>option]:bg-surface-alt [&>option]:text-text [&>option]:py-3 [&>option]:px-5",
+            "appearance-none pr-10 cursor-pointer",
           )}
           {...props}
         >
@@ -142,7 +143,7 @@ export function SelectField({
         </select>
         <span
           aria-hidden
-          className="pointer-events-none absolute right-2 bottom-3.5 text-text-muted"
+          className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-text-muted"
         >
           ↓
         </span>

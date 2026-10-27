@@ -106,7 +106,7 @@ export default async function CategoryPage({
                     className="u-tap font-sans text-meta uppercase text-text-muted transition-colors duration-(--duration-quick) hover:text-accent-text"
                   >
                     {item.title}
-                    <span className="ml-2 opacity-60">{item.count}</span>
+                    <span className="ml-2 tabular-nums">({item.count})</span>
                   </Link>
                 </li>
               ))}

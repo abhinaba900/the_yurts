@@ -46,7 +46,7 @@ export function SpecList({
             {spec.label}
           </dt>
           {spec.note ? (
-            <p className="mt-1 font-sans text-small text-text-muted opacity-80">
+            <p className="mt-1 font-sans text-small text-text-muted">
               {spec.note}
             </p>
           ) : null}

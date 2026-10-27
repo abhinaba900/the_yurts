@@ -105,9 +105,9 @@ export function VisitRequestForm({
           ref={outcomeRef}
           tabIndex={-1}
           role="alert"
-          className="mb-10 border-t-2 border-accent pt-4 outline-none"
+          className="mb-10 rounded-(--radius-card) border border-error bg-surface-elevated px-5 py-4 outline-none"
         >
-          <Metadata className="text-accent-text">Not sent</Metadata>
+          <Metadata className="text-error">Not sent</Metadata>
           <p className="mt-3 u-measure font-sans text-body text-text">{state.message}</p>
           {tel && !state.errors ? (
             <a
@@ -120,7 +120,7 @@ export function VisitRequestForm({
         </div>
       ) : null}
 
-      <div className="grid gap-x-8 gap-y-10 md:grid-cols-2">
+      <div className="grid gap-x-6 gap-y-6 md:grid-cols-2 md:gap-y-8">
         <TextField
           id="name"
           label="Full name"

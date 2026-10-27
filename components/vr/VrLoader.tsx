@@ -15,7 +15,7 @@ const VrExperience = dynamic(
 function VrSkeleton() {
   return (
     <div>
-      <div className="relative h-[64svh] w-full bg-walnut-deep landscape-split:h-[calc(100svh-4rem)] lg:h-[calc(100svh-6rem)]">
+      <div className="relative h-[64svh] w-full bg-espresso-deep landscape-split:h-[calc(100svh-4rem)] lg:h-[calc(100svh-6rem)]">
         <div className="absolute inset-x-0 top-0 p-5">
           <Metadata className="text-accent-text">Preparing the view</Metadata>
         </div>

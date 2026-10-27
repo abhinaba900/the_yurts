@@ -23,7 +23,7 @@ function Run({ duplicate }: { duplicate?: boolean }) {
           <Link
             href={`/yurts/${model.slug}`}
             tabIndex={duplicate ? -1 : undefined}
-            className="group/tile relative block h-full w-full aspect-square overflow-hidden rounded-sm border border-line bg-surface-alt shadow-lg transition-colors duration-(--duration-base) hover:border-accent"
+            className="group/tile relative block h-full w-full aspect-square overflow-hidden rounded-(--radius-card) bg-surface-alt shadow-(--shadow-card) transition-shadow duration-(--duration-base) hover:shadow-(--shadow-lift)"
           >
             {model.media ? (
               <Media
@@ -42,21 +42,21 @@ function Run({ duplicate }: { duplicate?: boolean }) {
                 and gives the name something to sit on. */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-walnut-deep/95 via-walnut-deep/30 to-transparent"
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-deep/85 via-espresso-deep/20 to-transparent"
             />
 
             <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
               <div>
-                <span className="block font-display text-display-xs text-cream">
+                <span className="block font-display text-display-xs text-linen">
                   {model.name}
                 </span>
-                <span className="mt-0.5 block font-sans text-meta uppercase text-cream/70">
+                <span className="mt-1 block font-sans text-small text-linen/80">
                   {rangeHomeCopy[model.slug]?.band ?? model.tagline}
                 </span>
               </div>
               <span
                 aria-hidden
-                className="translate-y-1 font-sans text-cream opacity-0 transition-all duration-(--duration-base) ease-(--ease-out-soft) group-hover/tile:translate-y-0 group-hover/tile:opacity-100"
+                className="translate-y-1 font-sans text-linen opacity-0 transition-all duration-(--duration-base) ease-(--ease-out-soft) group-hover/tile:translate-y-0 group-hover/tile:opacity-100"
               >
                 &rarr;
               </span>
@@ -72,10 +72,10 @@ export function ImageBand() {
   return (
     <section
       aria-label="The range"
-      className="relative overflow-hidden border-y border-line bg-surface py-10 lg:py-14"
+      className="relative overflow-hidden bg-surface py-[clamp(2.5rem,5vw,4rem)]"
       style={
         {
-          "--tile-size": "clamp(220px, 20vw, 290px)",
+          "--tile-size": "clamp(13.75rem, 20vw, 18rem)",
           "--marquee-duration": "60s",
         } as React.CSSProperties
       }

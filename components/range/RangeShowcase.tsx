@@ -129,7 +129,7 @@ export function RangeShowcase({
       {/* Left Column: Sticky Stage dynamically filling viewport height */}
       <div className="hidden lg:col-span-6 lg:sticky lg:top-20 lg:h-[calc(100vh-6.5rem)] lg:flex lg:flex-col lg:justify-between self-start">
         {/* Dynamic Image Container that consumes all remaining screen height */}
-        <div className="relative overflow-hidden rounded-sm bg-surface-alt shadow-2xl flex-1 min-h-[240px] w-full border border-line/60">
+        <div className="relative overflow-hidden rounded-sm bg-surface-alt shadow-2xl flex-1 min-h-[15rem] w-full border border-line/60">
           {items.map((item, i) => (
             <div
               key={item.name}
@@ -170,7 +170,7 @@ export function RangeShowcase({
             <span className="font-sans text-meta text-accent-text uppercase font-semibold">
               {String(activeIdx + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
             </span>
-            <span className="text-text-muted opacity-40">&middot;</span>
+            <span aria-hidden className="text-text-muted opacity-40">&middot;</span>
             <span className="font-display text-small text-text">
               {activeItem.name}
             </span>
@@ -285,7 +285,7 @@ export function RangeShowcase({
                       {item.name}
                     </h2>
                     {item.tagline ? (
-                      <span className="font-sans text-meta uppercase text-accent-text/80 block mt-0.5">
+                      <span className="font-sans text-meta uppercase text-accent-text block mt-0.5">
                         {item.tagline}
                       </span>
                     ) : null}
@@ -335,7 +335,7 @@ export function RangeShowcase({
                       <span className="font-sans text-meta font-semibold uppercase text-accent-text">
                         {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
                       </span>
-                      <span className="text-text-muted opacity-40">&middot;</span>
+                      <span aria-hidden className="text-text-muted opacity-40">&middot;</span>
                       <span className="font-display text-small text-text">{item.name}</span>
                     </div>
                   </div>
@@ -371,7 +371,7 @@ export function RangeShowcase({
                   </div>
                 </div>
               ) : (
-                <p className="mt-2 font-sans text-small text-text-muted/70 line-clamp-1">
+                <p className="mt-2 font-sans text-small text-text-muted line-clamp-1">
                   {item.use}
                 </p>
               )}

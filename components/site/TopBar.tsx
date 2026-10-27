@@ -78,12 +78,13 @@ export function TopBar({
       // Its own deep surface so the bar reads over a full-bleed hero while the
       // navigation row beneath it stays transparent.
       className={cn(
-        "overflow-hidden bg-surface-deep",
+        "overflow-hidden bg-espresso-deep",
         "transition-[height,opacity] duration-(--duration-base) ease-(--ease-out-soft)",
         scrolled ? "h-0 opacity-0" : "h-9 opacity-100",
       )}
       // Collapsed it is not just invisible but unreachable — a zero-height strip
       // of live links is a keyboard trap waiting to happen.
+      data-tone="dark"
       inert={scrolled ? true : undefined}
       aria-hidden={scrolled ? "true" : undefined}
     >
@@ -91,7 +92,7 @@ export function TopBar({
         <div className="flex h-9 items-center justify-between gap-6">
           <p className="hidden font-sans text-meta uppercase text-text-muted sm:inline-flex sm:items-center sm:gap-2">
             <span>Designed &amp; made in India</span>
-            <IndiaFlag className="h-3 w-4.5 rounded-[1px]" />
+            <IndiaFlag className="h-3 w-4.5 rounded-[0.0625rem]" />
           </p>
 
           <div className="flex flex-1 items-center justify-end gap-5 sm:flex-none sm:gap-7">
@@ -101,7 +102,7 @@ export function TopBar({
                 className={cn(
                   "group inline-flex items-center gap-2 font-sans text-meta",
                   "normal-case tracking-normal text-text-muted",
-                  "transition-colors duration-(--duration-quick) hover:text-accent-text",
+                  "transition-colors duration-(--duration-quick) hover:text-text",
                 )}
               >
                 <MailIcon />
@@ -115,7 +116,7 @@ export function TopBar({
                 className={cn(
                   "group inline-flex items-center gap-2 font-sans text-meta",
                   "normal-case tracking-normal text-text-muted",
-                  "transition-colors duration-(--duration-quick) hover:text-accent-text",
+                  "transition-colors duration-(--duration-quick) hover:text-text",
                 )}
               >
                 <PhoneIcon />

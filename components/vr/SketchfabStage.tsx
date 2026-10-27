@@ -278,7 +278,7 @@ export function SketchfabStage({
   return (
     <div
       ref={frameRef}
-      className="relative h-[64svh] w-full overflow-hidden bg-walnut-deep landscape-split:h-[calc(100svh-4rem)] lg:h-[calc(100svh-6rem)]"
+      className="relative h-[64svh] w-full overflow-hidden bg-espresso-deep landscape-split:h-[calc(100svh-4rem)] lg:h-[calc(100svh-6rem)]"
     >
       <iframe
         ref={iframeRef}
@@ -303,7 +303,7 @@ export function SketchfabStage({
       {/* Controls, in place of the Sketchfab row the crop removes. */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="font-sans text-meta uppercase text-cream/60">
+          <span className="font-sans text-meta uppercase text-linen/60">
             {ready ? "Ctrl + scroll to zoom" : "Loading the model"}
           </span>
 
@@ -344,8 +344,8 @@ function StageButton({
       className={cn(
         "border px-4 py-2 font-sans text-meta uppercase transition-colors duration-(--duration-quick)",
         pressed
-          ? "border-gold bg-gold text-walnut-deep"
-          : "border-cream/35 bg-walnut-deep/60 text-cream hover:border-cream/70",
+          ? "border-sand bg-sand text-espresso-deep"
+          : "border-linen/35 bg-espresso-deep/60 text-linen hover:border-linen/70",
       )}
     >
       {children}

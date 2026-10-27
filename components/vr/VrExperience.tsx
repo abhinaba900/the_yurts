@@ -171,7 +171,7 @@ export function VrExperience() {
       {/* ---- Stage ---- */}
       <div
         ref={containerRef}
-        className="relative h-[64svh] w-full bg-walnut-deep landscape-split:h-[calc(100svh-4rem)] lg:h-[calc(100svh-6rem)]"
+        className="relative h-[64svh] w-full bg-espresso-deep landscape-split:h-[calc(100svh-4rem)] lg:h-[calc(100svh-6rem)]"
       >
         <SizedCanvas
           frameloop="demand"
@@ -201,7 +201,7 @@ export function VrExperience() {
         {/* Drag prompt, until the visitor has worked it out for themselves */}
         {!hasLooked && !motionActive ? (
           <div className="pointer-events-none absolute inset-x-0 bottom-20 flex justify-center">
-            <span className="bg-walnut-deep/70 px-4 py-2 font-sans text-meta uppercase text-cream">
+            <span className="bg-espresso-deep/70 px-4 py-2 font-sans text-meta uppercase text-linen">
               Drag to look around
             </span>
           </div>
@@ -322,8 +322,8 @@ function StageButton({
       className={cn(
         "border px-4 py-2 font-sans text-meta uppercase transition-colors duration-(--duration-quick)",
         pressed
-          ? "border-gold bg-gold text-walnut-deep"
-          : "border-cream/35 bg-walnut-deep/60 text-cream hover:border-cream/70",
+          ? "border-sand bg-sand text-espresso-deep"
+          : "border-linen/35 bg-espresso-deep/60 text-linen hover:border-linen/70",
       )}
     >
       {children}

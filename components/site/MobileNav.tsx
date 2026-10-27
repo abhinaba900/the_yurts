@@ -146,7 +146,7 @@ export function MobileNav({
           <button
             type="button"
             onClick={onClose}
-            className="flex items-center gap-3 py-2 font-sans text-meta uppercase text-text"
+            className="flex min-h-11 items-center gap-3 px-1 font-sans text-small font-medium text-text"
           >
             Close
             <span aria-hidden className="relative block size-4">
@@ -181,7 +181,7 @@ export function MobileNav({
                 <span className="font-sans text-meta uppercase text-accent-text">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="font-display text-display-md leading-none">
+                <span className="font-display text-display-sm leading-none">
                   {item.label}
                 </span>
                 {item.note ? (
@@ -199,7 +199,7 @@ export function MobileNav({
                       <Link
                         href={child.href}
                         onClick={onClose}
-                        className="flex items-baseline gap-3 font-sans text-meta uppercase text-text-muted transition-colors duration-(--duration-base) hover:text-text"
+                        className="flex min-h-10 items-center gap-3 font-sans text-small text-text-muted transition-colors duration-(--duration-quick) hover:text-text"
                       >
                         <span aria-hidden className="text-accent-text">
                           &rarr;
@@ -227,16 +227,14 @@ export function MobileNav({
             <Link
               href="/enquire"
               onClick={onClose}
-              className="group inline-flex items-baseline gap-3"
+              className="group inline-flex min-h-12 items-center gap-2 rounded-(--radius-control) bg-accent px-6 py-3 font-sans text-body font-medium text-on-accent shadow-(--shadow-card) transition-colors duration-(--duration-quick) hover:bg-accent-hover"
             >
-              <span className="font-display text-display-md leading-none text-accent-text">
-                Enquire
-              </span>
+              Enquire
               <span
                 aria-hidden
-                className="text-accent-text transition-transform duration-(--duration-base) ease-(--ease-out-soft) group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                className="transition-transform duration-(--duration-base) ease-(--ease-out-soft) group-hover:translate-x-0.5"
               >
-                ↗
+                &rarr;
               </span>
             </Link>
 

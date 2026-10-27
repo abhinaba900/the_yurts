@@ -40,7 +40,7 @@ const featureIcons = [
  */
 export function WhyYurts() {
   return (
-    <section className="u-container py-16 lg:py-20 lg:min-h-[calc(100vh-6rem)] lg:flex lg:flex-col lg:justify-center overflow-hidden">
+    <section className="u-container py-16 lg:py-(--section-space-fit) lg:min-h-[calc(100svh-var(--header-height))] lg:flex lg:flex-col lg:justify-center overflow-hidden">
       {/* Section Header */}
       <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-4 border-b border-line pb-6 lg:pb-8">
         <div>

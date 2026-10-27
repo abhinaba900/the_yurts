@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { Media } from "@/components/primitives/Media";
 import { hasMedia } from "@/data/media";
 import { Reveal } from "@/components/primitives/Reveal";
 import { Metadata } from "@/components/primitives/Metadata";
+import { Button } from "@/components/primitives/Button";
 
 /**
  * 16. FINAL CTA
@@ -13,7 +13,7 @@ import { Metadata } from "@/components/primitives/Metadata";
  */
 export function Closing() {
   return (
-    <section className="relative bg-surface">
+    <section data-tone="dark" className="relative bg-surface">
       <div className="relative min-h-[75svh] lg:min-h-[85svh] overflow-hidden flex flex-col justify-end">
         <Media
           id="home.closing"
@@ -25,7 +25,7 @@ export function Closing() {
         {hasMedia("home.closing") ? (
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-walnut-deep/95 via-walnut-deep/40 to-walnut-deep/30"
+            className="absolute inset-0 bg-gradient-to-t from-espresso-deep/90 via-espresso-deep/40 to-espresso-deep/20"
           />
         ) : null}
 
@@ -34,7 +34,7 @@ export function Closing() {
             <div className="max-w-3xl">
               <Reveal kind="up">
                 <Metadata className="text-accent-text">Commission a Structure</Metadata>
-                <h2 className="mt-4 font-display text-display-xl u-optical-left leading-[1.05]">
+                <h2 className="mt-4 font-display text-display-xl u-optical-left">
                   Tell us about the land.
                 </h2>
                 <div className="mt-6 space-y-1 font-sans text-lead text-text-muted leading-relaxed">
@@ -44,20 +44,13 @@ export function Closing() {
                   <p className="pt-2 text-text font-medium">That&apos;s enough to start a conversation.</p>
                 </div>
 
-                <div className="mt-9 flex flex-wrap items-center gap-5 sm:gap-8">
-                  <Link
-                    href="/enquire"
-                    className="inline-flex items-center gap-2 rounded-xs bg-cream px-6 py-3.5 font-sans text-small uppercase tracking-wider text-walnut-deep font-semibold transition-all duration-200 hover:bg-accent-text hover:text-walnut-deep"
-                  >
-                    Start an enquiry &rarr;
-                  </Link>
-
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 rounded-xs border border-line-strong bg-surface/60 backdrop-blur-xs px-6 py-3.5 font-sans text-small uppercase tracking-wider text-text transition-all duration-200 hover:border-accent hover:text-accent-text"
-                  >
-                    Book a consultation &rarr;
-                  </Link>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+                  <Button href="/enquire" variant="inverse">
+                    Start an enquiry <span aria-hidden>&rarr;</span>
+                  </Button>
+                  <Button href="/contact" variant="hairline">
+                    Book a consultation
+                  </Button>
                 </div>
               </Reveal>
             </div>

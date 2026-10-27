@@ -39,7 +39,7 @@ export function Gallery() {
               and possible installation settings to understand what you could
               create.
             </p>
-            <p className="mt-3 font-sans text-small text-text-muted/80 leading-relaxed">
+            <p className="mt-3 font-sans text-small text-text-muted leading-relaxed">
               The images shown are design and reference visuals, not completed
               Theyurts installations. Photographs of our completed projects will
               be added as they become available.
@@ -50,13 +50,13 @@ export function Gallery() {
 
       {/* Viewport-Fitted Gallery Mosaic */}
       <div className="u-container mt-8 lg:mt-10">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 items-start lg:[--gallery-h:clamp(18rem,45svh,24.375rem)]">
           {/* Main Primary Visual */}
           <Reveal
             kind="media"
             className="sm:col-span-2 lg:col-span-7 xl:col-span-8 flex flex-col"
           >
-            <div className="group relative w-full overflow-hidden rounded-sm bg-surface-alt shadow-xl h-[260px] sm:h-[320px] lg:h-[390px]">
+            <div className="group relative w-full overflow-hidden rounded-sm bg-surface-alt shadow-xl h-[16.25rem] sm:h-[20rem] lg:h-(--gallery-h)">
               <Media
                 id="home.gallery-1"
                 ratio="landscape"
@@ -72,9 +72,9 @@ export function Gallery() {
           </Reveal>
 
           {/* Right Stacked Pair */}
-          <div className="col-span-1 sm:col-span-2 lg:col-span-5 xl:col-span-4 flex flex-col justify-between h-auto lg:h-[390px] gap-4">
+          <div className="col-span-1 sm:col-span-2 lg:col-span-5 xl:col-span-4 flex flex-col justify-between h-auto lg:h-(--gallery-h) gap-4">
             <Reveal kind="media" delay={0.06} className="flex flex-col">
-              <div className="group relative w-full overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[120px] sm:h-[145px] lg:h-[168px]">
+              <div className="group relative w-full overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[7.5rem] sm:h-[9.0625rem] lg:h-[calc((var(--gallery-h)-3.375rem)/2)]">
                 <Media
                   id="home.gallery-2"
                   ratio="editorial"
@@ -90,7 +90,7 @@ export function Gallery() {
             </Reveal>
 
             <Reveal kind="media" delay={0.1} className="flex flex-col">
-              <div className="group relative w-full overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[120px] sm:h-[145px] lg:h-[168px]">
+              <div className="group relative w-full overflow-hidden rounded-sm bg-surface-alt shadow-lg h-[7.5rem] sm:h-[9.0625rem] lg:h-[calc((var(--gallery-h)-3.375rem)/2)]">
                 <Media
                   id="home.gallery-3"
                   ratio="landscape"

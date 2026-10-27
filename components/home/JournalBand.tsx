@@ -14,7 +14,7 @@ import { journalTopics, featuredArticles } from "@/data/home";
  */
 export function JournalBand() {
   return (
-    <section className="u-container py-16 lg:py-20 lg:min-h-[50vh] lg:flex lg:flex-col lg:justify-center">
+    <section className="u-container py-16 lg:py-(--section-space-fit) lg:min-h-[50vh] lg:flex lg:flex-col lg:justify-center">
       <div className="border-t border-line pt-10">
         <div className="u-grid items-start gap-y-10">
           {/* Left Column: Heading & Topic Tags */}

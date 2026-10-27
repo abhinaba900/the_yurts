@@ -131,10 +131,10 @@ function MediaPlaceholder({
       </div>
 
       <div className="relative flex items-start justify-between gap-4">
-        <span className="font-sans text-meta uppercase text-text-muted">
+        <span className="font-sans text-meta uppercase text-text">
           Image pending
         </span>
-        <span className="font-sans text-meta uppercase text-text-muted">
+        <span className="font-sans text-meta uppercase text-text">
           {ratioLabel[ratio]}
         </span>
       </div>
@@ -142,7 +142,7 @@ function MediaPlaceholder({
       <div className="relative">
         <p className="font-display text-display-sm text-text-muted">{file}</p>
         {note ? (
-          <p className="mt-1.5 max-w-[38ch] font-sans text-small text-text-muted opacity-80">
+          <p className="mt-1.5 max-w-[38ch] font-sans text-small text-text">
             {note}
           </p>
         ) : null}

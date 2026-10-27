@@ -275,7 +275,7 @@ export function YurtDiagram({ className }: { className?: string }) {
         clipPath="url(#yurt-wall-face)"
         className={cn(
           "transition-colors duration-(--duration-base)",
-          on("lattice") ? "text-accent-text" : "text-emerald-light",
+          on("lattice") ? "text-accent-text" : "text-sage",
         )}
       >
         {lattice().map((l, i) => (
