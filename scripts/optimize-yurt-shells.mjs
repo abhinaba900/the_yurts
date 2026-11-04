@@ -13,6 +13,7 @@
  * parts the scene paints and pulls apart, named so `data/yurtModel.ts` can find
  * them:
  *
+ *   Floor        the floor disc, painted with the flooring the visitor picks
  *   Roof cover   the copy's roof colour — roof and valance
  *   Wall cover   the copy's wall colour
  *   Glass        window and door panes, drawn as glass by the scene
@@ -71,6 +72,7 @@ const SHELLS = [
     roof: rgb255(84, 60, 35),
     wall: rgb255(43, 43, 43),
     wallHead: 2.95,
+    floorY: 0.22,
   },
   {
     id: "yurt-6m",
@@ -80,6 +82,7 @@ const SHELLS = [
     roof: rgb255(107, 41, 0),
     wall: rgb255(43, 43, 43),
     wallHead: 2.55,
+    floorY: 0.30,
   },
   {
     id: "yurt-7m",
@@ -89,6 +92,7 @@ const SHELLS = [
     roof: rgb255(107, 41, 0),
     wall: rgb255(43, 43, 43),
     wallHead: 2.55,
+    floorY: 0.30,
   },
 ];
 
@@ -178,13 +182,22 @@ for (const shell of SHELLS) {
           sz += tri[k][2];
         }
         if (Math.hypot(sx / 3, sz / 3) > shell.reach) continue;
+        // The 2025 re-exports stand each copy on a ground slab. The builder
+        // draws its own deck, and keeping the slab would push the yurt up off
+        // the scene floor — and the interior down through it.
+        if (sy / 3 < shell.floorY - 0.02) continue;
 
         let part = GLASS_MATERIALS.has(name) ? "Glass" : name;
         let colour = null;
         if (name === VERTEX_COLOURED) {
           color.getElement(indices ? indices.getScalar(i) : i, c);
           colour = c.slice(0, 3);
-          if (same(colour, shell.roof)) part = "Roof cover";
+          // The floor is a flat disc at floor level, and comes out of whatever
+          // cover colour the export drew it in: the builder paints it with the
+          // flooring, as it does the interiors' floor.
+          const flat = tri.every((p) => Math.abs(p[1] - tri[0][1]) < 0.005);
+          if (flat && Math.abs(sy / 3 - shell.floorY) < 0.02) part = "Floor";
+          else if (same(colour, shell.roof)) part = "Roof cover";
           else if (same(colour, shell.wall)) part = "Wall cover";
           else if (GLASS.some((glass) => same(colour, glass))) part = "Glass";
           else if (sy / 3 > shell.wallHead) part = "Roof frame";
@@ -205,7 +218,8 @@ for (const shell of SHELLS) {
   const buffer = root.listBuffers()[0];
   for (const [part, bucket] of buckets) {
     const positions = new Float32Array(bucket.positions);
-    for (let i = 1; i < positions.length; i += 3) positions[i] -= floor;
+    // Stand the yurt on its floor, not on whatever stray triangle sits lowest.
+    for (let i = 1; i < positions.length; i += 3) positions[i] -= shell.floorY;
 
     const material = bucket.prim.getMaterial();
     // Covers and glass are repainted by the scene; give them a material of
@@ -257,5 +271,5 @@ for (const shell of SHELLS) {
   fs.mkdirSync(dir, { recursive: true });
   const file = path.join(dir, "exterior.glb");
   await io.write(file, doc);
-  console.log(`  → ${file}: ${(fs.statSync(file).size / 1024).toFixed(0)}KB, base was at y = ${floor.toFixed(2)}`);
+  console.log(`  → ${file}: ${(fs.statSync(file).size / 1024).toFixed(0)}KB, floor at y = ${shell.floorY.toFixed(2)}, lowest ${floor.toFixed(2)}`);
 }
