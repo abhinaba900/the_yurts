@@ -141,6 +141,9 @@ const oldNodes = scene.listChildren().filter((node) => !groups.includes(node));
 
 for (const mesh of oldMeshes) {
   for (const prim of mesh.listPrimitives()) {
+    // SketchUp now exports its edge overlay as a line soup; skip anything that
+    // is not triangles.
+    if (prim.getMode() !== 4) continue;
     const position = prim.getAttribute("POSITION");
     const indices = prim.getIndices();
     const material = prim.getMaterial();
@@ -297,6 +300,18 @@ for (const yurt of YURTS) {
   for (const prim of doc.getRoot().listMeshes().flatMap((mesh) => mesh.listPrimitives())) {
     prim.setAttribute("NORMAL", null);
     prim.setAttribute("TEXCOORD_0", null);
+  }
+
+  // The 2025 re-export carries SketchUp's texture images — tens of megabytes of
+  // them. The interior is drawn in flat colour, so the maps come out with the
+  // UVs above and `prune()` drops the images.
+  for (const material of doc.getRoot().listMaterials()) {
+    material
+      .setBaseColorTexture(null)
+      .setEmissiveTexture(null)
+      .setNormalTexture(null)
+      .setOcclusionTexture(null)
+      .setMetallicRoughnessTexture(null);
   }
 
   await doc.transform(prune(), dedup(), weld());

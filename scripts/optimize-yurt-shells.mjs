@@ -68,8 +68,8 @@ const SHELLS = [
     source: "public/3D-Modal/10M Yurt.glb",
     centre: [65.1, -6.3],
     reach: 6.6,
-    roof: rgb255(155, 133, 103),
-    wall: rgb255(114, 114, 114),
+    roof: rgb255(84, 60, 35),
+    wall: rgb255(43, 43, 43),
     wallHead: 2.95,
   },
   {
@@ -77,8 +77,8 @@ const SHELLS = [
     source: "public/3D-Modal/6M Yurt.glb",
     centre: [3.1, 41.7],
     reach: 4.5,
-    roof: rgb255(173, 112, 0),
-    wall: rgb255(114, 114, 114),
+    roof: rgb255(107, 41, 0),
+    wall: rgb255(43, 43, 43),
     wallHead: 2.55,
   },
   {
@@ -86,14 +86,34 @@ const SHELLS = [
     source: "public/3D-Modal/7M Yurt.glb",
     centre: [8.8, 96.7],
     reach: 5.0,
-    roof: rgb255(173, 112, 0),
-    wall: rgb255(114, 114, 114),
+    roof: rgb255(107, 41, 0),
+    wall: rgb255(43, 43, 43),
     wallHead: 2.55,
   },
 ];
 
 const GLASS = [rgb255(0, 0, 0), rgb255(30, 30, 30), rgb255(146, 232, 146)];
 const VERTEX_COLOURED = "SKP Vertex Colors";
+
+/**
+ * The 2025 re-exports moved the window and door panes out of the
+ * vertex-coloured mesh and into materials of their own. They are drawn as
+ * glass by the scene, so they all become one "Glass" part.
+ */
+const GLASS_MATERIALS = new Set(["Glass Generic", "Glass Black", "[Color M08]"]);
+
+/**
+ * The named materials the shell keeps: the crown dome, and the door and window
+ * joinery. Everything else named — the fit-out the client now leaves in the
+ * exterior exports (wall lining, veneer, wood floors) and SketchUp's edge
+ * overlay — is dropped: the builder stands the chosen interior inside this
+ * shell, and a second copy of the fit-out would fight with it.
+ */
+const KEEP_MATERIALS = new Set([
+  "[Translucent Glass Sky Reflection]2",
+  "Charcoal Blue",
+  "Charcoal Blue1",
+]);
 
 const same = (a, b) => a.every((value, k) => Math.abs(value * 255 - b[k]) < 1.5);
 
@@ -126,10 +146,14 @@ for (const shell of SHELLS) {
     const m = node.getWorldMatrix();
 
     for (const prim of mesh.listPrimitives()) {
+      // SketchUp now exports its edge overlay as a line soup; skip anything
+      // that is not triangles.
+      if (prim.getMode() !== 4) continue;
       const position = prim.getAttribute("POSITION");
       const color = prim.getAttribute("COLOR_0");
       const indices = prim.getIndices();
       const name = (prim.getMaterial()?.getName() || mesh.getName() || "unnamed").trim();
+      if (name !== VERTEX_COLOURED && !KEEP_MATERIALS.has(name) && !GLASS_MATERIALS.has(name)) continue;
       const count = indices ? indices.getCount() : position.getCount();
 
       const local = [0, 0, 0];
@@ -155,7 +179,7 @@ for (const shell of SHELLS) {
         }
         if (Math.hypot(sx / 3, sz / 3) > shell.reach) continue;
 
-        let part = name;
+        let part = GLASS_MATERIALS.has(name) ? "Glass" : name;
         let colour = null;
         if (name === VERTEX_COLOURED) {
           color.getElement(indices ? indices.getScalar(i) : i, c);
@@ -213,6 +237,18 @@ for (const shell of SHELLS) {
   }
   for (const prim of root.listMeshes().flatMap((mesh) => mesh.listPrimitives())) {
     prim.setAttribute("TEXCOORD_0", null);
+  }
+
+  // The 2025 re-exports carry SketchUp's texture images. The shell is drawn in
+  // flat colour — the builder paints the covers itself — so the UVs above and
+  // the maps here come out, and `prune()` drops the images with them.
+  for (const material of root.listMaterials()) {
+    material
+      .setBaseColorTexture(null)
+      .setEmissiveTexture(null)
+      .setNormalTexture(null)
+      .setOcclusionTexture(null)
+      .setMetallicRoughnessTexture(null);
   }
 
   await doc.transform(prune(), dedup(), weld(), meshopt({ encoder: MeshoptEncoder, level: "high" }));
