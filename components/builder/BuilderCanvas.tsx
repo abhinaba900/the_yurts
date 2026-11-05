@@ -7,7 +7,7 @@ import { OrbitControls, useProgress } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { SizedCanvas } from "@/components/three/SizedCanvas";
 import * as THREE from "three";
-import { MODEL_FLOOR_Y, modelFit, modelRadius, YurtModel } from "./YurtModel";
+import { deckTop, modelFit, modelRadius, YurtModel } from "./YurtModel";
 import { Metadata } from "@/components/primitives/Metadata";
 import type { OptionGroupId, RenderSpec } from "@/lib/configurator";
 import type { PartId, Parts } from "./parts";
@@ -114,7 +114,7 @@ function Stage({
       {shadow ? (
         <mesh
           rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, MODEL_FLOOR_Y - 0.02, 0]}
+          position={[0, deckTop() + 0.004, 0]}
         >
           <planeGeometry args={[radius * 3.4, radius * 3.4]} />
           <meshBasicMaterial map={shadow} transparent depthWrite={false} />

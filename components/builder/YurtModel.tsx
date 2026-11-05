@@ -9,6 +9,8 @@ import { glazing } from "@/data/materials";
 import {
   allModelFiles,
   EXTERIOR,
+  baseMeshes,
+  floorMeshes,
   glassMeshes,
   layoutById,
   modelFilesFor,
@@ -40,6 +42,12 @@ import { PART_IDS, type PartId, type Parts } from "./parts";
  * materials directly and remembers each one's original finish for "As
  * designed".
  *
+ * THE FLOOR is never repainted. Each size is drawn on flooring of its own —
+ * herringbone parquet in the 10m, boards in the 6m, block parquet in the 7m,
+ * with tiled bathrooms — and `scripts/optimize-yurt-*.mjs` keep those textures,
+ * so the builder shows what the client drew. The deck underneath is the scene's
+ * own, and is the one thing the flooring swatches colour.
+ *
  * PARTS. Each part carries its own offset along the axis it would actually come
  * off: covers and frames lift, the wall cover and the joinery push outwards
  * from the centre. The slider writes every offset at once; dragging a part
@@ -56,6 +64,13 @@ export const modelRadius = (size: string | undefined) =>
   sizeById(size).radiusM * SCENE_SCALE;
 
 /**
+ * The top of the deck in scene units, relative to the stage floor — where the
+ * painted shadow goes, so it lies on the decking rather than in the air above
+ * it.
+ */
+export const deckTop = () => MODEL_FLOOR_Y + deckTopM() * SCENE_SCALE;
+
+/**
  * Half the size of the yurt on its deck, in scene units — the radius of a
  * sphere that holds it. The camera is framed on this, so a tall narrow 6m and a
  * broad 10m both fill the stage.
@@ -70,11 +85,45 @@ const DECK_MARGIN = 0.9;
 /** Deck thickness in metres. The yurt stands on it, so it sits below y = 0. */
 const DECK_DEPTH = 0.18;
 
+/**
+ * THE PLATFORM. The yurt stands on a ring the client draws below the floor,
+ * which the shells keep as their "Base" part. Its outside face, below the
+ * wall, is the band around the foot of the yurt, and the visitor colours it
+ * themselves: see the "base" group in `data/configurator.ts`. The deck is laid
+ * at the bottom of that ring, so the yurt stands on the deck rather than
+ * hovering over it, and the ring's full height shows.
+ *
+ * ITS HEIGHT IS SET HERE, not taken from the drawings. Measured off the
+ * exports the three rings are 220mm on the 6m, 99mm on the 7m and 492mm on the
+ * 10m — not only different but out of order, the 7m shallower than the smaller
+ * 6m, because each size was drawn on its own day. A step up onto a deck is
+ * built the same whatever it carries, so all three are shown at one height.
+ *
+ * The ring is a plain vertical band with nothing on it, so it is scaled to
+ * height about floor level rather than redrawn: `baseDepthM` on each size says
+ * how deep that size's ring came out of the export, and the scale is the
+ * ratio. The deck then sits at the same depth for every size.
+ */
+const BASE_HEIGHT = 0.22;
+
+/** How far the ring stands proud of the wall above it, in metres. */
+const BASE_REVEAL = 0.025;
+
+/**
+ * How far the ring sinks into the deck, in metres, so that the two meet with
+ * no gap and no shared plane to flicker along.
+ */
+const BASE_BURY = 0.01;
+
+/** Where the deck's top sits, in model metres below the floor. */
+const deckTopM = () => -(BASE_HEIGHT - BASE_BURY);
+
 type Original = {
   color: THREE.Color;
   vertexColors: boolean;
   roughness: number;
 };
+
 
 type Prepared = {
   parts: Record<PartId, THREE.Group>;
@@ -122,14 +171,19 @@ function prepare(scene: THREE.Object3D): Prepared {
           opacity: glazing.clear.opacity,
           depthWrite: false,
         })
-      : source.clone();
+      : // The base band is drawn flat, not lit; see `paintBase`.
+        baseMeshes.includes(mesh.name)
+        ? new THREE.MeshBasicMaterial()
+        : source.clone();
 
     // SketchUp is careless about face winding; draw both sides.
     material.side = THREE.DoubleSide;
     material.userData.original = {
       color: material.color.clone(),
       vertexColors: material.vertexColors,
-      roughness: material.roughness,
+      // The unlit base has no roughness; it is never restored anyway, since
+      // the band is always given a colour.
+      roughness: (material as THREE.MeshStandardMaterial).roughness ?? 1,
     } satisfies Original;
     mesh.material = material;
 
@@ -158,6 +212,52 @@ function paint(
     }
     material.color.set(colour ?? original.color);
     material.roughness = roughness ?? original.roughness;
+  }
+}
+
+type BaseStart = {
+  x: number;
+  y: number;
+  z: number;
+  scaleX: number;
+  scaleY: number;
+  scaleZ: number;
+  /** The ring's outer radius as it came out of the export, in model metres. */
+  radius: number;
+};
+
+/** The base ring's transform and size as loaded, taken once per mesh. */
+function measureBase(mesh: THREE.Mesh): BaseStart {
+  mesh.geometry.computeBoundingBox();
+  const box = mesh.geometry.boundingBox!;
+  // The ring is a circle about the centre, so half its width is its radius.
+  const radius = ((box.max.x - box.min.x) / 2) * mesh.scale.x;
+  return {
+    x: mesh.position.x,
+    y: mesh.position.y,
+    z: mesh.position.z,
+    scaleX: mesh.scale.x,
+    scaleY: mesh.scale.y,
+    scaleZ: mesh.scale.z,
+    radius,
+  };
+}
+
+/**
+ * The base band, which is drawn UNLIT: the colour set here is the colour on
+ * screen, the same the whole way round.
+ *
+ * The band is one mesh in one colour, but the client builds it as two
+ * surfaces — a flat top at floor level and an outer face below it. Lit, the
+ * top takes the full key light and the face takes it edge-on, so one paint
+ * comes out as two tones; on a band a few inches tall that reads as two
+ * colours rather than as light, and shading it less only made the split
+ * smaller, not gone. So the band is not lit at all. It is the one piece of the
+ * yurt whose whole job is to show a colour the visitor picked.
+ */
+function paintBase(meshes: THREE.Mesh[], colour: string | undefined) {
+  for (const mesh of meshes) {
+    (mesh.material as THREE.MeshBasicMaterial).color.set(colour ?? "#989d9f");
   }
 }
 
@@ -309,9 +409,44 @@ export function YurtModel({
 
     paint(meshesFor(paintable.roof), spec.roof.color, spec.roof.roughness);
 
-    paint(meshesFor(paintable.floor), spec.flooring.color, spec.flooring.roughness);
+    // The floors are left as the client drew them — boards and bathroom tiles,
+    // their own textures, different at every size. The band around the foot of
+    // the wall and the deck under it each take a colour of their own: they are
+    // different things, and tying them together hid the band whenever the two
+    // were set alike.
+    const base = meshesFor(baseMeshes);
+    paintBase(base, spec.base.color);
+
+    // Stand every size's ring at the same height, and the same little way
+    // proud of the wall, both scaled about the centre of the floor. Set from
+    // each mesh's own starting transform rather than compounded: `prepare`
+    // hands back the same meshes every time the size changes.
+    const stretch = BASE_HEIGHT / size.baseDepthM;
+    for (const mesh of base) {
+      const start = (mesh.userData.baseTransform ??= measureBase(mesh)) as BaseStart;
+      const widen = (size.wallFootRadiusM + BASE_REVEAL) / start.radius;
+      mesh.position.y = start.y * stretch;
+      mesh.scale.y = start.scaleY * stretch;
+      mesh.position.x = start.x * widen;
+      mesh.position.z = start.z * widen;
+      mesh.scale.x = start.scaleX * widen;
+      mesh.scale.z = start.scaleZ * widen;
+      mesh.updateMatrix();
+    }
     deckMaterial.color.set(spec.flooring.color ?? "#8a6a4b");
     deckMaterial.roughness = spec.flooring.roughness ?? 0.8;
+
+    // The shell has a floor of its own, for the bare "Exterior only". Fitted
+    // out, the interior lays its own boards and bathroom tiles over the same
+    // ground, so the shell's are hidden rather than left to fight them for the
+    // pixels. Only the boards: the base ring is in the same part and has to
+    // stay, because no interior draws one.
+    const fitted = models.length > 1;
+    for (const name of floorMeshes) {
+      for (const mesh of models[0]?.byName.get(name) ?? []) mesh.visible = !fitted;
+    }
+
+
     invalidate();
   }, [models, spec, invalidate, deckMaterial]);
 
@@ -332,12 +467,13 @@ export function YurtModel({
             {models.map((model, i) => (
               <primitive key={i} object={model.parts[id]} />
             ))}
-            {/* The shells stand on nothing and the interiors' floors stop at
-                the wall, so every yurt gets the same deck underneath. */}
+            {/* The floors stop at the wall and the base ring stands on
+                nothing, so every yurt gets the same deck under it, laid at the
+                bottom of the ring. */}
             {id === "floor" ? (
               <mesh
                 material={deckMaterial}
-                position={[0, -DECK_DEPTH / 2, 0]}
+                position={[0, deckTopM() - DECK_DEPTH / 2, 0]}
               >
                 <cylinderGeometry
                   args={[

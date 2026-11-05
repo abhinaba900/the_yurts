@@ -162,6 +162,7 @@ export const configuratorOption = defineType({
           { title: "Interior layout", value: "layout" },
           { title: "Roof & valance", value: "roof" },
           { title: "Wall cover", value: "exterior" },
+          { title: "Base band", value: "base" },
           { title: "Deck", value: "flooring" },
           { title: "Dome opener", value: "opener" },
           { title: "Dome blackout blind", value: "blinds" },

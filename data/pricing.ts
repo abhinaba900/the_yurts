@@ -112,6 +112,11 @@ export const CUSTOM_PLAN = "custom";
  * Symmetry is the one plan drawn at every size, fitted out to the same
  * standard. The 6m and 7m prices are placeholders, the bare kit's price, until
  * the client prices them.
+ *
+ * Trinity, Layout B and Bistro are the 10m's other three fitted-out plans,
+ * from the client's older three-option export. Trinity's and Bistro's prices
+ * are the client's own; Layout B has never been named or priced by them, so it
+ * goes by the export's name at Symmetry's price until they say otherwise.
  */
 export const plans: Plan[] = [
   {
@@ -156,6 +161,39 @@ export const plans: Plan[] = [
     windows: [3, 9],
     toiletWindows: 1,
     layout: "symmetry",
+  },
+  {
+    id: "trinity",
+    label: "Trinity",
+    size: "10m",
+    price: 1915264,
+    description: "A bedroom with its own bathroom, and a lounge.",
+    doors: [6],
+    windows: [1, 3, 5, 9, 11],
+    toiletWindows: 1,
+    layout: "layout-a",
+  },
+  {
+    id: "layout-b",
+    label: "Layout B",
+    size: "10m",
+    price: 1837672, // TODO(client): price Layout B; this is Symmetry's.
+    description: "Two bedrooms either side of a sitting room, with a shower room.",
+    doors: [6],
+    windows: [2, 4, 8, 9],
+    toiletWindows: 1,
+    layout: "layout-b",
+  },
+  {
+    id: "bistro",
+    label: "Bistro",
+    size: "10m",
+    price: 1997578,
+    description: "Open plan: kitchen, dining, lounge and sleeping, with a second door.",
+    doors: [6, 9],
+    windows: [7, 8, 10, 11, 12, 1],
+    toiletWindows: 2,
+    layout: "layout-c",
   },
 ];
 

@@ -18,8 +18,12 @@
  *     7m and 6m are drawn on a raised floor, so they come down to meet the
  *     deck. The source has the door at +z, as the shells do, so nothing is
  *     rotated.
- *  3. Names every mesh after its material, and pulls the floor out of the
- *     vertex-coloured mesh as "Floor", so the panel can recolour it.
+ *  3. Names every mesh after its material, except the floors: each size is
+ *     drawn on boards and tiles of its own — herringbone parquet and exterior
+ *     tile on the 10m, block parquet and stone on the 7m, boards and concrete
+ *     tile on the 6m — and those become "Floor" and "Floor tile", the same two
+ *     names at every size, carrying the client's own textures and UVs. They
+ *     are the only meshes that keep a map; everything else is drawn flat.
  *  4. Welds, simplifies and meshopt-compresses each interior, and writes it to
  *     `public/models/yurt-<size>/symmetry.glb`.
  */
@@ -38,6 +42,7 @@ import {
   weld,
 } from "@gltf-transform/functions";
 import { MeshoptDecoder, MeshoptEncoder, MeshoptSimplifier } from "meshoptimizer";
+import sharp from "sharp";
 import * as THREE from "three";
 import { mergeVertices, toCreasedNormals } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
@@ -50,12 +55,16 @@ const SOURCE = process.argv[2] ?? "public/3D-Modal/Symmetry interiors.glb";
  * `interiorRadius` is the furthest out the fit-out reaches from the centre;
  * past it, above the floor, is the lattice and the door and window joinery.
  * `wallHead` is where the roof frame starts, and `floor` the height of the
- * floor the fit-out stands on. All read off the source.
+ * floor the fit-out stands on. `wallFoot` is the outside of the shell's wall
+ * where it meets the floor: nothing of the interior belongs beyond it, and on
+ * the 7m its floor was drawn 48mm proud of the wall, so the floor's edge show-
+ * ed from outside as a stripe between the wall and the band at its foot. All
+ * read off the source and, for `wallFoot`, off the matching shell.
  */
 const YURTS = [
-  { size: "10m", maxX: 63, interiorRadius: 4.7, wallHead: 2.55, floor: 0 },
-  { size: "7m", maxX: 77, interiorRadius: 3.25, wallHead: 2.3, floor: 0.131 },
-  { size: "6m", maxX: Infinity, interiorRadius: 2.78, wallHead: 2.3, floor: 0.142 },
+  { size: "10m", maxX: 63, interiorRadius: 4.7, wallHead: 2.55, floor: 0, wallFoot: 5.041 },
+  { size: "7m", maxX: 77, interiorRadius: 3.25, wallHead: 2.3, floor: 0.131, wallFoot: 3.522 },
+  { size: "6m", maxX: Infinity, interiorRadius: 2.78, wallHead: 2.3, floor: 0.142, wallFoot: 3.029 },
 ];
 
 const binOf = (x) => YURTS.findIndex((yurt) => x < yurt.maxX);
@@ -66,6 +75,30 @@ const DOME = "[Translucent Glass Sky Reflection]2";
 /** Most of the joinery is one mesh coloured per vertex; see the old script. */
 const VERTEX_COLOURED = "SKP Vertex Colors";
 const FLOOR = "Floor";
+const FLOOR_TILE = "Floor tile";
+
+/**
+ * The floors the client drew, material by material, and what each becomes.
+ * Every size has a boarded floor and a tiled one for its bathrooms; which
+ * material that is differs per size, so they are renamed to the same two parts
+ * and the builder does not have to know one size from another.
+ */
+const FLOORS = new Map([
+  // 10m
+  ["Wood_Floor_01_1K", FLOOR],
+  ["Tile_Exterior_08_1K", FLOOR_TILE],
+  // 7m
+  ["[Wood Floor Parquet]", FLOOR],
+  ["_4", FLOOR_TILE],
+  // 6m
+  ["[Wood Floor]1", FLOOR],
+  ["[Concrete Tile]", FLOOR_TILE],
+]);
+
+const isFloor = (part) => part === FLOOR || part === FLOOR_TILE;
+
+/** Longest side of a floor image kept in the interior, in pixels. */
+const FLOOR_TEXTURE_SIZE = 1024;
 
 /**
  * The shells have a floor of their own at y = 0, in their wall cover or
@@ -172,18 +205,41 @@ for (const mesh of oldMeshes) {
         (a[0] + b[0] + c[0]) / 3 - centres[bin][0],
         (a[2] + b[2] + c[2]) / 3 - centres[bin][1],
       );
+      // The floor is a handful of very large triangles, so a centroid inside
+      // the wall says nothing about where its corners are: the furthest corner
+      // is what decides whether any of it shows outside.
+      const radiusMax = Math.max(
+        Math.hypot(a[0] - centres[bin][0], a[2] - centres[bin][1]),
+        Math.hypot(b[0] - centres[bin][0], b[2] - centres[bin][1]),
+        Math.hypot(c[0] - centres[bin][0], c[2] - centres[bin][1]),
+      );
 
-      let part = name;
-      if (name === VERTEX_COLOURED) {
+      let part = FLOORS.get(name) ?? name;
+      if (isFloor(part)) {
+        // These materials are used for odd bits of joinery too; the floor is
+        // the flat sheet lying at floor level.
         const flat = Math.abs(a[1] - b[1]) < 0.005 && Math.abs(a[1] - c[1]) < 0.005;
-        if (flat && Math.abs(cy - yurt.floor) < 0.05) part = FLOOR;
+        if (!flat || Math.abs(cy - yurt.floor) > 0.05) part = name;
       }
 
+      // Outside the fit-out's reach, only the floor itself is the interior's:
+      // above is the lattice and joinery, and BELOW is a second copy of the
+      // ring the yurt stands on, which the shell already draws and the builder
+      // colours. Left in, the two rings sit in the same place in different
+      // colours, and the band round the foot of the yurt comes out two-tone.
+      const outside = radius > yurt.interiorRadius;
       const shell =
         part === DOME ||
         JOINERY.has(part) ||
         (name === VERTEX_COLOURED && cy > yurt.floor + yurt.wallHead) ||
-        (radius > yurt.interiorRadius && cy > yurt.floor + 0.05);
+        (outside && cy > yurt.floor + 0.05) ||
+        (outside && cy < yurt.floor - 0.005) ||
+        // Nothing of the interior belongs outside the wall, at any height,
+        // and no corner of it either: a triangle reaching past the wall shows
+        // an edge of floor between the wall and the band at its foot. Whole
+        // triangles go, which leaves the floor a little short of the wall —
+        // the shell's own base lip reaches well inside and covers it.
+        radiusMax > yurt.wallFoot;
       if (shell) {
         dropped[bin] += 1;
         continue;
@@ -221,7 +277,7 @@ for (const mesh of oldMeshes) mesh.dispose();
 YURTS.forEach((yurt, bin) => {
   const [cx, cz] = centres[bin];
   for (const node of groups[bin].listChildren()) {
-    const lift = node.getName() === FLOOR ? FLOOR_LIFT : 0;
+    const lift = isFloor(node.getName()) ? FLOOR_LIFT : 0;
     const matrix = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -cx, lift - yurt.floor, -cz, 1];
     for (const prim of node.getMesh().listPrimitives()) {
       // Compacting first gives every piece its own vertex buffer, so moving
@@ -294,20 +350,34 @@ for (const yurt of YURTS) {
     if (node.getName() !== yurt.size) node.dispose();
   }
 
+  /** The floors' primitives, which keep their texture and UVs. */
+  const floorPrims = new Set(
+    doc
+      .getRoot()
+      .listMeshes()
+      .filter((mesh) => isFloor(mesh.getName()))
+      .flatMap((mesh) => mesh.listPrimitives()),
+  );
+  const floorMaterials = new Set(
+    [...floorPrims].map((prim) => prim.getMaterial()).filter(Boolean),
+  );
+
   // SketchUp exports flat-shaded: every triangle carries its own three
   // vertices. Normals are dropped so the vertices can weld (and are rebuilt
-  // below, after simplifying), and UVs because the model has no textures.
+  // below, after simplifying), and UVs because everything but the floor is
+  // drawn in flat colour.
   for (const prim of doc.getRoot().listMeshes().flatMap((mesh) => mesh.listPrimitives())) {
     prim.setAttribute("NORMAL", null);
-    prim.setAttribute("TEXCOORD_0", null);
+    if (!floorPrims.has(prim)) prim.setAttribute("TEXCOORD_0", null);
   }
 
   // The 2025 re-export carries SketchUp's texture images — tens of megabytes of
-  // them. The interior is drawn in flat colour, so the maps come out with the
-  // UVs above and `prune()` drops the images.
+  // them. Everything but the floor is drawn in flat colour, so the maps come
+  // out with the UVs above and `prune()` drops the images. The floors keep
+  // their base colour map: the boards and tiles the client drew.
   for (const material of doc.getRoot().listMaterials()) {
+    if (!floorMaterials.has(material)) material.setBaseColorTexture(null);
     material
-      .setBaseColorTexture(null)
       .setEmissiveTexture(null)
       .setNormalTexture(null)
       .setOcclusionTexture(null)
@@ -322,8 +392,49 @@ for (const yurt of YURTS) {
     simplifyPrimitive(prim, { simplifier: MeshoptSimplifier, ratio: 0.1, error: 0.01, lockBorder: false });
   }
 
-  for (const prim of doc.getRoot().listMeshes().flatMap((mesh) => mesh.listPrimitives())) {
-    creaseNormals(doc, prim);
+  for (const mesh of doc.getRoot().listMeshes()) {
+    for (const prim of mesh.listPrimitives()) {
+      if (isFloor(mesh.getName())) {
+        // The floors are flat sheets, so their normals are known. Giving them
+        // here keeps them out of the creasing pass, which welds vertices and
+        // would leave the boards' UVs attached to the wrong corners.
+        const position = prim.getAttribute("POSITION");
+        const up = new Float32Array(position.getCount() * 3);
+        for (let i = 1; i < up.length; i += 3) up[i] = 1;
+        prim.setAttribute(
+          "NORMAL",
+          doc.createAccessor().setType("VEC3").setArray(up).setBuffer(position.getBuffer()),
+        );
+        continue;
+      }
+      creaseNormals(doc, prim);
+    }
+  }
+
+  // SketchUp's floor images run to 1.7MB of PNG apiece. Re-encoded at the size
+  // the floor is actually seen at they cost a tenth of that.
+  // Re-read the floors' materials: `dedup()` above may have merged them.
+  const boards = new Set(
+    doc
+      .getRoot()
+      .listMeshes()
+      .filter((mesh) => isFloor(mesh.getName()))
+      .flatMap((mesh) => mesh.listPrimitives())
+      .map((prim) => prim.getMaterial())
+      .filter(Boolean),
+  );
+  for (const material of boards) {
+    const texture = material.getBaseColorTexture();
+    if (!texture) continue;
+    const before = texture.getImage().byteLength;
+    const image = await sharp(Buffer.from(texture.getImage()))
+      .resize(FLOOR_TEXTURE_SIZE, FLOOR_TEXTURE_SIZE, { fit: "inside", withoutEnlargement: true })
+      .jpeg({ quality: 82 })
+      .toBuffer();
+    texture.setImage(new Uint8Array(image)).setMimeType("image/jpeg").setURI("");
+    console.log(
+      `  ${material.getName().padEnd(24)} ${(before / 1024).toFixed(0)}KB → ${(image.byteLength / 1024).toFixed(0)}KB`,
+    );
   }
 
   await doc.transform(

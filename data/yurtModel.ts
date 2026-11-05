@@ -10,9 +10,11 @@
  *    own. Generated from "Symmetry interiors.glb" by
  *    `scripts/optimize-yurt-interiors.mjs`. The builder stands each inside its
  *    size's shell, so it has the same outside as every other yurt that size.
- *  - `public/models/yurt-10m/layout-*.glb` are the 10m's older fitted-out
- *    layouts, from `scripts/optimize-yurt-model.mjs`. None is listed below:
- *    the client asked for A and B to come out, and Symmetry replaced C.
+ *  - `public/models/yurt-10m/layout-*.glb` are the 10m's other fitted-out
+ *    layouts, from `scripts/optimize-yurt-model.mjs`, drawn inside the 10m
+ *    shell like Symmetry. A is the Trinity plan and C is Bistro; B has never
+ *    been given a name of the client's own, so it goes by the one the export
+ *    used.
  *
  * Re-run those scripts, never edit the files by hand. The sources have no
  * meaningful object names, so meshes carry their SketchUp *material* names (or
@@ -35,6 +37,20 @@ export type YurtSize = {
   heightM: number;
   /** Wall radius in metres, for framing the camera and sizing the deck. */
   radiusM: number;
+  /**
+   * How far the base ring the yurt stands on reaches below the floor, in
+   * metres, measured off the client's export — see `baseMeshes` below. The
+   * builder scales the ring to one height from this, and lays the deck at the
+   * bottom of it.
+   */
+  baseDepthM: number;
+  /**
+   * The outside of the wall where it meets the floor, in metres, measured off
+   * the export. The ring is set a little further out than this so the wall's
+   * hem cannot cover the top of it — on the 7m the client drew the two flush,
+   * and a sixth of the band was being hidden.
+   */
+  wallFootRadiusM: number;
   description: string;
 };
 
@@ -46,6 +62,8 @@ export const yurtSizes: YurtSize[] = [
     diameterM: 6,
     heightM: 5.1,
     radiusM: 3.0,
+    baseDepthM: 0.220,
+    wallFootRadiusM: 3.029,
     description: "A bedroom-sized retreat, a studio or a treatment room.",
   },
   {
@@ -55,6 +73,8 @@ export const yurtSizes: YurtSize[] = [
     diameterM: 7,
     heightM: 5.1,
     radiusM: 3.5,
+    baseDepthM: 0.099,
+    wallFootRadiusM: 3.522,
     description: "A roomier bedroom with an en-suite, or a small studio.",
   },
   {
@@ -64,6 +84,8 @@ export const yurtSizes: YurtSize[] = [
     diameterM: 10,
     heightM: 5.6,
     radiusM: 5.0,
+    baseDepthM: 0.492,
+    wallFootRadiusM: 5.041,
     description: "A suite with a bathroom, a family stay or a gathering space.",
   },
 ];
@@ -126,6 +148,24 @@ export const yurtLayouts: YurtLayout[] = [
       "10m": "/models/yurt-10m/symmetry.glb",
     },
   },
+  {
+    id: "layout-a",
+    label: "Trinity",
+    description: "A bedroom with its own bathroom, and a lounge.",
+    interiors: { "10m": "/models/yurt-10m/layout-a.glb" },
+  },
+  {
+    id: "layout-b",
+    label: "Layout B",
+    description: "Two bedrooms either side of a sitting room, with a shower room.",
+    interiors: { "10m": "/models/yurt-10m/layout-b.glb" },
+  },
+  {
+    id: "layout-c",
+    label: "Bistro",
+    description: "Open plan: kitchen, dining, lounge and sleeping.",
+    interiors: { "10m": "/models/yurt-10m/layout-c.glb" },
+  },
 ];
 
 export const layoutById = (id: string | undefined): YurtLayout =>
@@ -149,14 +189,40 @@ export const paintable = {
   /** Outer roof cover and valance — the white liner under it stays white. */
   roof: ["Roof_cover", "fabric_1"],
   wall: ["Wall_cover", "fabric_2", "0042_Sienna"],
-  floor: [
-    "Floor",
-    "Wood_Floor_Parquet",
-    "Ornate_Tile_01",
-    "Basic_Tile1",
-    "Encaustic_Tile_Circular_02",
-  ],
 };
+
+/**
+ * The floors, which are NOT recoloured: the client draws each size on boards
+ * and tiles of its own, and the optimiser keeps those textures, so the builder
+ * shows the flooring as designed. The deck the yurt stands on is the scene's
+ * own, and takes the colour the visitor picks — see the "flooring" group in
+ * `data/configurator.ts`.
+ *
+ * Both names are the same at every size: `Floor` is the boarded floor,
+ * `Floor tile` the bathrooms' (three.js reports it as `Floor_tile`).
+ */
+export const floorMeshes = [
+  "Floor",
+  "Floor_tile",
+  // The 10m's Trinity and Bistro layouts, which are flat-coloured: their old
+  // export carries no textures, but each room is drawn in a finish of its own,
+  // so they are grouped with the floor and left at the colours the client gave
+  // them. Named for their SketchUp materials; pieces of the same material at
+  // worktop height are furniture, not floor, and are not listed.
+  "Wood_Floor_Parquet",
+  "Ornate_Tile_01",
+  "Tile_Grey",
+  "tiles_glossy",
+  "Basic_Tile1",
+  "Encaustic_Tile_Circular_02",
+];
+
+/**
+ * The ring the wall stands on, at floor level, in each shell — the lip where
+ * the cover meets the platform. It is the deck's own top edge, so it takes the
+ * deck's colour rather than the wall's; see `scripts/optimize-yurt-shells.mjs`.
+ */
+export const baseMeshes = ["Base"];
 
 /** Drawn as glass rather than with the model's flat colour. */
 export const glassMeshes = ["Glass"];
@@ -172,5 +238,5 @@ export const partMeshes = {
   roofFrame: ["Roof_frame"],
   wallCover: paintable.wall,
   doorsWindows: ["Charcoal_Blue", "Charcoal_Blue1", "Glass", "Joinery"],
-  floor: paintable.floor,
+  floor: [...floorMeshes, ...baseMeshes],
 } as const;

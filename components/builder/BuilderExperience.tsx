@@ -85,7 +85,7 @@ const STEPS: { id: StepId; label: string; groups: OptionGroupId[] }[] = [
   { id: "size", label: "Size", groups: ["size"] },
   { id: "plan", label: "Plan", groups: ["layout"] },
   { id: "doors", label: "Doors", groups: [] },
-  { id: "colours", label: "Colours", groups: ["roof", "exterior"] },
+  { id: "colours", label: "Colours", groups: ["roof", "exterior", "base"] },
   { id: "addons", label: "Add-ons", groups: ["opener", "blinds", "flooring"] },
   { id: "review", label: "Summary", groups: [] },
 ];
@@ -762,6 +762,11 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
       swatch: optionOf("exterior")?.render.color,
     },
     {
+      label: "Base band",
+      value: optionOf("base")?.label ?? "",
+      swatch: optionOf("base")?.render.color,
+    },
+    {
       label: "Deck",
       value: optionOf("flooring")?.label ?? "",
       swatch: optionOf("flooring")?.render.color,
@@ -1079,9 +1084,9 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
     colours: (
       <>
         <StepHeading index={3} title="Pick your colours.">
-          The roof and its valance, and the wall — included in the yurt kit.
-          Colours on screen are indicative; we send physical swatches before
-          anything is made.
+          The roof and its valance, the wall, and the band at the foot of the
+          wall — included in the yurt kit. Colours on screen are indicative; we
+          send physical swatches before anything is made.
         </StepHeading>
 
         <div className="mt-6">
@@ -1135,6 +1140,12 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
                 Match the wall to the roof
               </button>
             ) : null}
+          </div>
+          <div>
+            {swatches("base")}
+            <p className="mt-3 font-sans text-small text-text-muted">
+              {groupById("base")?.note}
+            </p>
           </div>
         </div>
 

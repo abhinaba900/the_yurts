@@ -209,7 +209,15 @@ export type Resource = {
 
 export type ConfiguratorOption = {
   _id: string;
-  group: "size" | "layout" | "roof" | "exterior" | "flooring" | "opener" | "blinds";
+  group:
+    | "size"
+    | "layout"
+    | "roof"
+    | "exterior"
+    | "base"
+    | "flooring"
+    | "opener"
+    | "blinds";
   label: string;
   description: string | null;
   assetKey: string | null;

@@ -32,6 +32,7 @@ export type OptionGroupId =
   | "layout"
   | "roof"
   | "exterior"
+  | "base"
   | "flooring"
   | "opener"
   | "blinds";
@@ -166,9 +167,16 @@ export const groups: GroupDef[] = [
     options: coverOptions(0.82),
   },
   {
+    id: "base",
+    label: "Base band",
+    note: "The band at the foot of the wall, where the yurt meets the deck.",
+    defaultOption: "boulder",
+    options: coverOptions(0.9),
+  },
+  {
     id: "flooring",
     label: "Deck",
-    note: "The deck the yurt stands on, and the main floor inside. Bathroom tiles stay as drawn.",
+    note: "The deck the yurt stands on, outside the wall. The flooring inside is as drawn for each size — boards, parquet and tiled bathrooms.",
     defaultOption: "timber",
     options: [
       { id: "timber", label: "Timber", render: { color: "#8a6a4b", roughness: 0.8 } },
