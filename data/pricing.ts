@@ -36,7 +36,7 @@ export const formatPrice = (value: number) =>
 /* -------------------------------------------------------------------------- */
 
 export type SizePricing = {
-  /** Shown as the model name: "TOF 20' / 6m". */
+  /** Shown as the model name: "TY 20' / 6m". */
   name: string;
   areaSqft: number;
   areaM2: number;

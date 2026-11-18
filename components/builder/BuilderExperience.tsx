@@ -747,7 +747,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
 
   /** The yurt itself, for the summary's configuration table. */
   const configurationRows = [
-    { label: "Yurt size", value: `TOF ${sizePrice.name}` },
+    { label: "Yurt size", value: `TY ${sizePrice.name}` },
     { label: "Area", value: `${sizePrice.areaSqft} sq ft / ${sizePrice.areaM2} m²` },
     { label: "Plan", value: priced.plan.label, price: formatPrice(priced.plan.price) },
     ...fabricSpec.map((row) => ({ label: row.label, value: row.value })),
@@ -825,7 +825,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
                         </span>
                       ) : null}
                       <span className="font-display text-display-sm leading-none">
-                        TOF {info.feet}&rsquo;/{info.diameterM}m
+                        TY {info.feet}&rsquo;/{info.diameterM}m
                       </span>
                       <span className="mt-1.5 font-sans text-meta uppercase text-text-muted">
                         {pricing.areaSqft} ft² · {pricing.areaM2} m²
@@ -1227,7 +1227,7 @@ export function BuilderExperience({ groups }: { groups: GroupDef[] }) {
 
     review: (
       <>
-        <StepHeading index={5} title={`Your TOF ${sizePrice.name} is almost ready.`}>
+        <StepHeading index={5} title={`Your TY ${sizePrice.name} is almost ready.`}>
           Check the order summary, then send it with your shipping details for
           an accurate quote. It is a starting point for a conversation, not an
           order.
